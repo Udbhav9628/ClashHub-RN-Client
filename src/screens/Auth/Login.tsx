@@ -23,8 +23,8 @@ import {
 import Icons from "../../constants/Icons";
 
 const Login = ({ navigation }: { navigation: any }) => {
-  const [Email, setEmail] = useState("Brown@gmail.com");
-  const [Password, setPassword] = useState("Brown123");
+  const [Email, setEmail] = useState("udbhav9628@gmail.com");
+  const [Password, setPassword] = useState("Udbhav9628");
   const [PassworderrMsg, setPassworderrMsg] = useState("");
   const [EmailerrMsg, setEmailerrMsg] = useState("");
   const [ShowPassword, setShowPassword] = useState(false);
@@ -233,7 +233,7 @@ const Login = ({ navigation }: { navigation: any }) => {
         </View>
 
         {/* Sign In With Google */}
-        <SignwithGoogle label={"Continue With Google"} onpress={() => {}} />
+        <SignwithGoogle label={"Continue With Google"} onpress={() => { }} />
       </View>
     </ScrollView>
   );

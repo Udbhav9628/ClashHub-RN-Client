@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { COLORS, SIZES, FONTS } from "../../constants/Theame";
-import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const AuthLayout = ({
   Title,
@@ -24,7 +24,7 @@ const AuthLayout = ({
             alignItems: "center",
           }}
         >
-          <Entypo name='behance' style={{ color: 'red', fontSize: 50 }} />
+          <Ionicons name="game-controller-sharp" size={75} color="#000" />
           <View style={{ flexDirection: "row" }}>
             <Text
               style={{

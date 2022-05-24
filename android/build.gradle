@@ -47,6 +47,9 @@ allprojects {
                 excludeGroup "com.facebook.react"
             }
         }
+        maven {
+        url "https://artifactory.paytm.in/libs-release-local"
+        }
         google()
         maven { url 'https://www.jitpack.io' }
     }
