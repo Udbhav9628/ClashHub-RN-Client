@@ -269,6 +269,19 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
+    //Paytm
+    implementation 'com.paytm.appinvokesdk:appinvokesdk:1.6.8'
+    implementation 'com.paytm.appinvokesdk:appinvokesdk:1.6.5'
+    implementation 'com.paytm.appinvokesdk:appinvokesdk:1.6.4'
+    implementation 'com.paytm.appinvokesdk:appinvokesdk:1.6.3'
+    implementation 'com.paytm.appinvokesdk:appinvokesdk:1.5.4'
+    implementation 'com.paytm.appinvokesdk:appinvokesdk:1.5.3'
+
+    implementation('com.paytm.appinvokesdk:appinvokesdk:1.5.4'){
+    exclude group: "com.squareup.okhttp3", module: 'okhttp3'
+}
+    //Paytm
+
     implementation "com.squareup.okhttp3:okhttp:4.2.1"
     implementation "com.squareup.okhttp3:logging-interceptor:4.2.1"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:4.2.1"

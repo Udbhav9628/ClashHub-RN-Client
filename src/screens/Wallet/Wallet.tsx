@@ -23,6 +23,9 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HeadingComp from "../../components/HeadingComp";
+import AllInOneSDKManager from 'paytm_allinone_react-native';
+import { MID, URL_SCHEME } from '../../constants/Data';
+import { Gernerate_Paytm_Token } from "../../store/Payment/PaymentAction";
 // import AddMoneyModal from "./AddMoneyModal";
 
 const Wallet = ({ navigation }: { navigation: any }) => {
@@ -64,13 +67,33 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     }, [Error])
   );
 
-  // function PayMent_Onclick() {
-  //   if (User) {
-  //     Make_Payment();
-  //   } else {
-  //     navigation.navigate('Signin');
-  //   }
-  // }
+  const AddMoneyFunction = async () => {
+
+    let amt = "10.00";
+
+    const token = await Gernerate_Paytm_Token();
+    const parsed = JSON.parse(token.post_data)
+    try {
+      AllInOneSDKManager.startTransaction(
+        parsed.body.orderId,//order id
+        MID,
+        token.responsePaytm.body.txnToken,//token
+        amt,
+        parsed.body.callbackUrl,
+        true,
+        true,
+        URL_SCHEME
+      )
+        .then((result) => {
+          console.log("gateway response", result);
+        })
+        .catch((err) => {
+          console.log("gateway error", err);
+        });
+    } catch (error) {
+      console.log("try catch error", error)
+    }
+  }
 
   //**********************Header********************/
   function WalletTopSection() {
@@ -172,6 +195,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
               style={{
                 alignItems: "center",
               }}
+              onPress={() => { AddMoneyFunction() }}
             >
               <MaterialCommunityIcons
                 name="credit-card-plus"
@@ -207,7 +231,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
             navigation={null}
             Title={"Transctions"}
             ShowViewAll={false}
-            Navigate_to={null}
+            Navigate_to={''}
             Query={null}
           />
         </View>
@@ -215,6 +239,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     );
   }
   //**********************Header********************/
+
   return (
     <View style={style.Container}>
       <Heading navigation={navigation} Title={"     Wallet"} />
