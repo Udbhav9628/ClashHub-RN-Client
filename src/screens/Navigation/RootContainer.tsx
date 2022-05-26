@@ -13,101 +13,97 @@ import YourGuild from "../Menu/YourGuild";
 import YourGuildMatches from "../Menu/YourGuild/YourGuildMatches";
 import AllMatches from "../Home/AllMatches";
 import Notification from "../Notification/Notification";
-import StatusBarComp from "../../components/StatusBar";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   const AuthReducer = useSelector((state: any) => state.AuthReducer);
   return (
-    <>
-      {/* <StatusBarComp /> */}
-      <NavigationContainer independent={true}>
-        {AuthReducer.User ? (
-          <Stack.Navigator>
-            <Stack.Screen
-              name="EnterInApp"
-              component={BottonTabs}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="GameDetailsPage"
-              component={GameDetailsPage}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="AllMatches"
-              component={AllMatches}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Wallet"
-              component={Wallet}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="GuildDetail"
-              component={GuildDetails}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="YourProfile"
-              component={Profile}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="YourGuild"
-              component={YourGuild}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="YourGuildsMatches"
-              component={YourGuildMatches}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Notification"
-              component={Notification}
-              options={{
-                headerShown: false,
-              }}
-            />
-          </Stack.Navigator>
-        ) : (
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Register"
-              component={Signup}
-              options={{
-                headerShown: false,
-              }}
-            />
-          </Stack.Navigator>
-        )}
-      </NavigationContainer>
-    </>
+    <NavigationContainer independent={true}>
+      {AuthReducer.User ? (
+        <Stack.Navigator>
+          <Stack.Screen
+            name="EnterInApp"
+            component={BottonTabs}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="GameDetailsPage"
+            component={GameDetailsPage}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="AllMatches"
+            component={AllMatches}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Wallet"
+            component={Wallet}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="GuildDetail"
+            component={GuildDetails}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="YourProfile"
+            component={Profile}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="YourGuild"
+            component={YourGuild}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="YourGuildsMatches"
+            component={YourGuildMatches}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Notification"
+            component={Notification}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Signup}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack.Navigator>
+      )}
+    </NavigationContainer>
   );
 }

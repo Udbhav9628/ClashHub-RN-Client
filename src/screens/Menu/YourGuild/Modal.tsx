@@ -7,6 +7,7 @@ import {
   ScrollView,
   Alert,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import { COLORS, FONTS, SIZES } from "../../../constants/Theame";
 import React, { useState, useEffect } from "react";
@@ -22,6 +23,7 @@ import {
   Clear_Match_Reducer_Sucess,
 } from "../../../store/Match/Matchaction";
 import ModalGame from "../../../components/ModalGame";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const ModalScreen = ({
   Guild_Id,
@@ -110,6 +112,22 @@ const ModalScreen = ({
     }
   }
 
+  const [date, setDate] = useState(new Date())
+  const [mode, setMode] = useState('date');
+  const [Ishow, setShow] = useState(false);
+  const [text, settext] = useState('Empty');
+
+  const onChange = (event: any, selectedDate: any) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  }
+
+  const showMode = (currentMode: any) => {
+    setShow(true);
+    setMode(currentMode);
+  }
+
   return (
     <Modal
       animationType="slide"
@@ -180,6 +198,7 @@ const ModalScreen = ({
             paddingHorizontal: SIZES.padding,
           }}
         >
+          <DateTimePicker testID="dateTimePicker" value={date} mode="date" is24Hour={false} display='default' onChange={onChange} />
           {/* GameModal */}
           <ModalGame modalVisible={ModalGamemodalVisible}
             setModalVisible={setModalGamemodalVisible} Selectected_Game={setSelect_Game} />
