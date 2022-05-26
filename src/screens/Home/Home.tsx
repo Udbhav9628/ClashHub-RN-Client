@@ -25,6 +25,7 @@ import {
   Fetch_All_Guild,
   Clear_Guild_Reducer_Error,
 } from "../../store/Guild/GuildAction";
+import StatusBarComp from "../../components/StatusBar";
 const logo = require("../../Assets/Images/logo_02.png");
 
 const Home = ({ navigation }: { navigation: any }) => {
@@ -97,6 +98,7 @@ const Home = ({ navigation }: { navigation: any }) => {
 
   return (
     <ScrollView style={styles.Container}>
+      <StatusBarComp />
       <View style={styles.Crousal}>{<Crousal />}</View>
       <View style={styles.Heading}>
         <HeadingComp

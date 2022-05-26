@@ -4,7 +4,6 @@ import {
   FlatList,
   ActivityIndicator,
   Alert,
-  TouchableOpacity,
   Text,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -127,6 +126,7 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
         />
       )}
     </View>
+
   );
 };
 

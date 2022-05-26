@@ -8,7 +8,7 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { COLORS, SIZES } from "../../../constants/Theame";
+import { COLORS, FONTS, SIZES } from "../../../constants/Theame";
 import React, { useState, useEffect } from "react";
 import { CalculateLength } from "../../../utils/Utils";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -21,6 +21,7 @@ import {
   Clear_Match_Reducer_Error,
   Clear_Match_Reducer_Sucess,
 } from "../../../store/Match/Matchaction";
+import ModalGame from "../../../components/ModalGame";
 
 const ModalScreen = ({
   Guild_Id,
@@ -33,8 +34,7 @@ const ModalScreen = ({
   setModalVisible: any;
   navigation: any;
 }) => {
-  const [Game_Name, setGame_Name] = useState("");
-  const [GameNameLength, setGameNameLength] = useState();
+  const [Select_Game, setSelect_Game] = useState("");
   const [Total_Players, setTotal_Players] = useState();
   const [PlayersLength, setPlayersLength] = useState();
   const [Prize_Pool, setPrize_Pool] = useState();
@@ -42,12 +42,14 @@ const ModalScreen = ({
 
   const [Disable, setDisable] = useState(false);
 
+  const [ModalGamemodalVisible, setModalGamemodalVisible] = useState(false);
+
   const dispatch = useDispatch();
   const Create_Match_action = bindActionCreators(Create_Match, dispatch);
 
   const Data = {
     Guild_Id: Guild_Id,
-    Game_Name: Game_Name,
+    Game_Name: Select_Game,
     Total_Players: Total_Players,
     Prize_Pool: Prize_Pool,
   };
@@ -169,29 +171,48 @@ const ModalScreen = ({
                 Fill Details Below
               </Text>
             </View>
-
-            {/* Content / Children */}
           </View>
         </View>
+        {/* Content / Children */}
         <View
           style={{
             marginTop: SIZES.base,
             paddingHorizontal: SIZES.padding,
           }}
         >
-          <Textinput
-            containerStyle={{ flex: 1 }}
-            label="Enter Game Name"
-            Placeholder={"Enter Here"}
-            KeyboardType="default"
-            autoCapatilize={"words"}
-            maxLength={10}
-            onchange={(Value: any) => {
-              CalculateLength(Value, setGameNameLength, 10);
-              setGame_Name(Value);
-            }}
-            Msg={GameNameLength || GameNameLength === 0 ? GameNameLength : 10}
-          />
+          {/* GameModal */}
+          <ModalGame modalVisible={ModalGamemodalVisible}
+            setModalVisible={setModalGamemodalVisible} Selectected_Game={setSelect_Game} />
+          <View>
+            <Text style={{
+              color: COLORS.gray,
+              fontWeight: "600",
+              ...FONTS.body3,
+            }}>Game</Text>
+          </View>
+          <TouchableOpacity style={{
+            height: 55,
+            alignItems: "flex-start",
+            justifyContent: "center",
+            marginTop: 5,
+            paddingLeft: 25,
+            borderRadius: SIZES.radius,
+            backgroundColor: COLORS.lightGray2
+          }}
+            onPress={() => {
+              setModalGamemodalVisible(!ModalGamemodalVisible);
+            }}>
+            <Text
+              style={{
+                backgroundColor: COLORS.lightGray2,
+                color: COLORS.gray,
+                fontWeight: "500",
+                fontSize: 14,
+              }}
+            >
+              {Select_Game || "Select Game"}
+            </Text>
+          </TouchableOpacity>
           <Textinput
             containerStyle={{ flex: 1, marginTop: 15 }}
             label="Total Players"
