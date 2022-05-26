@@ -46,6 +46,21 @@ const ModalScreen = ({
 
   const [ModalGamemodalVisible, setModalGamemodalVisible] = useState(false);
 
+  // Date Time
+  const [dateTime, setdateTime] = useState(null)
+  const [mode, setMode] = useState();
+  const [Show, setShow] = useState(false);
+
+  const showMode = (currentMode: any) => {
+    setShow(true);
+    setMode(currentMode);
+  }
+
+  const onChange = (event: any, selectedDate: any) => {
+    setdateTime(selectedDate);
+    setShow(false);
+  }
+
   const dispatch = useDispatch();
   const Create_Match_action = bindActionCreators(Create_Match, dispatch);
 
@@ -54,6 +69,7 @@ const ModalScreen = ({
     Game_Name: Select_Game,
     Total_Players: Total_Players,
     Prize_Pool: Prize_Pool,
+    DateTime: dateTime
   };
 
   const { User } = useSelector((state: any) => state.AuthReducer);
@@ -106,26 +122,11 @@ const ModalScreen = ({
 
   function CreateMatchOnClick(Data: object) {
     if (User) {
-      Create_Match_action(Data);
+      console.log(Data);
+      // Create_Match_action(Data);
     } else {
       navigation.navigate("Signin");
     }
-  }
-
-  const [date, setDate] = useState(new Date())
-  const [mode, setMode] = useState('date');
-  const [Ishow, setShow] = useState(false);
-  const [text, settext] = useState('Empty');
-
-  const onChange = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  }
-
-  const showMode = (currentMode: any) => {
-    setShow(true);
-    setMode(currentMode);
   }
 
   return (
@@ -198,7 +199,6 @@ const ModalScreen = ({
             paddingHorizontal: SIZES.padding,
           }}
         >
-          <DateTimePicker testID="dateTimePicker" value={date} mode="date" is24Hour={false} display='default' onChange={onChange} />
           {/* GameModal */}
           <ModalGame modalVisible={ModalGamemodalVisible}
             setModalVisible={setModalGamemodalVisible} Selectected_Game={setSelect_Game} />
@@ -258,13 +258,69 @@ const ModalScreen = ({
             }}
             Msg={PrizeLength || PrizeLength === 0 ? PrizeLength : 2}
           />
+          {/* Date Time */}
+          <View style={{ marginTop: 10, marginBottom: 8 }}>
+            <Text style={{
+              color: COLORS.gray,
+              fontWeight: "600",
+              ...FONTS.body3,
+            }}>Date Time</Text>
+          </View>
+          {Show && (<DateTimePicker testID="dateTimePicker" value={new Date()} mode={mode} is24Hour={false} display='default' onChange={onChange} />)}
+          <View style={{ flexDirection: "row", justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+            <TouchableOpacity style={{
+              height: 55,
+              width: 160,
+              paddingLeft: 25,
+              marginRight: 20,
+              justifyContent: "center",
+              borderRadius: SIZES.radius,
+              backgroundColor: COLORS.lightGray2
+            }}
+              onPress={() => {
+                showMode('date')
+              }}>
+              <Text
+                style={{
+                  backgroundColor: COLORS.lightGray2,
+                  color: COLORS.gray,
+                  fontWeight: "500",
+                  fontSize: 14,
+                }}
+              >
+                Chose Date
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{
+              height: 55,
+              width: 160,
+              paddingLeft: 25,
+              justifyContent: "center",
+              borderRadius: SIZES.radius,
+              backgroundColor: COLORS.lightGray2
+            }}
+              onPress={() => {
+                showMode('time')
+              }}>
+              <Text
+                style={{
+                  backgroundColor: COLORS.lightGray2,
+                  color: COLORS.gray,
+                  fontWeight: "500",
+                  fontSize: 14,
+                }}
+              >
+                Chose Time
+              </Text>
+            </TouchableOpacity>
+          </View>
           {/* Create Match Button */}
           <TouchableOpacity
             style={{
               height: 55,
               alignItems: "center",
               justifyContent: "center",
-              marginTop: 40,
+              marginTop: 30,
               marginBottom: 40,
               borderRadius: SIZES.radius,
               backgroundColor: Disable
