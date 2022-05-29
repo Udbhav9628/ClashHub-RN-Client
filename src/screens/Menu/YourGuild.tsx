@@ -21,6 +21,7 @@ import {
 } from "../../store/Guild/GuildAction";
 import { useFocusEffect } from "@react-navigation/native";
 import Createguild from "./YourGuild/Createguild";
+import { ScrollView } from "react-native-gesture-handler";
 
 const YourGuild = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
@@ -60,7 +61,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={styles.Container}>
+    <ScrollView style={styles.Container}>
       {TempLoading || loading ? (
         <View
           style={{
@@ -152,28 +153,6 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                 Create Match
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                height: 35,
-                width: 150,
-                marginTop: SIZES.base,
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 10,
-                backgroundColor: COLORS.primary,
-              }}
-            >
-              <Text
-                style={{
-                  color: COLORS.white,
-                  fontWeight: "bold",
-                  fontSize: SIZES.body3,
-                  lineHeight: 22,
-                }}
-              >
-                Edit Guild
-              </Text>
-            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -243,6 +222,35 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.Elevation}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("YourGuildsMatches");
+              }}
+            >
+              <View style={styles.NotificationWrapper}>
+                <Icon name="game-controller-sharp" size={28} color="black" />
+                <View style={styles.DashboardBox}>
+                  <Text style={styles.NotificationText}>
+                    To Update Result
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    position: "absolute",
+                    top: 22,
+                    right: 5,
+                  }}
+                >
+                  <Icon
+                    name="chevron-forward-outline"
+                    size={28}
+                    color="black"
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.Elevation}>
             <TouchableOpacity>
               <View style={styles.NotificationWrapper}>
                 <Icon name="wallet" size={28} color="black" />
@@ -269,7 +277,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
       ) : (
         <Createguild navigation={navigation} />
       )}
-    </View>
+    </ScrollView>
   );
 };
 

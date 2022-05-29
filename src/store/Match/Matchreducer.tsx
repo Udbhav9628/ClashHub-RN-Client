@@ -125,7 +125,7 @@ export const Join_Match_Reducer = (state = [], action: any) => {
     case 'Clear_ReFetch_Joined_Matches':
       return {
         ...state,
-        ReFetch_Joined_Matches: null,
+        ReFetch_Joined_Matches: false,
       };
     case 'Clear_Match_Sucess':
       return {

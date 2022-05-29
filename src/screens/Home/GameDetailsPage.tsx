@@ -18,6 +18,7 @@ import {
   Clear_Match_Reducer_Sucess,
   RemoveMatchItem,
 } from "../../store/Match/Matchaction";
+import { useFocusEffect } from "@react-navigation/native";
 
 const GameDetailsPage = ({
   route,
@@ -90,6 +91,63 @@ const GameDetailsPage = ({
     }
   }, [Error]);
 
+  const [Days, setDays] = useState(0);
+  const [Hours, setHours] = useState(0);
+  const [Minutes, setMinutes] = useState(0);
+
+  const Second = 1000;
+  const Minute = Second * 60;
+  const Hour = Minute * 60;
+  const Day = Hour * 24;
+
+  const [Room_Details, setRoom_Details] = useState("");
+  const [Msg, setMsg] = useState("");
+
+  function Timer_Function() {
+    const Match_time = new Date(Item.Date_Time).getTime();
+    const now = new Date().getTime();
+    const Gap = Match_time - now;
+    const TextDay = Math.floor(Gap / Day);
+    const TextHour = Math.floor((Gap % Day) / Hour);
+    const TextMinute = Math.floor((Gap % Hour) / Minute);
+    if (Gap < 0) {
+      //Stop Timer
+      clearInterval(Timer);
+      setRoom_Details(
+        "You are Late, Reporting Time is 10 Min Before Match Time"
+      );
+      setMsg("Its Live");
+    } else if (Gap <= 1200000) {
+      setDays(TextDay);
+      setHours(TextHour);
+      setMinutes(TextMinute);
+      setRoom_Details("Room Id & Password Is Avilable, Grab It Hurry");
+    } else {
+      //Set Timer
+      setRoom_Details("Will Be Available 20 Min Before Match Time");
+      setDays(TextDay);
+      setHours(TextHour);
+      setMinutes(TextMinute);
+    }
+  }
+
+  let Timer: any;
+  const Start_Timer = () => {
+    Timer = setInterval(() => {
+      Timer_Function()
+    }, 1000);
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      Start_Timer();
+      return () => clearInterval(Timer);
+    }, [])
+  );
+
+  useEffect(() => {
+    Timer_Function()
+  }, []);
+
   return (
     <View style={style.container}>
       {/* Header */}
@@ -144,11 +202,11 @@ const GameDetailsPage = ({
               {Item.Game_Name} Squad Match
             </Text>
           </View>
-          {isJoined ? (
+          {Minutes !== 0 && (isJoined ? (
             <View style={style.EntryFeeWraper}>
               <Text
                 style={{
-                  ...FONTS.body2,
+                  ...FONTS.body3,
                   color: COLORS.primary,
                   fontWeight: "700",
                 }}
@@ -160,12 +218,12 @@ const GameDetailsPage = ({
             <View style={style.EntryFeeWraper}>
               <Text
                 style={{
-                  ...FONTS.body2,
+                  ...FONTS.body3,
                   color: COLORS.primary,
                   fontWeight: "700",
                 }}
               >
-                Entry Fee
+                Starts In
               </Text>
               <Text
                 style={{
@@ -174,11 +232,10 @@ const GameDetailsPage = ({
                   fontWeight: "700",
                 }}
               >
-                {" "}
-                &#x20B9; 10
+                {!Days || Days === 0 ? '' : `${Days}D`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{`${Minutes}M`}
               </Text>
             </View>
-          )}
+          ))}
           {/* Match Info */}
           <View style={style.InfoWrapper}>
             {/* Info Left Details */}
@@ -240,7 +297,7 @@ const GameDetailsPage = ({
                     fontWeight: "700",
                   }}
                 >
-                  23 March 2022
+                  {new Date(Item.Date_Time).toDateString()}
                 </Text>
               </View>
               {/* Match Time */}
@@ -255,7 +312,7 @@ const GameDetailsPage = ({
                     fontWeight: "700",
                   }}
                 >
-                  08 : 00 PM
+                  {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
                 </Text>
               </View>
             </View>
@@ -308,8 +365,8 @@ const GameDetailsPage = ({
               <View
                 style={{
                   position: "absolute",
-                  top: 7,
-                  right: 8,
+                  top: 9,
+                  right: 15,
                 }}
               >
                 <Icon name="angle-right" size={24} color="black" />
@@ -362,7 +419,7 @@ const GameDetailsPage = ({
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.lightGray2,
+    backgroundColor: COLORS.white,
     flex: 1,
   },
   Header: {
@@ -383,7 +440,6 @@ const style = StyleSheet.create({
     marginHorizontal: SIZES.padding,
   },
   EntryFeeWraper: {
-    flexDirection: "row",
     marginTop: SIZES.padding,
     paddingHorizontal: SIZES.padding,
   },
@@ -407,7 +463,7 @@ const style = StyleSheet.create({
   Elevation: {
     backgroundColor: "white",
     borderRadius: SIZES.radius,
-    elevation: 5,
+    elevation: 3,
     marginVertical: 8,
     margin: SIZES.padding,
     marginHorizontal: SIZES.padding,
@@ -418,7 +474,6 @@ const style = StyleSheet.create({
     shadowRadius: 3,
   },
   GuildWrapper: {
-    backgroundColor: COLORS.lightGray2,
     height: 70,
     borderRadius: SIZES.radius,
     flexDirection: "row",

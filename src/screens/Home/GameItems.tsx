@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { COLORS, SIZES, FONTS } from "../../constants/Theame";
+import { useFocusEffect } from "@react-navigation/native";
 import Icons from "../../constants/Icons";
 
 const GameItems = ({
@@ -14,6 +15,64 @@ const GameItems = ({
   Item: any;
   onPress: any;
 }) => {
+  //Timer
+  const [Days, setDays] = useState(0);
+  const [Hours, setHours] = useState(0);
+  const [Minutes, setMinutes] = useState(0);
+
+  const Second = 1000;
+  const Minute = Second * 60;
+  const Hour = Minute * 60;
+  const Day = Hour * 24;
+
+  const [Room_Details, setRoom_Details] = useState("");
+  const [Msg, setMsg] = useState("");
+
+  function Timer_Function() {
+    const Match_time = new Date(Item.Date_Time).getTime();
+    const now = new Date().getTime();
+    const Gap = Match_time - now;
+    const TextDay = Math.floor(Gap / Day);
+    const TextHour = Math.floor((Gap % Day) / Hour);
+    const TextMinute = Math.floor((Gap % Hour) / Minute);
+    if (Gap < 0) {
+      //TO DO - Remove this match from the all matches list
+      clearInterval(Timer);
+      setRoom_Details(
+        "You are Late, Reporting Time is 10 Min Before Match Time"
+      );
+      setMsg("Its Live");
+    } else if (Gap <= 1200000) {
+      setDays(TextDay);
+      setHours(TextHour);
+      setMinutes(TextMinute);
+      setRoom_Details("Room Id & Password Is Avilable, Grab It Hurry");
+    } else {
+      //Set Timer
+      setRoom_Details("Will Be Available 20 Min Before Match Time");
+      setDays(TextDay);
+      setHours(TextHour);
+      setMinutes(TextMinute);
+    }
+  }
+
+  let Timer: any;
+  const Start_Timer = () => {
+    Timer = setInterval(() => {
+      Timer_Function()
+    }, 1000);
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      Start_Timer();
+      return () => clearInterval(Timer);
+    }, [])
+  );
+
+  useEffect(() => {
+    Timer_Function()
+  }, []);
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -131,15 +190,25 @@ const GameItems = ({
             height: 25,
           }}
         />
-        <Text
+        {Days === 0 && Hours === 0 && Minutes === 0 ? (<Text
           style={{
             color: COLORS.darkGray2,
             ...FONTS.body4,
             fontWeight: "bold",
           }}
         >
-          {new Date(Item.Date_Time).toLocaleTimeString()}
-        </Text>
+
+          It's Live
+        </Text>) : (<Text
+          style={{
+            color: COLORS.darkGray2,
+            ...FONTS.body4,
+            fontWeight: "bold",
+          }}
+        >
+
+          {!Days || Days === 0 ? '' : `${Days}D,`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{Minutes}M
+        </Text>)}
       </View>
       {/* Bottom Box */}
       <View

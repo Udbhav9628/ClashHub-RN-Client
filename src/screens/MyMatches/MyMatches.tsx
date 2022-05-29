@@ -5,7 +5,6 @@ import {
   FlatList,
   Alert,
   ActivityIndicator,
-  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { SIZES, COLORS } from "../../constants/Theame";
@@ -18,9 +17,11 @@ import {
   Clear_ReFetch_Joined_Matches,
 } from "../../store/Match/Matchaction";
 import MyMatchesMenu from "../../components/MyMatchesMenu";
+import { GamesTypes } from "../../constants/Data";
 
 const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
-  const [SelectedMenu, setSelectedMenu] = useState("Upcomming");
+  const [SelectedMenu, setSelectedMenu] = useState("Scheduled");
+  const [Refetch, setRefetch] = useState(true);
   const { Joined_Matches, loading, Error } = useSelector(
     (state: any) => state.Get_Joined_Match_Reducer
   );
@@ -42,11 +43,10 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
   );
 
   useEffect(() => {
-    let Refetch = true;
     if (Refetch || ReFetch_Joined_Matches) {
-      Fetch_Joined_Matchs();
-      Refetch = false;
+      setRefetch(false)
       Clear_Re_Fetch_Joined_Matches();
+      Fetch_Joined_Matchs(SelectedMenu);
     }
   }, [ReFetch_Joined_Matches]);
 
@@ -57,7 +57,8 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
           text: "OK",
           onPress: () => {
             Clear_Match_ReducerError();
-            // Fetch_Joined_Matchs();
+            // Fetch_Joined_Matchs(SelectedMenu);
+            setSelectedMenu("Scheduled")
           },
         },
       ]);
@@ -66,7 +67,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={styles.Container}>
-      <MyMatchesMenu />
+      <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Joined_Matchs={Fetch_Joined_Matchs} />
       {loading ? (
         <>
           <View

@@ -7,7 +7,6 @@ import {
   ScrollView,
   Alert,
   ActivityIndicator,
-  Platform,
 } from "react-native";
 import { COLORS, FONTS, SIZES } from "../../../constants/Theame";
 import React, { useState, useEffect } from "react";
@@ -47,7 +46,10 @@ const ModalScreen = ({
   const [ModalGamemodalVisible, setModalGamemodalVisible] = useState(false);
 
   // Date Time
-  const [dateTime, setdateTime] = useState(null)
+  const [dateTime, setdateTime] = useState(new Date())
+  const [MaindateDateTime, setMaindateDateTime] = useState("")
+  const [Formateddate, setFormateddate] = useState("")
+  const [FormatedTime, setFormatedTime] = useState("")
   const [mode, setMode] = useState();
   const [Show, setShow] = useState(false);
 
@@ -57,8 +59,30 @@ const ModalScreen = ({
   }
 
   const onChange = (event: any, selectedDate: any) => {
-    setdateTime(selectedDate);
     setShow(false);
+    console.log(Date.now());
+
+    let tempdate = new Date(selectedDate);
+    // if (tempdate.getTime() < Date.now() + 14400000) {
+    //   setShow(false)
+    //   Alert.alert("Alert", "Chose Date At least 4 Hours Ahead", [
+    //     {
+    //       text: "OK",
+    //       onPress: () => {
+    //         setFormateddate("")
+    //         setFormatedTime("")
+    //         setMaindateDateTime("")
+    //       },
+    //     },
+    //   ]);
+    //   return
+    // }
+    setMaindateDateTime(selectedDate)
+    setdateTime(selectedDate);
+
+    setFormateddate(tempdate.getDate() + " / " + (tempdate.getMonth() + 1) + " / " + tempdate.getFullYear());
+
+    setFormatedTime(tempdate.getHours() + " : " + tempdate.getMinutes());
   }
 
   const dispatch = useDispatch();
@@ -69,7 +93,7 @@ const ModalScreen = ({
     Game_Name: Select_Game,
     Total_Players: Total_Players,
     Prize_Pool: Prize_Pool,
-    DateTime: dateTime
+    Date_Time: MaindateDateTime
   };
 
   const { User } = useSelector((state: any) => state.AuthReducer);
@@ -123,7 +147,7 @@ const ModalScreen = ({
   function CreateMatchOnClick(Data: object) {
     if (User) {
       console.log(Data);
-      // Create_Match_action(Data);
+      Create_Match_action(Data);
     } else {
       navigation.navigate("Signin");
     }
@@ -266,7 +290,7 @@ const ModalScreen = ({
               ...FONTS.body3,
             }}>Date Time</Text>
           </View>
-          {Show && (<DateTimePicker testID="dateTimePicker" value={new Date()} mode={mode} is24Hour={false} display='default' onChange={onChange} />)}
+          {Show && (<DateTimePicker testID="dateTimePicker" value={dateTime} mode={mode} is24Hour={true} display='default' onChange={onChange} />)}
           <View style={{ flexDirection: "row", justifyContent: 'flex-start', alignItems: 'flex-start' }}>
             <TouchableOpacity style={{
               height: 55,
@@ -288,7 +312,7 @@ const ModalScreen = ({
                   fontSize: 14,
                 }}
               >
-                Chose Date
+                {Formateddate || "Chose Date"}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={{
@@ -310,7 +334,7 @@ const ModalScreen = ({
                   fontSize: 14,
                 }}
               >
-                Chose Time
+                {FormatedTime || "Chose Time"}
               </Text>
             </TouchableOpacity>
           </View>

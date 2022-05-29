@@ -1,69 +1,45 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
-import { SIZES, COLORS, FONTS } from "../constants/Theame";
-const MyMatchesMenu = () => {
-  const [SelectedMenu, setSelectedMenu] = useState("Upcomming");
+import { Text, TouchableOpacity, FlatList } from "react-native";
+import React from "react";
+import { COLORS, SIZES, FONTS } from "../constants/Theame";
+
+const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Joined_Matchs }: { SelectedMenu: any; setSelectedMenu: any; GamesTypes: any; Fetch_Joined_Matchs: any }) => {
   return (
-    <View
-      style={{
+    <FlatList
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      data={GamesTypes}
+      keyExtractor={(Item) => `${Item.id}`}
+      contentContainerStyle={{
+        marginHorizontal: SIZES.padding,
         marginTop: 5,
         marginBottom: 13,
-        flexDirection: "row",
-        justifyContent: "space-around",
       }}
-    >
-      <TouchableOpacity
-        onPress={() => {
-          setSelectedMenu("Upcomming");
-        }}
-      >
-        <Text
+      renderItem={({ item }) => (
+        <TouchableOpacity
           style={{
-            color: SelectedMenu === "Upcomming" ? COLORS.primary : COLORS.black,
-            fontFamily: "Poppins-Regular",
-            fontSize: 17,
-            fontWeight: "bold",
+            marginRight: 54,
+          }}
+          onPress={() => {
+            Fetch_Joined_Matchs(item.Name);
+            setSelectedMenu(item.Name);
           }}
         >
-          Scheduled
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          setSelectedMenu("Ongoing");
-        }}
-      >
-        <Text
-          style={{
-            color: SelectedMenu === "Ongoing" ? COLORS.primary : COLORS.black,
-            fontFamily: "Poppins-Regular",
-            fontSize: 17,
-            fontWeight: "bold",
-          }}
-        >
-          Underway
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          setSelectedMenu("Resultant");
-        }}
-      >
-        <Text
-          style={{
-            color: SelectedMenu === "Resultant" ? COLORS.primary : COLORS.black,
-            fontFamily: "Poppins-Regular",
-            fontSize: 17,
-            fontWeight: "bold",
-          }}
-        >
-          Finished
-        </Text>
-      </TouchableOpacity>
-    </View>
+          <Text
+            style={{
+              color:
+                SelectedMenu === item.Name
+                  ? COLORS.primary
+                  : COLORS.black,
+              ...FONTS.body3,
+              fontWeight: "700",
+            }}
+          >
+            {item.Name}
+          </Text>
+        </TouchableOpacity>
+      )}
+    />
   );
 };
 
 export default MyMatchesMenu;
-
-const styles = StyleSheet.create({});
