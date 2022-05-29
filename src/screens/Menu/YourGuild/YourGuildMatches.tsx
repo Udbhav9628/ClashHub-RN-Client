@@ -18,9 +18,10 @@ import {
   Clear_Guild_Reducer_Error,
 } from "../../../store/Guild/GuildAction";
 import MyMatchesMenu from "../../../components/MyMatchesMenu";
+import { GamesTypes } from "../../../constants/Data";
 
 const YourGuildMatches = ({ navigation }: { navigation: any }) => {
-  const [SelectedMenu, setSelectedMenu] = useState("Upcomming");
+  const [SelectedMenu, setSelectedMenu] = useState("Scheduled");
   const dispatch = useDispatch();
   const Get_Guild_Matches = bindActionCreators(
     Get_Guild_Matches_Details,
@@ -42,7 +43,7 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      Get_Guild_Matches(Guild_Details._id);
+      Get_Guild_Matches(Guild_Details._id, 'Scheduled');
     }, [])
   );
 
@@ -53,6 +54,7 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
           text: "OK",
           onPress: () => {
             Clear_Guild_ReducerError();
+            setSelectedMenu('Scheduled')
             navigation.goBack();
           },
         },
@@ -63,7 +65,9 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
   return (
     <View style={styles.Container}>
       <Heading navigation={navigation} Title={"Guild Matches"} />
-      <MyMatchesMenu />
+      <View>
+        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={Get_Guild_Matches} Guild_id={Guild_Details?._id} />
+      </View>
       {loading ? (
         <View
           style={{

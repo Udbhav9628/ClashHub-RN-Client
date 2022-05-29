@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, FlatList } from "react-native";
 import React from "react";
 import { COLORS, SIZES, FONTS } from "../constants/Theame";
 
-const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Joined_Matchs }: { SelectedMenu: any; setSelectedMenu: any; GamesTypes: any; Fetch_Joined_Matchs: any }) => {
+const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Matchs, Guild_id }: { SelectedMenu: any; setSelectedMenu: any; GamesTypes: any; Fetch_Matchs: any; Guild_id: any }) => {
   return (
     <FlatList
       horizontal
@@ -17,10 +17,10 @@ const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Joined
       renderItem={({ item }) => (
         <TouchableOpacity
           style={{
-            marginRight: 54,
+            marginRight: 50,
           }}
           onPress={() => {
-            Fetch_Joined_Matchs(item.Name);
+            Fetch_Matchs(Guild_id, item.Name);
             setSelectedMenu(item.Name);
           }}
         >

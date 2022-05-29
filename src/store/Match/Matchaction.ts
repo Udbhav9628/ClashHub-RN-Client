@@ -105,9 +105,8 @@ function Fetch_All_Matchs(SelectedMenu: any) {
     }
   };
 }
-function Get_Joined_Matchs(MatchType: any) {
+function Get_Joined_Matchs(Guild_id: any, MatchType: any) {
   console.log(MatchType);
-
   return async function (dispatch: any) {
     try {
       dispatch({

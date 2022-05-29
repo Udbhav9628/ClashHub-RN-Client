@@ -1,32 +1,32 @@
-import { Ip_Address } from "../../constants/Data";
-import axios from "axios";
-import { Return_Token } from "../../utils/Utils";
+import {Ip_Address} from '../../constants/Data';
+import axios from 'axios';
+import {Return_Token} from '../../utils/Utils';
 
 function Fetch_All_Guild() {
   return async function (dispatch: any) {
     try {
       dispatch({
-        type: "Fetch_All_Guild_Request",
+        type: 'Fetch_All_Guild_Request',
       });
       const Token: string = (await Return_Token(
-        "Fetch_All_Guild_Fail",
-        dispatch
+        'Fetch_All_Guild_Fail',
+        dispatch,
       )) as string;
       const parsedToken = JSON.parse(Token);
       const response = await axios.get(`${Ip_Address}/fetchallGuild`, {
         headers: {
-          "content-type": "application/json",
-          Accept: "application/json",
+          'content-type': 'application/json',
+          Accept: 'application/json',
           authToken: parsedToken,
         },
       });
       dispatch({
-        type: "Fetch_All_Guild_Sucess",
+        type: 'Fetch_All_Guild_Sucess',
         payload: response.data,
       });
     } catch (error: any) {
       dispatch({
-        type: "Fetch_All_Guild_Fail",
+        type: 'Fetch_All_Guild_Fail',
         payload: error.message,
       });
     }
@@ -37,63 +37,63 @@ function getUserGuildDetails() {
   return async function (dispatch: any) {
     try {
       dispatch({
-        type: "get_User_Guild_Details_Request",
+        type: 'get_User_Guild_Details_Request',
       });
       const Token: string = (await Return_Token(
-        "get_User_Guild_Details_Fail",
-        dispatch
+        'get_User_Guild_Details_Fail',
+        dispatch,
       )) as string;
       const parsedToken = JSON.parse(Token);
       const response = await axios.get(`${Ip_Address}/getUserGuildDetails`, {
         headers: {
-          "content-type": "application/json",
-          Accept: "application/json",
+          'content-type': 'application/json',
+          Accept: 'application/json',
           authToken: parsedToken,
         },
       });
       dispatch({
-        type: "get_User_Guild_Details_Sucess",
+        type: 'get_User_Guild_Details_Sucess',
         payload: response.data,
       });
     } catch (error: any) {
       dispatch({
-        type: "get_User_Guild_Details_Fail",
+        type: 'get_User_Guild_Details_Fail',
         payload: error.message,
       });
     }
   };
 }
 
-function Get_Guild_Matches_Details(id: any) {
+function Get_Guild_Matches_Details(id: any, MatchType: string) {
   return async function (dispatch: any) {
     try {
       dispatch({
-        type: "Get_Guild_Matches_Details_Request",
+        type: 'Get_Guild_Matches_Details_Request',
       });
 
       const Token: string = (await Return_Token(
-        "Get_Guild_Matches_Details_Fail",
-        dispatch
+        'Get_Guild_Matches_Details_Fail',
+        dispatch,
       )) as string;
       const parsedToken = JSON.parse(Token);
 
       const response = await axios.get(
-        `${Ip_Address}/getGuildtournaments/${id}`,
+        `${Ip_Address}/getGuildtournaments/${id}?MatchType=${MatchType}`,
         {
           headers: {
-            "content-type": "application/json",
-            Accept: "application/json",
+            'content-type': 'application/json',
+            Accept: 'application/json',
             authToken: parsedToken,
           },
-        }
+        },
       );
       dispatch({
-        type: "Get_Guild_Matches_Details_Sucess",
+        type: 'Get_Guild_Matches_Details_Sucess',
         payload: response.data.Data,
       });
     } catch (error: any) {
       dispatch({
-        type: "Get_Guild_Matches_Details_Fail",
+        type: 'Get_Guild_Matches_Details_Fail',
         payload: error.message,
       });
     }
@@ -105,11 +105,11 @@ function Create_Guild(Data: any) {
   return async function (dispatch: any) {
     try {
       dispatch({
-        type: "Create_Guild_Request",
+        type: 'Create_Guild_Request',
       });
       const Token: string = (await Return_Token(
-        "Create_Guild_Fail",
-        dispatch
+        'Create_Guild_Fail',
+        dispatch,
       )) as string;
       const parsedToken = JSON.parse(Token);
 
@@ -118,19 +118,19 @@ function Create_Guild(Data: any) {
         Data,
         {
           headers: {
-            "content-type": "application/json",
-            Accept: "application/json",
+            'content-type': 'application/json',
+            Accept: 'application/json',
             authToken: parsedToken,
           },
-        }
+        },
       );
       dispatch({
-        type: "Create_Guild_Sucess",
+        type: 'Create_Guild_Sucess',
         payload: response.data.data,
       });
     } catch (error: any) {
       dispatch({
-        type: "Create_Guild_Fail",
+        type: 'Create_Guild_Fail',
         payload: error.message,
       });
     }
@@ -140,14 +140,14 @@ function Create_Guild(Data: any) {
 function Clear_Guild_Reducer_Sucess() {
   return (dispatch: any) => {
     dispatch({
-      type: "Clear_Guild_Reducer_Sucess",
+      type: 'Clear_Guild_Reducer_Sucess',
     });
   };
 }
 function Clear_Guild_Reducer_Error() {
   return (dispatch: any) => {
     dispatch({
-      type: "Clear_Guild_Reducer_Error",
+      type: 'Clear_Guild_Reducer_Error',
     });
   };
 }

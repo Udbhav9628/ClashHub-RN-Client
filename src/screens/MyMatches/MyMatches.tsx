@@ -46,7 +46,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
     if (Refetch || ReFetch_Joined_Matches) {
       setRefetch(false)
       Clear_Re_Fetch_Joined_Matches();
-      Fetch_Joined_Matchs(SelectedMenu);
+      Fetch_Joined_Matchs(null, SelectedMenu);
     }
   }, [ReFetch_Joined_Matches]);
 
@@ -67,7 +67,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={styles.Container}>
-      <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Joined_Matchs={Fetch_Joined_Matchs} />
+      <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={Fetch_Joined_Matchs} Guild_id={null} />
       {loading ? (
         <>
           <View
