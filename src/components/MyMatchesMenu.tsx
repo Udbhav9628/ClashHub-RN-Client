@@ -17,7 +17,7 @@ const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Matchs
       renderItem={({ item }) => (
         <TouchableOpacity
           style={{
-            marginRight: 50,
+            marginRight: 53,
           }}
           onPress={() => {
             Fetch_Matchs(Guild_id, item.Name);

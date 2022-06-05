@@ -6,6 +6,7 @@ import {
   Get_All_Matches,
   Join_Match_Reducer,
   Get_Joined_Match_Reducer,
+  Update_Match_Result_Reducer,
 } from './Match/Matchreducer';
 import {
   Make_Payment_Reducer,
@@ -31,4 +32,5 @@ export default combineReducers({
   Get_user_Guild_details_reducer,
   Create_Guild_Reducer,
   Get_Guild_Matchs_Reducer,
+  Update_Match_Result_Reducer,
 });

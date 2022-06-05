@@ -105,6 +105,7 @@ function Fetch_All_Matchs(SelectedMenu: any) {
     }
   };
 }
+
 function Get_Joined_Matchs(Guild_id: any, MatchType: any) {
   console.log(MatchType);
   return async function (dispatch: any) {
@@ -134,6 +135,42 @@ function Get_Joined_Matchs(Guild_id: any, MatchType: any) {
     } catch (error: any) {
       dispatch({
         type: 'Get_Joined_Matches_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
+function Update_Match(Data: any, id: any) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'Update_Result_Request',
+      });
+      const Token: string = (await Return_Token(
+        'Update_Result_Fail',
+        dispatch,
+      )) as string;
+      const parsedToken = JSON.parse(Token);
+      const response = await axios.put(
+        `${Ip_Address}/Updatetournament/${id}`,
+        Data,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: parsedToken,
+          },
+        },
+      );
+      dispatch({
+        type: 'Update_Result_Sucess',
+        payload: response.data,
+      });
+      console.log(response.data);
+    } catch (error: any) {
+      dispatch({
+        type: 'Update_Result_Fail',
         payload: error.message,
       });
     }
@@ -173,6 +210,29 @@ function Join_Match_action(id: any, Amount_to_be_paid: any) {
         payload: error.message,
       });
     }
+  };
+}
+
+function Push_In_Array(Match: any, Data: any) {
+  return function (dispatch: any) {
+    const Duplicate_match = Match;
+    if (Duplicate_match) {
+      let User = Duplicate_match.Joined_User.find(
+        (Element: any) => Element._id === Data.Id,
+      );
+      if (User) {
+        console.log('Entry SucessFull');
+        User.Kills = Data.Kills;
+        console.log(Duplicate_match);
+      } else {
+        console.log('User Not Found');
+      }
+    } else {
+      console.log('Match Not Found');
+    }
+    dispatch({
+      type: 'Push In an Array',
+    });
   };
 }
 
@@ -222,4 +282,6 @@ export {
   RemoveMatchItem,
   Clear_ReFetch_Joined_Matches,
   Fetch_Home_Page_Matchs,
+  Push_In_Array,
+  Update_Match,
 };

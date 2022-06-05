@@ -13,6 +13,7 @@ import YourGuild from "../Menu/YourGuild";
 import YourGuildMatches from "../Menu/YourGuild/YourGuildMatches";
 import AllMatches from "../Home/AllMatches";
 import Notification from "../Notification/Notification";
+import GuildMatchesDetails from "../Menu/YourGuild/GuildMatchesDetails";
 
 const Stack = createStackNavigator();
 
@@ -74,6 +75,13 @@ export default function App() {
           <Stack.Screen
             name="YourGuildsMatches"
             component={YourGuildMatches}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="GuildMatchesDetails"
+            component={GuildMatchesDetails}
             options={{
               headerShown: false,
             }}

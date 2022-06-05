@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
+apply plugin: 'com.google.gms.google-services'
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -283,6 +284,9 @@ dependencies {
     exclude group: "com.squareup.okhttp3", module: 'okhttp3'
 }
     //Paytm
+     
+    implementation platform('com.google.firebase:firebase-bom:30.1.0')
+    implementation 'com.google.firebase:firebase-analytics'
 
     implementation "com.squareup.okhttp3:okhttp:4.2.1"
     implementation "com.squareup.okhttp3:logging-interceptor:4.2.1"

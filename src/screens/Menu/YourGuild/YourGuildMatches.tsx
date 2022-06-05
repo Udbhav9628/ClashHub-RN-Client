@@ -21,7 +21,7 @@ import MyMatchesMenu from "../../../components/MyMatchesMenu";
 import { GamesTypes } from "../../../constants/Data";
 
 const YourGuildMatches = ({ navigation }: { navigation: any }) => {
-  const [SelectedMenu, setSelectedMenu] = useState("Scheduled");
+  const [SelectedMenu, setSelectedMenu] = useState('');
   const dispatch = useDispatch();
   const Get_Guild_Matches = bindActionCreators(
     Get_Guild_Matches_Details,
@@ -43,6 +43,7 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
 
   useFocusEffect(
     React.useCallback(() => {
+      setSelectedMenu('Scheduled')
       Get_Guild_Matches(Guild_Details._id, 'Scheduled');
     }, [])
   );
@@ -91,7 +92,7 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
               fontWeight: "700",
             }}
           >
-            No Guild Matches
+            No {SelectedMenu} Guild Matches
           </Text>
         </View>
       ) : (
@@ -121,8 +122,8 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
               }}
               Item={item}
               onPress={() =>
-                navigation.navigate("GameDetailsPage", {
-                  Item: item,
+                navigation.navigate("GuildMatchesDetails", {
+                  Item: item, SelectedMenu: SelectedMenu
                 })
               }
             />

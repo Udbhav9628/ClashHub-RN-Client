@@ -197,8 +197,7 @@ const GameItems = ({
             fontWeight: "bold",
           }}
         >
-
-          It's Live
+          {Item.Is_Finished === true ? "Finished" : " It's Live"}
         </Text>) : (<Text
           style={{
             color: COLORS.darkGray2,

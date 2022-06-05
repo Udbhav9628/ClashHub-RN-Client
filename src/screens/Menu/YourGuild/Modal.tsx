@@ -121,6 +121,8 @@ const ModalScreen = ({
         {
           text: "OK",
           onPress: () => {
+            setSelect_Game('')
+            setMaindateDateTime('')
             navigation.navigate("YourGuildsMatches");
             Fetch_All_Match("");
             setModalVisible(!modalVisible);
@@ -132,10 +134,13 @@ const ModalScreen = ({
 
   useEffect(() => {
     if (Error) {
+      Clear_Match_Error()
       Alert.alert("Error", Error + " , Try Again", [
         {
           text: "OK",
           onPress: () => {
+            setSelect_Game('')
+            setMaindateDateTime('')
             setDisable(false);
             Clear_Match_Error();
           },
@@ -146,7 +151,6 @@ const ModalScreen = ({
 
   function CreateMatchOnClick(Data: object) {
     if (User) {
-      console.log(Data);
       Create_Match_action(Data);
     } else {
       navigation.navigate("Signin");

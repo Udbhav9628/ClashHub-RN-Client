@@ -38,12 +38,11 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
     dispatch
   );
 
-  useFocusEffect(
-    React.useCallback(() => {
-      Fetch_User_Guild_Details();
-      setTempLoading(false);
-    }, [])
-  );
+  useEffect(() => {
+    Fetch_User_Guild_Details();
+    setTempLoading(false);
+  }, [])
+
 
   useEffect(() => {
     if (Error) {
@@ -63,14 +62,17 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
   return (
     <ScrollView style={styles.Container}>
       {TempLoading || loading ? (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-          }}
-        >
-          <ActivityIndicator size="large" color={COLORS.primary} />
-        </View>
+        <>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ActivityIndicator size="large" color={COLORS.primary} />
+          </View>
+        </>
       ) : Sucess_response ? (
         <View>
           <ModalScreen

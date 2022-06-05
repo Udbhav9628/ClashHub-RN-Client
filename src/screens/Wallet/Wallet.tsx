@@ -68,9 +68,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
   );
 
   const AddMoneyFunction = async () => {
-
     let amt = "10.00";
-
     const token = await Gernerate_Paytm_Token();
     const parsed = JSON.parse(token.post_data)
     try {
@@ -93,6 +91,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     } catch (error) {
       console.log("try catch error", error)
     }
+    setTempLoading(false)
   }
 
   //**********************Header********************/
@@ -195,7 +194,10 @@ const Wallet = ({ navigation }: { navigation: any }) => {
               style={{
                 alignItems: "center",
               }}
-              onPress={() => { AddMoneyFunction() }}
+              onPress={() => {
+                setTempLoading(true)
+                AddMoneyFunction()
+              }}
             >
               <MaterialCommunityIcons
                 name="credit-card-plus"

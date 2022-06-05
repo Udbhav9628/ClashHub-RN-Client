@@ -336,7 +336,7 @@ const GameDetailsPage = ({
                 resizeMode: "cover",
               }}
               source={{
-                uri: "https://www.kindpng.com/picc/m/227-2272337_youtube-gaming-logo-png-png-download-transparent-gamer.png",
+                uri: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-result-internet-marketing-service-flaticons-flat-flat-icons.png",
               }}
             />
             {/* Info Of Guild */}
@@ -349,23 +349,13 @@ const GameDetailsPage = ({
                     fontWeight: "bold",
                   }}
                 >
-                  The warriors
-                </Text>
-                <Text
-                  style={{
-                    fontSize: SIZES.h3,
-                    lineHeight: 22,
-                    fontWeight: "bold",
-                    color: COLORS.gray,
-                  }}
-                >
-                  200 Followers
+                  Match Results
                 </Text>
               </View>
               <View
                 style={{
                   position: "absolute",
-                  top: 9,
+                  top: -2,
                   right: 15,
                 }}
               >

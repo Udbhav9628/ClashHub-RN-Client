@@ -67,19 +67,18 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={styles.Container}>
-      <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={Fetch_Joined_Matchs} Guild_id={null} />
+      <View>
+        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={Fetch_Joined_Matchs} Guild_id={null} />
+      </View>
       {loading ? (
-        <>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <ActivityIndicator size="large" color={COLORS.primary} />
-          </View>
-        </>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+          }}
+        >
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
       ) : Joined_Matches && Joined_Matches.length === 0 ? (
         <View
           style={{
@@ -94,7 +93,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
               fontWeight: "700",
             }}
           >
-            You haven't joined any Match
+            No {SelectedMenu} Guild Matches
           </Text>
         </View>
       ) : (
@@ -124,8 +123,8 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
               }}
               Item={item}
               onPress={() =>
-                navigation.navigate("GameDetailsPage", {
-                  Item: item,
+                navigation.navigate("GuildMatchesDetails", {
+                  Item: item, SelectedMenu: SelectedMenu
                 })
               }
             />

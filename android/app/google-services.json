@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "624037012209",
+    "project_id": "driven-crawler-336216",
+    "storage_bucket": "driven-crawler-336216.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624037012209:android:e6b91efb1951194d293f50",
+        "android_client_info": {
+          "package_name": "com.clashhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624037012209-djsl3grkrqbsacfkoefd11h807amklc0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzZMgq5t-MLKPr5fO1nLyx4ZjF-5BOaYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624037012209-djsl3grkrqbsacfkoefd11h807amklc0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
