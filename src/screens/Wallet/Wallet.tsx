@@ -26,7 +26,6 @@ import HeadingComp from "../../components/HeadingComp";
 import AllInOneSDKManager from 'paytm_allinone_react-native';
 import { MID, URL_SCHEME } from '../../constants/Data';
 import { Gernerate_Paytm_Token } from "../../store/Payment/PaymentAction";
-// import AddMoneyModal from "./AddMoneyModal";
 
 const Wallet = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
@@ -195,8 +194,8 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                setTempLoading(true)
                 AddMoneyFunction()
+                setTempLoading(true)
               }}
             >
               <MaterialCommunityIcons

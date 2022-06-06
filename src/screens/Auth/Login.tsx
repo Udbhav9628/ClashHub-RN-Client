@@ -21,10 +21,11 @@ import {
   Clear_Auth_Sucess,
 } from "../../store/Authentication/Authaction";
 import Icons from "../../constants/Icons";
+import messaging from '@react-native-firebase/messaging';
 
 const Login = ({ navigation }: { navigation: any }) => {
-  const [Email, setEmail] = useState("Brown@gmail.com");
-  const [Password, setPassword] = useState("Brown123");
+  const [Email, setEmail] = useState("Vikey@gmail.com");
+  const [Password, setPassword] = useState("Vikey123");
   const [PassworderrMsg, setPassworderrMsg] = useState("");
   const [EmailerrMsg, setEmailerrMsg] = useState("");
   const [ShowPassword, setShowPassword] = useState(false);
@@ -36,7 +37,7 @@ const Login = ({ navigation }: { navigation: any }) => {
   const Clear_Error_Func = bindActionCreators(Clear_Auth_Error, dispatch);
   const Clear_Sucess_Func = bindActionCreators(Clear_Auth_Sucess, dispatch);
 
-  function HandleOnPress() {
+  async function HandleOnPress() {
     setDisable(true);
     if (
       Email !== "" &&
@@ -44,9 +45,12 @@ const Login = ({ navigation }: { navigation: any }) => {
       EmailerrMsg === "" &&
       PassworderrMsg === ""
     ) {
+      await messaging().registerDeviceForRemoteMessages();
+      const token = await messaging().getToken();
       const data = {
         Email: Email,
         Password: Password,
+        FCMToken: token
       };
       Login_User_Func(data);
     } else if (Email === "" || Password === "") {

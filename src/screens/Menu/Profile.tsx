@@ -6,22 +6,20 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useSelector } from "react-redux";
 
 const Profile = ({ navigation }: { navigation: any }) => {
+
   const { User } = useSelector((state: any) => state.AuthReducer);
+
   return (
     <View style={styles.Container}>
       <Heading navigation={navigation} Title={" Your Profile"} />
       {/* Profile */}
       <View style={styles.Profile}>
-        <Image
-          source={{
-            uri: "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper.png",
-          }}
+        <Image source={{ uri: `https://api.multiavatar.com/${User.User}.png` }}
           style={{
             width: 100,
             height: 100,
             borderRadius: 50,
-          }}
-        />
+          }} />
         <View style={styles.Textwrapper}>
           <Text style={styles.Name}>{User.User}</Text>
           <Text style={styles.Caption}>Play, Win and Earn</Text>
