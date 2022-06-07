@@ -14,6 +14,7 @@ import YourGuildMatches from "../Menu/YourGuild/YourGuildMatches";
 import AllMatches from "../Home/AllMatches";
 import Notification from "../Notification/Notification";
 import GuildMatchesDetails from "../Menu/YourGuild/GuildMatchesDetails";
+import OtpScreen from "../Auth/OtpScreen";
 
 const Stack = createStackNavigator();
 
@@ -106,6 +107,13 @@ export default function App() {
           <Stack.Screen
             name="Register"
             component={Signup}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="OtpScreen"
+            component={OtpScreen}
             options={{
               headerShown: false,
             }}

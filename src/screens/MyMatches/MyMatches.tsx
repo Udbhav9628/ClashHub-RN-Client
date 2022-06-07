@@ -102,6 +102,8 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
           keyExtractor={(Item) => `${Item._id}`}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
+          onRefresh={() => Fetch_Joined_Matchs(null, SelectedMenu)}
+          refreshing={loading || false}
           renderItem={({ item }) => (
             <GameItems
               ContainerStyle={{

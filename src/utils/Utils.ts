@@ -46,11 +46,11 @@ export function validateEmail(value: string, setEmailError: Function) {
   }
 }
 
-export function validatePassword(value: string, setPasswordError: Function) {
-  if (value.length < 8) {
-    setPasswordError('Password must be 8 characters');
+export function validateNumber(value: string, setError: Function) {
+  if (value.length < 10) {
+    setError('Mobile No must be 8 characters');
   } else {
-    setPasswordError('');
+    setError('');
   }
 }
 

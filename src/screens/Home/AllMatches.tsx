@@ -20,7 +20,7 @@ import {
 import Heading from "../../components/Heading";
 
 const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
-  //   const [All_Matches_State, setAll_Matches_State] = useState([] as Array<any>);
+  //const [All_Matches_State, setAll_Matches_State] = useState([] as Array<any>);
 
   const [TempLoading, setTempLoading] = useState(true);
 
@@ -134,6 +134,8 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
           keyExtractor={(Item) => `${Item._id}`}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
+          onRefresh={() => Fetch_All_Match(SelectedMenu)}
+          refreshing={loading}
           renderItem={({ item }) => (
             <GameItems
               ContainerStyle={{

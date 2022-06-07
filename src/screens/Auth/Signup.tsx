@@ -10,32 +10,28 @@ import {
 } from "react-native";
 import { COLORS, SIZES } from "../../constants/Theame";
 import FormInput from "./FormInput";
-import { validateEmail, validatePassword } from "../../utils/Utils";
-import SignwithGoogle from "./SignwithGoogle";
-import Icons from "../../constants/Icons";
+import { validateNumber } from "../../utils/Utils";
 
 const Signup = ({ navigation }: { navigation: any }) => {
-  const [Email, setEmail] = useState("");
+  const [Name, setName] = useState("");
+  const [Name_Length, setName_Length] = useState("");
   const [UserName, setUserName] = useState("");
-  const [Password, setPassword] = useState("");
-  const [PassworderrMsg, setPassworderrMsg] = useState("");
-  const [EmailerrMsg, setEmailerrMsg] = useState("");
-  const [ShowPassword, setShowPassword] = useState(false);
+  const [UserName_Length, setUserName_Length] = useState("");
+  const [Phone_No, setPhone_No] = useState();
+  const [Phone_No_Msg, setPhone_No_Msg] = useState("");
 
   function HandleOnPress() {
     if (
-      Email !== "" &&
-      Password !== "" &&
-      EmailerrMsg === "" &&
-      PassworderrMsg === ""
+      Name !== "" &&
+      UserName !== "" &&
+      Phone_No !== "" &&
+      Phone_No_Msg === ""
     ) {
-      // navigation.navigate("OtpScreen");
-    } else if (Email === "" || Password === "") {
-      Alert.alert("Error", "Inputs Can't Be Blancked", [{ text: "OK" }]);
-    } else if (EmailerrMsg !== "") {
-      Alert.alert("Error", "Email is Wrong", [{ text: "OK" }]);
-    } else if (PassworderrMsg !== "") {
-      Alert.alert("Error", "Password is Less 8 characters", [{ text: "OK" }]);
+      navigation.navigate("OtpScreen");
+    } else if (Name === "" || Phone_No === "" || UserName === "") {
+      Alert.alert("Error", "Fill All Details First", [{ text: "OK" }]);
+    } else if (Phone_No !== "") {
+      Alert.alert("Error", "Phone_No is Less 10 characters", [{ text: "OK" }]);
     }
   }
 
@@ -51,75 +47,36 @@ const Signup = ({ navigation }: { navigation: any }) => {
       <View
         style={{
           flex: 1,
-          marginTop: SIZES.padding,
+          marginTop: 5,
           paddingHorizontal: SIZES.padding,
         }}
       >
         {/* Name */}
         <FormInput
-          containerStyle={{ flex: 1 }}
+          containerStyle={{}}
           label="Name"
-          Placeholder={"Enter Your Name"}
+          Placeholder={"Your Full Name"}
           KeyboardType="default"
           autocomplete="off"
-          autoCapatilize={"none"}
+          maxLength={30}
+          autoCapatilize={"words"}
           secureTextEntry={false}
           onchange={(Value: any) => {
-            setUserName(Value);
+            setName(Value);
           }}
           errorMsg={""}
           prepandComponent={null}
-          appendComponent={
-            <View style={{ justifyContent: "center" }}>
-              <Image
-                resizeMode="contain"
-                style={{ height: 25, width: 25, borderRadius: 200 }}
-                source={
-                  Email === "" || (Email !== "" && EmailerrMsg === "")
-                    ? Icons.Correct
-                    : Icons.Incorrect
-                }
-              />
-            </View>
-          }
-        />
-        {/* Form Input */}
-        <FormInput
-          containerStyle={{ flex: 1 }}
-          label="Email"
-          Placeholder={"Enter E-mail"}
-          KeyboardType="email-address"
-          autocomplete="email"
-          autoCapatilize={"none"}
-          secureTextEntry={false}
-          onchange={(Value: any) => {
-            //validateEmail
-            validateEmail(Value, setEmailerrMsg);
-            setEmail(Value);
-          }}
-          errorMsg={EmailerrMsg}
-          prepandComponent={null}
-          appendComponent={
-            <View style={{ justifyContent: "center" }}>
-              <Image
-                resizeMode="contain"
-                style={{ height: 25, width: 25, borderRadius: 200 }}
-                source={
-                  Email === "" || (Email !== "" && EmailerrMsg === "")
-                    ? Icons.Correct
-                    : Icons.Incorrect
-                }
-              />
-            </View>
+          appendComponent={null
           }
         />
         {/* UserName */}
         <FormInput
-          containerStyle={{ flex: 1 }}
+          containerStyle={{ marginTop: SIZES.radius }}
           label="Username"
-          Placeholder={"create username"}
+          Placeholder={"Create Username"}
           KeyboardType="default"
           autocomplete="off"
+          maxLength={25}
           autoCapatilize={"none"}
           secureTextEntry={false}
           onchange={(Value: any) => {
@@ -127,50 +84,29 @@ const Signup = ({ navigation }: { navigation: any }) => {
           }}
           errorMsg={""}
           prepandComponent={null}
-          appendComponent={
-            <View style={{ justifyContent: "center" }}>
-              <Image
-                resizeMode="contain"
-                style={{ height: 25, width: 25, borderRadius: 200 }}
-                source={
-                  Email === "" || (Email !== "" && EmailerrMsg === "")
-                    ? Icons.Correct
-                    : Icons.Incorrect
-                }
-              />
-            </View>
+          appendComponent={null
           }
         />
         {/* Create Password */}
         <FormInput
-          label="Password"
-          Placeholder={"Create Your Password"}
-          secureTextEntry={!ShowPassword}
-          KeyboardType="default"
+          label="Mobile"
+          Placeholder={"Enter Mobile No"}
+          secureTextEntry={false}
+          KeyboardType="phone-pad"
+          maxLength={15}
           autocomplete="off"
           autoCapatilize={"none"}
           containerStyle={{ marginTop: SIZES.radius }}
           onchange={(Value: any) => {
-            //validate Password
-            validatePassword(Value, setPassworderrMsg);
-            setPassword(Value);
+            validateNumber(Value, setPhone_No_Msg);
+            setPhone_No(Value);
           }}
-          errorMsg={PassworderrMsg}
+          errorMsg={Phone_No_Msg}
           prepandComponent={null}
           appendComponent={
-            <TouchableOpacity
-              style={{ justifyContent: "center" }}
-              onPress={() => setShowPassword(!ShowPassword)}
-            >
-              <Image
-                resizeMode="contain"
-                style={{ height: 25, width: 25, borderRadius: 200 }}
-                source={ShowPassword ? Icons.EyeOpen : Icons.EyeClose}
-              />
-            </TouchableOpacity>
+            null
           }
         />
-
         {/* Sign In */}
         <TouchableOpacity
           style={{
@@ -219,9 +155,6 @@ const Signup = ({ navigation }: { navigation: any }) => {
             </Text>
           </TouchableOpacity>
         </View>
-
-        {/* Sign Up With Google */}
-        <SignwithGoogle label={"Sign Up With Google"} onpress={() => {}} />
       </View>
     </ScrollView>
   );

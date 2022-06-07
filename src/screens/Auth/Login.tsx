@@ -4,15 +4,13 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Image,
   ScrollView,
   Alert,
   ActivityIndicator,
 } from "react-native";
 import { COLORS, SIZES } from "../../constants/Theame";
 import FormInput from "./FormInput";
-import { validateEmail, validatePassword } from "../../utils/Utils";
-import SignwithGoogle from "./SignwithGoogle";
+import { validateNumber } from "../../utils/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
@@ -20,15 +18,11 @@ import {
   Clear_Auth_Error,
   Clear_Auth_Sucess,
 } from "../../store/Authentication/Authaction";
-import Icons from "../../constants/Icons";
 import messaging from '@react-native-firebase/messaging';
 
 const Login = ({ navigation }: { navigation: any }) => {
-  const [Email, setEmail] = useState("Vikey@gmail.com");
-  const [Password, setPassword] = useState("Vikey123");
-  const [PassworderrMsg, setPassworderrMsg] = useState("");
-  const [EmailerrMsg, setEmailerrMsg] = useState("");
-  const [ShowPassword, setShowPassword] = useState(false);
+  const [Phone_No, setPhone_No] = useState();
+  const [Phone_No_Msg, setPhone_No_Msg] = useState("");
 
   const [Disable, setDisable] = useState(false);
 
@@ -40,36 +34,19 @@ const Login = ({ navigation }: { navigation: any }) => {
   async function HandleOnPress() {
     setDisable(true);
     if (
-      Email !== "" &&
-      Password !== "" &&
-      EmailerrMsg === "" &&
-      PassworderrMsg === ""
+      Phone_No !== "" &&
+      Phone_No_Msg === ""
     ) {
       await messaging().registerDeviceForRemoteMessages();
       const token = await messaging().getToken();
       const data = {
-        Email: Email,
-        Password: Password,
+        Phone_No: Phone_No,
         FCMToken: token
       };
       Login_User_Func(data);
-    } else if (Email === "" || Password === "") {
+    } else if (Phone_No === "") {
       setDisable(false);
-      Alert.alert("Error", "Inputs Can't Be Blancked", [
-        {
-          text: "OK",
-        },
-      ]);
-    } else if (EmailerrMsg !== "") {
-      setDisable(false);
-      Alert.alert("Error", "Email is Wrong", [
-        {
-          text: "OK",
-        },
-      ]);
-    } else if (PassworderrMsg !== "") {
-      setDisable(false);
-      Alert.alert("Error", "Password is Less 8 characters", [
+      Alert.alert("Error", "Enter Mobile No to Login", [
         {
           text: "OK",
         },
@@ -107,73 +84,33 @@ const Login = ({ navigation }: { navigation: any }) => {
       showsHorizontalScrollIndicator={false}
       style={{ backgroundColor: COLORS.white }}
     >
-      <AuthLayout Title={"Let's Sign You In"} SubTitle={"Login To continue"} />
+      <View style={{ marginTop: 50 }}><AuthLayout Title={"Let's Sign You In"} SubTitle={"Login To continue"} /></View>
       <View
         style={{
           flex: 1,
-          marginTop: SIZES.padding,
+          marginTop: 230,
           paddingHorizontal: SIZES.padding,
         }}
       >
-        {/* Form Input */}
         <FormInput
-          containerStyle={{ flex: 1 }}
-          label="Email"
-          Placeholder={"Enter E-mail"}
-          KeyboardType="email-address"
-          autocomplete="email"
-          autoCapatilize={"none"}
+          label="Mobile"
+          Placeholder={"Enter Mobile No"}
           secureTextEntry={false}
-          onchange={(Value: any) => {
-            //validateEmail
-            validateEmail(Value, setEmailerrMsg);
-            setEmail(Value);
-          }}
-          errorMsg={EmailerrMsg}
-          prepandComponent={null}
-          appendComponent={
-            <View style={{ justifyContent: "center" }}>
-              <Image
-                resizeMode="contain"
-                style={{ height: 25, width: 25, borderRadius: 100 }}
-                source={
-                  Email === "" || (Email !== "" && EmailerrMsg === "")
-                    ? Icons.Correct
-                    : Icons.Incorrect
-                }
-              />
-            </View>
-          }
-        />
-        <FormInput
-          label="Password"
-          Placeholder={"Enter Password"}
-          secureTextEntry={!ShowPassword}
-          KeyboardType="default"
+          KeyboardType="phone-pad"
           autocomplete="off"
           autoCapatilize={"none"}
+          maxLength={15}
           containerStyle={{ marginTop: SIZES.radius }}
           onchange={(Value: any) => {
-            //validate Password
-            validatePassword(Value, setPassworderrMsg);
-            setPassword(Value);
+            validateNumber(Value, setPhone_No_Msg);
+            setPhone_No(Value);
           }}
-          errorMsg={PassworderrMsg}
+          errorMsg={Phone_No_Msg}
           prepandComponent={null}
           appendComponent={
-            <TouchableOpacity
-              style={{ justifyContent: "center" }}
-              onPress={() => setShowPassword(!ShowPassword)}
-            >
-              <Image
-                resizeMode="contain"
-                style={{ height: 25, width: 25, borderRadius: 200 }}
-                source={ShowPassword ? Icons.EyeClose : Icons.EyeOpen}
-              />
-            </TouchableOpacity>
+            null
           }
         />
-
         {/* Sign In Button */}
         <TouchableOpacity
           style={{
@@ -202,7 +139,7 @@ const Login = ({ navigation }: { navigation: any }) => {
                 lineHeight: 22,
               }}
             >
-              Sign In
+              Login
             </Text>
           )}
         </TouchableOpacity>
@@ -231,13 +168,10 @@ const Login = ({ navigation }: { navigation: any }) => {
                 fontWeight: "bold",
               }}
             >
-              Sign Up
+              Register Here
             </Text>
           </TouchableOpacity>
         </View>
-
-        {/* Sign In With Google */}
-        <SignwithGoogle label={"Continue With Google"} onpress={() => { }} />
       </View>
     </ScrollView>
   );

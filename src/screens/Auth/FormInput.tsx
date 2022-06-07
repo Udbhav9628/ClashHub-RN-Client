@@ -15,6 +15,7 @@ const FormInput = ({
   autocomplete = "off",
   autoCapatilize = "none",
   errorMsg = "",
+  maxLength,
 }: {
   containerStyle: object;
   label: string;
@@ -27,6 +28,7 @@ const FormInput = ({
   KeyboardType: any;
   autoCapatilize: any;
   errorMsg: any;
+  maxLength: any;
 }) => {
   return (
     <KeyboardAwareScrollView
@@ -69,6 +71,7 @@ const FormInput = ({
           keyboardType={KeyboardType}
           autoCapitalize={autoCapatilize}
           autoComplete={autocomplete}
+          maxLength={maxLength}
           onChangeText={(text) => {
             onchange(text);
           }}
