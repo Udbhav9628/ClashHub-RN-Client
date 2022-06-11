@@ -3,7 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../Auth/Login";
 import BottonTabs from "../Navigation/BottonTabs";
-import { useSelector } from "react-redux";
 import Signup from "../Auth/Signup";
 import GameDetailsPage from "../Home/GameDetailsPage";
 import Wallet from "../Wallet/Wallet";
@@ -14,15 +13,27 @@ import YourGuildMatches from "../Menu/YourGuild/YourGuildMatches";
 import AllMatches from "../Home/AllMatches";
 import Notification from "../Notification/Notification";
 import GuildMatchesDetails from "../Menu/YourGuild/GuildMatchesDetails";
-import OtpScreen from "../Auth/OtpScreen";
+import auth from '@react-native-firebase/auth';
+import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  const AuthReducer = useSelector((state: any) => state.AuthReducer);
+  const AuthReducer = useSelector((state: any) => state.onAuthStateChanged_Reducer);
+
+
+  React.useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        console.log(user.metadata);
+      }
+    });
+    unsubscribe();
+  }, []);
+
   return (
     <NavigationContainer independent={true}>
-      {AuthReducer.User ? (
+      {false ? (
         <Stack.Navigator>
           <Stack.Screen
             name="EnterInApp"
@@ -107,13 +118,6 @@ export default function App() {
           <Stack.Screen
             name="Register"
             component={Signup}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="OtpScreen"
-            component={OtpScreen}
             options={{
               headerShown: false,
             }}

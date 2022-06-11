@@ -66,6 +66,7 @@ const AuthLayout = ({
           </Text>
           <Text
             style={{
+              textAlign: 'center',
               marginTop: SIZES.base,
               color: COLORS.darkGray,
               fontSize: SIZES.body3,

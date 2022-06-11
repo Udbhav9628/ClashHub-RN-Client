@@ -1,5 +1,9 @@
 import {combineReducers} from 'redux';
-import AuthReducer from './Authentication/Authreducer';
+import {
+  AuthReducer,
+  onAuthStateChanged_Reducer,
+  Userdetail_Reducer,
+} from './Authentication/Authreducer';
 import {
   Get_Home_Page_Matches,
   Create_matches_Reducer,
@@ -33,4 +37,6 @@ export default combineReducers({
   Create_Guild_Reducer,
   Get_Guild_Matchs_Reducer,
   Update_Match_Result_Reducer,
+  onAuthStateChanged_Reducer,
+  Userdetail_Reducer,
 });

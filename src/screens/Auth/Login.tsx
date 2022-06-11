@@ -19,6 +19,8 @@ import {
   Clear_Auth_Sucess,
 } from "../../store/Authentication/Authaction";
 import messaging from '@react-native-firebase/messaging';
+import getAuth from "@react-native-firebase/auth";
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 const Login = ({ navigation }: { navigation: any }) => {
   const [Phone_No, setPhone_No] = useState();
@@ -30,6 +32,28 @@ const Login = ({ navigation }: { navigation: any }) => {
   const Login_User_Func = bindActionCreators(Login_User, dispatch);
   const Clear_Error_Func = bindActionCreators(Clear_Auth_Error, dispatch);
   const Clear_Sucess_Func = bindActionCreators(Clear_Auth_Sucess, dispatch);
+
+  React.useEffect(() => {
+    const auths = getAuth();
+    const users = auths.currentUser;
+    if (users) {
+      auth().signOut().then(() => console.log('User signed out!'));
+    }
+    const unsubscribe = auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        if (user?.phoneNumber === `+91${Phone_No}`) {
+          await messaging().registerDeviceForRemoteMessages();
+          const token = await messaging().getToken();
+
+          const Firebase_auth_token = await user.getIdToken()
+          console.log(Firebase_auth_token);
+
+          // Register_User_func(data, Firebase_auth_token)
+        }
+      }
+    });
+    unsubscribe();
+  }, []);
 
   async function HandleOnPress() {
     setDisable(true);
@@ -43,7 +67,7 @@ const Login = ({ navigation }: { navigation: any }) => {
         Phone_No: Phone_No,
         FCMToken: token
       };
-      Login_User_Func(data);
+      // Login_User_Func(data);
     } else if (Phone_No === "") {
       setDisable(false);
       Alert.alert("Error", "Enter Mobile No to Login", [
