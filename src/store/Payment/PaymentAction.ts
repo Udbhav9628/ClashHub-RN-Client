@@ -8,18 +8,15 @@ async function Gernerate_Paytm_Token() {
       'Gernerate_Paytm_Token_Fail',
       null,
     )) as string;
-    const parsedToken = JSON.parse(Token);
-
     const Data = {
       amt: 10,
     };
-
     return await axios // need to understand this - if i am returning below  -> response.data.ChecksumHash; then why i need to return await here
       .post(`${Ip_Address}/MakePayment`, Data, {
         headers: {
           'content-type': 'application/json',
           Accept: 'application/json',
-          authToken: parsedToken,
+          authToken: Token,
         },
       })
       .then(response => {
@@ -40,13 +37,11 @@ function Make_Payment_action(Data: any) {
         'Make_Payment_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
-
       const response = await axios.post(`${Ip_Address}/MakePayment`, Data, {
         headers: {
           'content-type': 'application/json',
           Accept: 'application/json',
-          authToken: parsedToken,
+          authToken: Token,
         },
       });
       dispatch({
@@ -72,7 +67,6 @@ function Update_Wallet_Ballance(New_Ballance: any) {
         'Update_Wallet_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
       const response = await axios.put(
         `${Ip_Address}/AddingCoins`,
         {New_Ballance: New_Ballance},
@@ -80,7 +74,7 @@ function Update_Wallet_Ballance(New_Ballance: any) {
           headers: {
             'content-type': 'application/json',
             Accept: 'application/json',
-            authToken: parsedToken,
+            authToken: Token,
           },
         },
       );
@@ -107,13 +101,11 @@ function GetUserWalletBallance() {
         'GetUserWalletBallance_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
-
       const response = await axios.get(`${Ip_Address}/GetUserWalletBallance`, {
         headers: {
           'content-type': 'application/json',
           Accept: 'application/json',
-          authToken: parsedToken,
+          authToken: Token,
         },
       });
       dispatch({

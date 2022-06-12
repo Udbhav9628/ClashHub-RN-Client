@@ -1,4 +1,7 @@
 import * as React from "react";
+import {
+  Alert,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../Auth/Login";
@@ -14,26 +17,36 @@ import AllMatches from "../Home/AllMatches";
 import Notification from "../Notification/Notification";
 import GuildMatchesDetails from "../Menu/YourGuild/GuildMatchesDetails";
 import auth from '@react-native-firebase/auth';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { FetchUser } from "../../store/Authentication/Authaction";
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  const AuthReducer = useSelector((state: any) => state.onAuthStateChanged_Reducer);
+  const { sucess, Error } = useSelector(
+    (state: any) => state.FetchUser_reducer
+  );
 
+  const dispatch = useDispatch();
+  const FetchUser_Func = bindActionCreators(FetchUser, dispatch);
 
   React.useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged(async (user) => {
-      if (user) {
-        console.log(user.metadata);
-      }
-    });
-    unsubscribe();
+    try {
+      const subscriber = auth().onAuthStateChanged(FetchUser_Func);
+      return subscriber;
+    } catch (error) {
+      Alert.alert("Error", "Something went wront" + error, [
+        {
+          text: "OK",
+        },
+      ]);
+    }
   }, []);
 
   return (
     <NavigationContainer independent={true}>
-      {false ? (
+      {sucess ? (
         <Stack.Navigator>
           <Stack.Screen
             name="EnterInApp"
@@ -107,7 +120,7 @@ export default function App() {
           />
         </Stack.Navigator>
       ) : (
-        <Stack.Navigator>
+        Error && <Stack.Navigator>
           <Stack.Screen
             name="Login"
             component={Login}

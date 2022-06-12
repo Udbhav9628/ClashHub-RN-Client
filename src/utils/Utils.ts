@@ -4,6 +4,7 @@ export async function storeToken(Key: string, value: any, dispatch: any) {
   try {
     await AsyncStorage.setItem(Key, JSON.stringify(value));
   } catch (error: any) {
+    console.log(error);
     dispatch({
       type: 'Login_Fail',
       payload: error.message,
@@ -15,7 +16,8 @@ export async function Return_Token(ErrorType: any, dispatch: any) {
   try {
     const value = await AsyncStorage.getItem('Token');
     if (value !== null) {
-      return value;
+      const Userdata = JSON.parse(value);
+      return Userdata.Auth_Token;
     } else {
       dispatch({
         type: ErrorType,
@@ -23,6 +25,8 @@ export async function Return_Token(ErrorType: any, dispatch: any) {
       });
     }
   } catch (error: any) {
+    console.log(error);
+
     dispatch({
       type: ErrorType,
       payload: error.message,

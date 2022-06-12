@@ -45,7 +45,7 @@ const Createguild = ({ navigation }: { navigation: any }) => {
     GuildDescription: GuildDescription,
   };
 
-  const { User } = useSelector((state: any) => state.AuthReducer);
+  const { User } = useSelector((state: any) => state.FetchUser_reducer);
   const { loading, Error, sucess } = useSelector(
     (state: any) => state.Create_Guild_Reducer
   );

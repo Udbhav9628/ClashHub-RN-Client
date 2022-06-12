@@ -48,7 +48,7 @@ const GuildDetails = ({
 
   useFocusEffect(
     React.useCallback(() => {
-      Get_Guild_Matches(Item._id);
+      // Get_Guild_Matches(Item._id);
     }, [])
   );
 

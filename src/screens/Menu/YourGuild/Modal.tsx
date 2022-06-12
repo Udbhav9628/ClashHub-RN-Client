@@ -96,7 +96,7 @@ const ModalScreen = ({
     Date_Time: MaindateDateTime
   };
 
-  const { User } = useSelector((state: any) => state.AuthReducer);
+  const { User } = useSelector((state: any) => state.FetchUser_reducer);
 
   const Fetch_All_Match = bindActionCreators(Fetch_All_Matchs, dispatch);
 

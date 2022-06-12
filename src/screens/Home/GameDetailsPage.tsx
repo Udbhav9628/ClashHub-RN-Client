@@ -37,7 +37,7 @@ const GameDetailsPage = ({
     (state: any) => state.Join_Match_Reducer
   );
 
-  const { User } = useSelector((state: any) => state.AuthReducer);
+  const { User } = useSelector((state: any) => state.FetchUser_reducer);
 
   const { Home_Matchs } = useSelector(
     (state: any) => state.Get_Home_Page_Matches

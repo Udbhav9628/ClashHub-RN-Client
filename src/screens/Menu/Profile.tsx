@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const Profile = ({ navigation }: { navigation: any }) => {
 
-  const { User } = useSelector((state: any) => state.AuthReducer);
+  const { User } = useSelector((state: any) => state.FetchUser_reducer);
 
   return (
     <View style={styles.Container}>

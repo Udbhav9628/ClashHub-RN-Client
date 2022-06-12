@@ -12,12 +12,11 @@ function Fetch_All_Guild() {
         'Fetch_All_Guild_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
       const response = await axios.get(`${Ip_Address}/fetchallGuild`, {
         headers: {
           'content-type': 'application/json',
           Accept: 'application/json',
-          authToken: parsedToken,
+          authToken: Token,
         },
       });
       dispatch({
@@ -43,12 +42,11 @@ function getUserGuildDetails() {
         'get_User_Guild_Details_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
       const response = await axios.get(`${Ip_Address}/getUserGuildDetails`, {
         headers: {
           'content-type': 'application/json',
           Accept: 'application/json',
-          authToken: parsedToken,
+          authToken: Token,
         },
       });
       dispatch({
@@ -75,15 +73,13 @@ function Get_Guild_Matches_Details(id: any, MatchType: string) {
         'Get_Guild_Matches_Details_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
-
       const response = await axios.get(
         `${Ip_Address}/getGuildtournaments/${id}?MatchType=${MatchType}`,
         {
           headers: {
             'content-type': 'application/json',
             Accept: 'application/json',
-            authToken: parsedToken,
+            authToken: Token,
           },
         },
       );
@@ -111,8 +107,6 @@ function Create_Guild(Data: any) {
         'Create_Guild_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
-
       const response = await axios.post(
         `${Ip_Address}/createUserUniqueGuild`,
         Data,
@@ -120,7 +114,7 @@ function Create_Guild(Data: any) {
           headers: {
             'content-type': 'application/json',
             Accept: 'application/json',
-            authToken: parsedToken,
+            authToken: Token,
           },
         },
       );

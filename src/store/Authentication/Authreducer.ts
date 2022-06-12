@@ -31,42 +31,23 @@ export const AuthReducer = (State = [], action: any) => {
   }
 };
 
-export const onAuthStateChanged_Reducer = (State = [], action: any) => {
+export const FetchUser_reducer = (State = [], action: any) => {
   switch (action.type) {
-    case 'Firebase_Get_User_Sucess':
+    case 'FetchUser_Request':
       return {
-        sucess: true,
-        loading: false,
-        User_Phone: action.payload,
-      };
-    case 'Firebase_Get_User_Fail':
-      return {
-        sucess: false,
-        loading: false,
-        Error: action.payload,
-      };
-    case 'Clear_Error':
-      return {
-        ...State,
+        sucess: null,
+        User: null,
         Error: null,
       };
-    case 'Make_Auth_Sucess_Null':
+    case 'FetchUser_Sucess':
       return {
-        ...State,
-        sucess: null,
+        sucess: true,
+        User: action.payload,
       };
-    default:
-      return State;
-  }
-};
-
-export const Userdetail_Reducer = (State = [], action: any) => {
-  switch (action.type) {
-    case 'Userdetail_Reducer':
+    case 'FetchUser_Fail':
       return {
-        Name: '',
-        UserName: '',
-        Phone_No: 0,
+        sucess: false,
+        Error: action.payload,
       };
     default:
       return State;

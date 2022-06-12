@@ -25,9 +25,7 @@ const GuildMatchesDetails = ({
 
     const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
 
-    const [Disable, setDisable] = useState(false);
-
-    const { User } = useSelector((state: any) => state.AuthReducer);
+    const { User } = useSelector((state: any) => state.FetchUser_reducer);
 
     const isJoined = Item.Joined_User.find((Item: any) => {
         return Item.UserId === User.id;

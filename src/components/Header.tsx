@@ -15,7 +15,7 @@ const Header = ({
   title: string;
   title2: any;
 }) => {
-  const AuthReducer = useSelector((state: any) => state.AuthReducer);
+  const FetchUser_reducer = useSelector((state: any) => state.FetchUser_reducer);
 
   return (
     <View
@@ -53,7 +53,7 @@ const Header = ({
             </Text>
           </View>
         </View>
-        {AuthReducer.User ? (
+        {FetchUser_reducer.User ? (
           // IF LOGGEDIN IN
           <View
             style={{

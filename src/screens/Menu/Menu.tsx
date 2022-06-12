@@ -5,10 +5,10 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useSelector } from "react-redux";
 
 const Menu = ({ navigation }: { navigation: any }) => {
-  const AuthReducer = useSelector((state: any) => state.AuthReducer);
+  const FetchUser_reducer = useSelector((state: any) => state.FetchUser_reducer);
   return (
     <View style={styles.container}>
-      {AuthReducer.User ? (
+      {FetchUser_reducer.User ? (
         <>
           {/* MENU */}
           <View style={styles.menuWrapper}>

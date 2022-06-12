@@ -12,8 +12,6 @@ function Create_Match(Data: any) {
         'Create_Match_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
-
       const response = await axios.post(
         `${Ip_Address}/createtournament`,
         Data,
@@ -21,7 +19,7 @@ function Create_Match(Data: any) {
           headers: {
             'content-type': 'application/json',
             Accept: 'application/json',
-            authToken: parsedToken,
+            authToken: Token,
           },
         },
       );
@@ -48,14 +46,13 @@ function Fetch_Home_Page_Matchs() {
         'Get_Home_Page_Matches_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
       const response = await axios.get(
         `${Ip_Address}/fetchalltournament?Game_Name=`,
         {
           headers: {
             'content-type': 'application/json',
             Accept: 'application/json',
-            authToken: parsedToken,
+            authToken: Token,
           },
         },
       );
@@ -82,14 +79,13 @@ function Fetch_All_Matchs(SelectedMenu: any) {
         'Get_All_Matches_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
       const response = await axios.get(
         `${Ip_Address}/fetchalltournament?Game_Name=${SelectedMenu}`,
         {
           headers: {
             'content-type': 'application/json',
             Accept: 'application/json',
-            authToken: parsedToken,
+            authToken: Token,
           },
         },
       );
@@ -117,14 +113,13 @@ function Get_Joined_Matchs(Guild_id: any, MatchType: any) {
         'Get_Joined_Matches_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
       const response = await axios.get(
         `${Ip_Address}/GetJoinedMatches?MatchType=${MatchType}`,
         {
           headers: {
             'content-type': 'application/json',
             Accept: 'application/json',
-            authToken: parsedToken,
+            authToken: Token,
           },
         },
       );
@@ -151,7 +146,6 @@ function Update_Match(Data: any, id: any) {
         'Update_Result_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
       const response = await axios.put(
         `${Ip_Address}/Updatetournament/${id}`,
         Data,
@@ -159,7 +153,7 @@ function Update_Match(Data: any, id: any) {
           headers: {
             'content-type': 'application/json',
             Accept: 'application/json',
-            authToken: parsedToken,
+            authToken: Token,
           },
         },
       );
@@ -188,7 +182,6 @@ function Join_Match_action(id: any, Amount_to_be_paid: any) {
         'Join_Match_Fail',
         dispatch,
       )) as string;
-      const parsedToken = JSON.parse(Token);
       const response = await axios.put(
         `${Ip_Address}/Jointournament/${id}`,
         {Amount_to_be_paid: Amount_to_be_paid},
@@ -196,7 +189,7 @@ function Join_Match_action(id: any, Amount_to_be_paid: any) {
           headers: {
             'content-type': 'application/json',
             Accept: 'application/json',
-            authToken: parsedToken,
+            authToken: Token,
           },
         },
       );

@@ -37,8 +37,6 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     dispatch
   );
 
-  const { User } = useSelector((state: any) => state.AuthReducer);
-
   const { loading, sucess, Error, Amount } = useSelector(
     (state: any) => state.Get_Ballance_Reducer
   );
