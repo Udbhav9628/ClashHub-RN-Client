@@ -1,11 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { COLORS, SIZES } from "../../constants/Theame";
 import Icon from "react-native-vector-icons/Ionicons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import {
+  SignOut,
+} from "../../store/Authentication/Authaction";
 
 const Menu = ({ navigation }: { navigation: any }) => {
   const FetchUser_reducer = useSelector((state: any) => state.FetchUser_reducer);
+  const dispatch = useDispatch();
+  const SignOut_Func = bindActionCreators(SignOut, dispatch);
   return (
     <View style={styles.container}>
       {FetchUser_reducer.User ? (
@@ -57,7 +63,11 @@ const Menu = ({ navigation }: { navigation: any }) => {
                 <Text style={styles.Menutitle}>Support</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.menuTouchableOpacity}>
+            <TouchableOpacity style={styles.menuTouchableOpacity}
+              onPress={() => {
+                SignOut_Func()
+              }}
+            >
               <View style={styles.menuItem}>
                 <Icon name="log-out" size={28} color="black" />
                 <Text style={styles.Menutitle}>Logout</Text>
@@ -128,7 +138,7 @@ const Menu = ({ navigation }: { navigation: any }) => {
           <View style={styles.menuWrapper}>
             <TouchableOpacity style={styles.menuTouchableOpacity}>
               <View style={styles.menuItem2}>
-                <Icon name="square-phone" size={28} color="black" />
+                {/* <Icon name="square-phone" size={28} color="black" /> */}
                 <Text style={styles.Menutitle}>Support</Text>
               </View>
             </TouchableOpacity>

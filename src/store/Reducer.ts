@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {AuthReducer, FetchUser_reducer} from './Authentication/Authreducer';
+import {FetchUser_reducer} from './Authentication/Authreducer';
 import {
   Get_Home_Page_Matches,
   Create_matches_Reducer,
@@ -20,7 +20,6 @@ import {
 } from './Guild/GuildReducer';
 
 export default combineReducers({
-  AuthReducer,
   Get_Home_Page_Matches,
   Create_matches_Reducer,
   Get_All_Matches,

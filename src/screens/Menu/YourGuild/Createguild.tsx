@@ -19,10 +19,14 @@ import {
   Clear_Guild_Reducer_Sucess,
 } from "../../../store/Guild/GuildAction";
 import Heading from "../../../components/Heading";
+import AuthLayout from "../../Auth/AuthLayout";
 
 const Createguild = ({ navigation }: { navigation: any }) => {
   const [GuildName, setGuildName] = useState("");
   const [GuildNameLength, setGuildNameLength] = useState();
+
+  const [GuildID, setGuildID] = useState("");
+  const [GuildIDLength, setGuildIDLength] = useState();
 
   const [GuildDescription, setGuildDescription] = useState("");
   const [GuildDescriptionLength, setGuildDescriptionLength] = useState();
@@ -39,11 +43,6 @@ const Createguild = ({ navigation }: { navigation: any }) => {
     Clear_Guild_Reducer_Error,
     dispatch
   );
-
-  const Data = {
-    GuildName: GuildName,
-    GuildDescription: GuildDescription,
-  };
 
   const { User } = useSelector((state: any) => state.FetchUser_reducer);
   const { loading, Error, sucess } = useSelector(
@@ -97,51 +96,16 @@ const Createguild = ({ navigation }: { navigation: any }) => {
   }, [Error]);
   return (
     <>
-      <Heading navigation={navigation} Title={" Create Guild"} />
+      <Heading navigation={navigation} Title={"Create Guild"} />
       <ScrollView
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         style={styles.Container}
       >
-        <View
-          style={{
-            paddingVertical: SIZES.base,
-            backgroundColor: COLORS.white,
-          }}
-        >
-          <View
-            style={{
-              flex: 1,
-              marginHorizontal: SIZES.padding,
-            }}
-          >
+        <View>
+          <View>
             {/* Title & Sub Title*/}
-            <View
-              style={{
-                marginTop: SIZES.base,
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: SIZES.h2,
-                  lineHeight: 30,
-                  fontWeight: "bold",
-                }}
-              >
-                Let's Create Your Guild
-              </Text>
-              <Text
-                style={{
-                  marginTop: SIZES.base,
-                  color: COLORS.darkGray,
-                  fontSize: SIZES.body3,
-                  lineHeight: 22,
-                }}
-              >
-                This is One Time Process
-              </Text>
-            </View>
+            <AuthLayout Title={"Let's Create Your Guild"} SubTitle={"This is one time Process"} />
 
             {/* Content / Children */}
           </View>
@@ -153,35 +117,53 @@ const Createguild = ({ navigation }: { navigation: any }) => {
           }}
         >
           <Textinput
-            containerStyle={{ flex: 1 }}
-            label="Enter Guild Name"
-            Placeholder={"Enter Here"}
+            containerStyle={{ flex: 1, marginTop: 15 }}
+            label="Guild Name"
+            Placeholder={"Enter Name"}
             KeyboardType="default"
             autoCapatilize={"words"}
-            maxLength={10}
+            maxLength={20}
             onchange={(Value: any) => {
-              CalculateLength(Value, setGuildNameLength, 10);
-              setGuildName(Value);
+              CalculateLength(Value, setGuildNameLength, 20);
+              const text = Value.replace(/\s{2,}/g, ' ').trim()
+              setGuildName(text);
             }}
             Msg={
-              GuildNameLength || GuildNameLength === 0 ? GuildNameLength : 10
+              GuildNameLength || GuildNameLength === 0 ? GuildNameLength : 20
             }
           />
           <Textinput
-            containerStyle={{ flex: 1, marginTop: 15 }}
+            containerStyle={{ flex: 1, marginTop: 20 }}
+            label="Guild ID"
+            Placeholder={"It must be Unique"}
+            KeyboardType="default"
+            autoCapatilize={"words"}
+            maxLength={20}
+            onchange={(Value: any) => {
+              CalculateLength(Value, setGuildIDLength, 20);
+              const text = Value.replace(/\s{2,}/g, ' ').trim()
+              setGuildID(text);
+            }}
+            Msg={
+              GuildIDLength || GuildIDLength === 0 ? GuildIDLength : 20
+            }
+          />
+          <Textinput
+            containerStyle={{ flex: 1, marginTop: 20 }}
             label="Guild Description"
             Placeholder={"Entre Description"}
             KeyboardType="default"
             autoCapatilize={"words"}
-            maxLength={11}
+            maxLength={80}
             onchange={(Value: any) => {
-              CalculateLength(Value, setGuildDescriptionLength, 11);
-              setGuildDescription(Value);
+              CalculateLength(Value, setGuildDescriptionLength, 80);
+              const text = Value.replace(/\s{2,}/g, ' ').trim()
+              setGuildDescription(text);
             }}
             Msg={
               GuildDescriptionLength || GuildDescriptionLength === 0
                 ? GuildDescriptionLength
-                : 11
+                : 80
             }
           />
           {/* Create Guild Button */}
@@ -196,6 +178,11 @@ const Createguild = ({ navigation }: { navigation: any }) => {
               backgroundColor: COLORS.primary,
             }}
             onPress={() => {
+              const Data = {
+                GuildName: GuildName,
+                GuildID: GuildID,
+                GuildDescription: GuildDescription,
+              };
               CreateMatchOnClick(Data);
             }}
           >
@@ -228,7 +215,6 @@ const styles = StyleSheet.create({
   Container: {
     backgroundColor: COLORS.white,
     flex: 1,
-    marginTop: 10,
   },
   Header: {
     alignItems: "center",

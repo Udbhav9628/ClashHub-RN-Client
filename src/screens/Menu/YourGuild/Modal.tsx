@@ -122,7 +122,10 @@ const ModalScreen = ({
           text: "OK",
           onPress: () => {
             setSelect_Game('')
+            setDisable(false)
             setMaindateDateTime('')
+            setFormateddate('')
+            setFormatedTime('')
             navigation.navigate("YourGuildsMatches");
             Fetch_All_Match("");
             setModalVisible(!modalVisible);
@@ -141,6 +144,8 @@ const ModalScreen = ({
           onPress: () => {
             setSelect_Game('')
             setMaindateDateTime('')
+            setFormateddate('')
+            setFormatedTime('')
             setDisable(false);
             Clear_Match_Error();
           },

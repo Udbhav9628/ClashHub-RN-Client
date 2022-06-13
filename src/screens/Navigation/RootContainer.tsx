@@ -33,8 +33,17 @@ export default function App() {
 
   React.useEffect(() => {
     try {
-      const subscriber = auth().onAuthStateChanged(FetchUser_Func);
-      return subscriber;
+      const Unsubscriber = auth().onAuthStateChanged((user) => {
+        if (user) {
+          console.log('In Root Fetch user');
+          FetchUser_Func(user);
+          Unsubscriber();
+        } else {
+          console.log('In Root Fetch user else part');
+          FetchUser_Func(null);
+          Unsubscriber();
+        }
+      });
     } catch (error) {
       Alert.alert("Error", "Something went wront" + error, [
         {

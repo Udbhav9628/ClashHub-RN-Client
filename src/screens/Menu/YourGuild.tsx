@@ -19,7 +19,6 @@ import {
   getUserGuildDetails,
   Clear_Guild_Reducer_Error,
 } from "../../store/Guild/GuildAction";
-import { useFocusEffect } from "@react-navigation/native";
 import Createguild from "./YourGuild/Createguild";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -99,7 +98,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
             >
               <Text style={styles.ProfileText}>{Guild_Details.GuildName}</Text>
               <Text style={styles.NotificationText2}>
-                {Guild_Details.Members.length} Followers
+                {Guild_Details.Followers.length} Followers
               </Text>
               <View style={{ marginBottom: 10 }}>
                 <Text style={styles.NotificationText2}>

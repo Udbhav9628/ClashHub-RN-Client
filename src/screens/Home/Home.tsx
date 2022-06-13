@@ -191,6 +191,7 @@ const Home = ({ navigation }: { navigation: any }) => {
       </View>
       <View
         style={{
+          height: 214,
           marginBottom: 5,
         }}
       >
@@ -261,7 +262,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                     }}
                   >
                     <Image
-                      source={logo}
+                      source={{ uri: `https://api.multiavatar.com/${item.GuildName}.png` }}
                       style={{
                         height: 60,
                         width: 60,
@@ -286,7 +287,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                         color: COLORS.gray,
                       }}
                     >
-                      {item.Members.length} Followers
+                      {item.Followers.length} Followers
                     </Text>
                   </View>
                 </TouchableOpacity>

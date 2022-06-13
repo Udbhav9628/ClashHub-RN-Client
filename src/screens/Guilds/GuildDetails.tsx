@@ -48,7 +48,7 @@ const GuildDetails = ({
 
   useFocusEffect(
     React.useCallback(() => {
-      // Get_Guild_Matches(Item._id);
+      Get_Guild_Matches(Item._id, '');
     }, [])
   );
 
@@ -71,7 +71,7 @@ const GuildDetails = ({
       <Heading navigation={navigation} Title={" Guild Details"} />
       <View style={styles.Profile}>
         <Image
-          source={logo}
+          source={{ uri: `https://api.multiavatar.com/${Item.GuildName}.png` }}
           style={{
             width: 150,
             height: 150,
@@ -80,7 +80,7 @@ const GuildDetails = ({
         />
         <Text style={styles.ProfileText}>{Item.GuildName}</Text>
         <Text style={styles.NotificationText2}>
-          {Item.Members.length} Followers
+          {Item.GuildID}
         </Text>
         <TouchableOpacity
           style={{

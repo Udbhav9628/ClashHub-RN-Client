@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   StyleSheet
 } from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
 import { COLORS, SIZES } from "../../constants/Theame";
 import FormInput from "./FormInput";
 import { validateNumber } from "../../utils/Utils";
@@ -16,8 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
   Login_User,
-  Clear_Auth_Error,
-  Clear_Auth_Sucess,
+  Clear_Auth_Message
 } from "../../store/Authentication/Authaction";
 import messaging from '@react-native-firebase/messaging';
 import getAuth from "@react-native-firebase/auth";
@@ -33,8 +33,6 @@ const Login = ({ navigation }: { navigation: any }) => {
 
   const dispatch = useDispatch();
   const Login_User_Func = bindActionCreators(Login_User, dispatch);
-  const Clear_Error_Func = bindActionCreators(Clear_Auth_Error, dispatch);
-  const Clear_Sucess_Func = bindActionCreators(Clear_Auth_Sucess, dispatch);
 
   function HandleOnPress() {
     setDisable(true);
@@ -53,6 +51,25 @@ const Login = ({ navigation }: { navigation: any }) => {
       ]);
     }
   }
+
+  const { loading, sucess, Message } = useSelector(
+    (state: any) => state.FetchUser_reducer
+  );
+
+  const Clear_Auth_Message_func = bindActionCreators(Clear_Auth_Message, dispatch);
+
+  useEffect(() => {
+    if (Message) {
+      Clear_Auth_Message_func()
+      Alert.alert("Error", Message, [
+        {
+          text: "OK",
+        },
+      ]);
+    }
+  }, [Message])
+
+
   const [confirm, setConfirm] = useState({});
   async function signInWithPhoneNumber(phoneNumber: any) {
     try {
@@ -70,7 +87,8 @@ const Login = ({ navigation }: { navigation: any }) => {
 
   async function confirmCode(code: any, confirm: any) {
     try {
-      await confirm.confirm(code);
+      const responce = await confirm.confirm(code);
+      console.log(responce);
     } catch (error) {
       Alert.alert("Error", 'Invalid code.', [
         {
@@ -80,29 +98,32 @@ const Login = ({ navigation }: { navigation: any }) => {
     }
   }
 
-  React.useEffect(() => {
-    const auths = getAuth();
-    const users = auths.currentUser;
-    if (users) {
-      auth().signOut().then(() => console.log('User signed out!'));
-    }
-    try {
-      const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-      return subscriber;
-    } catch (error) {
-      Alert.alert("Error", "Something went wront" + error, [
-        {
-          text: "OK",
-        },
-      ]);
-    }
-  }, []);
-
-  function onAuthStateChanged(user: any) {
-    if (user) {
-      setNowregister(true)
-    }
-  }
+  useFocusEffect(
+    React.useCallback(() => {
+      const auths = getAuth();
+      const users = auths.currentUser;
+      let unsubscribe: any;
+      if (users) {
+        auth().signOut().then(() => console.log('User signed out!'));
+      }
+      try {
+        unsubscribe = auth().onAuthStateChanged((user) => {
+          if (user) {
+            setNowregister(true)
+          }
+        });
+      } catch (error) {
+        Alert.alert("Error", "Something went wront" + error, [
+          {
+            text: "OK",
+          },
+        ]);
+      }
+      return () => {
+        unsubscribe()
+      };
+    }, [])
+  );
 
   useEffect(() => {
     if (Nowregister) {
@@ -122,31 +143,27 @@ const Login = ({ navigation }: { navigation: any }) => {
     }
   }
 
-  const { loading, sucess, Error } = useSelector(
-    (state: any) => state.AuthReducer
-  );
-
   useEffect(() => {
     if (sucess) {
-      Clear_Sucess_Func();
+      // Clear_Sucess_Func();
       setDisable(false);
       navigation.navigate("EnterInApp");
     }
   }, [sucess]);
 
-  useEffect(() => {
-    if (Error) {
-      Alert.alert("Error", Error + " , Try Again", [
-        {
-          text: "OK",
-          onPress: () => {
-            setDisable(false);
-            Clear_Error_Func();
-          },
-        },
-      ]);
-    }
-  }, [Error]);
+  // useEffect(() => {
+  //   if (Error) {
+  //     Alert.alert("Error", Error, [
+  //       {
+  //         text: "OK",
+  //         onPress: () => {
+  //           setDisable(false);
+  //           // Clear_Error_Func();
+  //         },
+  //       },
+  //     ]);
+  //   }
+  // }, [Error]);
   return (
     <ScrollView
       showsHorizontalScrollIndicator={false}
@@ -203,9 +220,23 @@ const Login = ({ navigation }: { navigation: any }) => {
         <View>
           <TouchableOpacity
             style={style.FooterContainer_Touchable}
-            onPress={() => navigation.navigate("homes")}
           >
-            <Text style={style.FooterContainer_Text}>Continue</Text>
+            {loading ? (
+              <View>
+                <ActivityIndicator size="large" color={COLORS.primary} />
+              </View>
+            ) : (
+              <Text
+                style={{
+                  color: COLORS.white,
+                  fontWeight: "bold",
+                  fontSize: SIZES.body3,
+                  lineHeight: 22,
+                }}
+              >
+                Continue
+              </Text>
+            )}
           </TouchableOpacity>
         </View>
         {/* Terms And Conditions */}

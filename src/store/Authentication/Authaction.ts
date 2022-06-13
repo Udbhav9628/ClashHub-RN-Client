@@ -2,14 +2,17 @@ import axios from 'axios';
 import {Ip_Address} from '../../constants/Data';
 import {storeToken} from '../../utils/Utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import auth from '@react-native-firebase/auth';
+import getAuth from '@react-native-firebase/auth';
 
 function Register_User(Data: any, Firebase_auth_token: any) {
   return async function (dispatch: any) {
     try {
       dispatch({
-        type: 'Login_Request',
+        type: 'FetchUser_Request',
       });
-
+      console.log('in Register function');
+      console.log(Data);
       const responce = await axios.post(`${Ip_Address}/Register`, Data, {
         headers: {
           'content-type': 'application/json',
@@ -18,15 +21,23 @@ function Register_User(Data: any, Firebase_auth_token: any) {
         },
       });
       await storeToken('Token', responce.data, dispatch);
-      dispatch({
-        type: 'Login_Sucess',
-        payload: responce.data,
-      });
+      if (responce.data.Message) {
+        dispatch({
+          type: 'FetchUser_Fail',
+          payload: responce.data.Message,
+        });
+      } else {
+        dispatch({
+          type: 'FetchUser_Sucess',
+          payload: responce.data,
+        });
+      }
     } catch (error: any) {
       dispatch({
-        type: 'Login_Fail',
+        type: 'FetchUser_Fail',
         payload: error.message,
       });
+      console.log(error.message);
     }
   };
 }
@@ -35,7 +46,7 @@ function Login_User(Msgtoken: any, Token: any) {
   return async function (dispatch: any) {
     try {
       dispatch({
-        type: 'Login_Request',
+        type: 'FetchUser_Request',
       });
       const Data = {
         Msgtoken,
@@ -50,12 +61,12 @@ function Login_User(Msgtoken: any, Token: any) {
       });
       await storeToken('Token', responce.data, dispatch);
       dispatch({
-        type: 'Login_Sucess',
+        type: 'FetchUser_Sucess',
         payload: responce.data,
       });
     } catch (error: any) {
       dispatch({
-        type: 'Login_Fail',
+        type: 'FetchUser_Fail',
         payload: error.message,
       });
     }
@@ -97,6 +108,20 @@ function FetchUser(user: any) {
   };
 }
 
+function SignOut() {
+  return async function (dispatch: any) {
+    try {
+      auth()
+        .signOut()
+        .then(() => console.log('User signed out in SignOut function'));
+      await AsyncStorage.removeItem('Token');
+      dispatch({
+        type: 'SignOut',
+      });
+    } catch (error) {}
+  };
+}
+
 function Clear_Auth_Error() {
   return (dispatch: any) => {
     dispatch({
@@ -113,10 +138,20 @@ function Clear_Auth_Sucess() {
   };
 }
 
+function Clear_Auth_Message() {
+  return (dispatch: any) => {
+    dispatch({
+      type: 'Make_Auth_Message_Null',
+    });
+  };
+}
+
 export {
   Login_User,
   Clear_Auth_Error,
   Clear_Auth_Sucess,
   Register_User,
   FetchUser,
+  SignOut,
+  Clear_Auth_Message,
 };

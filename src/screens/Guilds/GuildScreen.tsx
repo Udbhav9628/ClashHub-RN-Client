@@ -94,10 +94,15 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
                 }}
               >
                 <View style={styles.NotificationWrapper}>
-                  <Image source={logo} style={styles.Image} />
+                  <Image source={{ uri: `https://api.multiavatar.com/${item.GuildName}.png` }}
+                    style={{
+                      height: 60,
+                      width: 60,
+                      borderRadius: SIZES.radius,
+                    }} />
                   <Text style={styles.NotificationText}>{item.GuildName}</Text>
                   <Text style={styles.NotificationText2}>
-                    {item.Members.length} Followers
+                    {item.Followers.length} Followers
                   </Text>
                 </View>
               </TouchableOpacity>

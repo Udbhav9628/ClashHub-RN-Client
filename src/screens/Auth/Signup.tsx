@@ -6,22 +6,20 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-  StyleSheet
+  StyleSheet,
+  ActivityIndicator
 } from "react-native";
 import { COLORS, SIZES } from "../../constants/Theame";
 import FormInput from "./FormInput";
 import { validateNumber } from "../../utils/Utils";
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import getAuth from "@react-native-firebase/auth";
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import messaging from '@react-native-firebase/messaging';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import {
-  Register_User,
-  Clear_Auth_Error,
-  Clear_Auth_Sucess,
-} from "../../store/Authentication/Authaction";
+import { Register_User } from "../../store/Authentication/Authaction";
+import { useFocusEffect } from '@react-navigation/native';
 
 const Signup = ({ navigation }: { navigation: any }) => {
   const [Name, setName] = useState("");
@@ -33,6 +31,11 @@ const Signup = ({ navigation }: { navigation: any }) => {
 
   const dispatch = useDispatch();
   const Register_User_func = bindActionCreators(Register_User, dispatch);
+
+  const { loading, Message } = useSelector(
+    (state: any) => state.FetchUser_reducer
+  );
+
 
   async function HandleOnPress() {
     if (
@@ -50,24 +53,25 @@ const Signup = ({ navigation }: { navigation: any }) => {
     }
   }
 
-  useEffect(() => {
-    try {
-      const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-      return subscriber;
-    } catch (error) {
-      Alert.alert("Error", "Something went wront" + error, [
-        {
-          text: "OK",
-        },
-      ]);
-    }
-  }, []);
-
-  function onAuthStateChanged(user: any) {
-    if (user) {
-      setNowregister(true)
-    }
-  }
+  useFocusEffect(
+    React.useCallback(() => {
+      let unsubscribe: any;
+      try {
+        unsubscribe = auth().onAuthStateChanged((user) => {
+          if (user) {
+            setNowregister(true)
+          }
+        });
+      } catch (error) {
+        Alert.alert("Error", "Something went wront" + error, [
+          {
+            text: "OK",
+          },
+        ]);
+      }
+      return () => unsubscribe();
+    }, [])
+  );
 
   useEffect(() => {
     if (Nowregister) {
@@ -99,7 +103,6 @@ const Signup = ({ navigation }: { navigation: any }) => {
   const [confirm, setConfirm] = useState({});
 
   async function signInWithPhoneNumber(phoneNumber: any) {
-    console.log('In Function');
     try {
       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
       setConfirm(confirmation);
@@ -115,6 +118,7 @@ const Signup = ({ navigation }: { navigation: any }) => {
   async function confirmCode(code: any, confirm: any) {
     try {
       const responce = await confirm.confirm(code);
+      console.log(responce);
     } catch (error) {
       Alert.alert("Error", "Something went wront" + error, [
         {
@@ -201,9 +205,23 @@ const Signup = ({ navigation }: { navigation: any }) => {
           <View>
             <TouchableOpacity
               style={style.FooterContainer_Touchable}
-              onPress={() => navigation.navigate("homes")}
             >
-              <Text style={style.FooterContainer_Text}>Continue</Text>
+              {loading ? (
+                <View>
+                  <ActivityIndicator size="large" color={COLORS.primary} />
+                </View>
+              ) : (
+                <Text
+                  style={{
+                    color: COLORS.white,
+                    fontWeight: "bold",
+                    fontSize: SIZES.body3,
+                    lineHeight: 22,
+                  }}
+                >
+                  Continue
+                </Text>
+              )}
             </TouchableOpacity>
           </View>
           {/* Terms And Conditions */}
@@ -252,7 +270,7 @@ const Signup = ({ navigation }: { navigation: any }) => {
             <FormInput
               containerStyle={{ marginTop: SIZES.radius }}
               label="Username"
-              Placeholder={"Create Username"}
+              Placeholder={"It is unique non Changeable, Choose Wisely"}
               KeyboardType="default"
               autocomplete="off"
               maxLength={25}
