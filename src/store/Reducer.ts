@@ -9,8 +9,9 @@ import {
   Update_Match_Result_Reducer,
 } from './Match/Matchreducer';
 import {
-  Make_Payment_Reducer,
+  Add_Wallet_Ballance_Reducer,
   Get_Ballance_Reducer,
+  ClubWallet_Ballance_reducer,
 } from './Payment/PaymentReducer';
 import {
   Get_All_Guild,
@@ -25,7 +26,7 @@ export default combineReducers({
   Get_All_Matches,
   Join_Match_Reducer,
   Get_Joined_Match_Reducer,
-  Make_Payment_Reducer,
+  Add_Wallet_Ballance_Reducer,
   Get_Ballance_Reducer,
   Get_All_Guild,
   Get_user_Guild_details_reducer,
@@ -33,4 +34,5 @@ export default combineReducers({
   Get_Guild_Matchs_Reducer,
   Update_Match_Result_Reducer,
   FetchUser_reducer,
+  ClubWallet_Ballance_reducer,
 });

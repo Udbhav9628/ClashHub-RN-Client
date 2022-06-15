@@ -20,6 +20,7 @@ import auth from '@react-native-firebase/auth';
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { FetchUser } from "../../store/Authentication/Authaction";
+import ClubWallet from "../Wallet/ClubWallet";
 
 const Stack = createStackNavigator();
 
@@ -81,6 +82,13 @@ export default function App() {
           <Stack.Screen
             name="Wallet"
             component={Wallet}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="ClubWallet"
+            component={ClubWallet}
             options={{
               headerShown: false,
             }}

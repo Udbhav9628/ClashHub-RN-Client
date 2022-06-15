@@ -10,7 +10,6 @@ import {
 import React, { useState, useEffect } from "react";
 import { SIZES, COLORS } from "../../constants/Theame";
 import Heading from "../../components/Heading";
-const logo = require("../../Assets/Images/logo_02.png");
 import Icon from "react-native-vector-icons/Ionicons";
 import ModalScreen from "./YourGuild/Modal";
 import { useDispatch, useSelector } from "react-redux";
@@ -83,7 +82,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
           <Heading navigation={navigation} Title={"  Your Guild"} />
           <View style={styles.Profile}>
             <Image
-              source={logo}
+              source={{ uri: `https://api.multiavatar.com/${Guild_Details.GuildName}.png` }}
               style={{
                 borderRadius: 50,
                 width: 100,
@@ -102,7 +101,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
               </Text>
               <View style={{ marginBottom: 10 }}>
                 <Text style={styles.NotificationText2}>
-                  Play FreeFire Matches Here and win real cash Prize
+                  {Guild_Details.GuildDescription}
                 </Text>
               </View>
             </View>
@@ -123,8 +122,6 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
           </View>
           <View
             style={{
-              marginVertical: SIZES.base,
-              marginHorizontal: SIZES.padding,
               flexDirection: "row",
               justifyContent: "space-evenly",
             }}
@@ -180,7 +177,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                 <View
                   style={{
                     position: "absolute",
-                    top: 22,
+                    top: 20,
                     right: 5,
                   }}
                 >
@@ -209,7 +206,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                 <View
                   style={{
                     position: "absolute",
-                    top: 22,
+                    top: 20,
                     right: 5,
                   }}
                 >
@@ -238,7 +235,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                 <View
                   style={{
                     position: "absolute",
-                    top: 22,
+                    top: 20,
                     right: 5,
                   }}
                 >
@@ -261,7 +258,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                 <View
                   style={{
                     position: "absolute",
-                    top: 22,
+                    top: 20,
                     right: 5,
                   }}
                 >

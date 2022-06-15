@@ -1,39 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
-  FlatList,
   ActivityIndicator,
   Alert,
 } from "react-native";
-import { SIZES, COLORS } from "../../constants/Theame";
+import { SIZES, COLORS, FONTS } from "../../constants/Theame";
 import Icons from "../../constants/Icons";
-import { PaymentData } from "../../constants/Data";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import Heading from "../../components/Heading";
 import { useFocusEffect } from "@react-navigation/native";
-import {
-  GetUserWalletBallance,
-  Make_Payment_action,
-} from "../../store/Payment/PaymentAction";
+import { GetUserWalletBallance, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../../store/Payment/PaymentAction";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import HeadingComp from "../../components/HeadingComp";
 import AllInOneSDKManager from 'paytm_allinone_react-native';
 import { MID, URL_SCHEME } from '../../constants/Data';
-import { Gernerate_Paytm_Token } from "../../store/Payment/PaymentAction";
+import { Gernerate_Paytm_Token, Add_Wallet_Ballance } from "../../store/Payment/PaymentAction";
+import TransctionModal from "./TransctionModal";
 
 const Wallet = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
-  const dispatch = useDispatch();
-  const Make_Payment = bindActionCreators(Make_Payment_action, dispatch);
+  const [modalVisible, setModalVisible] = useState(false);
 
+  const dispatch = useDispatch();
   const Get_User_Wallet_Ballance = bindActionCreators(
     GetUserWalletBallance,
+    dispatch
+  );
+  const Clear_Payment_Reducer_Error_Func = bindActionCreators(
+    Clear_Payment_Reducer_Error,
+    dispatch
+  );
+
+  const Clear_Payment_Reducer_Sucess_Func = bindActionCreators(
+    Clear_Payment_Reducer_Sucess,
+    dispatch
+  );
+
+  const Add_Wallet_Ballance_FUNC = bindActionCreators(
+    Add_Wallet_Ballance,
     dispatch
   );
 
@@ -41,29 +50,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     (state: any) => state.Get_Ballance_Reducer
   );
 
-  // const [modalVisible, setModalVisible] = useState(false);
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     setModalVisible(false);
-  //   }, [])
-  // );
-
-  useFocusEffect(
-    React.useCallback(() => {
-      Get_User_Wallet_Ballance();
-      setTempLoading(false);
-    }, [])
-  );
-  //For Error
-  useFocusEffect(
-    React.useCallback(() => {
-      if (Error) {
-        Alert.alert("Error", Error, [{ text: "OK" }]);
-      }
-    }, [Error])
-  );
-
+  // To DO - Chech comming responce see DOCUMENTATION
   const AddMoneyFunction = async () => {
     let amt = "10.00";
     const token = await Gernerate_Paytm_Token();
@@ -80,7 +67,9 @@ const Wallet = ({ navigation }: { navigation: any }) => {
         URL_SCHEME
       )
         .then((result) => {
-          console.log("gateway response", result);
+          if (result.STATUS === 'TXN_SUCCESS') {
+            Add_Wallet_Ballance_FUNC(result.TXNAMOUNT)
+          }
         })
         .catch((err) => {
           console.log("gateway error", err);
@@ -91,226 +80,303 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     setTempLoading(false)
   }
 
-  //**********************Header********************/
-  function WalletTopSection() {
-    return (
-      <>
-        {/* Card */}
-        <View style={style.Body}>
-          <ImageBackground source={Icons.Crad} style={style.Card_Image}>
-            <Text
-              style={{
-                position: "absolute",
-                top: 8,
-                right: 12,
-                fontSize: 24,
-                fontWeight: "bold",
-                color: COLORS.white,
-              }}
-            >
-              Gamer
-            </Text>
-            {/* Currunt Ballance */}
-            <View
-              style={{
-                position: "absolute",
-                top: 60,
-                paddingHorizontal: SIZES.padding,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 17,
-                  lineHeight: 22,
-                  fontWeight: "bold",
-                  color: COLORS.lightGray2,
-                }}
-              >
-                Current Balance
-              </Text>
-              <Text
-                style={{
-                  marginTop: 8,
-                  fontSize: 22,
-                  lineHeight: 22,
-                  fontWeight: "bold",
-                  color: COLORS.white,
-                }}
-              >
-                &#x20B9; {Amount.Ballance}
-              </Text>
-            </View>
-            {/* User Details */}
-            <View
-              style={{
-                position: "absolute",
-                bottom: 10,
-                paddingHorizontal: SIZES.padding,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 17,
-                  fontWeight: "700",
-                  color: COLORS.white,
-                }}
-              >
-                @Munde_665
-              </Text>
-            </View>
-            {/* Tag Line */}
-            <View
-              style={{
-                position: "absolute",
-                bottom: 10,
-                right: 8,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 12,
-                  fontWeight: "700",
-                  color: COLORS.white,
-                }}
-              >
-                #PlayWinEarn
-              </Text>
-            </View>
-          </ImageBackground>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            marginTop: 12,
-          }}
-        >
-          {/* ADD MONEY */}
-          <View style={style.Body}>
-            <TouchableOpacity
-              style={{
-                alignItems: "center",
-              }}
-              onPress={() => {
-                AddMoneyFunction()
-                setTempLoading(true)
-              }}
-            >
-              <MaterialCommunityIcons
-                name="credit-card-plus"
-                size={22}
-                color="black"
-              />
-              <Text style={{ ...style.Menutitle, color: COLORS.black }}>
-                Deposit
-              </Text>
-            </TouchableOpacity>
-          </View>
-          {/* WithDrea MONEY */}
-          <View style={style.Body}>
-            <TouchableOpacity
-              style={{
-                alignItems: "center",
-              }}
-              onPress={() => navigation.navigate("PaymentSucess")}
-            >
-              <MaterialCommunityIcons
-                name="credit-card-minus"
-                size={22}
-                color="black"
-              />
-              <Text style={{ ...style.Menutitle, color: COLORS.black }}>
-                Withdraw
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{ marginTop: 5 }}>
-          <HeadingComp
-            navigation={null}
-            Title={"Transctions"}
-            ShowViewAll={false}
-            Navigate_to={''}
-            Query={null}
-          />
-        </View>
-      </>
-    );
-  }
-  //**********************Header********************/
+  useFocusEffect(
+    React.useCallback(() => {
+      Get_User_Wallet_Ballance();
+      setTempLoading(false);
+    }, [])
+  );
 
-  return (
-    <View style={style.Container}>
-      <Heading navigation={navigation} Title={"     Wallet"} />
-      {TempLoading || loading ? (
+  useEffect(() => {
+    if (Error) {
+      Clear_Payment_Reducer_Error_Func()
+      Alert.alert("Error", Error, [{ text: "OK" }]);
+    }
+  }, [Error])
+
+  const { Addloading, Addsucess, AddError } = useSelector(
+    (state: any) => state.Add_Wallet_Ballance_Reducer
+  );
+
+  //Add Money Sucess
+  useEffect(() => {
+    if (Addsucess) {
+      Clear_Payment_Reducer_Sucess_Func()
+      Get_User_Wallet_Ballance();
+      Alert.alert("Message", 'Payment Sucessfull', [{ text: "OK" }]);
+    }
+  }, [Addsucess])
+
+  //Add Money Fail
+  useEffect(() => {
+    if (AddError) {
+      Clear_Payment_Reducer_Sucess_Func()
+      Alert.alert("Error", 'Payment Faild!, Content Us if Money get duducted from your Bank, Do not worry we will make you refund if needed ', [{ text: "OK" }]);
+    }
+  }, [AddError])
+
+  if (Addloading) {
+    return (
+      <View style={style.Container}>
+        <Heading navigation={navigation} Title={"     Wallet"} />
         <View
           style={{
             flex: 1,
             justifyContent: "center",
+            alignItems: "center",
           }}
         >
+          <Text
+            style={{
+              textAlign: 'center',
+              ...FONTS.h4,
+              fontWeight: "700",
+            }}
+          >
+            Do Not Press Back Button! Processing Payment
+          </Text>
           <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
-      ) : (
-        sucess && (
-          <>
-            {/* Modal */}
-            {/* <View>
-              <AddMoneyModal
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-                navigation={navigation}
-              />
-            </View> */}
-            <FlatList
-              data={PaymentData}
-              keyExtractor={(Item) => `${Item.id}`}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              ListHeaderComponent={<>{WalletTopSection()}</>}
-              renderItem={({ item }: { item: any }) => (
-                <View style={style.Elevation}>
-                  <TouchableOpacity key={item.key}>
-                    <View style={style.NotificationWrapper}>
-                      <View
+      </View>
+    );
+  } else {
+    return (
+      <View style={style.Container}>
+        <Heading navigation={navigation} Title={"     Wallet"} />
+        {TempLoading || loading ? (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+            }}
+          >
+            <ActivityIndicator size="large" color={COLORS.primary} />
+          </View>
+        ) : (
+          sucess && (
+            <>
+              <>
+                {/* Card */}
+                <View style={style.Body}>
+                  <ImageBackground source={Icons.Crad} style={style.Card_Image}>
+                    <Text
+                      style={{
+                        position: "absolute",
+                        top: 8,
+                        right: 12,
+                        fontSize: 24,
+                        fontWeight: "bold",
+                        color: COLORS.white,
+                      }}
+                    >
+                      Gamer
+                    </Text>
+                    {/* Currunt Ballance */}
+                    <View
+                      style={{
+                        position: "absolute",
+                        top: 60,
+                        paddingHorizontal: SIZES.padding,
+                      }}
+                    >
+                      <Text
                         style={{
-                          height: 40,
-                          width: 40,
-                          marginRight: 5,
-                          justifyContent: "center",
-                          borderRadius: SIZES.radius,
+                          fontSize: 17,
+                          lineHeight: 22,
+                          fontWeight: "bold",
+                          color: COLORS.lightGray2,
                         }}
                       >
-                        <Icon name="card" size={24} color="#000" />
-                      </View>
-                      <View>
-                        <Text
+                        Current Balance
+                      </Text>
+                      <Text
+                        style={{
+                          marginTop: 8,
+                          fontSize: 22,
+                          lineHeight: 22,
+                          fontWeight: "bold",
+                          color: COLORS.white,
+                        }}
+                      >
+                        &#x20B9; {Amount.Ballance}
+                      </Text>
+                    </View>
+                    {/* User Details */}
+                    <View
+                      style={{
+                        position: "absolute",
+                        bottom: 10,
+                        paddingHorizontal: SIZES.padding,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 17,
+                          fontWeight: "700",
+                          color: COLORS.white,
+                        }}
+                      >
+                        @Munde_665
+                      </Text>
+                    </View>
+                    {/* Tag Line */}
+                    <View
+                      style={{
+                        position: "absolute",
+                        bottom: 10,
+                        right: 8,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "700",
+                          color: COLORS.white,
+                        }}
+                      >
+                        #PlayWinEarn
+                      </Text>
+                    </View>
+                  </ImageBackground>
+                </View>
+                <View
+                  style={{
+                    marginTop: 15,
+                  }}
+                >
+                  {/* All Transctions */}
+                  <View style={style.Elevation}>
+                    {/* Transction modal */}
+                    <View>
+                      <TransctionModal modalVisible={modalVisible}
+                        setModalVisible={setModalVisible}
+                        navigation={navigation} />
+                    </View>
+                    <TouchableOpacity onPress={() => {
+                      setModalVisible(true);
+                    }}>
+                      <View style={style.NotificationWrapper}>
+                        <MaterialCommunityIcons
+                          name="bank-transfer"
+                          size={33}
+                          color="black"
+                        />
+                        <View style={style.DashboardBox}>
+                          <Text style={style.NotificationText}>All Transactions</Text>
+                        </View>
+                        <View
                           style={{
-                            ...style.NotificationText,
-                            color: COLORS.black,
+                            position: "absolute",
+                            top: 20,
+                            right: 5,
                           }}
                         >
-                          {item.Name}
-                        </Text>
-                        <Text style={style.NotificationText2}>{item.Time}</Text>
+                          <Icon
+                            name="chevron-forward-outline"
+                            size={28}
+                            color="black"
+                          />
+                        </View>
                       </View>
-                      <View style={style.Value}>
-                        <Text
-                          style={{ ...style.ValueText, color: COLORS.black }}
+                    </TouchableOpacity>
+                  </View>
+                  {/* Club Wallet */}
+                  <View style={style.Elevation}>
+                    <TouchableOpacity onPress={() => navigation.replace('ClubWallet')}>
+                      <View style={style.NotificationWrapper}>
+                        <MaterialCommunityIcons
+                          name="wallet"
+                          size={26}
+                          color="black"
+                        />
+                        <View style={style.DashboardBox}>
+                          <Text style={style.NotificationText}>Club Wallet</Text>
+                        </View>
+                        <View
+                          style={{
+                            position: "absolute",
+                            top: 20,
+                            right: 5,
+                          }}
                         >
-                          &#x20B9;{item.Value}
-                        </Text>
+                          <Icon
+                            name="chevron-forward-outline"
+                            size={28}
+                            color="black"
+                          />
+                        </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
+                    </TouchableOpacity>
+                  </View>
+                  {/* Withdraw Money */}
+                  <View style={style.Elevation}>
+                    <TouchableOpacity>
+                      <View style={style.NotificationWrapper}>
+                        <MaterialCommunityIcons
+                          name="credit-card-minus"
+                          size={22}
+                          color="black"
+                        />
+                        <View style={style.DashboardBox}>
+                          <Text style={style.NotificationText}>Withdraw</Text>
+                        </View>
+                        <View
+                          style={{
+                            position: "absolute",
+                            top: 20,
+                            right: 5,
+                          }}
+                        >
+                          <Icon
+                            name="chevron-forward-outline"
+                            size={28}
+                            color="black"
+                          />
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                  {/* ADD MONEY */}
+                  <View style={style.Elevation}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        AddMoneyFunction()
+                        setTempLoading(true)
+                      }}
+                    >
+                      <View style={style.NotificationWrapper}>
+                        <MaterialCommunityIcons
+                          name="credit-card-plus"
+                          size={22}
+                          color="black"
+                        />
+                        <View style={style.DashboardBox}>
+                          <Text style={style.NotificationText}>Deposit</Text>
+                        </View>
+                        <View
+                          style={{
+                            position: "absolute",
+                            top: 20,
+                            right: 5,
+                          }}
+                        >
+                          <Icon
+                            name="chevron-forward-outline"
+                            size={28}
+                            color="black"
+                          />
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              )}
-            />
-          </>
-        )
-      )}
-    </View>
-  );
+              </>
+            </>
+          )
+        )}
+      </View>
+    );
+  }
 };
 
 export default Wallet;
@@ -321,8 +387,8 @@ const style = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   Body: {
+    marginTop: SIZES.base,
     marginHorizontal: SIZES.padding,
-    marginVertical: SIZES.base,
   },
   Card_Image: {
     height: 200,
@@ -345,32 +411,36 @@ const style = StyleSheet.create({
     marginHorizontal: 15,
   },
   Elevation: {
-    marginVertical: 1,
-    margin: SIZES.padding,
+    backgroundColor: "white",
     borderRadius: SIZES.radius,
+    elevation: 2,
+    marginVertical: 10,
+    margin: SIZES.padding,
+    //For Ios Only -- SHOWdow code
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
-  // Elevation: {
-  //   backgroundColor: COLORS.lightGray2,
-  //   elevation: 1,
-  //   marginVertical: 8,
-  //   margin: SIZES.padding,
-  //   borderRadius: SIZES.radius,
-  //   //For Ios Only -- SHOWdow code
-  //   shadowColor: "#171717",
-  //   shadowOffset: { width: -2, height: 4 },
-  //   shadowOpacity: 0.2,
-  //   shadowRadius: 3,
-  // },
-  NotificationWrapper: {
-    height: 80,
-    paddingHorizontal: SIZES.base,
-    paddingVertical: 10,
+  DashboardBox: {
+    marginLeft: 10,
+    width: "85%",
     flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  NotificationWrapper: {
+    height: 70,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: COLORS.lightGray2,
+    borderRadius: SIZES.radius,
+    paddingHorizontal: SIZES.base,
   },
   NotificationText: {
-    maxWidth: "95%",
-    fontSize: 14,
-    fontWeight: "700",
+    lineHeight: 30,
+    fontSize: 17,
+    fontWeight: "bold",
   },
   NotificationText2: {
     fontSize: 13,

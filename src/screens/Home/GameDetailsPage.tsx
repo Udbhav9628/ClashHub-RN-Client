@@ -19,6 +19,7 @@ import {
   RemoveMatchItem,
 } from "../../store/Match/Matchaction";
 import { useFocusEffect } from "@react-navigation/native";
+import ModalJoinedPlayers from "../Menu/YourGuild/ModalJoinedPlayers";
 
 const GameDetailsPage = ({
   route,
@@ -30,6 +31,9 @@ const GameDetailsPage = ({
   const { Item } = route.params;
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
+
 
   const [Disable, setDisable] = useState(false);
 
@@ -324,8 +328,15 @@ const GameDetailsPage = ({
         </View>
       </View>
       {/* Match By Guild */}
-      <View style={style.Elevation}>
-        <TouchableOpacity>
+      {Item.Is_Finished && (<View style={style.Elevation}>
+        <View>
+          <ModalJoinedPlayers modalVisible={JoinedPlayermodal}
+            setModalVisible={setJoinedPlayermodal}
+            navigation={navigation}
+            Joined_User={Item.Joined_User} Match={Item} />
+        </View>
+        <TouchableOpacity
+          onPress={() => { setJoinedPlayermodal(true) }}>
           <View style={style.GuildWrapper}>
             <Image
               style={{
@@ -364,7 +375,7 @@ const GameDetailsPage = ({
             </View>
           </View>
         </TouchableOpacity>
-      </View>
+      </View>)}
       {!isJoined && (
         <View>
           <TouchableOpacity

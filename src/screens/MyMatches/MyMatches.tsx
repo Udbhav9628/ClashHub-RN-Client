@@ -125,7 +125,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
               }}
               Item={item}
               onPress={() =>
-                navigation.navigate("GuildMatchesDetails", {
+                navigation.navigate("GameDetailsPage", {
                   Item: item, SelectedMenu: SelectedMenu
                 })
               }

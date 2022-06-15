@@ -27,49 +27,20 @@ async function Gernerate_Paytm_Token() {
   }
 }
 
-function Make_Payment_action(Data: any) {
+function Add_Wallet_Ballance(BallanceToAdd: any) {
+  console.log(Math.trunc(BallanceToAdd));
   return async function (dispatch: any) {
     try {
       dispatch({
-        type: 'Make_Payment_Request',
+        type: 'Add_Wallet_Request',
       });
       const Token: string = (await Return_Token(
-        'Make_Payment_Fail',
-        dispatch,
-      )) as string;
-      const response = await axios.post(`${Ip_Address}/MakePayment`, Data, {
-        headers: {
-          'content-type': 'application/json',
-          Accept: 'application/json',
-          authToken: Token,
-        },
-      });
-      dispatch({
-        type: 'Make_Payment_Sucess',
-        payload: response.data.data,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: 'Make_Payment_Fail',
-        payload: error.message,
-      });
-    }
-  };
-}
-
-function Update_Wallet_Ballance(New_Ballance: any) {
-  return async function (dispatch: any) {
-    try {
-      dispatch({
-        type: 'Update_Wallet_Request',
-      });
-      const Token: string = (await Return_Token(
-        'Update_Wallet_Fail',
+        'Add_Wallet_Fail',
         dispatch,
       )) as string;
       const response = await axios.put(
         `${Ip_Address}/AddingCoins`,
-        {New_Ballance: New_Ballance},
+        {BallanceToAdd: Math.trunc(BallanceToAdd)},
         {
           headers: {
             'content-type': 'application/json',
@@ -79,18 +50,47 @@ function Update_Wallet_Ballance(New_Ballance: any) {
         },
       );
       dispatch({
-        type: 'Update_Wallet_Sucess',
+        type: 'Add_Wallet_Sucess',
         payload: response.data,
       });
     } catch (error: any) {
       dispatch({
-        type: 'Update_Wallet_Fail',
+        type: 'Add_Wallet_Fail',
         payload: error.message,
       });
     }
   };
 }
 
+function Get_ClubWallet_Ballance() {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'ClubWallet_Ballance_Request',
+      });
+      const Token: string = (await Return_Token(
+        'ClubWallet_Ballance_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.get(`${Ip_Address}/ClubWalletBallance`, {
+        headers: {
+          'content-type': 'application/json',
+          Accept: 'application/json',
+          authToken: Token,
+        },
+      });
+      dispatch({
+        type: 'ClubWallet_Ballance_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'ClubWallet_Ballance_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
 function GetUserWalletBallance() {
   return async function (dispatch: any) {
     try {
@@ -138,10 +138,10 @@ function Clear_Payment_Reducer_Sucess() {
 }
 
 export {
-  Make_Payment_action,
-  Update_Wallet_Ballance,
+  Add_Wallet_Ballance,
   GetUserWalletBallance,
   Clear_Payment_Reducer_Error,
   Clear_Payment_Reducer_Sucess,
   Gernerate_Paytm_Token,
+  Get_ClubWallet_Ballance,
 };

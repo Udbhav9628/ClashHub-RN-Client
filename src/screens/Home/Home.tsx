@@ -26,7 +26,6 @@ import {
   Clear_Guild_Reducer_Error,
 } from "../../store/Guild/GuildAction";
 import StatusBarComp from "../../components/StatusBar";
-const logo = require("../../Assets/Images/logo_02.png");
 
 const Home = ({ navigation }: { navigation: any }) => {
   const { Home_Matchs, loading, Error } = useSelector(
