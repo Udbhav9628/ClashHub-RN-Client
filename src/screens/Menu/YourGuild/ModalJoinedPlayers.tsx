@@ -11,13 +11,15 @@ const ModalJoinedPlayers = ({
     setModalVisible,
     navigation,
     Joined_User,
-    Match
+    Match,
+    ShowReportButton
 }: {
     modalVisible: any;
     setModalVisible: any;
     navigation: any;
     Joined_User: any;
     Match: any
+    ShowReportButton: Boolean
 }) => {
 
     let Duplicate_Match = JSON.parse(JSON.stringify(Match));
@@ -271,41 +273,40 @@ const ModalJoinedPlayers = ({
                         >
                             Publish Result
                         </Text>
-                    </TouchableOpacity>) : (<><TouchableOpacity
-                        onPress={() => {
-                            // Publish_Result(Duplicate_Match)
-                        }}
-                        style={{
-                            height: 30,
-                            alignItems: "center",
-                            justifyContent: "center",
-                            marginTop: SIZES.padding,
-                            marginBottom: SIZES.base,
-                            borderRadius: SIZES.radius,
-                            backgroundColor: COLORS.lightGray1,
-                            marginHorizontal: 130,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                color: COLORS.black,
-                                fontWeight: "bold",
-                                fontSize: SIZES.body3,
-                            }}
-                        >
-                            Report
-                        </Text>
-                    </TouchableOpacity>
-                        <Text
-                            style={{
-                                marginBottom: 5,
-                                color: COLORS.darkGray,
-                                fontSize: SIZES.body5,
-                                textAlign: 'center'
-                            }}
-                        >
-                            You Can Report If have Problem With Your Shown Kills
-                        </Text></>)}
+                    </TouchableOpacity>) : (
+                        ShowReportButton && (<>
+                            <TouchableOpacity
+                                style={{
+                                    height: 30,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    marginTop: SIZES.padding,
+                                    marginBottom: SIZES.base,
+                                    borderRadius: SIZES.radius,
+                                    backgroundColor: COLORS.lightGray1,
+                                    marginHorizontal: 130,
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: COLORS.black,
+                                        fontWeight: "bold",
+                                        fontSize: SIZES.body3,
+                                    }}
+                                >
+                                    Report
+                                </Text>
+                            </TouchableOpacity>
+                            <Text
+                                style={{
+                                    marginBottom: 5,
+                                    color: COLORS.darkGray,
+                                    fontSize: SIZES.body5,
+                                    textAlign: 'center'
+                                }}
+                            >
+                                You Can Report If have Problem With Your Shown Kills
+                            </Text></>))}
                 </>) : (<View
                     style={{
                         flex: 1,

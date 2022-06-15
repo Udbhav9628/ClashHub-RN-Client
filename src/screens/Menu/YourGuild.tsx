@@ -58,19 +58,17 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <ScrollView style={styles.Container}>
+    <View style={styles.Container}>
       {TempLoading || loading ? (
-        <>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <ActivityIndicator size="large" color={COLORS.primary} />
-          </View>
-        </>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
       ) : Sucess_response ? (
         <View>
           <ModalScreen
@@ -275,7 +273,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
       ) : (
         <Createguild navigation={navigation} />
       )}
-    </ScrollView>
+    </View>
   );
 };
 

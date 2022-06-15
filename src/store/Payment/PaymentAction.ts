@@ -27,20 +27,33 @@ async function Gernerate_Paytm_Token() {
   }
 }
 
-function Add_Wallet_Ballance(BallanceToAdd: any) {
-  console.log(Math.trunc(BallanceToAdd));
+function Add_Wallet_Ballance(
+  BallanceToAdd: any,
+  Transaction_Id: any,
+  Message: String,
+  Type: Boolean,
+  Date: any,
+) {
   return async function (dispatch: any) {
     try {
       dispatch({
         type: 'Add_Wallet_Request',
       });
+      console.log('in add wallet ballane');
+
       const Token: string = (await Return_Token(
         'Add_Wallet_Fail',
         dispatch,
       )) as string;
       const response = await axios.put(
         `${Ip_Address}/AddingCoins`,
-        {BallanceToAdd: Math.trunc(BallanceToAdd)},
+        {
+          BallanceToAdd: Math.trunc(BallanceToAdd),
+          Transaction_Id,
+          Message,
+          Date,
+          Type,
+        },
         {
           headers: {
             'content-type': 'application/json',
@@ -91,6 +104,7 @@ function Get_ClubWallet_Ballance() {
     }
   };
 }
+
 function GetUserWalletBallance() {
   return async function (dispatch: any) {
     try {
@@ -121,6 +135,36 @@ function GetUserWalletBallance() {
   };
 }
 
+function GetUserTransaction() {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'GetUserTransaction_Request',
+      });
+      const Token: string = (await Return_Token(
+        'GetUserTransaction_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.get(`${Ip_Address}/getUserTransactions`, {
+        headers: {
+          'content-type': 'application/json',
+          Accept: 'application/json',
+          authToken: Token,
+        },
+      });
+      dispatch({
+        type: 'GetUserTransaction_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'GetUserTransaction_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
 function Clear_Payment_Reducer_Error() {
   return (dispatch: any) => {
     dispatch({
@@ -144,4 +188,5 @@ export {
   Clear_Payment_Reducer_Sucess,
   Gernerate_Paytm_Token,
   Get_ClubWallet_Ballance,
+  GetUserTransaction,
 };

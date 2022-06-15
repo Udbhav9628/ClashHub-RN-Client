@@ -147,7 +147,7 @@ function Update_Match(Data: any, id: any) {
         dispatch,
       )) as string;
       const response = await axios.put(
-        `${Ip_Address}/Updatetournament/${id}`,
+        `${Ip_Address}/UpdateResult/${id}`,
         Data,
         {
           headers: {

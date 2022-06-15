@@ -308,7 +308,8 @@ const GuildMatchesDetails = ({
             <ModalJoinedPlayers modalVisible={JoinedPlayermodal}
                 setModalVisible={setJoinedPlayermodal}
                 navigation={navigation}
-                Joined_User={Item.Joined_User} Match={Item} />
+                Joined_User={Item.Joined_User} Match={Item}
+                ShowReportButton={false} />
         </View>
     )
 }

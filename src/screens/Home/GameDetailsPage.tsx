@@ -333,7 +333,7 @@ const GameDetailsPage = ({
           <ModalJoinedPlayers modalVisible={JoinedPlayermodal}
             setModalVisible={setJoinedPlayermodal}
             navigation={navigation}
-            Joined_User={Item.Joined_User} Match={Item} />
+            Joined_User={Item.Joined_User} Match={Item} ShowReportButton={true} />
         </View>
         <TouchableOpacity
           onPress={() => { setJoinedPlayermodal(true) }}>

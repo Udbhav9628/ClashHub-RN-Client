@@ -12,6 +12,7 @@ import {
   Add_Wallet_Ballance_Reducer,
   Get_Ballance_Reducer,
   ClubWallet_Ballance_reducer,
+  Transaction_Reducer,
 } from './Payment/PaymentReducer';
 import {
   Get_All_Guild,
@@ -35,4 +36,5 @@ export default combineReducers({
   Update_Match_Result_Reducer,
   FetchUser_reducer,
   ClubWallet_Ballance_reducer,
+  Transaction_Reducer,
 });

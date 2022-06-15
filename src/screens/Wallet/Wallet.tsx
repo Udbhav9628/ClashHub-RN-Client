@@ -68,7 +68,8 @@ const Wallet = ({ navigation }: { navigation: any }) => {
       )
         .then((result) => {
           if (result.STATUS === 'TXN_SUCCESS') {
-            Add_Wallet_Ballance_FUNC(result.TXNAMOUNT)
+            console.log(result);
+            Add_Wallet_Ballance_FUNC(result.TXNAMOUNT, result.TXNID, `Added To Gamer Wallet`, true, result.TXNDATE)
           }
         })
         .catch((err) => {
@@ -82,8 +83,8 @@ const Wallet = ({ navigation }: { navigation: any }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      Get_User_Wallet_Ballance();
       setTempLoading(false);
+      Get_User_Wallet_Ballance();
     }, [])
   );
 
@@ -369,6 +370,43 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                       </View>
                     </TouchableOpacity>
                   </View>
+                </View>
+                {/* Text Notes */}
+                <View style={{
+                  position: "absolute",
+                  bottom: 2,
+                  right: 78
+                }}>
+                  <Text
+                    style={{
+                      marginBottom: 10,
+                      color: COLORS.darkGray,
+                      fontSize: SIZES.body5,
+                      textAlign: 'center'
+                    }}
+                  >
+                    This is Test Payment System
+                  </Text>
+                  <Text
+                    style={{
+                      marginBottom: 10,
+                      color: COLORS.darkGray,
+                      fontSize: SIZES.body5,
+                      textAlign: 'center'
+                    }}
+                  >
+                    Phone No = 77777 77777 and Otp = 489871
+                  </Text>
+                  <Text
+                    style={{
+                      marginBottom: 10,
+                      color: COLORS.darkGray,
+                      fontSize: SIZES.body5,
+                      textAlign: 'center'
+                    }}
+                  >
+                    Use This credentials To Pay With Paytm Wallet
+                  </Text>
                 </View>
               </>
             </>

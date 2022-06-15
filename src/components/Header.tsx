@@ -68,12 +68,12 @@ const Header = ({
                 navigation.navigate("Wallet");
               }}
               style={{
-                marginHorizontal: SIZES.h1,
+                marginHorizontal: 3,
               }}
             >
               <Icon name="wallet" size={22} color="black" />
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => {
                 navigation.navigate("Notification");
               }}
@@ -82,7 +82,7 @@ const Header = ({
               }}
             >
               <Icons name="notifications" size={22} color="black" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         ) : (
           // IF NOT LOGED IN

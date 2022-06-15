@@ -76,3 +76,26 @@ export const ClubWallet_Ballance_reducer = (State = [], action: any) => {
       return State;
   }
 };
+
+export const Transaction_Reducer = (State = [], action: any) => {
+  switch (action.type) {
+    case 'GetUserTransaction_Request':
+      return {
+        loading: true,
+      };
+    case 'GetUserTransaction_Sucess':
+      return {
+        sucess: true,
+        loading: false,
+        Transactions: action.payload,
+      };
+    case 'GetUserTransaction_Fail':
+      return {
+        sucess: false,
+        loading: false,
+        Error: action.payload,
+      };
+    default:
+      return State;
+  }
+};
