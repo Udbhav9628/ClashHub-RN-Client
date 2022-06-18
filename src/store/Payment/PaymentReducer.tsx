@@ -99,3 +99,69 @@ export const Transaction_Reducer = (State = [], action: any) => {
       return State;
   }
 };
+
+export const PendingWithdrawls_Reducer = (State = [], action: any) => {
+  switch (action.type) {
+    case 'GetPendingWithdrawls_Request':
+      return {
+        PWloading: true,
+      };
+    case 'GetPendingWithdrawls_Sucess':
+      return {
+        sucess: true,
+        PWloading: false,
+        Pending_Withdrawls: action.payload,
+      };
+    case 'GetPendingWithdrawls_Fail':
+      return {
+        sucess: false,
+        PWloading: false,
+        Error: action.payload,
+      };
+    case 'Clear_Wallet_Sucess':
+      return {
+        ...State,
+        sucess: false,
+      };
+    case 'Clear_Wallet_Error':
+      return {
+        ...State,
+        Error: null,
+      };
+    default:
+      return State;
+  }
+};
+
+export const Create_withdrawls_Reducer = (State = [], action: any) => {
+  switch (action.type) {
+    case 'Create_withdrawls_Request':
+      return {
+        loading: true,
+      };
+    case 'Create_withdrawls_Sucess':
+      return {
+        sucess: true,
+        loading: false,
+        Sucess_Responce: action.payload,
+      };
+    case 'Create_withdrawls_Fail':
+      return {
+        sucess: false,
+        loading: false,
+        Error: action.payload,
+      };
+    case 'Clear_Wallet_Sucess':
+      return {
+        ...State,
+        sucess: false,
+      };
+    case 'Clear_Wallet_Error':
+      return {
+        ...State,
+        Error: null,
+      };
+    default:
+      return State;
+  }
+};

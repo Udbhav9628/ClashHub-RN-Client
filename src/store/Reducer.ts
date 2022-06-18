@@ -1,5 +1,8 @@
 import {combineReducers} from 'redux';
-import {FetchUser_reducer} from './Authentication/Authreducer';
+import {
+  FetchUser_reducer,
+  Get_Specific_User_Details_reducer,
+} from './Authentication/Authreducer';
 import {
   Get_Home_Page_Matches,
   Create_matches_Reducer,
@@ -13,6 +16,8 @@ import {
   Get_Ballance_Reducer,
   ClubWallet_Ballance_reducer,
   Transaction_Reducer,
+  PendingWithdrawls_Reducer,
+  Create_withdrawls_Reducer,
 } from './Payment/PaymentReducer';
 import {
   Get_All_Guild,
@@ -37,4 +42,7 @@ export default combineReducers({
   FetchUser_reducer,
   ClubWallet_Ballance_reducer,
   Transaction_Reducer,
+  PendingWithdrawls_Reducer,
+  Create_withdrawls_Reducer,
+  Get_Specific_User_Details_reducer,
 });

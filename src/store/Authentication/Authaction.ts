@@ -1,9 +1,9 @@
 import axios from 'axios';
 import {Ip_Address} from '../../constants/Data';
 import {storeToken} from '../../utils/Utils';
+import {Return_Token} from '../../utils/Utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
-import getAuth from '@react-native-firebase/auth';
 
 function Register_User(Data: any, Firebase_auth_token: any) {
   return async function (dispatch: any) {
@@ -108,6 +108,42 @@ function FetchUser(user: any) {
   };
 }
 
+function Get_Specific_User_Details(User_id: any) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'Get_Specific_User_Request',
+      });
+
+      const Token: string = (await Return_Token(
+        'Get_Specific_User_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/getSpecificUserDetails/${User_id}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      console.log(response.data);
+      dispatch({
+        type: 'Get_Specific_User_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      console.log(error.message);
+      dispatch({
+        type: 'Get_Specific_User_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
 function SignOut() {
   return async function (dispatch: any) {
     try {
@@ -154,4 +190,5 @@ export {
   FetchUser,
   SignOut,
   Clear_Auth_Message,
+  Get_Specific_User_Details,
 };

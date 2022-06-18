@@ -270,7 +270,7 @@ const ModalScreen = ({
             label="Total Players"
             Placeholder={"Enter Total no Players"}
             KeyboardType="numeric"
-            autoCapatilize={"none"}
+            autoCapatilize="none"
             maxLength={3}
             onchange={(Value: any) => {
               CalculateLength(Value, setPlayersLength, 3);

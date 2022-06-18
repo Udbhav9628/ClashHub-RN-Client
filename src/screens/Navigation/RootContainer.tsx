@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { FetchUser } from "../../store/Authentication/Authaction";
 import ClubWallet from "../Wallet/ClubWallet";
+import SpecificUserProfile from "../Menu/YourGuild/SpecificUserProfile";
 
 const Stack = createStackNavigator();
 
@@ -131,6 +132,13 @@ export default function App() {
           <Stack.Screen
             name="Notification"
             component={Notification}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="SpecificUserProfile"
+            component={SpecificUserProfile}
             options={{
               headerShown: false,
             }}

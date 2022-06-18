@@ -10,7 +10,6 @@ import React, { useEffect, useState } from "react";
 import { SIZES, COLORS } from "../../../constants/Theame";
 import Heading from "../../../components/Heading";
 import GameItems from "../../Home/GameItems";
-import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
@@ -41,12 +40,10 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
     (state: any) => state.Get_user_Guild_details_reducer
   );
 
-  useFocusEffect(
-    React.useCallback(() => {
-      setSelectedMenu('Scheduled')
-      Get_Guild_Matches(Guild_Details._id, 'Scheduled');
-    }, [])
-  );
+  useEffect(() => {
+    setSelectedMenu('Scheduled')
+    Get_Guild_Matches(Guild_Details._id, 'Scheduled');
+  }, [])
 
   useEffect(() => {
     if (Error) {

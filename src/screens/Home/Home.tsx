@@ -87,7 +87,6 @@ const Home = ({ navigation }: { navigation: any }) => {
             text: "OK",
             onPress: () => {
               Clear_Guild_ReducerError();
-              FetchAll_Guild();
             },
           },
         ]

@@ -407,10 +407,31 @@ const GameDetailsPage = ({
           <BottomPopup
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
-            // navigation={navigation}
             MatchId={Item._id}
+            Amount={null}
             Disable={Disable}
             setDisable={setDisable}
+            ModalContainerStyle={
+              {
+                position: "absolute",
+                bottom: -8,
+                left: 2,
+                right: 2,
+                margin: 20,
+                height: 200,
+                backgroundColor: "white",
+                borderRadius: SIZES.radius,
+                padding: 5,
+                shadowColor: COLORS.black,
+                shadowOpacity: 0.25,
+                shadowRadius: 4,
+                elevation: 5,
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+              }
+            }
           />
         </View>
       )}

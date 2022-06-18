@@ -21,10 +21,13 @@ import AllInOneSDKManager from 'paytm_allinone_react-native';
 import { MID, URL_SCHEME } from '../../constants/Data';
 import { Gernerate_Paytm_Token, Add_Wallet_Ballance } from "../../store/Payment/PaymentAction";
 import TransctionModal from "./TransctionModal";
+import BottomPopup from "../../components/BottomPopup";
 
 const Wallet = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const [Disable, setDisable] = useState(false);
+  const [withdrawlsmodalVisible, setwithdrawlsModalVisible] = useState(false);
 
   const dispatch = useDispatch();
   const Get_User_Wallet_Ballance = bindActionCreators(
@@ -251,7 +254,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                     <View>
                       <TransctionModal modalVisible={modalVisible}
                         setModalVisible={setModalVisible}
-                        navigation={navigation} />
+                        navigation={navigation} Which_Wallet={"Gamer"} />
                     </View>
                     <TouchableOpacity onPress={() => {
                       setModalVisible(true);
@@ -311,7 +314,38 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                   </View>
                   {/* Withdraw Money */}
                   <View style={style.Elevation}>
-                    <TouchableOpacity>
+                    {/* withdrawls modal */}
+                    <BottomPopup
+                      modalVisible={withdrawlsmodalVisible}
+                      setModalVisible={setwithdrawlsModalVisible}
+                      MatchId={null}
+                      Amount={Amount.Ballance}
+                      Disable={Disable}
+                      setDisable={setDisable}
+                      ModalContainerStyle={
+                        {
+                          position: "absolute",
+                          bottom: -8,
+                          left: 2,
+                          right: 2,
+                          margin: 20,
+                          height: 420,
+                          backgroundColor: "white",
+                          borderRadius: SIZES.radius,
+                          shadowColor: COLORS.black,
+                          shadowOpacity: 0.25,
+                          shadowRadius: 4,
+                          elevation: 5,
+                          shadowOffset: {
+                            width: 0,
+                            height: 2,
+                          },
+                        }
+                      }
+                    />
+                    <TouchableOpacity onPress={() => {
+                      setwithdrawlsModalVisible(true)
+                    }}>
                       <View style={style.NotificationWrapper}>
                         <MaterialCommunityIcons
                           name="credit-card-minus"

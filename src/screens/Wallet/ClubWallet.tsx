@@ -96,7 +96,8 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                                 color: COLORS.white,
                                             }}
                                         >
-                                            &#x20B9; {Amount.Ballance}
+                                            {/* Temporaly Solution */}
+                                            &#x20B9; {parseFloat(Amount.Ballance).toFixed(2)}
                                         </Text>
                                     </View>
                                     {/* User Details */}
@@ -148,7 +149,9 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                     <View>
                                         <TransctionModal modalVisible={modalVisible}
                                             setModalVisible={setModalVisible}
-                                            navigation={navigation} />
+                                            navigation={navigation}
+                                            Which_Wallet={"Club"}
+                                        />
                                     </View>
                                     <TouchableOpacity onPress={() => {
                                         setModalVisible(true);

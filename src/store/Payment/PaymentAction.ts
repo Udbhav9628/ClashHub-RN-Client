@@ -165,6 +165,113 @@ function GetUserTransaction() {
   };
 }
 
+function GetClubTransaction(GuiidId: any) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'GetUserTransaction_Request',
+      });
+      const Token: string = (await Return_Token(
+        'GetUserTransaction_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/getClubTransactions/${GuiidId}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'GetUserTransaction_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'GetUserTransaction_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
+function GetPendingWithdrawls() {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'GetPendingWithdrawls_Request',
+      });
+      const Token: string = (await Return_Token(
+        'GetPendingWithdrawls_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/getPendingWithdrawrequest`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'GetPendingWithdrawls_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      console.log(error.message);
+
+      dispatch({
+        type: 'GetPendingWithdrawls_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
+function Create_withdrawls_request(Amount: any) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'Create_withdrawls_Request',
+      });
+      console.log('Create_withdrawls');
+
+      const Token: string = (await Return_Token(
+        'Create_withdrawls_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.post(
+        `${Ip_Address}/createWithdrawls`,
+        {
+          Amount: Amount,
+        },
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'Create_withdrawls_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      console.log(error.message);
+      dispatch({
+        type: 'Create_withdrawls_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
 function Clear_Payment_Reducer_Error() {
   return (dispatch: any) => {
     dispatch({
@@ -189,4 +296,7 @@ export {
   Gernerate_Paytm_Token,
   Get_ClubWallet_Ballance,
   GetUserTransaction,
+  GetClubTransaction,
+  Create_withdrawls_request,
+  GetPendingWithdrawls,
 };

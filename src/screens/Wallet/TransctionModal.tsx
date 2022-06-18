@@ -5,16 +5,18 @@ import Icon from "react-native-vector-icons/Feather";
 import { SIZES, COLORS } from '../../constants/Theame';
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
-import { GetUserTransaction } from "../../store/Payment/PaymentAction";
+import { GetUserTransaction, GetClubTransaction } from "../../store/Payment/PaymentAction";
 
 const TransctionModal = ({
     modalVisible,
     setModalVisible,
     navigation,
+    Which_Wallet
 }: {
     modalVisible: any;
     setModalVisible: any;
     navigation: any;
+    Which_Wallet: String;
 }) => {
 
     const dispatch = useDispatch();
@@ -22,16 +24,26 @@ const TransctionModal = ({
         GetUserTransaction,
         dispatch
     );
+    const GetClubTransaction_Func = bindActionCreators(
+        GetClubTransaction,
+        dispatch
+    );
 
     const { loading, sucess, Error, Transactions } = useSelector(
         (state: any) => state.Transaction_Reducer
     );
 
+    const { Guild_Details } = useSelector(
+        (state: any) => state.Get_user_Guild_details_reducer
+    );
+
     useEffect(() => {
-        if (modalVisible) {
+        if (modalVisible && Which_Wallet === "Gamer") {
             GetUserTransaction_Func();
+        } else if (modalVisible && Which_Wallet === "Club") {
+            GetClubTransaction_Func(Guild_Details._id)
         }
-    }, [modalVisible])
+    }, [modalVisible, Which_Wallet])
 
     return (
         <Modal
@@ -73,7 +85,7 @@ const TransctionModal = ({
                                             <View
                                                 style={{
                                                     height: 40,
-                                                    width: 40,
+                                                    width: 30,
                                                     marginLeft: 4,
                                                     justifyContent: "center",
                                                     borderRadius: SIZES.radius,

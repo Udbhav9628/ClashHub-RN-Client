@@ -190,90 +190,98 @@ const ModalJoinedPlayers = ({
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item, index }) => (
-                            <View style={{ backgroundColor: index % 2 === 0 ? COLORS.lightGray2 : COLORS.white, paddingVertical: 10, borderBottomRightRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, borderBottomLeftRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: SIZES.padding }}>
-                                    <View style={{
-                                        marginTop: 6,
-                                        alignItems: 'flex-start',
+                            <TouchableOpacity onPress={() => {
+                                setModalVisible(!modalVisible);
+                                navigation.navigate("SpecificUserProfile", {
+                                    UserId: item.UserId,
+                                })
+                            }}>
+                                <View style={{ backgroundColor: index % 2 === 0 ? COLORS.lightGray2 : COLORS.white, paddingVertical: 10, borderBottomRightRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, borderBottomLeftRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, }}>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: SIZES.padding }}>
+                                        <View style={{
+                                            marginTop: 6,
+                                            alignItems: 'flex-start',
 
-                                        width: 150
-                                    }}>
-                                        <Text style={{
+                                            width: 150
+                                        }}>
+                                            <Text style={{
+                                                color: COLORS.black,
+                                                ...FONTS.body3,
+                                                // fontWeight: "700",
+                                            }}>{item.UserName}</Text>
+                                        </View>
+
+                                        {Match.Is_Finished ? (<View style={{
+                                            marginTop: 6,
+                                            alignItems: 'center',
+
+                                            width: 58
+                                        }}><Text style={{
                                             color: COLORS.black,
                                             ...FONTS.body3,
-                                            // fontWeight: "700",
-                                        }}>{item.UserName}</Text>
+                                        }}>{item.Kills}</Text></View>) : (<View style={{
+                                            height: 40,
+                                        }}>
+                                            <TextInput
+                                                style={{ borderColor: COLORS.black }}
+                                                placeholder='Enter Kill'
+                                                placeholderTextColor={COLORS.gray}
+                                                keyboardType="number-pad"
+                                                maxLength={2}
+                                                textAlign="center"
+                                                onChangeText={(text) => {
+                                                    const Kill_to_update = text ? text : null
+                                                    const Data = {
+                                                        Id: item._id,
+                                                        TournamentId: Duplicate_Match._id,
+                                                        Kills: Kill_to_update,
+                                                    }
+                                                    Push_In_Array(Duplicate_Match, Data)
+                                                }}
+                                            />
+                                        </View>)}
+                                        {Match.Is_Finished && <View style={{
+                                            marginTop: 6,
+                                            alignItems: 'center',
+                                            width: 70
+                                        }}>
+                                            <Text style={{
+                                                color: COLORS.black,
+                                                ...FONTS.body3,
+                                                // fontWeight: "700",
+                                            }}>{Match.Prize_Pool * item.Kills}</Text>
+                                        </View>}
                                     </View>
-
-                                    {Match.Is_Finished ? (<View style={{
-                                        marginTop: 6,
-                                        alignItems: 'center',
-
-                                        width: 58
-                                    }}><Text style={{
-                                        color: COLORS.black,
-                                        ...FONTS.body3,
-                                    }}>{item.Kills}</Text></View>) : (<View style={{
-                                        height: 40,
-                                    }}>
-                                        <TextInput
-                                            style={{ borderColor: COLORS.black }}
-                                            placeholder='Enter Kill'
-                                            placeholderTextColor={COLORS.gray}
-                                            keyboardType="number-pad"
-                                            maxLength={2}
-                                            textAlign="center"
-                                            onChangeText={(text) => {
-                                                const Kill_to_update = text ? text : null
-                                                const Data = {
-                                                    Id: item._id,
-                                                    TournamentId: Duplicate_Match._id,
-                                                    Kills: Kill_to_update,
-                                                }
-                                                Push_In_Array(Duplicate_Match, Data)
-                                            }}
-                                        />
-                                    </View>)}
-                                    {Match.Is_Finished && <View style={{
-                                        marginTop: 6,
-                                        alignItems: 'center',
-                                        width: 70
-                                    }}>
-                                        <Text style={{
-                                            color: COLORS.black,
-                                            ...FONTS.body3,
-                                            // fontWeight: "700",
-                                        }}>{Match.Prize_Pool * item.Kills}</Text>
-                                    </View>}
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         )}
                     />
-                    {!Match.Is_Finished ? (<TouchableOpacity
-                        onPress={() => {
-                            Publish_Result(Duplicate_Match)
-                        }}
-                        style={{
-                            height: 50,
-                            alignItems: "center",
-                            justifyContent: "center",
-                            marginTop: SIZES.padding,
-                            marginBottom: SIZES.padding,
-                            borderRadius: SIZES.radius,
-                            backgroundColor: COLORS.primary,
-                            marginHorizontal: 100,
-                        }}
-                    >
-                        <Text
+                    {!Match.Is_Finished ? (
+                        <TouchableOpacity
+                            onPress={() => {
+                                Publish_Result(Duplicate_Match)
+                            }}
                             style={{
-                                color: COLORS.white,
-                                fontWeight: "bold",
-                                fontSize: SIZES.body3,
+                                height: 50,
+                                alignItems: "center",
+                                justifyContent: "center",
+                                marginTop: SIZES.padding,
+                                marginBottom: SIZES.padding,
+                                borderRadius: SIZES.radius,
+                                backgroundColor: COLORS.primary,
+                                marginHorizontal: 100,
                             }}
                         >
-                            Publish Result
-                        </Text>
-                    </TouchableOpacity>) : (
+                            <Text
+                                style={{
+                                    color: COLORS.white,
+                                    fontWeight: "bold",
+                                    fontSize: SIZES.body3,
+                                }}
+                            >
+                                Publish Result
+                            </Text>
+                        </TouchableOpacity>) : (
                         ShowReportButton && (<>
                             <TouchableOpacity
                                 style={{
