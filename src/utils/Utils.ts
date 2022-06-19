@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icons from '../constants/Icons';
 
 export async function storeToken(Key: string, value: any, dispatch: any) {
   try {
@@ -64,4 +65,26 @@ export function CalculateLength(
   maxLength: number,
 ) {
   setNum(maxLength - value.length);
+}
+
+export function ReturnGameImage(GameName: string) {
+  switch (GameName) {
+    case 'Pubg':
+      return Icons.Pubg;
+
+    case 'FreeFire':
+      return Icons.FreeFire;
+
+    case 'COD':
+      return Icons.COD;
+
+    case 'BGMI':
+      return Icons.BGMI;
+
+    case 'Fortnite':
+      return Icons.Fortnite;
+
+    default:
+      break;
+  }
 }

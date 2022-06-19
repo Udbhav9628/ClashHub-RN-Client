@@ -20,7 +20,7 @@ const GuildMatchesDetails = ({
     route: any;
     navigation: any;
 }) => {
-    const { Item, SelectedMenu
+    const { Item, SelectedMenu, GameImage
     } = route.params;
 
     const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
@@ -259,7 +259,7 @@ const GuildMatchesDetails = ({
                 </View>
                 {/* Info Right Image */}
                 <View style={style.InfoRight}>
-                    <Image source={Icons.Pubg2} style={style.InfoWrapperImage} />
+                    <Image source={GameImage} style={style.InfoWrapperImage} />
                 </View>
             </View>
             {/* Match By Guild */}

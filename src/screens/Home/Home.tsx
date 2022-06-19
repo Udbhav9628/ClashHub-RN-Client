@@ -26,6 +26,7 @@ import {
   Clear_Guild_Reducer_Error,
 } from "../../store/Guild/GuildAction";
 import StatusBarComp from "../../components/StatusBar";
+import { ReturnGameImage } from "../../utils/Utils";
 
 const Home = ({ navigation }: { navigation: any }) => {
   const { Home_Matchs, loading, Error } = useSelector(
@@ -110,7 +111,7 @@ const Home = ({ navigation }: { navigation: any }) => {
       <GameTypesComp navigation={navigation} />
       <HeadingComp
         navigation={navigation}
-        Title={"Matches"}
+        Title={"Starting Soon"}
         ShowViewAll={true}
         Navigate_to={"AllMatches"}
         Query={{
@@ -177,9 +178,11 @@ const Home = ({ navigation }: { navigation: any }) => {
                   resizeMode: "stretch",
                 }}
                 Item={item}
+                GameImage={ReturnGameImage(item.Game_Name)}
                 onPress={() =>
                   navigation.navigate("GameDetailsPage", {
                     Item: item,
+                    GameImage: ReturnGameImage(item.Game_Name)
                   })
                 }
               />
@@ -195,7 +198,7 @@ const Home = ({ navigation }: { navigation: any }) => {
       >
         <HeadingComp
           navigation={navigation}
-          Title={"Guilds"}
+          Title={"Popular Clubs"}
           ShowViewAll={true}
           Navigate_to={"Guilds"}
           Query={null}

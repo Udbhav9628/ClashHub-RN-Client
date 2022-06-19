@@ -18,6 +18,7 @@ import {
 } from "../../store/Match/Matchaction";
 import MyMatchesMenu from "../../components/MyMatchesMenu";
 import { GamesTypes } from "../../constants/Data";
+import { ReturnGameImage } from "../../utils/Utils";
 
 const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
   const [SelectedMenu, setSelectedMenu] = useState("Scheduled");
@@ -57,7 +58,6 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
           text: "OK",
           onPress: () => {
             Clear_Match_ReducerError();
-            // Fetch_Joined_Matchs(SelectedMenu);
             setSelectedMenu("Scheduled")
           },
         },
@@ -93,7 +93,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
               fontWeight: "700",
             }}
           >
-            No {SelectedMenu} Guild Matches
+            No {SelectedMenu} Matches
           </Text>
         </View>
       ) : (
@@ -124,9 +124,10 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
                 resizeMode: "stretch",
               }}
               Item={item}
+              GameImage={ReturnGameImage(item.Game_Name)}
               onPress={() =>
                 navigation.navigate("GameDetailsPage", {
-                  Item: item, SelectedMenu: SelectedMenu
+                  Item: item, SelectedMenu: SelectedMenu, GameImage: ReturnGameImage(item.Game_Name)
                 })
               }
             />

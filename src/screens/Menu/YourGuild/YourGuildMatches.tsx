@@ -18,6 +18,7 @@ import {
 } from "../../../store/Guild/GuildAction";
 import MyMatchesMenu from "../../../components/MyMatchesMenu";
 import { GamesTypes } from "../../../constants/Data";
+import { ReturnGameImage } from "../../../utils/Utils";
 
 const YourGuildMatches = ({ navigation }: { navigation: any }) => {
   const [SelectedMenu, setSelectedMenu] = useState('');
@@ -118,9 +119,10 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
                 resizeMode: "stretch",
               }}
               Item={item}
+              GameImage={ReturnGameImage(item.Game_Name)}
               onPress={() =>
                 navigation.navigate("GuildMatchesDetails", {
-                  Item: item, SelectedMenu: SelectedMenu
+                  Item: item, SelectedMenu: SelectedMenu, GameImage: ReturnGameImage(item.Game_Name)
                 })
               }
             />

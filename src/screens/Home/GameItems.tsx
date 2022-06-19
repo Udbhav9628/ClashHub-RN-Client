@@ -8,11 +8,13 @@ const GameItems = ({
   ContainerStyle,
   Imagestyle,
   Item,
+  GameImage,
   onPress,
 }: {
   ContainerStyle: any;
   Imagestyle: any;
   Item: any;
+  GameImage: any;
   onPress: any;
 }) => {
   //Timer
@@ -85,7 +87,7 @@ const GameItems = ({
     >
       {/* Image*/}
       <View style={{ marginRight: 3 }}>
-        <Image source={Icons.Pubg2} style={Imagestyle} />
+        <Image source={GameImage} style={Imagestyle} />
       </View>
       {/* Info */}
       <View>

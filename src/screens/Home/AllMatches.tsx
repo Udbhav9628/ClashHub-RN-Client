@@ -18,6 +18,7 @@ import {
   Clear_Match_Reducer_Error,
 } from "../../store/Match/Matchaction";
 import Heading from "../../components/Heading";
+import { ReturnGameImage } from "../../utils/Utils";
 
 const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
   //const [All_Matches_State, setAll_Matches_State] = useState([] as Array<any>);
@@ -156,9 +157,11 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
                 resizeMode: "stretch",
               }}
               Item={item}
+              GameImage={ReturnGameImage(item.Game_Name)}
               onPress={() =>
                 navigation.navigate("GameDetailsPage", {
                   Item: item,
+                  GameImage: ReturnGameImage(item.Game_Name)
                 })
               }
             />

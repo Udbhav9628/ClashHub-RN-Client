@@ -28,12 +28,12 @@ const GameDetailsPage = ({
   route: any;
   navigation: any;
 }) => {
-  const { Item } = route.params;
+
+  const { Item, GameImage } = route.params;
 
   const [modalVisible, setModalVisible] = useState(false);
 
   const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
-
 
   const [Disable, setDisable] = useState(false);
 
@@ -73,7 +73,7 @@ const GameDetailsPage = ({
           onPress: () => {
             Clear_Match_Sucess();
             Remove_Match_Item(Home_Matchs, Item._id);
-            navigation.navigate("MyMatches");
+            navigation.goBack()
           },
         },
       ]);
@@ -210,7 +210,7 @@ const GameDetailsPage = ({
             <View style={style.EntryFeeWraper}>
               <Text
                 style={{
-                  ...FONTS.body3,
+                  ...FONTS.body1,
                   color: COLORS.primary,
                   fontWeight: "700",
                 }}
@@ -324,7 +324,7 @@ const GameDetailsPage = ({
         </View>
         {/* Info Right Image */}
         <View style={style.InfoRight}>
-          <Image source={Icons.Pubg2} style={style.InfoWrapperImage} />
+          <Image source={GameImage} style={style.InfoWrapperImage} />
         </View>
       </View>
       {/* Match By Guild */}

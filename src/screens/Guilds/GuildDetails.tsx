@@ -21,6 +21,7 @@ import {
   Clear_Guild_Reducer_Error,
 } from "../../store/Guild/GuildAction";
 import { useFocusEffect } from "@react-navigation/native";
+import { ReturnGameImage } from "../../utils/Utils";
 
 const GuildDetails = ({
   navigation,
@@ -175,9 +176,11 @@ const GuildDetails = ({
                     resizeMode: "stretch",
                   }}
                   Item={item}
+                  GameImage={ReturnGameImage(item.Game_Name)}
                   onPress={() =>
                     navigation.navigate("GameDetailsPage", {
                       Item: item,
+                      GameImage: ReturnGameImage(item.Game_Name)
                     })
                   }
                 />
