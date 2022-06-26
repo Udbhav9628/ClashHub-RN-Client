@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { COLORS, SIZES, FONTS } from "../../constants/Theame";
+import { COLORS, SIZES, FONTS, DPwidth, Dpheight } from "../../constants/Theame";
 import { useFocusEffect } from "@react-navigation/native";
 import Icons from "../../constants/Icons";
 
@@ -98,14 +98,14 @@ const GameItems = ({
           {Item.Game_Name} Squad Match
         </Text>
         {/* Description */}
-        <Text style={{ ...FONTS.h4, color: COLORS.darkGray2 }}>
-          Play Match win and earn
+        <Text style={{ ...FONTS.h3, color: COLORS.darkGray2, lineHeight: SIZES.h1 }}>
+          Match by Fighters Club
         </Text>
         {/* More Info Section */}
         <View
           style={{
             flexDirection: "row",
-            marginTop: 5,
+            marginTop: 2,
           }}
         >
           <View
@@ -116,11 +116,11 @@ const GameItems = ({
               marginLeft: SIZES.base,
             }}
           >
-            <Text style={{ ...FONTS.h4, color: COLORS.darkGray2 }}>
+            <Text style={{ ...FONTS.h3, color: COLORS.darkGray2 }}>
               Prize Pool
             </Text>
             <Text
-              style={{ color: COLORS.black, ...FONTS.h4, fontWeight: "700" }}
+              style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
             >
               800
             </Text>
@@ -131,9 +131,9 @@ const GameItems = ({
               alignItems: "center",
             }}
           >
-            <Text style={{ ...FONTS.h4, color: COLORS.darkGray2 }}>Type</Text>
+            <Text style={{ ...FONTS.h3, color: COLORS.darkGray2 }}>Type</Text>
             <Text
-              style={{ color: COLORS.black, ...FONTS.h4, fontWeight: "700" }}
+              style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
             >
               Solo
             </Text>
@@ -153,9 +153,9 @@ const GameItems = ({
               marginLeft: 13,
             }}
           >
-            <Text style={{ ...FONTS.h4, color: COLORS.darkGray2 }}>Map</Text>
+            <Text style={{ ...FONTS.h3, color: COLORS.darkGray2 }}>Map</Text>
             <Text
-              style={{ color: COLORS.black, ...FONTS.h4, fontWeight: "700" }}
+              style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
             >
               Miramar
             </Text>
@@ -167,9 +167,9 @@ const GameItems = ({
               marginLeft: 5,
             }}
           >
-            <Text style={{ ...FONTS.h4, color: COLORS.darkGray2 }}>View</Text>
+            <Text style={{ ...FONTS.h3, color: COLORS.darkGray2 }}>View</Text>
             <Text
-              style={{ color: COLORS.black, ...FONTS.h4, fontWeight: "700" }}
+              style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
             >
               FPP
             </Text>
@@ -188,8 +188,8 @@ const GameItems = ({
         <Image
           source={Icons.calories}
           style={{
-            width: 25,
-            height: 25,
+            width: DPwidth(6.2),
+            height: Dpheight(3.5),
           }}
         />
         {Days === 0 && Hours === 0 && Minutes === 0 ? (<Text
@@ -214,8 +214,8 @@ const GameItems = ({
       {/* Bottom Box */}
       <View
         style={{
-          height: 30,
-          width: 53,
+          height: Dpheight(3.5),
+          width: DPwidth(14.5),
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "row",

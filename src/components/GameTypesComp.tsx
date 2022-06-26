@@ -6,7 +6,7 @@ import {
   Image,
 } from "react-native";
 import React from "react";
-import { COLORS, SIZES } from "../constants/Theame";
+import { COLORS, Dpheight, DPwidth, SIZES } from "../constants/Theame";
 import { GamesTypesData } from "../constants/Data";
 
 const GameTypesComp = ({ navigation }: { navigation: any }) => {
@@ -66,18 +66,12 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   NotificationWrapper: {
-    height: 140,
-    width: 150,
+    height: Dpheight(17.3),
+    width: DPwidth(38.2),
   },
   Image: {
-    // resizeMode: "stretch",
-    height: 140,
-    width: 150,
+    height: Dpheight(17.3),
+    width: DPwidth(38.2),
     borderRadius: SIZES.radius,
-  },
-  NotificationText: {
-    lineHeight: 20,
-    fontSize: 17,
-    fontWeight: "bold",
   },
 });

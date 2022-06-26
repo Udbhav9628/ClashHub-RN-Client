@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Modal, FlatList, TouchableOpacity, ActivityIndi
 import React, { useState, useEffect } from 'react'
 import HeadingComp from '../../components/HeadingComp';
 import Icon from "react-native-vector-icons/Feather";
-import { SIZES, COLORS } from '../../constants/Theame';
+import { SIZES, COLORS, Dpheight } from '../../constants/Theame';
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import { GetUserTransaction, GetClubTransaction } from "../../store/Payment/PaymentAction";
@@ -144,7 +144,7 @@ const style = StyleSheet.create({
         shadowRadius: 3,
     },
     NotificationWrapper: {
-        height: 70,
+        height: Dpheight(8.7),
         flexDirection: "row",
         alignItems: "center",
         backgroundColor: COLORS.lightGray2,
@@ -152,12 +152,11 @@ const style = StyleSheet.create({
         paddingHorizontal: SIZES.base,
     },
     NotificationText: {
-        // lineHeight: 30,
-        fontSize: 16,
+        fontSize: SIZES.h3,
         fontWeight: "bold",
     },
     NotificationText2: {
-        fontSize: 13,
+        fontSize: SIZES.h5,
         fontWeight: "600",
         color: COLORS.gray,
     },
@@ -167,7 +166,7 @@ const style = StyleSheet.create({
         right: 15,
     },
     ValueText: {
-        fontSize: 13,
+        fontSize: SIZES.body4,
         fontWeight: "bold",
         color: COLORS.black,
     },

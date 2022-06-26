@@ -7,8 +7,7 @@ import {
     TouchableOpacity,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { SIZES, COLORS, FONTS } from "../../../constants/Theame";
-import Icons from "../../../constants/Icons";
+import { SIZES, COLORS, FONTS, Dpheight, DPwidth } from "../../../constants/Theame";
 import { useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import ModalJoinedPlayers from "./ModalJoinedPlayers";
@@ -133,7 +132,7 @@ const GuildMatchesDetails = ({
                     <View style={style.TitleWraper}>
                         <Text
                             style={{
-                                ...FONTS.body1,
+                                ...FONTS.h1,
                                 fontWeight: "700",
                                 color: COLORS.black,
                             }}
@@ -181,7 +180,7 @@ const GuildMatchesDetails = ({
                         <View>
                             {/* Prize Per Kill */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h4 }}>
+                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                                     Prize
                                 </Text>
                                 <Text
@@ -196,7 +195,7 @@ const GuildMatchesDetails = ({
                             </View>
                             {/* Match Type */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h4 }}>
+                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                                     Match Type
                                 </Text>
                                 <Text
@@ -211,7 +210,7 @@ const GuildMatchesDetails = ({
                             </View>
                             {/* Match Map */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h4 }}>
+                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                                     Map
                                 </Text>
                                 <Text
@@ -226,7 +225,7 @@ const GuildMatchesDetails = ({
                             </View>
                             {/* Match Date */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h4 }}>
+                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                                     Match Date
                                 </Text>
                                 <Text
@@ -241,7 +240,7 @@ const GuildMatchesDetails = ({
                             </View>
                             {/* Match Time */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h4 }}>
+                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                                     Match Time
                                 </Text>
                                 <Text
@@ -258,7 +257,7 @@ const GuildMatchesDetails = ({
                     </View>
                 </View>
                 {/* Info Right Image */}
-                <View style={style.InfoRight}>
+                <View>
                     <Image source={GameImage} style={style.InfoWrapperImage} />
                 </View>
             </View>
@@ -270,8 +269,8 @@ const GuildMatchesDetails = ({
                         <Image
                             style={{
                                 marginHorizontal: 12,
-                                width: 50,
-                                height: 50,
+                                width: DPwidth(12),
+                                height: Dpheight(7),
                                 borderRadius: SIZES.radius,
                                 resizeMode: "cover",
                             }}
@@ -324,13 +323,13 @@ const style = StyleSheet.create({
     Header: {
         marginTop: 10,
         flexDirection: "row",
-        marginHorizontal: SIZES.h4,
+        marginHorizontal: SIZES.h3,
     },
     HeaderLeft: {
         alignItems: "center",
         justifyContent: "center",
-        width: 40,
-        height: 40,
+        width: DPwidth(10),
+        height: Dpheight(5),
         borderWidth: 2,
         borderColor: "#CDCDCD",
         borderRadius: SIZES.radius,
@@ -351,12 +350,9 @@ const style = StyleSheet.create({
     InfoLeftItem: {
         marginBottom: SIZES.base,
     },
-    InfoRight: {
-        width: "50%",
-    },
     InfoWrapperImage: {
-        width: 200,
-        height: 400,
+        width: DPwidth(52),
+        height: Dpheight(50),
         resizeMode: "stretch",
     },
     Elevation: {
@@ -373,10 +369,11 @@ const style = StyleSheet.create({
         shadowRadius: 3,
     },
     GuildWrapper: {
-        height: 70,
+        height: Dpheight(8),
         borderRadius: SIZES.radius,
         flexDirection: "row",
         alignItems: "center",
+        // backgroundColor: COLORS.primary,
         justifyContent: "space-between",
     },
     GuildInfo: {

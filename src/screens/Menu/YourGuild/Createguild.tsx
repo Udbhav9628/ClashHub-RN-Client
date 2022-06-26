@@ -7,7 +7,7 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { COLORS, SIZES } from "../../../constants/Theame";
+import { COLORS, Dpheight, DPwidth, SIZES } from "../../../constants/Theame";
 import React, { useState, useEffect } from "react";
 import { CalculateLength } from "../../../utils/Utils";
 import Textinput from "./Textinput";
@@ -169,7 +169,7 @@ const Createguild = ({ navigation }: { navigation: any }) => {
           {/* Create Guild Button */}
           <TouchableOpacity
             style={{
-              height: 55,
+              height: Dpheight(6.9),
               alignItems: "center",
               justifyContent: "center",
               marginTop: 40,
@@ -196,7 +196,6 @@ const Createguild = ({ navigation }: { navigation: any }) => {
                   color: COLORS.white,
                   fontWeight: "bold",
                   fontSize: SIZES.body3,
-                  lineHeight: 22,
                 }}
               >
                 Create Guild
@@ -220,13 +219,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     marginTop: 40,
-    marginHorizontal: SIZES.h4,
+    marginHorizontal: SIZES.h3,
   },
   HeaderLeft: {
     alignItems: "center",
     justifyContent: "center",
-    width: 40,
-    height: 40,
+    width: DPwidth(10),
+    height: Dpheight(5),
     borderWidth: 2,
     borderColor: "#CDCDCD",
     borderRadius: SIZES.radius,

@@ -8,7 +8,7 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { COLORS, FONTS, SIZES } from "../../../constants/Theame";
+import { COLORS, Dpheight, DPwidth, FONTS, SIZES } from "../../../constants/Theame";
 import React, { useState, useEffect } from "react";
 import { CalculateLength } from "../../../utils/Utils";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -126,7 +126,6 @@ const ModalScreen = ({
             setMaindateDateTime('')
             setFormateddate('')
             setFormatedTime('')
-            navigation.navigate("YourGuildsMatches");
             Fetch_All_Match("");
             setModalVisible(!modalVisible);
           },
@@ -206,7 +205,6 @@ const ModalScreen = ({
               <Text
                 style={{
                   fontSize: SIZES.h2,
-                  lineHeight: 30,
                   fontWeight: "bold",
                 }}
               >
@@ -217,7 +215,7 @@ const ModalScreen = ({
                   marginTop: SIZES.base,
                   color: COLORS.darkGray,
                   fontSize: SIZES.body3,
-                  lineHeight: 22,
+                  lineHeight: SIZES.h1,
                 }}
               >
                 Fill Details Below
@@ -243,7 +241,7 @@ const ModalScreen = ({
             }}>Game</Text>
           </View>
           <TouchableOpacity style={{
-            height: 55,
+            height: Dpheight(7),
             alignItems: "flex-start",
             justifyContent: "center",
             marginTop: 5,
@@ -259,7 +257,7 @@ const ModalScreen = ({
                 backgroundColor: COLORS.lightGray2,
                 color: COLORS.gray,
                 fontWeight: "500",
-                fontSize: 14,
+                fontSize: SIZES.body4,
               }}
             >
               {Select_Game || "Select Game"}
@@ -302,8 +300,8 @@ const ModalScreen = ({
           {Show && (<DateTimePicker testID="dateTimePicker" value={dateTime} mode={mode} is24Hour={true} display='default' onChange={onChange} />)}
           <View style={{ flexDirection: "row", justifyContent: 'flex-start', alignItems: 'flex-start' }}>
             <TouchableOpacity style={{
-              height: 55,
-              width: 160,
+              height: Dpheight(7),
+              width: DPwidth(40.8),
               paddingLeft: 25,
               marginRight: 20,
               justifyContent: "center",
@@ -318,15 +316,15 @@ const ModalScreen = ({
                   backgroundColor: COLORS.lightGray2,
                   color: COLORS.gray,
                   fontWeight: "500",
-                  fontSize: 14,
+                  fontSize: SIZES.body4,
                 }}
               >
                 {Formateddate || "Chose Date"}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={{
-              height: 55,
-              width: 160,
+              height: Dpheight(7),
+              width: DPwidth(40.8),
               paddingLeft: 25,
               justifyContent: "center",
               borderRadius: SIZES.radius,
@@ -340,7 +338,7 @@ const ModalScreen = ({
                   backgroundColor: COLORS.lightGray2,
                   color: COLORS.gray,
                   fontWeight: "500",
-                  fontSize: 14,
+                  fontSize: SIZES.body4,
                 }}
               >
                 {FormatedTime || "Chose Time"}
@@ -350,7 +348,7 @@ const ModalScreen = ({
           {/* Create Match Button */}
           <TouchableOpacity
             style={{
-              height: 55,
+              height: Dpheight(7),
               alignItems: "center",
               justifyContent: "center",
               marginTop: 30,
@@ -376,7 +374,6 @@ const ModalScreen = ({
                   color: COLORS.white,
                   fontWeight: "bold",
                   fontSize: SIZES.body3,
-                  lineHeight: 22,
                 }}
               >
                 Create Match

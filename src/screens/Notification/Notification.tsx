@@ -62,12 +62,12 @@ const style = StyleSheet.create({
     flexDirection: "row",
   },
   NotificationText: {
-    fontSize: 17,
+    fontSize: SIZES.body3,
     fontWeight: "bold",
     color: COLORS.black,
   },
   NotificationText2: {
-    fontSize: 17,
+    fontSize: SIZES.body3,
     fontWeight: "600",
     color: COLORS.gray,
   },

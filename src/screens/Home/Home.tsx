@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Crousal from "../../components/Crousal";
 import HeadingComp from "../../components/HeadingComp";
 import GameTypesComp from "../../components/GameTypesComp";
-import { SIZES, COLORS, FONTS } from "../../constants/Theame";
+import { SIZES, COLORS, FONTS, Dpheight, DPwidth } from "../../constants/Theame";
 import GameItems from "./GameItems";
 import { bindActionCreators } from "redux";
 import {
@@ -120,7 +120,7 @@ const Home = ({ navigation }: { navigation: any }) => {
       />
       <View
         style={{
-          height: 214,
+          height: Dpheight(26.8),
         }}
       >
         {loading ? (
@@ -143,56 +143,58 @@ const Home = ({ navigation }: { navigation: any }) => {
           >
             <Text
               style={{
-                ...FONTS.h4,
+                fontSize: SIZES.h2,
                 fontWeight: "700",
               }}
             >
-              No Matches Available
+              No Guild's Matches
             </Text>
           </View>
         ) : (
-          <FlatList
-            data={Home_Matchs}
-            horizontal
-            keyExtractor={(Item) => `${Item._id}`}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => (
-              <GameItems
-                ContainerStyle={{
-                  ...styles.Elevation,
-                  marginRight:
-                    index === Home_Matchs.length - 1 ? SIZES.padding : 0,
-                  height: 200,
-                  width: 325,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  paddingRight: SIZES.padding,
-                  backgroundColor: COLORS.lightGray2,
-                }}
-                Imagestyle={{
-                  marginTop: 20,
-                  height: "90%",
-                  width: 110,
-                  marginRight: 2,
-                  resizeMode: "stretch",
-                }}
-                Item={item}
-                GameImage={ReturnGameImage(item.Game_Name)}
-                onPress={() =>
-                  navigation.navigate("GameDetailsPage", {
-                    Item: item,
-                    GameImage: ReturnGameImage(item.Game_Name)
-                  })
-                }
-              />
-            )}
-          />
+          <View>
+            <FlatList
+              data={Home_Matchs}
+              horizontal
+              keyExtractor={(Item) => `${Item._id}`}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item, index }) => (
+                <GameItems
+                  ContainerStyle={{
+                    ...styles.Elevation,
+                    marginRight:
+                      index === Home_Matchs.length - 1 ? SIZES.padding : 0,
+                    height: Dpheight(26),
+                    width: DPwidth(83),
+                    alignItems: "center",
+                    justifyContent: "center",
+                    paddingRight: SIZES.padding,
+                    backgroundColor: COLORS.lightGray2,
+                  }}
+                  Imagestyle={{
+                    marginTop: Dpheight(3),
+                    height: "100%",
+                    width: DPwidth(29),
+                    marginRight: DPwidth(1),
+                    resizeMode: "stretch",
+                  }}
+                  Item={item}
+                  GameImage={ReturnGameImage(item.Game_Name)}
+                  onPress={() =>
+                    navigation.navigate("GameDetailsPage", {
+                      Item: item,
+                      GameImage: ReturnGameImage(item.Game_Name)
+                    })
+                  }
+                />
+              )}
+            />
+          </View>
         )}
       </View>
       <View
         style={{
-          height: 214,
+          height: Dpheight(26.8),
           marginBottom: 5,
         }}
       >
@@ -223,7 +225,7 @@ const Home = ({ navigation }: { navigation: any }) => {
           >
             <Text
               style={{
-                fontSize: 18,
+                ...FONTS.h3,
                 fontWeight: "700",
               }}
             >
@@ -254,8 +256,8 @@ const Home = ({ navigation }: { navigation: any }) => {
                 >
                   <View
                     style={{
-                      height: 160,
-                      width: 150,
+                      height: Dpheight(20),
+                      width: DPwidth(38.3),
                       alignItems: "center",
                       justifyContent: "center",
                       backgroundColor: COLORS.lightGray2,
@@ -265,15 +267,15 @@ const Home = ({ navigation }: { navigation: any }) => {
                     <Image
                       source={{ uri: `https://api.multiavatar.com/${item.GuildName}.png` }}
                       style={{
-                        height: 60,
-                        width: 60,
-                        borderRadius: SIZES.radius,
+                        height: Dpheight(7.5),
+                        width: DPwidth(16),
+                        borderRadius: Dpheight(45),
                       }}
                     />
                     <Text
                       style={{
-                        lineHeight: 30,
-                        fontSize: 17,
+                        lineHeight: SIZES.h1,
+                        fontSize: SIZES.Size4,
                         fontWeight: "bold",
                         color: COLORS.black,
                       }}
@@ -282,8 +284,8 @@ const Home = ({ navigation }: { navigation: any }) => {
                     </Text>
                     <Text
                       style={{
-                        lineHeight: 30,
-                        fontSize: 17,
+                        lineHeight: SIZES.h1,
+                        fontSize: SIZES.body4,
                         fontWeight: "600",
                         color: COLORS.gray,
                       }}
@@ -293,11 +295,12 @@ const Home = ({ navigation }: { navigation: any }) => {
                   </View>
                 </TouchableOpacity>
               </View>
-            )}
+            )
+            }
           />
         )}
-      </View>
-    </ScrollView>
+      </View >
+    </ScrollView >
   );
 };
 
@@ -324,19 +327,5 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-  },
-  NotificationWrapper: {
-    height: 140,
-    width: 150,
-  },
-  Image: {
-    height: 140,
-    width: 150,
-    borderRadius: SIZES.radius,
-  },
-  NotificationText: {
-    lineHeight: 20,
-    fontSize: 17,
-    fontWeight: "bold",
   },
 });

@@ -8,7 +8,7 @@ import {
   Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { SIZES, COLORS } from "../../constants/Theame";
+import { SIZES, COLORS, DPwidth, Dpheight } from "../../constants/Theame";
 import Heading from "../../components/Heading";
 import Icon from "react-native-vector-icons/Ionicons";
 import ModalScreen from "./YourGuild/Modal";
@@ -82,13 +82,14 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
             <Image
               source={{ uri: `https://api.multiavatar.com/${Guild_Details.GuildName}.png` }}
               style={{
-                borderRadius: 50,
-                width: 100,
-                height: 100,
+                width: DPwidth(31),
+                height: Dpheight(15),
+                borderRadius: Dpheight(455),
               }}
             />
             <View
               style={{
+                marginTop: 10,
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -97,11 +98,11 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
               <Text style={styles.NotificationText2}>
                 {Guild_Details.Followers.length} Followers
               </Text>
-              <View style={{ marginBottom: 10 }}>
+              {/* <View style={{ marginBottom: 10 }}>
                 <Text style={styles.NotificationText2}>
                   {Guild_Details.GuildDescription}
                 </Text>
-              </View>
+              </View> */}
             </View>
           </View>
           <View style={styles.statswrapper}>
@@ -129,8 +130,8 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                 setModalVisible(true);
               }}
               style={{
-                height: 35,
-                width: 150,
+                height: Dpheight(4),
+                width: DPwidth(40),
                 marginTop: SIZES.base,
                 alignItems: "center",
                 justifyContent: "center",
@@ -143,7 +144,6 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                   color: COLORS.white,
                   fontWeight: "bold",
                   fontSize: SIZES.body3,
-                  lineHeight: 22,
                 }}
               >
                 Create Match
@@ -158,7 +158,8 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
           >
             <Text
               style={{
-                fontSize: 20,
+                color: "#000",
+                fontSize: SIZES.h2,
                 fontWeight: "700",
               }}
             >
@@ -290,7 +291,9 @@ const styles = StyleSheet.create({
     marginTop: SIZES.base,
   },
   ProfileText: {
-    fontSize: 24,
+    textAlign: 'center',
+    fontSize: SIZES.Size24,
+    color: "#000",
     fontWeight: "bold",
   },
   Elevation: {
@@ -306,7 +309,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   NotificationWrapper: {
-    height: 70,
+    height: Dpheight(8.7),
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: COLORS.lightGray2,
@@ -321,32 +324,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   NotificationText: {
-    lineHeight: 30,
-    fontSize: 17,
+    color: "#000",
+    lineHeight: SIZES.h1,
+    fontSize: SIZES.Size4,
     fontWeight: "bold",
   },
   NotificationText2: {
     marginVertical: 5,
     textAlign: "center",
     marginHorizontal: 50,
-    fontSize: 17,
+    fontSize: SIZES.body3,
     fontWeight: "600",
     color: COLORS.gray,
   },
   statswrapper: {
     flexDirection: "row",
     justifyContent: "space-evenly",
+    marginTop: 15,
     marginBottom: 15,
     marginHorizontal: SIZES.padding,
   },
   statsTitle: {
     textAlign: "center",
-    fontSize: 15,
+    fontSize: SIZES.h3,
     fontWeight: "bold",
   },
   statsCaption: {
-    lineHeight: 25,
-    fontSize: 15,
+    lineHeight: SIZES.h1,
+    fontSize: SIZES.h3,
     fontWeight: "bold",
     color: COLORS.gray,
   },

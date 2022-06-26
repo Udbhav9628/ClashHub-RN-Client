@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useEffect } from "react";
-import { SIZES, COLORS } from "../../constants/Theame";
+import { SIZES, COLORS, Dpheight, DPwidth } from "../../constants/Theame";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
@@ -71,7 +71,7 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
         >
           <Text
             style={{
-              fontSize: 18,
+              fontSize: SIZES.h3,
               fontWeight: "700",
             }}
           >
@@ -96,9 +96,9 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
                 <View style={styles.NotificationWrapper}>
                   <Image source={{ uri: `https://api.multiavatar.com/${item.GuildName}.png` }}
                     style={{
-                      height: 60,
-                      width: 60,
-                      borderRadius: SIZES.radius,
+                      height: Dpheight(8),
+                      width: DPwidth(17),
+                      borderRadius: Dpheight(45),
                     }} />
                   <Text style={styles.NotificationText}>{item.GuildName}</Text>
                   <Text style={styles.NotificationText2}>
@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   NotificationWrapper: {
-    height: 160,
-    width: 150,
+    height: Dpheight(20),
+    width: DPwidth(38.3),
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: COLORS.lightGray2,
@@ -143,19 +143,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
-  Image: {
-    height: 60,
-    width: 60,
-    borderRadius: SIZES.radius,
-  },
   NotificationText: {
-    lineHeight: 30,
-    fontSize: 17,
+    lineHeight: SIZES.h1,
+    fontSize: SIZES.body3,
     fontWeight: "bold",
   },
   NotificationText2: {
-    lineHeight: 30,
-    fontSize: 17,
+    lineHeight: SIZES.h1,
+    fontSize: SIZES.body4,
     fontWeight: "600",
     color: COLORS.gray,
   },

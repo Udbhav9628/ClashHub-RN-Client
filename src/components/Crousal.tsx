@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import { SIZES } from "../constants/Theame";
+import { Dpheight, DPwidth, SIZES } from "../constants/Theame";
 import { crousal } from "../constants/Data";
 
-const Crousal = ({}: {}) => {
+const Crousal = ({ }: {}) => {
   // Search Component
   // function Search_Comp() {
   //   return (
@@ -81,8 +81,8 @@ const Crousal = ({}: {}) => {
                 <Image
                   source={item.image}
                   style={{
-                    width: "100%",
-                    height: "100%",
+                    width: DPwidth(87.4),
+                    height: Dpheight(17.3),
                     resizeMode: "stretch",
                     borderRadius: SIZES.radius,
                   }}
@@ -104,8 +104,8 @@ const style = StyleSheet.create({
     borderRadius: SIZES.radius,
   },
   NotificationWrapper: {
-    height: 140,
-    width: 345,
+    height: Dpheight(17.3),
+    width: DPwidth(88),
   },
 });
 

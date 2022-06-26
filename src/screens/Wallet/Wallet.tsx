@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
-import { SIZES, COLORS, FONTS } from "../../constants/Theame";
+import { SIZES, COLORS, FONTS, Dpheight } from "../../constants/Theame";
 import Icons from "../../constants/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -58,6 +58,8 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     let amt = "10.00";
     const token = await Gernerate_Paytm_Token();
     const parsed = JSON.parse(token.post_data)
+    console.log(parsed.body.orderId);
+    console.log(parsed.body.callbackUrl);
     try {
       AllInOneSDKManager.startTransaction(
         parsed.body.orderId,//order id
@@ -133,7 +135,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
           <Text
             style={{
               textAlign: 'center',
-              ...FONTS.h4,
+              ...FONTS.h3,
               fontWeight: "700",
             }}
           >
@@ -168,7 +170,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                         position: "absolute",
                         top: 8,
                         right: 12,
-                        fontSize: 24,
+                        fontSize: SIZES.body2,
                         fontWeight: "bold",
                         color: COLORS.white,
                       }}
@@ -185,8 +187,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                     >
                       <Text
                         style={{
-                          fontSize: 17,
-                          lineHeight: 22,
+                          fontSize: SIZES.h2,
                           fontWeight: "bold",
                           color: COLORS.lightGray2,
                         }}
@@ -195,9 +196,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                       </Text>
                       <Text
                         style={{
-                          marginTop: 8,
-                          fontSize: 22,
-                          lineHeight: 22,
+                          fontSize: SIZES.body2,
                           fontWeight: "bold",
                           color: COLORS.white,
                         }}
@@ -215,7 +214,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                     >
                       <Text
                         style={{
-                          fontSize: 17,
+                          fontSize: SIZES.h3,
                           fontWeight: "700",
                           color: COLORS.white,
                         }}
@@ -233,7 +232,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                     >
                       <Text
                         style={{
-                          fontSize: 12,
+                          fontSize: SIZES.body5,
                           fontWeight: "700",
                           color: COLORS.white,
                         }}
@@ -502,7 +501,7 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
   NotificationWrapper: {
-    height: 70,
+    height: Dpheight(8.7),
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: COLORS.lightGray2,
@@ -510,14 +509,8 @@ const style = StyleSheet.create({
     paddingHorizontal: SIZES.base,
   },
   NotificationText: {
-    lineHeight: 30,
-    fontSize: 17,
+    fontSize: SIZES.Size4,
     fontWeight: "bold",
-  },
-  NotificationText2: {
-    fontSize: 13,
-    fontWeight: "600",
-    color: COLORS.gray,
   },
   Value: {
     position: "absolute",

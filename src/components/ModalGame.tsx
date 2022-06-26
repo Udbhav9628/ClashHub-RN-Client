@@ -1,6 +1,6 @@
 import { StyleSheet, View, Modal, FlatList, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { SIZES, COLORS } from "../constants/Theame";
+import { SIZES, COLORS, Dpheight, DPwidth } from "../constants/Theame";
 import HeadingComp from './HeadingComp';
 import { GamesTypesData } from "../constants/Data";
 
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         bottom: 2,
         left: 2,
         right: 2,
-        height: 220,
+        height: Dpheight(27),
         backgroundColor: "white",
         borderRadius: SIZES.radius,
         padding: 1,
@@ -104,12 +104,12 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
     },
     NotificationWrapper: {
-        height: 140,
-        width: 150,
+        height: Dpheight(17.3),
+        width: DPwidth(38.2),
     },
     Image: {
-        height: 140,
-        width: 150,
+        height: Dpheight(17.3),
+        width: DPwidth(38.2),
         borderRadius: SIZES.radius,
     },
 })

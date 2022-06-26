@@ -66,7 +66,7 @@ const BottonTabs = () => {
           header: (props) => (
             <Header
               navigation={props.navigation}
-              title={"Guilds"}
+              title={"Clubs"}
               title2={null}
             />
           ),

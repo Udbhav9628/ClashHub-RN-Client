@@ -207,7 +207,6 @@ const ModalJoinedPlayers = ({
                                             <Text style={{
                                                 color: COLORS.black,
                                                 ...FONTS.body3,
-                                                // fontWeight: "700",
                                             }}>{item.UserName}</Text>
                                         </View>
 
@@ -248,7 +247,6 @@ const ModalJoinedPlayers = ({
                                             <Text style={{
                                                 color: COLORS.black,
                                                 ...FONTS.body3,
-                                                // fontWeight: "700",
                                             }}>{Match.Prize_Pool * item.Kills}</Text>
                                         </View>}
                                     </View>
@@ -324,7 +322,7 @@ const ModalJoinedPlayers = ({
                 >
                     <Text
                         style={{
-                            fontSize: 18,
+                            fontSize: SIZES.h3,
                             fontWeight: "700",
                         }}
                     >

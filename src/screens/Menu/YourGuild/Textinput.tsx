@@ -30,12 +30,12 @@ const Textinput = ({
       {/* Label and Erros Msg Section*/}
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Text
-          style={{ color: COLORS.gray, fontSize: SIZES.body3, lineHeight: 22 }}
+          style={{ color: COLORS.gray, fontSize: SIZES.body3 }}
         >
           {label}
         </Text>
         <Text
-          style={{ color: COLORS.gray, fontSize: SIZES.body3, lineHeight: 22 }}
+          style={{ color: COLORS.gray, fontSize: SIZES.body3 }}
         >
           {Msg}
         </Text>

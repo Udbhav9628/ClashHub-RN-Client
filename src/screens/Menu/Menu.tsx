@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.base,
   },
   Menutitle: {
-    fontSize: 17,
+    fontSize: SIZES.body3,
     color: "#000",
     fontWeight: "bold",
     marginHorizontal: 15,
@@ -110,12 +110,5 @@ const styles = StyleSheet.create({
   menuTouchableOpacity: {
     borderRadius: SIZES.radius,
     marginHorizontal: SIZES.padding,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
   },
 });

@@ -94,7 +94,9 @@ const styles = StyleSheet.create({
         marginHorizontal: SIZES.padding,
     },
     Name: {
-        fontSize: 24,
+        textAlign: 'center',
+        fontSize: SIZES.Size24,
+        color: "#000",
         fontWeight: "bold",
     },
     statswrapper: {
@@ -106,19 +108,19 @@ const styles = StyleSheet.create({
     },
     statsTitle: {
         textAlign: "center",
-        fontSize: 15,
+        fontSize: SIZES.h3,
         fontWeight: "bold",
     },
     statsCaption: {
-        lineHeight: 25,
-        fontSize: 15,
+        lineHeight: SIZES.h1,
+        fontSize: SIZES.h3,
         fontWeight: "bold",
         color: COLORS.gray,
     },
     Caption: {
         textAlign: "center",
-        lineHeight: 30,
-        fontSize: 17,
+        lineHeight: SIZES.h1,
+        fontSize: SIZES.h3,
         fontWeight: "600",
         color: COLORS.gray,
     },

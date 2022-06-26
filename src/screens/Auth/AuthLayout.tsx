@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { COLORS, SIZES, FONTS } from "../../constants/Theame";
+import { COLORS, SIZES, FONTS, Dpheight } from "../../constants/Theame";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const AuthLayout = ({
@@ -14,7 +14,6 @@ const AuthLayout = ({
     <View style={style.conatiner}>
       <View
         style={{
-          flex: 1,
           marginHorizontal: SIZES.padding,
         }}
       >
@@ -24,7 +23,7 @@ const AuthLayout = ({
             alignItems: "center",
           }}
         >
-          <Ionicons name="game-controller-sharp" size={75} color="#000" />
+          <Ionicons name="game-controller-sharp" size={Dpheight(10)} color="#000" />
           <View style={{ flexDirection: "row" }}>
             <Text
               style={{
@@ -57,7 +56,6 @@ const AuthLayout = ({
           <Text
             style={{
               fontSize: SIZES.h2,
-              lineHeight: 30,
               fontWeight: "bold",
               color: COLORS.black,
             }}
@@ -83,8 +81,7 @@ const AuthLayout = ({
 const style = StyleSheet.create({
   conatiner: {
     flex: 1,
-    marginTop: SIZES.padding,
-    paddingVertical: SIZES.padding,
+    marginTop: '15%',
     backgroundColor: COLORS.white,
   },
 });

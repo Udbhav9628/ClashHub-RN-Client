@@ -10,14 +10,13 @@ import {
   StyleSheet
 } from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
-import { COLORS, SIZES } from "../../constants/Theame";
+import { COLORS, SIZES, Dpheight, DPwidth } from "../../constants/Theame";
 import FormInput from "./FormInput";
 import { validateNumber } from "../../utils/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
-  Login_User,
-  Clear_Auth_Message
+  Login_User
 } from "../../store/Authentication/Authaction";
 import messaging from '@react-native-firebase/messaging';
 import getAuth from "@react-native-firebase/auth";
@@ -52,23 +51,9 @@ const Login = ({ navigation }: { navigation: any }) => {
     }
   }
 
-  const { loading, sucess, Message } = useSelector(
+  const { loading, sucess } = useSelector(
     (state: any) => state.FetchUser_reducer
   );
-
-  const Clear_Auth_Message_func = bindActionCreators(Clear_Auth_Message, dispatch);
-
-  useEffect(() => {
-    if (Message) {
-      Clear_Auth_Message_func()
-      Alert.alert("Error", Message, [
-        {
-          text: "OK",
-        },
-      ]);
-    }
-  }, [Message])
-
 
   const [confirm, setConfirm] = useState({});
   async function signInWithPhoneNumber(phoneNumber: any) {
@@ -169,30 +154,30 @@ const Login = ({ navigation }: { navigation: any }) => {
       showsHorizontalScrollIndicator={false}
       style={{ backgroundColor: COLORS.white }}
     >
-      {NavigatetoOTP ? (<View>
-        <AuthLayout
-          Title={"OTP Authentication"}
-          SubTitle={`An Authentication code has been send to ${Phone_No}`}
-        />
-        {/* Otp Section */}
-        <View style={style.OtpContainer}>
-          <OTPInputView
-            pinCount={6}
-            style={style.OTPInputView}
-            codeInputFieldStyle={style.codeInputFieldStyle}
-            onCodeFilled={(code) => {
-              confirmCode(code, confirm);
-            }}
+      {NavigatetoOTP ? (
+        <View>
+          <AuthLayout
+            Title={"OTP Authentication"}
+            SubTitle={`An Authentication code has been send to ${Phone_No}`}
           />
-        </View>
+          {/* Otp Section */}
+          <View style={style.OtpContainer}>
+            <OTPInputView
+              pinCount={6}
+              style={style.OTPInputView}
+              codeInputFieldStyle={style.codeInputFieldStyle}
+              onCodeFilled={(code) => {
+                confirmCode(code, confirm);
+              }}
+            />
+          </View>
 
-        {/* CountDown Timer for OTP */}
-        {/* <View style={style.TimerContainer}>
+          {/* CountDown Timer for OTP */}
+          {/* <View style={style.TimerContainer}>
           <Text
             style={{
               marginRight: SIZES.base,
               fontSize: SIZES.h3,
-              lineHeight: 22,
             }}
           >
             Didn't recieved code?
@@ -208,7 +193,6 @@ const Login = ({ navigation }: { navigation: any }) => {
                 color: Timer === 0 ? COLORS.primary : COLORS.gray2,
                 fontWeight: "bold",
                 fontSize: SIZES.h3,
-                lineHeight: 22,
               }}
             >
               {Timer === 0 ? "Resend" : `Resend in ${Timer} s`}
@@ -216,131 +200,128 @@ const Login = ({ navigation }: { navigation: any }) => {
           </TouchableOpacity>
         </View> */}
 
-        {/* Footer Section */}
-        <View>
-          <TouchableOpacity
-            style={style.FooterContainer_Touchable}
-          >
-            {loading ? (
-              <View>
-                <ActivityIndicator size="large" color={COLORS.primary} />
-              </View>
-            ) : (
-              <Text
-                style={{
-                  color: COLORS.white,
-                  fontWeight: "bold",
-                  fontSize: SIZES.body3,
-                  lineHeight: 22,
-                }}
-              >
-                Continue
-              </Text>
-            )}
-          </TouchableOpacity>
-        </View>
-        {/* Terms And Conditions */}
-        <View style={style.TermsandConditions}>
-          <Text style={style.TimerContainer_Text}>
-            By singinup you agree to our.
-          </Text>
-          <TouchableOpacity>
-            <Text style={style.TermsandConditions_Text2}>
-              Terms And Conditions
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>) : (<>
-        <View style={{ marginTop: 50 }}><AuthLayout Title={"Let's Sign You In"} SubTitle={"Login To continue"} /></View>
-        <View
-          style={{
-            flex: 1,
-            marginTop: 230,
-            paddingHorizontal: SIZES.padding,
-          }}
-        >
-          <FormInput
-            label="Mobile"
-            Placeholder={"Enter Mobile No"}
-            secureTextEntry={false}
-            KeyboardType="phone-pad"
-            autocomplete="off"
-            autoCapatilize={"none"}
-            maxLength={15}
-            containerStyle={{ marginTop: SIZES.radius }}
-            onchange={(Value: any) => {
-              validateNumber(Value, setPhone_No_Msg);
-              setPhone_No(Value);
-            }}
-            errorMsg={Phone_No_Msg}
-            prepandComponent={null}
-            appendComponent={
-              null
-            }
-          />
-          {/* Sign In Button */}
-          <TouchableOpacity
-            style={{
-              height: 55,
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: SIZES.padding,
-              borderRadius: SIZES.radius,
-              backgroundColor: Disable
-                ? COLORS.transparentPrimray
-                : COLORS.primary,
-            }}
-            onPress={HandleOnPress}
-            disabled={Disable}
-          >
-            {loading ? (
-              <View>
-                <ActivityIndicator size="large" color={COLORS.primary} />
-              </View>
-            ) : (
-              <Text
-                style={{
-                  color: COLORS.white,
-                  fontWeight: "bold",
-                  fontSize: SIZES.body3,
-                  lineHeight: 22,
-                }}
-              >
-                Login
-              </Text>
-            )}
-          </TouchableOpacity>
-
-          {/* Sign Up */}
-          <View
-            style={{
-              flexDirection: "row",
-              marginTop: SIZES.padding,
-              justifyContent: "center",
-            }}
-          >
-            <Text style={{ fontSize: SIZES.body4, lineHeight: 22 }}>
-              Don't have an Account?{"  "}
-            </Text>
+          {/* Footer Section */}
+          <View>
             <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("Register");
-              }}
+              style={style.FooterContainer_Touchable}
             >
-              <Text
-                style={{
-                  fontSize: SIZES.h3,
-                  lineHeight: 22,
-                  color: COLORS.primary,
-                  fontWeight: "bold",
-                }}
-              >
-                Register Here
+              {loading ? (
+                <View>
+                  <ActivityIndicator size="large" color={COLORS.primary} />
+                </View>
+              ) : (
+                <Text
+                  style={{
+                    color: COLORS.white,
+                    fontWeight: "bold",
+                    fontSize: SIZES.body3,
+                  }}
+                >
+                  Continue
+                </Text>
+              )}
+            </TouchableOpacity>
+          </View>
+          {/* Terms And Conditions */}
+          <View style={style.TermsandConditions}>
+            <Text style={style.TimerContainer_Text}>
+              By singinup you agree to our.
+            </Text>
+            <TouchableOpacity>
+              <Text style={style.TermsandConditions_Text2}>
+                Terms And Conditions
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </>)}
+        </View>) : (<>
+          <View style={{ marginTop: "0%" }}><AuthLayout Title={"Let's Sign You In"} SubTitle={"Login To continue"} />
+            <View
+              style={{
+                marginTop: Dpheight('37%'),
+                paddingHorizontal: SIZES.padding,
+              }}
+            >
+              <FormInput
+                label="Mobile"
+                Placeholder={"Enter Mobile No"}
+                secureTextEntry={false}
+                KeyboardType="phone-pad"
+                autocomplete="off"
+                autoCapatilize={"none"}
+                maxLength={15}
+                containerStyle={{ marginTop: SIZES.radius }}
+                onchange={(Value: any) => {
+                  validateNumber(Value, setPhone_No_Msg);
+                  setPhone_No(Value);
+                }}
+                errorMsg={Phone_No_Msg}
+                prepandComponent={null}
+                appendComponent={
+                  null
+                }
+              />
+              {/* Sign In Button */}
+              <TouchableOpacity
+                style={{
+                  height: Dpheight(6.9),
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: SIZES.padding,
+                  borderRadius: SIZES.radius,
+                  backgroundColor: Disable
+                    ? COLORS.transparentPrimray
+                    : COLORS.primary,
+                }}
+                onPress={HandleOnPress}
+                disabled={Disable}
+              >
+                {loading ? (
+                  <View>
+                    <ActivityIndicator size="large" color={COLORS.primary} />
+                  </View>
+                ) : (
+                  <Text
+                    style={{
+                      color: COLORS.white,
+                      fontWeight: "bold",
+                      fontSize: SIZES.body3,
+                    }}
+                  >
+                    Login
+                  </Text>
+                )}
+              </TouchableOpacity>
+
+              {/* Sign Up */}
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginTop: SIZES.padding,
+                  justifyContent: "center",
+                }}
+              >
+                <Text style={{ fontSize: SIZES.body4 }}>
+                  Don't have an Account?{"  "}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Register");
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: SIZES.h3,
+                      color: COLORS.primary,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Register Here
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </>)}
     </ScrollView>
   );
 };
@@ -356,15 +337,15 @@ const style = StyleSheet.create({
     marginTop: SIZES.padding,
   },
   OTPInputView: {
-    height: "10%",
+    // marginTop: SIZES.padding,
+    height: Dpheight(8),
   },
   codeInputFieldStyle: {
-    width: 65,
-    height: 65,
+    width: DPwidth(15),
+    height: Dpheight(6.9),
     borderRadius: SIZES.radius,
     backgroundColor: COLORS.transparentBlack1,
     fontSize: SIZES.h3,
-    lineHeight: 22,
   },
   TimerContainer: {
     flexDirection: "row",
@@ -374,10 +355,9 @@ const style = StyleSheet.create({
   TimerContainer_Text: {
     color: COLORS.darkGray,
     fontSize: SIZES.body3,
-    lineHeight: 22,
   },
   FooterContainer_Touchable: {
-    height: 55,
+    height: Dpheight(6.9),
     alignItems: "center",
     justifyContent: "center",
     marginTop: SIZES.padding,
@@ -389,7 +369,6 @@ const style = StyleSheet.create({
     color: COLORS.white,
     fontWeight: "bold",
     fontSize: SIZES.body3,
-    lineHeight: 22,
   },
   TermsandConditions: {
     marginTop: SIZES.padding,
@@ -397,12 +376,10 @@ const style = StyleSheet.create({
   },
   TermsandConditions_Text: {
     color: COLORS.darkGray,
-    fontSize: SIZES.h4,
-    lineHeight: 22,
+    fontSize: SIZES.h3,
   },
   TermsandConditions_Text2: {
     color: COLORS.primary,
-    fontSize: SIZES.h4,
-    lineHeight: 22,
+    fontSize: SIZES.h3,
   },
 });

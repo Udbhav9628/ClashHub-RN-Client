@@ -53,7 +53,7 @@ export function validateEmail(value: string, setEmailError: Function) {
 
 export function validateNumber(value: string, setError: Function) {
   if (value.length < 10) {
-    setError('Mobile No must be 8 characters');
+    setError('Mobile No must be 10 characters');
   } else {
     setError('');
   }

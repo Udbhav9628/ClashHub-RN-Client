@@ -10,7 +10,7 @@ import {
   FlatList,
   StyleSheet
 } from "react-native";
-import { SIZES, COLORS, FONTS } from "../constants/Theame";
+import { SIZES, COLORS, FONTS, Dpheight, DPwidth } from "../constants/Theame";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Join_Match_action } from "../store/Match/Matchaction";
@@ -117,7 +117,7 @@ const BottomPopup = ({
             <View>
               <Text
                 style={{
-                  fontSize: 24,
+                  fontSize: SIZES.Size24,
                   fontWeight: "bold",
                   color: COLORS.black,
                 }}
@@ -128,7 +128,7 @@ const BottomPopup = ({
             <Text
               style={{
                 marginTop: 15,
-                fontSize: 30,
+                fontSize: SIZES.Size24,
                 fontWeight: "bold",
                 color: COLORS.black,
               }}
@@ -142,8 +142,8 @@ const BottomPopup = ({
               }}
               disabled={Disable}
               style={{
-                height: 55,
-                width: 100,
+                height: Dpheight(6.8),
+                width: DPwidth(25),
                 alignItems: "center",
                 justifyContent: "center",
                 marginTop: SIZES.padding,
@@ -162,7 +162,7 @@ const BottomPopup = ({
                   style={{
                     color: COLORS.white,
                     fontWeight: "bold",
-                    fontSize: 20,
+                    fontSize: SIZES.h2,
                   }}
                 >
                   Pay
@@ -200,7 +200,7 @@ const BottomPopup = ({
               <TextInput
                 style={{
                   marginTop: 10,
-                  height: 55,
+                  height: Dpheight(6.8),
                   alignSelf: 'center',
                   width: '90%',
                   paddingLeft: 25,
@@ -233,7 +233,7 @@ const BottomPopup = ({
                 disabled={Disable}
                 style={{
                   alignSelf: 'center',
-                  height: 55,
+                  height: Dpheight(6.8),
                   width: '35%',
                   alignItems: "center",
                   justifyContent: "center",
@@ -253,7 +253,7 @@ const BottomPopup = ({
                     style={{
                       color: COLORS.white,
                       fontWeight: "bold",
-                      fontSize: 20,
+                      fontSize: SIZES.h2,
                     }}
                   >
                     Withdraw
@@ -280,7 +280,7 @@ const BottomPopup = ({
                 >
                   <Text
                     style={{
-                      ...FONTS.h4,
+                      ...FONTS.h3,
                       fontWeight: "700",
                     }}
                   >
@@ -307,7 +307,7 @@ const BottomPopup = ({
                           <View style={style.NotificationWrapper}>
                             <View
                               style={{
-                                height: 40,
+                                height: Dpheight(4),
                                 width: 30,
                                 marginLeft: 4,
                                 justifyContent: "center",
@@ -365,7 +365,7 @@ const style = StyleSheet.create({
     shadowRadius: 3,
   },
   NotificationWrapper: {
-    height: 70,
+    height: Dpheight(8.5),
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: COLORS.lightGray2,
@@ -373,12 +373,11 @@ const style = StyleSheet.create({
     paddingHorizontal: SIZES.base,
   },
   NotificationText: {
-    // lineHeight: 30,
-    fontSize: 16,
+    fontSize: SIZES.h3,
     fontWeight: "bold",
   },
   NotificationText2: {
-    fontSize: 13,
+    fontSize: SIZES.h5,
     fontWeight: "600",
     color: COLORS.gray,
   },
@@ -388,7 +387,7 @@ const style = StyleSheet.create({
     right: 15,
   },
   ValueText: {
-    fontSize: 13,
+    fontSize: SIZES.body4,
     fontWeight: "bold",
     color: COLORS.black,
   },

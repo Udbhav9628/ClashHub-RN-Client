@@ -9,7 +9,7 @@ import {
   StyleSheet,
   ActivityIndicator
 } from "react-native";
-import { COLORS, SIZES } from "../../constants/Theame";
+import { COLORS, Dpheight, SIZES } from "../../constants/Theame";
 import FormInput from "./FormInput";
 import { validateNumber } from "../../utils/Utils";
 import auth from '@react-native-firebase/auth';
@@ -177,7 +177,6 @@ const Signup = ({ navigation }: { navigation: any }) => {
             style={{
               marginRight: SIZES.base,
               fontSize: SIZES.h3,
-              lineHeight: 22,
             }}
           >
             Didn't recieved code?
@@ -193,7 +192,6 @@ const Signup = ({ navigation }: { navigation: any }) => {
                 color: Timer === 0 ? COLORS.primary : COLORS.gray2,
                 fontWeight: "bold",
                 fontSize: SIZES.h3,
-                lineHeight: 22,
               }}
             >
               {Timer === 0 ? "Resend" : `Resend in ${Timer} s`}
@@ -216,7 +214,6 @@ const Signup = ({ navigation }: { navigation: any }) => {
                     color: COLORS.white,
                     fontWeight: "bold",
                     fontSize: SIZES.body3,
-                    lineHeight: 22,
                   }}
                 >
                   Continue
@@ -270,7 +267,7 @@ const Signup = ({ navigation }: { navigation: any }) => {
             <FormInput
               containerStyle={{ marginTop: SIZES.radius }}
               label="Username"
-              Placeholder={"It is unique non Changeable, Choose Wisely"}
+              Placeholder={"It is unique non Changeable"}
               KeyboardType="default"
               autocomplete="off"
               maxLength={25}
@@ -308,7 +305,7 @@ const Signup = ({ navigation }: { navigation: any }) => {
             {/* Sign In */}
             <TouchableOpacity
               style={{
-                height: 55,
+                height: Dpheight(6.9),
                 alignItems: "center",
                 justifyContent: "center",
                 marginTop: SIZES.padding,
@@ -322,7 +319,6 @@ const Signup = ({ navigation }: { navigation: any }) => {
                   color: COLORS.white,
                   fontWeight: "bold",
                   fontSize: SIZES.body3,
-                  lineHeight: 22,
                 }}
               >
                 Sign Up
@@ -337,14 +333,13 @@ const Signup = ({ navigation }: { navigation: any }) => {
                 justifyContent: "center",
               }}
             >
-              <Text style={{ fontSize: SIZES.body4, lineHeight: 22 }}>
+              <Text style={{ fontSize: SIZES.body4 }}>
                 If you already have an Account?{"  "}
               </Text>
               <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Text
                   style={{
                     fontSize: SIZES.h3,
-                    lineHeight: 22,
                     color: COLORS.primary,
                     fontWeight: "bold",
                   }}
@@ -371,15 +366,12 @@ const style = StyleSheet.create({
     marginTop: SIZES.padding,
   },
   OTPInputView: {
-    height: "10%",
+    height: Dpheight(8),
   },
   codeInputFieldStyle: {
-    width: 65,
-    height: 65,
     borderRadius: SIZES.radius,
     backgroundColor: COLORS.transparentBlack1,
     fontSize: SIZES.h3,
-    lineHeight: 22,
   },
   TimerContainer: {
     flexDirection: "row",
@@ -389,10 +381,9 @@ const style = StyleSheet.create({
   TimerContainer_Text: {
     color: COLORS.darkGray,
     fontSize: SIZES.body3,
-    lineHeight: 22,
   },
   FooterContainer_Touchable: {
-    height: 55,
+    height: Dpheight(6.9),
     alignItems: "center",
     justifyContent: "center",
     marginTop: SIZES.padding,
@@ -404,7 +395,6 @@ const style = StyleSheet.create({
     color: COLORS.white,
     fontWeight: "bold",
     fontSize: SIZES.body3,
-    lineHeight: 22,
   },
   TermsandConditions: {
     marginTop: SIZES.padding,
@@ -412,12 +402,10 @@ const style = StyleSheet.create({
   },
   TermsandConditions_Text: {
     color: COLORS.darkGray,
-    fontSize: SIZES.h4,
-    lineHeight: 22,
+    fontSize: SIZES.h3,
   },
   TermsandConditions_Text2: {
     color: COLORS.primary,
-    fontSize: SIZES.h4,
-    lineHeight: 22,
+    fontSize: SIZES.h3,
   },
 });

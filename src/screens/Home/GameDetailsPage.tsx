@@ -8,7 +8,7 @@ import {
   Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { SIZES, COLORS, FONTS } from "../../constants/Theame";
+import { SIZES, COLORS, FONTS, Dpheight, DPwidth } from "../../constants/Theame";
 import Icons from "../../constants/Icons";
 import BottomPopup from "../../components/BottomPopup";
 import { useSelector, useDispatch } from "react-redux";
@@ -165,7 +165,7 @@ const GameDetailsPage = ({
         </TouchableOpacity>
         <View
           style={{
-            marginLeft: "24%",
+            marginLeft: "21%",
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -173,7 +173,7 @@ const GameDetailsPage = ({
           <Text
             style={{
               color: COLORS.black,
-              ...FONTS.h2,
+              ...FONTS.body2,
               fontWeight: "700",
             }}
           >
@@ -198,7 +198,7 @@ const GameDetailsPage = ({
           <View style={style.TitleWraper}>
             <Text
               style={{
-                ...FONTS.body1,
+                ...FONTS.h1,
                 fontWeight: "700",
                 color: COLORS.black,
               }}
@@ -210,7 +210,7 @@ const GameDetailsPage = ({
             <View style={style.EntryFeeWraper}>
               <Text
                 style={{
-                  ...FONTS.body1,
+                  ...FONTS.h1,
                   color: COLORS.primary,
                   fontWeight: "700",
                 }}
@@ -222,7 +222,7 @@ const GameDetailsPage = ({
             <View style={style.EntryFeeWraper}>
               <Text
                 style={{
-                  ...FONTS.body3,
+                  ...FONTS.body2,
                   color: COLORS.primary,
                   fontWeight: "700",
                 }}
@@ -246,7 +246,7 @@ const GameDetailsPage = ({
             <View>
               {/* Prize Per Kill */}
               <View style={style.InfoLeftItem}>
-                <Text style={{ color: COLORS.darkGray2, ...FONTS.h4 }}>
+                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                   Prize
                 </Text>
                 <Text
@@ -261,7 +261,7 @@ const GameDetailsPage = ({
               </View>
               {/* Match Type */}
               <View style={style.InfoLeftItem}>
-                <Text style={{ color: COLORS.darkGray2, ...FONTS.h4 }}>
+                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                   Match Type
                 </Text>
                 <Text
@@ -276,7 +276,7 @@ const GameDetailsPage = ({
               </View>
               {/* Match Map */}
               <View style={style.InfoLeftItem}>
-                <Text style={{ color: COLORS.darkGray2, ...FONTS.h4 }}>
+                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                   Map
                 </Text>
                 <Text
@@ -291,7 +291,7 @@ const GameDetailsPage = ({
               </View>
               {/* Match Date */}
               <View style={style.InfoLeftItem}>
-                <Text style={{ color: COLORS.darkGray2, ...FONTS.h4 }}>
+                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                   Match Date
                 </Text>
                 <Text
@@ -306,7 +306,7 @@ const GameDetailsPage = ({
               </View>
               {/* Match Time */}
               <View style={style.InfoLeftItem}>
-                <Text style={{ color: COLORS.darkGray2, ...FONTS.h4 }}>
+                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                   Match Time
                 </Text>
                 <Text
@@ -323,7 +323,7 @@ const GameDetailsPage = ({
           </View>
         </View>
         {/* Info Right Image */}
-        <View style={style.InfoRight}>
+        <View>
           <Image source={GameImage} style={style.InfoWrapperImage} />
         </View>
       </View>
@@ -341,8 +341,8 @@ const GameDetailsPage = ({
             <Image
               style={{
                 marginHorizontal: 12,
-                width: 50,
-                height: 50,
+                width: DPwidth(12),
+                height: Dpheight(7),
                 borderRadius: SIZES.radius,
                 resizeMode: "cover",
               }}
@@ -383,7 +383,7 @@ const GameDetailsPage = ({
               setModalVisible(!modalVisible);
             }}
             style={{
-              height: 55,
+              height: Dpheight(6.9),
               alignItems: "center",
               justifyContent: "center",
               marginTop: SIZES.padding,
@@ -418,7 +418,7 @@ const GameDetailsPage = ({
                 left: 2,
                 right: 2,
                 margin: 20,
-                height: 200,
+                height: Dpheight(25),
                 backgroundColor: "white",
                 borderRadius: SIZES.radius,
                 padding: 5,
@@ -439,6 +439,8 @@ const GameDetailsPage = ({
   );
 };
 
+export default GameDetailsPage;
+
 const style = StyleSheet.create({
   container: {
     backgroundColor: COLORS.white,
@@ -447,13 +449,13 @@ const style = StyleSheet.create({
   Header: {
     marginTop: 10,
     flexDirection: "row",
-    marginHorizontal: SIZES.h4,
+    marginHorizontal: SIZES.h3,
   },
   HeaderLeft: {
     alignItems: "center",
     justifyContent: "center",
-    width: 40,
-    height: 40,
+    width: DPwidth(10),
+    height: Dpheight(5),
     borderWidth: 2,
     borderColor: "#CDCDCD",
     borderRadius: SIZES.radius,
@@ -474,12 +476,9 @@ const style = StyleSheet.create({
   InfoLeftItem: {
     marginBottom: SIZES.base,
   },
-  InfoRight: {
-    width: "50%",
-  },
   InfoWrapperImage: {
-    width: 200,
-    height: 400,
+    width: DPwidth(52),
+    height: Dpheight(50),
     resizeMode: "stretch",
   },
   Elevation: {
@@ -496,7 +495,7 @@ const style = StyleSheet.create({
     shadowRadius: 3,
   },
   GuildWrapper: {
-    height: 70,
+    height: Dpheight(8),
     borderRadius: SIZES.radius,
     flexDirection: "row",
     alignItems: "center",
@@ -509,4 +508,3 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
   },
 });
-export default GameDetailsPage;

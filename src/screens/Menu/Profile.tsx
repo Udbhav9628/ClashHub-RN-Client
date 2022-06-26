@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { SIZES, COLORS } from "../../constants/Theame";
+import { SIZES, COLORS, DPwidth, Dpheight } from "../../constants/Theame";
 import Heading from "../../components/Heading";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useSelector } from "react-redux";
@@ -16,9 +16,9 @@ const Profile = ({ navigation }: { navigation: any }) => {
       <View style={styles.Profile}>
         <Image source={{ uri: `https://api.multiavatar.com/${User.User}.png` }}
           style={{
-            width: 100,
-            height: 100,
-            borderRadius: 50,
+            width: DPwidth(31),
+            height: Dpheight(15),
+            borderRadius: Dpheight(455),
           }} />
         <View style={styles.Textwrapper}>
           <Text style={styles.Name}>{User.User}</Text>
@@ -121,7 +121,9 @@ const styles = StyleSheet.create({
     marginHorizontal: SIZES.padding,
   },
   Name: {
-    fontSize: 24,
+    textAlign: 'center',
+    fontSize: SIZES.Size24,
+    color: "#000",
     fontWeight: "bold",
   },
   statswrapper: {
@@ -133,19 +135,19 @@ const styles = StyleSheet.create({
   },
   statsTitle: {
     textAlign: "center",
-    fontSize: 15,
+    fontSize: SIZES.h3,
     fontWeight: "bold",
   },
   statsCaption: {
-    lineHeight: 25,
-    fontSize: 15,
+    lineHeight: SIZES.h1,
+    fontSize: SIZES.h3,
     fontWeight: "bold",
     color: COLORS.gray,
   },
   Caption: {
     textAlign: "center",
-    lineHeight: 30,
-    fontSize: 17,
+    lineHeight: SIZES.h1,
+    fontSize: SIZES.h3,
     fontWeight: "600",
     color: COLORS.gray,
   },
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   NotificationWrapper: {
-    height: 70,
+    height: Dpheight(8.7),
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: COLORS.lightGray2,
@@ -177,8 +179,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   NotificationText: {
-    lineHeight: 30,
-    fontSize: 17,
+    color: "#000",
+    lineHeight: SIZES.h1,
+    fontSize: SIZES.Size4,
     fontWeight: "bold",
   },
 });

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { SIZES, COLORS, FONTS } from "../constants/Theame";
+import { SIZES, COLORS, FONTS, Dpheight } from "../constants/Theame";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Icons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native";
@@ -21,7 +21,7 @@ const Header = ({
     <View
       style={{
         backgroundColor: COLORS.white,
-        height: 55,
+        height: Dpheight(6.8),
       }}
     >
       <View

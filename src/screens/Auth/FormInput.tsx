@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
-import { COLORS, SIZES } from "../../constants/Theame";
+import { COLORS, Dpheight, SIZES } from "../../constants/Theame";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const FormInput = ({
@@ -38,12 +38,12 @@ const FormInput = ({
       {/* Label and Erros Msg Section*/}
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Text
-          style={{ color: COLORS.gray, fontSize: SIZES.body3, lineHeight: 22 }}
+          style={{ color: COLORS.gray, fontSize: SIZES.body3 }}
         >
           {label}
         </Text>
         <Text
-          style={{ color: COLORS.red, fontSize: SIZES.body4, lineHeight: 22 }}
+          style={{ color: COLORS.red, fontSize: SIZES.body4 }}
         >
           {errorMsg}
         </Text>
@@ -54,7 +54,7 @@ const FormInput = ({
         style={{
           flexDirection: "row",
           paddingHorizontal: SIZES.padding,
-          height: 55,
+          height: Dpheight(7),
           marginTop: SIZES.base,
           borderRadius: SIZES.radius,
           backgroundColor: COLORS.lightGray2,

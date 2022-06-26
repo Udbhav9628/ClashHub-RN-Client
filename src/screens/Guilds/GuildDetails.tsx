@@ -9,7 +9,7 @@ import {
   Alert,
 } from "react-native";
 import React, { useEffect } from "react";
-import { SIZES, COLORS } from "../../constants/Theame";
+import { SIZES, COLORS, Dpheight, DPwidth } from "../../constants/Theame";
 import Heading from "../../components/Heading";
 const logo = require("../../Assets/Images/logo_02.png");
 import GameItems from "../Home/GameItems";
@@ -74,9 +74,9 @@ const GuildDetails = ({
         <Image
           source={{ uri: `https://api.multiavatar.com/${Item.GuildName}.png` }}
           style={{
-            width: 150,
-            height: 150,
-            borderRadius: 50,
+            width: DPwidth(31),
+            height: Dpheight(15),
+            borderRadius: Dpheight(455),
           }}
         />
         <Text style={styles.ProfileText}>{Item.GuildName}</Text>
@@ -85,9 +85,9 @@ const GuildDetails = ({
         </Text>
         <TouchableOpacity
           style={{
-            height: 50,
-            width: 150,
-            marginTop: SIZES.base,
+            height: Dpheight(6.5),
+            width: DPwidth(35),
+            marginTop: SIZES.padding,
             alignItems: "center",
             justifyContent: "center",
             borderRadius: SIZES.padding,
@@ -99,7 +99,6 @@ const GuildDetails = ({
               color: COLORS.white,
               fontWeight: "bold",
               fontSize: SIZES.body3,
-              lineHeight: 22,
             }}
           >
             Join Guild
@@ -117,7 +116,7 @@ const GuildDetails = ({
       </View>
       <View
         style={{
-          height: 214,
+          height: Dpheight(26.8),
         }}
       >
         {loading ? (
@@ -140,7 +139,7 @@ const GuildDetails = ({
           >
             <Text
               style={{
-                fontSize: 18,
+                fontSize: SIZES.h2,
                 fontWeight: "700",
               }}
             >
@@ -161,18 +160,18 @@ const GuildDetails = ({
                     ...styles.Elevation,
                     marginRight:
                       index === Guild_Matches.length - 1 ? SIZES.padding : 0,
-                    height: 200,
-                    width: 325,
+                    height: Dpheight(26),
+                    width: DPwidth(83),
                     alignItems: "center",
                     justifyContent: "center",
                     paddingRight: SIZES.padding,
                     backgroundColor: COLORS.lightGray2,
                   }}
                   Imagestyle={{
-                    marginTop: 20,
-                    height: "90%",
-                    width: 110,
-                    marginRight: 2,
+                    marginTop: Dpheight(3),
+                    height: "100%",
+                    width: DPwidth(29),
+                    marginRight: DPwidth(1),
                     resizeMode: "stretch",
                   }}
                   Item={item}
@@ -205,8 +204,8 @@ const styles = StyleSheet.create({
     marginTop: SIZES.padding,
   },
   ProfileText: {
-    lineHeight: 50,
-    fontSize: 24,
+    lineHeight: Dpheight(5),
+    fontSize: SIZES.Size24,
     fontWeight: "bold",
   },
   Elevation: {
@@ -221,23 +220,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
-  NotificationWrapper: {
-    height: 140,
-    width: 150,
-  },
-  Image: {
-    height: 60,
-    width: 60,
-    borderRadius: SIZES.radius,
-  },
-  NotificationText: {
-    lineHeight: 20,
-    fontSize: 17,
-    fontWeight: "bold",
-  },
   NotificationText2: {
-    lineHeight: 30,
-    fontSize: 17,
+    lineHeight: Dpheight(3),
+    fontSize: SIZES.body3,
     fontWeight: "600",
     color: COLORS.gray,
   },
