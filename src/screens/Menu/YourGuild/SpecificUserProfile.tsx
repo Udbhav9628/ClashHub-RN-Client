@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
 import React, { useEffect } from "react";
-import { SIZES, COLORS } from "../../../constants/Theame";
+import { SIZES, COLORS, DPwidth, Dpheight } from "../../../constants/Theame";
 import Heading from "../../../components/Heading";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,9 +46,9 @@ const SpecificUserProfile = ({
                     <View style={styles.Profile}>
                         <Image source={{ uri: `https://api.multiavatar.com/${Specific_User?.Name}.png` }}
                             style={{
-                                width: 100,
-                                height: 100,
-                                borderRadius: 50,
+                                width: DPwidth(31),
+                                height: Dpheight(15),
+                                borderRadius: Dpheight(455),
                             }} />
                         <View style={styles.Textwrapper}>
                             <Text style={styles.Name}>{Specific_User?.Name}</Text>

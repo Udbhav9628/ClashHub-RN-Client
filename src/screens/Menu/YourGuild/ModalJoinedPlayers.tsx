@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Modal, FlatList, TextInput, Alert, TouchableOpacity } from 'react-native';
 import React, { useEffect } from "react";
-import { COLORS, SIZES, FONTS } from "../../../constants/Theame";
+import { COLORS, SIZES, FONTS, Dpheight, DPwidth } from "../../../constants/Theame";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Update_Match, Clear_Match_Reducer_Error, Clear_Match_Reducer_Sucess } from "../../../store/Match/Matchaction";
@@ -152,7 +152,7 @@ const ModalJoinedPlayers = ({
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: SIZES.padding }}>
                             <View style={{
                                 alignItems: 'flex-start',
-                                width: 150
+                                width: DPwidth(38)
                             }}>
                                 <Text style={{
                                     color: COLORS.white,
@@ -163,7 +163,7 @@ const ModalJoinedPlayers = ({
                             <View style={{
                                 alignItems: 'center',
 
-                                width: 57
+                                width: DPwidth(18)
                             }}>
                                 <Text style={{
                                     color: COLORS.white,
@@ -173,7 +173,7 @@ const ModalJoinedPlayers = ({
                             </View>
                             {Match.Is_Finished && <View style={{
                                 alignItems: 'center',
-                                width: 70
+                                width: DPwidth(18)
                             }}>
                                 <Text style={{
                                     color: COLORS.white,
@@ -202,7 +202,7 @@ const ModalJoinedPlayers = ({
                                             marginTop: 6,
                                             alignItems: 'flex-start',
 
-                                            width: 150
+                                            width: DPwidth(38)
                                         }}>
                                             <Text style={{
                                                 color: COLORS.black,
@@ -214,12 +214,12 @@ const ModalJoinedPlayers = ({
                                             marginTop: 6,
                                             alignItems: 'center',
 
-                                            width: 58
+                                            width: DPwidth(18)
                                         }}><Text style={{
                                             color: COLORS.black,
                                             ...FONTS.body3,
                                         }}>{item.Kills}</Text></View>) : (<View style={{
-                                            height: 40,
+                                            height: Dpheight(7),
                                         }}>
                                             <TextInput
                                                 style={{ borderColor: COLORS.black }}
@@ -242,7 +242,7 @@ const ModalJoinedPlayers = ({
                                         {Match.Is_Finished && <View style={{
                                             marginTop: 6,
                                             alignItems: 'center',
-                                            width: 70
+                                            width: DPwidth(18)
                                         }}>
                                             <Text style={{
                                                 color: COLORS.black,
@@ -260,7 +260,7 @@ const ModalJoinedPlayers = ({
                                 Publish_Result(Duplicate_Match)
                             }}
                             style={{
-                                height: 50,
+                                height: Dpheight(7),
                                 alignItems: "center",
                                 justifyContent: "center",
                                 marginTop: SIZES.padding,
@@ -283,7 +283,7 @@ const ModalJoinedPlayers = ({
                         ShowReportButton && (<>
                             <TouchableOpacity
                                 style={{
-                                    height: 30,
+                                    height: Dpheight(5),
                                     alignItems: "center",
                                     justifyContent: "center",
                                     marginTop: SIZES.padding,

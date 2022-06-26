@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Modal, FlatList, TouchableOpacity, ActivityIndi
 import React, { useState, useEffect } from 'react'
 import HeadingComp from '../../components/HeadingComp';
 import Icon from "react-native-vector-icons/Feather";
-import { SIZES, COLORS, Dpheight } from '../../constants/Theame';
+import { SIZES, COLORS, Dpheight, DPwidth } from '../../constants/Theame';
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import { GetUserTransaction, GetClubTransaction } from "../../store/Payment/PaymentAction";
@@ -84,8 +84,8 @@ const TransctionModal = ({
                                         <View style={style.NotificationWrapper}>
                                             <View
                                                 style={{
-                                                    height: 40,
-                                                    width: 30,
+                                                    height: Dpheight(8.7),
+                                                    width: DPwidth(8),
                                                     marginLeft: 4,
                                                     justifyContent: "center",
                                                     borderRadius: SIZES.radius,

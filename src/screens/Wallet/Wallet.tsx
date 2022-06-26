@@ -328,7 +328,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                           left: 2,
                           right: 2,
                           margin: 20,
-                          height: 420,
+                          height: Dpheight(50),
                           backgroundColor: "white",
                           borderRadius: SIZES.radius,
                           shadowColor: COLORS.black,
@@ -462,24 +462,10 @@ const style = StyleSheet.create({
     marginHorizontal: SIZES.padding,
   },
   Card_Image: {
-    height: 200,
+    height: Dpheight(25.2),
     width: "100%",
     borderRadius: SIZES.radius,
     overflow: "hidden",
-  },
-  History: {
-    marginTop: 30,
-    marginBottom: 3,
-    fontSize: 19,
-    lineHeight: 22,
-    fontWeight: "700",
-    marginHorizontal: 12,
-  },
-  Menutitle: {
-    fontSize: 17,
-    lineHeight: 22,
-    fontWeight: "700",
-    marginHorizontal: 15,
   },
   Elevation: {
     backgroundColor: "white",
@@ -511,15 +497,5 @@ const style = StyleSheet.create({
   NotificationText: {
     fontSize: SIZES.Size4,
     fontWeight: "bold",
-  },
-  Value: {
-    position: "absolute",
-    top: 10,
-    right: 15,
-  },
-  ValueText: {
-    fontSize: 13,
-    fontWeight: "bold",
-    color: COLORS.black,
   },
 });

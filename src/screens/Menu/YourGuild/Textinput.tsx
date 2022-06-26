@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
-import { COLORS, SIZES } from "../../../constants/Theame";
+import { COLORS, Dpheight, SIZES } from "../../../constants/Theame";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const Textinput = ({
@@ -46,7 +46,7 @@ const Textinput = ({
         style={{
           flexDirection: "row",
           paddingHorizontal: SIZES.padding,
-          height: 55,
+          height: Dpheight(7),
           marginTop: SIZES.base,
           borderRadius: SIZES.radius,
           backgroundColor: COLORS.lightGray2,
