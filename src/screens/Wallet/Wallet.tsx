@@ -261,7 +261,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                       <View style={style.NotificationWrapper}>
                         <MaterialCommunityIcons
                           name="bank-transfer"
-                          size={33}
+                          size={Dpheight(4.2)}
                           color="black"
                         />
                         <View style={style.DashboardBox}>
@@ -276,7 +276,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                         >
                           <Icon
                             name="chevron-forward-outline"
-                            size={28}
+                            size={Dpheight(3)}
                             color="black"
                           />
                         </View>
@@ -289,7 +289,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                       <View style={style.NotificationWrapper}>
                         <MaterialCommunityIcons
                           name="wallet"
-                          size={26}
+                          size={Dpheight(3.1)}
                           color="black"
                         />
                         <View style={style.DashboardBox}>
@@ -304,7 +304,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                         >
                           <Icon
                             name="chevron-forward-outline"
-                            size={28}
+                            size={Dpheight(3)}
                             color="black"
                           />
                         </View>
@@ -363,7 +363,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                         >
                           <Icon
                             name="chevron-forward-outline"
-                            size={28}
+                            size={Dpheight(3)}
                             color="black"
                           />
                         </View>
@@ -396,7 +396,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                         >
                           <Icon
                             name="chevron-forward-outline"
-                            size={28}
+                            size={Dpheight(3)}
                             color="black"
                           />
                         </View>

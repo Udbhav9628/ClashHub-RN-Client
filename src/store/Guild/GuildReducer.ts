@@ -120,3 +120,36 @@ export const Get_Guild_Matchs_Reducer = (State = [], action: any) => {
       return State;
   }
 };
+
+export const Join_Guild_Reducer = (state = [], action: any) => {
+  switch (action.type) {
+    case 'Join_Guild_Request':
+      return {
+        loading: true,
+      };
+    case 'Join_Guild_Sucess':
+      return {
+        loading: false,
+        Sucess: true,
+        Responce: action.payload,
+      };
+    case 'Join_Guild_Fail':
+      return {
+        loading: false,
+        Sucess: false,
+        Error: action.payload,
+      };
+    case 'Clear_Guild_Reducer_Error':
+      return {
+        ...state,
+        Error: null,
+      };
+    case 'Clear_Guild_Reducer_Sucess':
+      return {
+        ...state,
+        sucess: null,
+      };
+    default:
+      return state;
+  }
+};

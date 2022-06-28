@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { SIZES, COLORS, FONTS, Dpheight } from "../../constants/Theame";
+import { SIZES, COLORS, FONTS, Dpheight, DPwidth } from "../../constants/Theame";
 import { GameTypesMenu } from "../../constants/Data";
 import GameItems from "../Home/GameItems";
 import { useDispatch, useSelector } from "react-redux";
@@ -150,10 +150,9 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
                 backgroundColor: COLORS.lightGray2,
               }}
               Imagestyle={{
-                marginTop: 20,
+                marginTop: Dpheight(3),
                 height: "88%",
-                width: 110,
-                marginRight: 2,
+                width: DPwidth(29),
                 resizeMode: "stretch",
               }}
               Item={item}

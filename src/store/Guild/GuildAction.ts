@@ -131,6 +131,40 @@ function Create_Guild(Data: any) {
   };
 }
 
+function Join_Guild(Guildid: any) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'Join_Guild_Request',
+      });
+      const Token: string = (await Return_Token(
+        'Join_Guild_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.put(
+        `${Ip_Address}/Join_Guild/${Guildid}`,
+        {Usertojoin: 'me'},
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'Join_Guild_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'Join_Guild_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
 function Clear_Guild_Reducer_Sucess() {
   return (dispatch: any) => {
     dispatch({
@@ -153,4 +187,5 @@ export {
   Clear_Guild_Reducer_Error,
   Get_Guild_Matches_Details,
   Clear_Guild_Reducer_Sucess,
+  Join_Guild,
 };

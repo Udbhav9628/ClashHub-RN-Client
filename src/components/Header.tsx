@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text } from "react-native";
 import { SIZES, COLORS, FONTS, Dpheight } from "../constants/Theame";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import Icons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 
@@ -71,7 +70,7 @@ const Header = ({
                 marginHorizontal: 3,
               }}
             >
-              <Icon name="wallet" size={22} color="black" />
+              <Icon name="wallet" size={Dpheight(2.8)} color="black" />
             </TouchableOpacity>
             {/* <TouchableOpacity
               onPress={() => {

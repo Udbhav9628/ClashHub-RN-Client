@@ -120,7 +120,7 @@ const Home = ({ navigation }: { navigation: any }) => {
       />
       <View
         style={{
-          height: Dpheight(26.8),
+          height: Dpheight(29),
         }}
       >
         {loading ? (
@@ -147,7 +147,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                 fontWeight: "700",
               }}
             >
-              No Guild's Matches
+              No Matches
             </Text>
           </View>
         ) : (
@@ -164,7 +164,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                     ...styles.Elevation,
                     marginRight:
                       index === Home_Matchs.length - 1 ? SIZES.padding : 0,
-                    height: Dpheight(26),
+                    height: Dpheight(25),
                     width: DPwidth(83),
                     alignItems: "center",
                     justifyContent: "center",
@@ -173,9 +173,8 @@ const Home = ({ navigation }: { navigation: any }) => {
                   }}
                   Imagestyle={{
                     marginTop: Dpheight(3),
-                    height: "100%",
-                    width: DPwidth(29),
-                    marginRight: DPwidth(1),
+                    height: "88%",
+                    width: DPwidth(25),
                     resizeMode: "stretch",
                   }}
                   Item={item}
@@ -194,7 +193,7 @@ const Home = ({ navigation }: { navigation: any }) => {
       </View>
       <View
         style={{
-          height: Dpheight(26.8),
+          height: Dpheight(26.3),
           marginBottom: 5,
         }}
       >

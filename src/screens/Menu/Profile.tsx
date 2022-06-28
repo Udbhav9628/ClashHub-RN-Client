@@ -44,7 +44,7 @@ const Profile = ({ navigation }: { navigation: any }) => {
       <View style={styles.Elevation}>
         <TouchableOpacity>
           <View style={styles.NotificationWrapper}>
-            <Icon name="shirt" size={28} color="black" />
+            <Icon name="shirt" size={Dpheight(3.5)} color="black" />
             <View style={styles.DashboardBox}>
               <Text style={styles.NotificationText}>Your Team</Text>
             </View>
@@ -55,7 +55,7 @@ const Profile = ({ navigation }: { navigation: any }) => {
                 right: 5,
               }}
             >
-              <Icon name="chevron-forward-outline" size={28} color="black" />
+              <Icon name="chevron-forward-outline" size={Dpheight(3)} color="black" />
             </View>
           </View>
         </TouchableOpacity>
@@ -63,7 +63,7 @@ const Profile = ({ navigation }: { navigation: any }) => {
       <View style={styles.Elevation}>
         <TouchableOpacity>
           <View style={styles.NotificationWrapper}>
-            <Icon name="game-controller-sharp" size={28} color="black" />
+            <Icon name="game-controller-sharp" size={Dpheight(3.5)} color="black" />
             <View style={styles.DashboardBox}>
               <Text style={styles.NotificationText}>Game Accounts</Text>
             </View>
@@ -74,7 +74,7 @@ const Profile = ({ navigation }: { navigation: any }) => {
                 right: 5,
               }}
             >
-              <Icon name="chevron-forward-outline" size={28} color="black" />
+              <Icon name="chevron-forward-outline" size={Dpheight(3)} color="black" />
             </View>
           </View>
         </TouchableOpacity>
@@ -82,7 +82,7 @@ const Profile = ({ navigation }: { navigation: any }) => {
       <View style={styles.Elevation}>
         <TouchableOpacity>
           <View style={styles.NotificationWrapper}>
-            <Icon name="people" size={28} color="black" />
+            <Icon name="people" size={Dpheight(3.5)} color="black" />
             <View style={styles.DashboardBox}>
               <Text style={styles.NotificationText}>Joined Guilds</Text>
             </View>
@@ -93,7 +93,7 @@ const Profile = ({ navigation }: { navigation: any }) => {
                 right: 5,
               }}
             >
-              <Icon name="chevron-forward-outline" size={28} color="black" />
+              <Icon name="chevron-forward-outline" size={Dpheight(3)} color="black" />
             </View>
           </View>
         </TouchableOpacity>

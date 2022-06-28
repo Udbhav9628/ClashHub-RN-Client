@@ -19,6 +19,8 @@ import { bindActionCreators } from "redux";
 import {
   Get_Guild_Matches_Details,
   Clear_Guild_Reducer_Error,
+  Clear_Guild_Reducer_Sucess,
+  Join_Guild
 } from "../../store/Guild/GuildAction";
 import { useFocusEffect } from "@react-navigation/native";
 import { ReturnGameImage } from "../../utils/Utils";
@@ -43,8 +45,22 @@ const GuildDetails = ({
     dispatch
   );
 
+  const Clear_Guild_Reducer_Sucess_Func = bindActionCreators(
+    Clear_Guild_Reducer_Sucess,
+    dispatch
+  );
+
+  const Join_Guild_Func = bindActionCreators(
+    Join_Guild,
+    dispatch
+  );
+
   const { Guild_Matches, loading, Error } = useSelector(
     (state: any) => state.Get_Guild_Matchs_Reducer
+  );
+
+  const Join_Guild_Reducer = useSelector(
+    (state: any) => state.Join_Guild_Reducer
   );
 
   useFocusEffect(
@@ -66,6 +82,32 @@ const GuildDetails = ({
       ]);
     }
   }, [Error]);
+
+  useEffect(() => {
+    if (Join_Guild_Reducer.Sucess) {
+      Alert.alert("Error", Join_Guild_Reducer.Responce, [
+        {
+          text: "OK",
+          onPress: () => {
+            Clear_Guild_Reducer_Sucess_Func()
+          },
+        },
+      ]);
+    }
+  }, [Join_Guild_Reducer.Sucess]);
+
+  useEffect(() => {
+    if (Join_Guild_Reducer.Error) {
+      Alert.alert("Error", Join_Guild_Reducer.Error, [
+        {
+          text: "OK",
+          onPress: () => {
+            Clear_Guild_ReducerError();
+          },
+        },
+      ]);
+    }
+  }, [Join_Guild_Reducer.Error]);
 
   return (
     <View style={styles.Container}>
@@ -92,6 +134,9 @@ const GuildDetails = ({
             justifyContent: "center",
             borderRadius: SIZES.padding,
             backgroundColor: COLORS.primary,
+          }}
+          onPress={() => {
+            Join_Guild_Func(Item._id)
           }}
         >
           <Text
@@ -169,9 +214,8 @@ const GuildDetails = ({
                   }}
                   Imagestyle={{
                     marginTop: Dpheight(3),
-                    height: "100%",
-                    width: DPwidth(29),
-                    marginRight: DPwidth(1),
+                    height: "88.3%",
+                    width: DPwidth(25),
                     resizeMode: "stretch",
                   }}
                   Item={item}
@@ -204,6 +248,7 @@ const styles = StyleSheet.create({
     marginTop: SIZES.padding,
   },
   ProfileText: {
+    color: "#000",
     lineHeight: Dpheight(5),
     fontSize: SIZES.Size24,
     fontWeight: "bold",

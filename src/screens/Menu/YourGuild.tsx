@@ -169,7 +169,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
           <View style={styles.Elevation}>
             <TouchableOpacity>
               <View style={styles.NotificationWrapper}>
-                <Icon name="person" size={28} color="black" />
+                <Icon name="person" size={Dpheight(3.5)} color="black" />
                 <View style={styles.DashboardBox}>
                   <Text style={styles.NotificationText}>6565 Followers</Text>
                 </View>
@@ -182,7 +182,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                 >
                   <Icon
                     name="chevron-forward-outline"
-                    size={28}
+                    size={Dpheight(3)}
                     color="black"
                   />
                 </View>
@@ -196,7 +196,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
               }}
             >
               <View style={styles.NotificationWrapper}>
-                <Icon name="game-controller-sharp" size={28} color="black" />
+                <Icon name="game-controller-sharp" size={Dpheight(3.5)} color="black" />
                 <View style={styles.DashboardBox}>
                   <Text style={styles.NotificationText}>
                     Your Guild Matches
@@ -211,36 +211,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                 >
                   <Icon
                     name="chevron-forward-outline"
-                    size={28}
-                    color="black"
-                  />
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.Elevation}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("YourGuildsMatches");
-              }}
-            >
-              <View style={styles.NotificationWrapper}>
-                <Icon name="game-controller-sharp" size={28} color="black" />
-                <View style={styles.DashboardBox}>
-                  <Text style={styles.NotificationText}>
-                    To Update Result
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    position: "absolute",
-                    top: 20,
-                    right: 5,
-                  }}
-                >
-                  <Icon
-                    name="chevron-forward-outline"
-                    size={28}
+                    size={Dpheight(3)}
                     color="black"
                   />
                 </View>
@@ -250,7 +221,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
           <View style={styles.Elevation}>
             <TouchableOpacity>
               <View style={styles.NotificationWrapper}>
-                <Icon name="wallet" size={28} color="black" />
+                <Icon name="wallet" size={Dpheight(3.5)} color="black" />
                 <View style={styles.DashboardBox}>
                   <Text style={styles.NotificationText}>Guild Wallet</Text>
                 </View>
@@ -263,7 +234,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                 >
                   <Icon
                     name="chevron-forward-outline"
-                    size={28}
+                    size={Dpheight(3)}
                     color="black"
                   />
                 </View>

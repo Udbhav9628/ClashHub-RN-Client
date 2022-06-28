@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   NotificationText: {
+    color: "#000",
     lineHeight: SIZES.h1,
     fontSize: SIZES.body3,
     fontWeight: "bold",

@@ -156,7 +156,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                         <View style={style.NotificationWrapper}>
                                             <MaterialCommunityIcons
                                                 name="bank-transfer"
-                                                size={33}
+                                                size={Dpheight(4)}
                                                 color="black"
                                             />
                                             <View style={style.DashboardBox}>
@@ -171,7 +171,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                             >
                                                 <Icon
                                                     name="chevron-forward-outline"
-                                                    size={28}
+                                                    size={Dpheight(3)}
                                                     color="black"
                                                 />
                                             </View>
@@ -184,7 +184,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                         <View style={style.NotificationWrapper}>
                                             <MaterialCommunityIcons
                                                 name="wallet"
-                                                size={26}
+                                                size={Dpheight(3)}
                                                 color="black"
                                             />
                                             <View style={style.DashboardBox}>
@@ -199,7 +199,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                             >
                                                 <Icon
                                                     name="chevron-forward-outline"
-                                                    size={28}
+                                                    size={Dpheight(3)}
                                                     color="black"
                                                 />
                                             </View>
@@ -212,7 +212,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                         <View style={style.NotificationWrapper}>
                                             <MaterialCommunityIcons
                                                 name="credit-card-minus"
-                                                size={22}
+                                                size={Dpheight(3)}
                                                 color="black"
                                             />
                                             <View style={style.DashboardBox}>
@@ -227,7 +227,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                             >
                                                 <Icon
                                                     name="chevron-forward-outline"
-                                                    size={28}
+                                                    size={Dpheight(3)}
                                                     color="black"
                                                 />
                                             </View>

@@ -6,14 +6,14 @@ import Home from "../Home/Home";
 import MyMatches from "../MyMatches/MyMatches";
 import GuildScreen from "../Guilds/GuildScreen";
 import Menu from "../Menu/Menu";
+import { Dpheight } from "../../constants/Theame";
 
 const Tab = createBottomTabNavigator();
 const BottonTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let Icon_Bottom: any;
+        tabBarIcon: ({ focused, color }) => {
           let iconName: any;
           if (route.name === "Home") {
             iconName = focused ? "home-sharp" : "home-outline";
@@ -26,7 +26,7 @@ const BottonTabs = () => {
           } else if (route.name === "Menu") {
             iconName = focused ? "menu-sharp" : "menu-outline";
           }
-          return <Icon name={iconName} size={size} color={color} />;
+          return <Icon name={iconName} size={Dpheight(3.1)} color={color} />;
         },
         tabBarActiveTintColor: "#000",
         tabBarInactiveTintColor: "gray",

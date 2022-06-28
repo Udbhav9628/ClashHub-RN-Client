@@ -49,7 +49,7 @@ const Createguild = ({ navigation }: { navigation: any }) => {
     (state: any) => state.Create_Guild_Reducer
   );
 
-  function CreateMatchOnClick(Data: object) {
+  function CreateGuildOnClick(Data: object) {
     if (User) {
       Create_Guild_action(Data);
     } else {
@@ -122,14 +122,14 @@ const Createguild = ({ navigation }: { navigation: any }) => {
             Placeholder={"Enter Name"}
             KeyboardType="default"
             autoCapatilize={"words"}
-            maxLength={20}
+            maxLength={12}
             onchange={(Value: any) => {
-              CalculateLength(Value, setGuildNameLength, 20);
+              CalculateLength(Value, setGuildNameLength, 12);
               const text = Value.replace(/\s{2,}/g, ' ').trim()
               setGuildName(text);
             }}
             Msg={
-              GuildNameLength || GuildNameLength === 0 ? GuildNameLength : 20
+              GuildNameLength || GuildNameLength === 0 ? GuildNameLength : 12
             }
           />
           <Textinput
@@ -183,7 +183,7 @@ const Createguild = ({ navigation }: { navigation: any }) => {
                 GuildID: GuildID,
                 GuildDescription: GuildDescription,
               };
-              CreateMatchOnClick(Data);
+              CreateGuildOnClick(Data);
             }}
           >
             {loading ? (

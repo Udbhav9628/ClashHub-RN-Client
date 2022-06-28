@@ -86,7 +86,7 @@ const GameItems = ({
       }}
     >
       {/* Image*/}
-      <View style={{ marginRight: 3 }}>
+      <View style={{ marginRight: 15 }}>
         <Image source={GameImage} style={Imagestyle} />
       </View>
       {/* Info */}

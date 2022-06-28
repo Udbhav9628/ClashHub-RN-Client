@@ -172,6 +172,8 @@ function Update_Match(Data: any, id: any) {
 }
 
 function Join_Match_action(id: any, Amount_to_be_paid: any) {
+  console.log(id);
+
   return async function (dispatch: any) {
     try {
       dispatch({

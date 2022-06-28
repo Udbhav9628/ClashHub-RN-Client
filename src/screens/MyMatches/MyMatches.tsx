@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { SIZES, COLORS, Dpheight } from "../../constants/Theame";
+import { SIZES, COLORS, Dpheight, DPwidth } from "../../constants/Theame";
 import GameItems from "../Home/GameItems";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -117,10 +117,9 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
                 backgroundColor: COLORS.lightGray2,
               }}
               Imagestyle={{
-                marginTop: 20,
+                marginTop: Dpheight(3),
                 height: "88%",
-                width: 110,
-                marginRight: 2,
+                width: DPwidth(29),
                 resizeMode: "stretch",
               }}
               Item={item}

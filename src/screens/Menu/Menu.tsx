@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
-import { COLORS, SIZES } from "../../constants/Theame";
+import { COLORS, Dpheight, SIZES } from "../../constants/Theame";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -22,7 +22,7 @@ const Menu = ({ navigation }: { navigation: any }) => {
           }}
         >
           <View style={styles.menuItem}>
-            <Icon name="person" size={28} color="black" />
+            <Icon name="person" size={Dpheight(3.5)} color="black" />
             <Text style={styles.Menutitle}>Profile</Text>
           </View>
         </TouchableOpacity>
@@ -33,7 +33,7 @@ const Menu = ({ navigation }: { navigation: any }) => {
           style={styles.menuTouchableOpacity}
         >
           <View style={styles.menuItem}>
-            <Icon name="wallet" size={28} color="black" />
+            <Icon name="wallet" size={Dpheight(3.5)} color="black" />
             <Text style={styles.Menutitle}>Wallet</Text>
           </View>
         </TouchableOpacity>
@@ -44,19 +44,13 @@ const Menu = ({ navigation }: { navigation: any }) => {
           }}
         >
           <View style={styles.menuItem}>
-            <Icon name="people" size={28} color="black" />
+            <Icon name="people" size={Dpheight(3.5)} color="black" />
             <Text style={styles.Menutitle}>Your Guild</Text>
           </View>
         </TouchableOpacity>
-        {/* <TouchableOpacity style={styles.menuTouchableOpacity}>
-              <View style={styles.menuItem}>
-                <Icon name="shirt" size={28} color="black" />
-                <Text style={styles.Menutitle}>Your Team</Text>
-              </View>
-            </TouchableOpacity> */}
         <TouchableOpacity style={styles.menuTouchableOpacity}>
           <View style={styles.menuItem}>
-            <Icon name="call" size={28} color="black" />
+            <Icon name="call" size={Dpheight(3.5)} color="black" />
             <Text style={styles.Menutitle}>Help</Text>
           </View>
         </TouchableOpacity>
@@ -66,7 +60,7 @@ const Menu = ({ navigation }: { navigation: any }) => {
           }}
         >
           <View style={styles.menuItem}>
-            <Icon name="log-out" size={28} color="black" />
+            <Icon name="log-out" size={Dpheight(3.5)} color="black" />
             <Text style={styles.Menutitle}>Logout</Text>
           </View>
         </TouchableOpacity>

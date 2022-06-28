@@ -7,7 +7,7 @@ import {
   Text,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { SIZES, COLORS, Dpheight } from "../../../constants/Theame";
+import { SIZES, COLORS, Dpheight, DPwidth } from "../../../constants/Theame";
 import Heading from "../../../components/Heading";
 import GameItems from "../../Home/GameItems";
 import { useDispatch, useSelector } from "react-redux";
@@ -112,10 +112,9 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
                 backgroundColor: COLORS.lightGray2,
               }}
               Imagestyle={{
-                marginTop: 20,
-                height: "88%",
-                width: 110,
-                marginRight: 2,
+                marginTop: Dpheight(3),
+                height: "88.3%",
+                width: DPwidth(29),
                 resizeMode: "stretch",
               }}
               Item={item}

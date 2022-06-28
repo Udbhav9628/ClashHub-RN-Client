@@ -91,7 +91,7 @@ const TransctionModal = ({
                                                     borderRadius: SIZES.radius,
                                                 }}
                                             >
-                                                <Icon name={item.Type ? "arrow-down-right" : "arrow-down-left"} size={20} color="#000" />
+                                                <Icon name={item.Type ? "arrow-down-right" : "arrow-down-left"} size={Dpheight(2.5)} color="#000" />
                                             </View>
                                             <View>
                                                 <Text
