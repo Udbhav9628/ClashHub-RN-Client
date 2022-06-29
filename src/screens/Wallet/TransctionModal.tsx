@@ -72,7 +72,10 @@ const TransctionModal = ({
                             Query={null}
                         />
                     </View>
-                    <View style={{ marginTop: 10 }}>
+                    <View style={{
+                        marginTop: 10,
+                        marginBottom: 50
+                    }}>
                         <FlatList
                             data={Transactions}
                             keyExtractor={(Item) => `${Item._id}`}
@@ -152,7 +155,7 @@ const style = StyleSheet.create({
         paddingHorizontal: SIZES.base,
     },
     NotificationText: {
-        fontSize: SIZES.h3,
+        fontSize: SIZES.body4,
         fontWeight: "bold",
     },
     NotificationText2: {

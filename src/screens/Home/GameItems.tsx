@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { COLORS, SIZES, FONTS, DPwidth, Dpheight } from "../../constants/Theame";
 import { useFocusEffect } from "@react-navigation/native";
 import Icons from "../../constants/Icons";
+import Progressbar from "../../components/Progressbar";
 
 const GameItems = ({
   ContainerStyle,
@@ -98,9 +99,7 @@ const GameItems = ({
           {Item.Game_Name} Squad Match
         </Text>
         {/* Description */}
-        <Text style={{ ...FONTS.h3, color: COLORS.darkGray2, lineHeight: SIZES.h1 }}>
-          Match by Fighters Club
-        </Text>
+        <Progressbar step={Item.Joined_User.length} totalsteps={Item.Total_Players} Height={Dpheight(0.8)} />
         {/* More Info Section */}
         <View
           style={{
@@ -202,7 +201,7 @@ const GameItems = ({
           {Item.Is_Finished === true ? "Finished" : " It's Live"}
         </Text>) : (<Text
           style={{
-            color: COLORS.darkGray2,
+            color: "#000",
             ...FONTS.body4,
             fontWeight: "bold",
           }}

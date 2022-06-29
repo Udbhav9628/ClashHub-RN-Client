@@ -495,6 +495,7 @@ const style = StyleSheet.create({
     paddingHorizontal: SIZES.base,
   },
   NotificationText: {
+    color: "#000",
     fontSize: SIZES.Size4,
     fontWeight: "bold",
   },

@@ -37,6 +37,8 @@ const GameDetailsPage = ({
 
   const [Disable, setDisable] = useState(false);
 
+  const [disable_joinmatch_button, setdisable_joinmatch_button] = useState(false)
+
   const { Join_Sucess, Error, Responce } = useSelector(
     (state: any) => state.Join_Match_Reducer
   );
@@ -152,6 +154,12 @@ const GameDetailsPage = ({
     Timer_Function()
   }, []);
 
+  useEffect(() => {
+    if (Item.Joined_User.length === Item.Total_Players) {
+      setdisable_joinmatch_button(true)
+    }
+  }, []);
+
   return (
     <View style={style.container}>
       {/* Header */}
@@ -245,6 +253,20 @@ const GameDetailsPage = ({
             {/* Info Left Details */}
             <View>
               {/* Prize Per Kill */}
+              <View style={style.InfoLeftItem}>
+                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                  Slots
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.black,
+                    ...FONTS.body3,
+                    fontWeight: "700",
+                  }}
+                >
+                  {Item.Joined_User.length}/{Item.Total_Players}
+                </Text>
+              </View>
               <View style={style.InfoLeftItem}>
                 <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                   Prize
@@ -382,6 +404,7 @@ const GameDetailsPage = ({
             onPress={() => {
               setModalVisible(!modalVisible);
             }}
+            disabled={disable_joinmatch_button}
             style={{
               height: Dpheight(6.9),
               alignItems: "center",
@@ -400,7 +423,7 @@ const GameDetailsPage = ({
                 fontSize: SIZES.body3,
               }}
             >
-              Join Match
+              Entry &#x20B9;10
             </Text>
           </TouchableOpacity>
           {/* Modal */}
