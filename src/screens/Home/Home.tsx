@@ -120,7 +120,7 @@ const Home = ({ navigation }: { navigation: any }) => {
       />
       <View
         style={{
-          height: Dpheight(29),
+          height: Dpheight(26.3),
         }}
       >
         {loading ? (

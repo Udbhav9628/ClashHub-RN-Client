@@ -10,7 +10,6 @@ import React from "react";
 import { SIZES, COLORS } from "../../constants/Theame";
 import { Notification_Data } from "../../constants/Data";
 import Heading from "../../components/Heading";
-const logo = require("../../Assets/Images/logo_02.png");
 
 const Notification = ({ navigation }: { navigation: any }) => {
   return (
@@ -25,7 +24,7 @@ const Notification = ({ navigation }: { navigation: any }) => {
           renderItem={({ item }: { item: any }) => (
             <TouchableOpacity key={item.key}>
               <View style={style.NotificationWrapper}>
-                <Image
+                {/* <Image
                   source={logo}
                   style={{
                     height: 40,
@@ -33,7 +32,7 @@ const Notification = ({ navigation }: { navigation: any }) => {
                     marginRight: 5,
                     borderRadius: SIZES.radius,
                   }}
-                />
+                /> */}
                 <View>
                   <Text style={style.NotificationText}>{item.title}</Text>
                   <Text style={style.NotificationText2}>2 Days ago</Text>

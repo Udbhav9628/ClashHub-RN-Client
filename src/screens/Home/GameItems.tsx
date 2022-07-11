@@ -87,41 +87,63 @@ const GameItems = ({
       }}
     >
       {/* Image*/}
-      <View style={{ marginRight: 15 }}>
+      <View style={{
+        marginRight: 15,
+        width: '28%'
+      }}>
         <Image source={GameImage} style={Imagestyle} />
       </View>
       {/* Info */}
-      <View>
+      <View style={{
+        width: '69%'
+      }}>
         {/* Name */}
         <Text
           style={{ ...FONTS.body3, fontWeight: "700", color: COLORS.black }}
         >
-          {Item.Game_Name} Squad Match
+          {Item.Game_Name} {Item.GameType} Match
         </Text>
         {/* Description */}
         <Progressbar step={Item.Joined_User.length} totalsteps={Item.Total_Players} Height={Dpheight(0.8)} />
         {/* More Info Section */}
         <View
           style={{
-            flexDirection: "row",
-            marginTop: 2,
+            justifyContent: "center",
           }}
         >
           <View
             style={{
-              justifyContent: "center",
               alignItems: "center",
-              marginRight: 48,
-              marginLeft: SIZES.base,
+            }}
+          >
+            <Text style={{ ...FONTS.h3, color: COLORS.darkGray2 }}>Prize Per Kill </Text>
+            <Text
+              style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
+            >
+              &#x20B9; {Item.Perkill_Prize}
+            </Text>
+          </View>
+        </View>
+        {/* 2nd Row */}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center",
+          }}
+        >
+          <View
+            style={{
+              alignItems: "center",
             }}
           >
             <Text style={{ ...FONTS.h3, color: COLORS.darkGray2 }}>
-              Prize Pool
+              Map
             </Text>
             <Text
               style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
             >
-              800
+              {Item.Map}
             </Text>
           </View>
           <View
@@ -134,46 +156,11 @@ const GameItems = ({
             <Text
               style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
             >
-              Solo
+              {Item.GameType}
             </Text>
           </View>
         </View>
-        {/* 2nd Row */}
-        <View
-          style={{
-            flexDirection: "row",
-          }}
-        >
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginRight: 48,
-              marginLeft: 13,
-            }}
-          >
-            <Text style={{ ...FONTS.h3, color: COLORS.darkGray2 }}>Map</Text>
-            <Text
-              style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
-            >
-              Miramar
-            </Text>
-          </View>
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginLeft: 5,
-            }}
-          >
-            <Text style={{ ...FONTS.h3, color: COLORS.darkGray2 }}>View</Text>
-            <Text
-              style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
-            >
-              FPP
-            </Text>
-          </View>
-        </View>
+
       </View>
       {/* Calories */}
       <View
@@ -233,7 +220,7 @@ const GameItems = ({
             fontWeight: "bold",
           }}
         >
-          &#x20B9; 10
+          &#x20B9; {Item.EntryFee}
         </Text>
       </View>
     </TouchableOpacity>

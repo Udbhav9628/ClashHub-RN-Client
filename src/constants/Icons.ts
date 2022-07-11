@@ -20,18 +20,17 @@ const help = require('../Assets/icons/help.png');
 // Game Images
 const Pubg = require('../Assets/Images/pubg.png');
 const FreeFire = require('../Assets/Images/FreeFire2.png');
-const COD = require('../Assets/Images/COD.png');
-const BGMI = require('../Assets/Images/BGMI3.png');
-const Fortnite = require('../Assets/Images/Fortnite4.webp');
+const COD = require('../Assets/Images/Call2.png');
+const BGMI = require('../Assets/Images/BgmiIndia.jpg');
+const FFMax = require('../Assets/Images/FFMax3.png');
 
-// Images
-const Logo = require('../Assets/Images/App_Logo.png');
+// Game Images
 const Crousal = require('../Assets/Images/crousal1.jpg');
 const PubgGameType = require('../Assets/Images/Pubg.jpg');
 const FreeFireGameType = require('../Assets/Images/FreeFire.jpg');
 const CodmGameType = require('../Assets/Images/Codm.png');
-const BGMIGameType = require('../Assets/Images/BGMI.jpg');
-const FortniteGameType = require('../Assets/Images/Fortnite.jpg');
+const BGMIGameType = require('../Assets/Images/BGMI3.png');
+const FreeFireMax = require('../Assets/Images/FreeFireMax2.jpg');
 const Crad = require('../Assets/Images/card.png');
 
 export default {
@@ -53,17 +52,16 @@ export default {
   setting,
   wallet,
   help,
-  Logo,
   Crousal,
   PubgGameType,
   FreeFireGameType,
   CodmGameType,
   BGMIGameType,
-  FortniteGameType,
+  FreeFireMax,
   Crad,
   Pubg,
   FreeFire,
   COD,
   BGMI,
-  Fortnite,
+  FFMax,
 };

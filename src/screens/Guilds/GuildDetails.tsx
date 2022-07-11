@@ -34,6 +34,12 @@ const GuildDetails = ({
 }) => {
   const { Item } = route.params;
 
+  const { User } = useSelector((state: any) => state.FetchUser_reducer);
+
+  const is_Guild_Joined = Item.Followers.find((Item: any) => {
+    return Item.FollowersId === User.id;
+  });
+
   const dispatch = useDispatch();
   const Get_Guild_Matches = bindActionCreators(
     Get_Guild_Matches_Details,
@@ -85,7 +91,7 @@ const GuildDetails = ({
 
   useEffect(() => {
     if (Join_Guild_Reducer.Sucess) {
-      Alert.alert("Error", Join_Guild_Reducer.Responce, [
+      Alert.alert("Message", Join_Guild_Reducer.Responce, [
         {
           text: "OK",
           onPress: () => {
@@ -146,7 +152,7 @@ const GuildDetails = ({
               fontSize: SIZES.body3,
             }}
           >
-            Join Guild
+            {is_Guild_Joined ? 'Joined' : 'Join Guild'}
           </Text>
         </TouchableOpacity>
       </View>

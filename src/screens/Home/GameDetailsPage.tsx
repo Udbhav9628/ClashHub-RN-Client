@@ -211,7 +211,7 @@ const GameDetailsPage = ({
                 color: COLORS.black,
               }}
             >
-              {Item.Game_Name} Squad Match
+              {Item.Game_Name} {Item.GameType} Match
             </Text>
           </View>
           {Minutes !== 0 && (isJoined ? (
@@ -252,7 +252,7 @@ const GameDetailsPage = ({
           <View style={style.InfoWrapper}>
             {/* Info Left Details */}
             <View>
-              {/* Prize Per Kill */}
+              {/* Joined Players Number */}
               <View style={style.InfoLeftItem}>
                 <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                   Slots
@@ -278,22 +278,7 @@ const GameDetailsPage = ({
                     fontWeight: "700",
                   }}
                 >
-                  &#x20B9; {Item.Prize_Pool} Per Kill
-                </Text>
-              </View>
-              {/* Match Type */}
-              <View style={style.InfoLeftItem}>
-                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
-                  Match Type
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.black,
-                    ...FONTS.body3,
-                    fontWeight: "700",
-                  }}
-                >
-                  TPP
+                  &#x20B9; {Item.Perkill_Prize} Per Kill
                 </Text>
               </View>
               {/* Match Map */}
@@ -308,7 +293,7 @@ const GameDetailsPage = ({
                     fontWeight: "700",
                   }}
                 >
-                  Miramar
+                  {Item.Map}
                 </Text>
               </View>
               {/* Match Date */}
@@ -432,6 +417,7 @@ const GameDetailsPage = ({
             setModalVisible={setModalVisible}
             MatchId={Item._id}
             Amount={null}
+            EntryFee={Item.EntryFee}
             Disable={Disable}
             setDisable={setDisable}
             ModalContainerStyle={

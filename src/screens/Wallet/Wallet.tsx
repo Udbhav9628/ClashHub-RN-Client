@@ -319,6 +319,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                       setModalVisible={setwithdrawlsModalVisible}
                       MatchId={null}
                       Amount={Amount.Ballance}
+                      EntryFee={null}
                       Disable={Disable}
                       setDisable={setDisable}
                       ModalContainerStyle={

@@ -147,7 +147,7 @@ export const Join_Guild_Reducer = (state = [], action: any) => {
     case 'Clear_Guild_Reducer_Sucess':
       return {
         ...state,
-        sucess: null,
+        Sucess: null,
       };
     default:
       return state;

@@ -24,6 +24,7 @@ const BottomPopup = ({
   setModalVisible,
   MatchId,
   Amount,
+  EntryFee,
   Disable,
   setDisable,
 }: {
@@ -32,6 +33,7 @@ const BottomPopup = ({
   setModalVisible: any;
   MatchId: any;
   Amount: any;
+  EntryFee: any;
   Disable: boolean;
   setDisable: Function;
 }) => {
@@ -137,7 +139,7 @@ const BottomPopup = ({
             </Text>
             <TouchableOpacity
               onPress={() => {
-                Join_Match_Action_Func(MatchId, "10");
+                Join_Match_Action_Func(MatchId, EntryFee);
                 setDisable(true);
               }}
               disabled={Disable}

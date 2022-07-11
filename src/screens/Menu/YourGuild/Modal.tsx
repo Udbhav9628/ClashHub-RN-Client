@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { COLORS, Dpheight, DPwidth, FONTS, SIZES } from "../../../constants/Theame";
 import React, { useState, useEffect } from "react";
-import { CalculateLength } from "../../../utils/Utils";
+import { CalculateLength, ReturnGameMap, ReturnMap_Modal_Height } from "../../../utils/Utils";
 import Icon from "react-native-vector-icons/Ionicons";
 import Textinput from "./Textinput";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +23,8 @@ import {
 } from "../../../store/Match/Matchaction";
 import ModalGame from "../../../components/ModalGame";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import ModalGameType from "../../../components/ModalGameType";
+import { MatchType, PubgMap, TotalPlayers } from "../../../constants/Data";
 
 const ModalScreen = ({
   Guild_Id,
@@ -35,15 +37,24 @@ const ModalScreen = ({
   setModalVisible: any;
   navigation: any;
 }) => {
+
+  // Match Data
   const [Select_Game, setSelect_Game] = useState("");
-  const [Total_Players, setTotal_Players] = useState();
-  const [PlayersLength, setPlayersLength] = useState();
-  const [Prize_Pool, setPrize_Pool] = useState();
+  const [GameType, setGameType] = useState('');
+  const [Map, setMap] = useState('')
+  const [Total_Players, setTotal_Players] = useState('');
+  const [Prize_Pool, setPrize_Pool] = useState('');
   const [PrizeLength, setPrizeLength] = useState();
+  const [EntryFee, setEntryFee] = useState('');
+  const [EntryFeeLength, setEntryFeeLength] = useState();
+  // Match Data
 
   const [Disable, setDisable] = useState(false);
 
   const [ModalGamemodalVisible, setModalGamemodalVisible] = useState(false);
+  const [Modal_GameType_modalVisible, setModal_GameType_modalVisible] = useState(false);
+  const [Modal_Map_modalVisible, setModal_Map_modalVisible] = useState(false);
+  const [Modal_Player_modalVisible, setModal_Player_modalVisible] = useState(false);
 
   // Date Time
   const [dateTime, setdateTime] = useState(new Date())
@@ -60,7 +71,6 @@ const ModalScreen = ({
 
   const onChange = (event: any, selectedDate: any) => {
     setShow(false);
-    console.log(Date.now());
 
     let tempdate = new Date(selectedDate);
     // if (tempdate.getTime() < Date.now() + 14400000) {
@@ -91,8 +101,11 @@ const ModalScreen = ({
   const Data = {
     Guild_Id: Guild_Id,
     Game_Name: Select_Game,
+    GameType: GameType,
+    GameMap: Map,
     Total_Players: Total_Players,
-    Prize_Pool: Prize_Pool,
+    EntryFee: EntryFee,
+    Perkill_Prize: Prize_Pool,
     Date_Time: MaindateDateTime
   };
 
@@ -121,12 +134,7 @@ const ModalScreen = ({
         {
           text: "OK",
           onPress: () => {
-            setSelect_Game('')
             setDisable(false)
-            setMaindateDateTime('')
-            setFormateddate('')
-            setFormatedTime('')
-            Fetch_All_Match("");
             setModalVisible(!modalVisible);
           },
         },
@@ -141,12 +149,8 @@ const ModalScreen = ({
         {
           text: "OK",
           onPress: () => {
-            setSelect_Game('')
-            setMaindateDateTime('')
-            setFormateddate('')
-            setFormatedTime('')
             setDisable(false);
-            Clear_Match_Error();
+            setModalVisible(false);
           },
         },
       ]);
@@ -161,12 +165,29 @@ const ModalScreen = ({
     }
   }
 
+  useEffect(() => {
+    setMap('')
+  }, [Select_Game])
+
+
   return (
     <Modal
       animationType="slide"
       visible={modalVisible}
       onRequestClose={() => {
         setModalVisible(!modalVisible);
+
+        setMaindateDateTime('')
+        setFormateddate('')
+        setFormatedTime('')
+        setSelect_Game('')
+        setGameType('')
+        setMap('')
+        setTotal_Players('')
+        setPrize_Pool('')
+        setPrizeLength()
+        setEntryFee('')
+        setEntryFeeLength()
       }}
     >
       <ScrollView
@@ -230,55 +251,165 @@ const ModalScreen = ({
             paddingHorizontal: SIZES.padding,
           }}
         >
-          {/* GameModal */}
-          <ModalGame modalVisible={ModalGamemodalVisible}
-            setModalVisible={setModalGamemodalVisible} Selectected_Game={setSelect_Game} />
+          {/* SELECT GAME */}
           <View>
+            <ModalGame modalVisible={ModalGamemodalVisible}
+              setModalVisible={setModalGamemodalVisible} Selectected_Game={setSelect_Game} />
             <Text style={{
               color: COLORS.gray,
               fontWeight: "600",
               ...FONTS.body3,
             }}>Game</Text>
-          </View>
-          <TouchableOpacity style={{
-            height: Dpheight(7),
-            alignItems: "flex-start",
-            justifyContent: "center",
-            marginTop: 5,
-            paddingLeft: 25,
-            borderRadius: SIZES.radius,
-            backgroundColor: COLORS.lightGray2
-          }}
-            onPress={() => {
-              setModalGamemodalVisible(!ModalGamemodalVisible);
-            }}>
-            <Text
-              style={{
-                backgroundColor: COLORS.lightGray2,
-                color: COLORS.gray,
-                fontWeight: "500",
-                fontSize: SIZES.body4,
-              }}
-            >
-              {Select_Game || "Select Game"}
-            </Text>
-          </TouchableOpacity>
-          <Textinput
-            containerStyle={{ flex: 1, marginTop: 15 }}
-            label="Total Players"
-            Placeholder={"Enter Total no Players"}
-            KeyboardType="numeric"
-            autoCapatilize="none"
-            maxLength={3}
-            onchange={(Value: any) => {
-              CalculateLength(Value, setPlayersLength, 3);
-              setTotal_Players(Value);
+            <TouchableOpacity style={{
+              height: Dpheight(7),
+              alignItems: "flex-start",
+              justifyContent: "center",
+              marginTop: 5,
+              paddingLeft: 25,
+              borderRadius: SIZES.radius,
+              backgroundColor: COLORS.lightGray2
             }}
-            Msg={PlayersLength || PlayersLength === 0 ? PlayersLength : 3}
-          />
+              onPress={() => {
+                setModalGamemodalVisible(!ModalGamemodalVisible);
+              }}>
+              <Text
+                style={{
+                  backgroundColor: COLORS.lightGray2,
+                  color: COLORS.gray,
+                  fontWeight: "500",
+                  fontSize: SIZES.body4,
+                }}
+              >
+                {Select_Game || "Select Game"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/* SELECT GAME Type */}
+          <View style={{ marginTop: 15 }}>
+            <ModalGameType modalVisible={Modal_GameType_modalVisible}
+              setModalVisible={setModal_GameType_modalVisible} Selectected_GameType={setGameType}
+              height={Dpheight(27)}
+              Data={MatchType}
+            />
+            <Text style={{
+              color: COLORS.gray,
+              fontWeight: "600",
+              ...FONTS.body3,
+            }}>Game Type</Text>
+            <TouchableOpacity style={{
+              height: Dpheight(7),
+              alignItems: "flex-start",
+              justifyContent: "center",
+              marginTop: 5,
+              paddingLeft: 25,
+              borderRadius: SIZES.radius,
+              backgroundColor: COLORS.lightGray2
+            }}
+              onPress={() => {
+                setModal_GameType_modalVisible(!Modal_GameType_modalVisible);
+              }}>
+              <Text
+                style={{
+                  backgroundColor: COLORS.lightGray2,
+                  color: COLORS.gray,
+                  fontWeight: "500",
+                  fontSize: SIZES.body4,
+                }}
+              >
+                {GameType || "Select GameType"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/* Choose Map */}
+          <View style={{ marginTop: 15 }}>
+            <ModalGameType modalVisible={Modal_Map_modalVisible}
+              setModalVisible={setModal_Map_modalVisible} Selectected_GameType={setMap}
+              height={ReturnMap_Modal_Height(Select_Game || "")}
+              Data={ReturnGameMap(Select_Game || "")}
+            />
+            <Text style={{
+              color: COLORS.gray,
+              fontWeight: "600",
+              ...FONTS.body3,
+            }}>Choose Map</Text>
+            <TouchableOpacity style={{
+              height: Dpheight(7),
+              alignItems: "flex-start",
+              justifyContent: "center",
+              marginTop: 5,
+              paddingLeft: 25,
+              borderRadius: SIZES.radius,
+              backgroundColor: COLORS.lightGray2
+            }}
+              onPress={() => {
+                setModal_Map_modalVisible(!Modal_Map_modalVisible);
+              }}>
+              <Text
+                style={{
+                  backgroundColor: COLORS.lightGray2,
+                  color: COLORS.gray,
+                  fontWeight: "500",
+                  fontSize: SIZES.body4,
+                }}
+              >
+                {Map || "Select Map"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/* Total Players */}
+          <View style={{ marginTop: 15 }}>
+            <ModalGameType modalVisible={Modal_Player_modalVisible}
+              setModalVisible={setModal_Player_modalVisible} Selectected_GameType={setTotal_Players}
+              height={Dpheight(43)}
+              Data={TotalPlayers}
+            />
+            <Text style={{
+              color: COLORS.gray,
+              fontWeight: "600",
+              ...FONTS.body3,
+            }}>Total_Players</Text>
+            <TouchableOpacity style={{
+              height: Dpheight(7),
+              alignItems: "flex-start",
+              justifyContent: "center",
+              marginTop: 5,
+              paddingLeft: 25,
+              borderRadius: SIZES.radius,
+              backgroundColor: COLORS.lightGray2
+            }}
+              onPress={() => {
+                setModal_Player_modalVisible(!Modal_Player_modalVisible);
+              }}>
+              <Text
+                style={{
+                  backgroundColor: COLORS.lightGray2,
+                  color: COLORS.gray,
+                  fontWeight: "500",
+                  fontSize: SIZES.body4,
+                }}
+              >
+                {Total_Players || "Select Max Players"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/* Entry Fees */}
           <Textinput
             containerStyle={{ flex: 1, marginTop: 15 }}
-            label="Amount To Give Per Kill"
+            label="Entry Fee"
+            Placeholder={"Entry Fee for Joining Match"}
+            KeyboardType="numeric"
+            autoCapatilize={"none"}
+            maxLength={2}
+            onchange={(Value: any) => {
+              CalculateLength(Value, setEntryFeeLength, 2);
+              setEntryFee(Value);
+            }}
+            Msg={EntryFeeLength || EntryFeeLength === 0 ? EntryFeeLength : 2}
+          />
+          {/* Prize */}
+          <Textinput
+            containerStyle={{ flex: 1, marginTop: 15 }}
+            label="Per Kill Pzize"
             Placeholder={"Entre Amount You want to give"}
             KeyboardType="numeric"
             autoCapatilize={"none"}

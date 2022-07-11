@@ -1,5 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  BgmiMap,
+  CodMMap,
+  DefaultMap,
+  FreeFireMap,
+  PubgMap,
+} from '../constants/Data';
 import Icons from '../constants/Icons';
+import {Dpheight} from '../constants/Theame';
 
 export async function storeToken(Key: string, value: any, dispatch: any) {
   try {
@@ -69,22 +77,66 @@ export function CalculateLength(
 
 export function ReturnGameImage(GameName: string) {
   switch (GameName) {
-    case 'Pubg':
-      return Icons.Pubg;
-
     case 'FreeFire':
       return Icons.FreeFire;
-
-    case 'COD':
-      return Icons.COD;
 
     case 'BGMI':
       return Icons.BGMI;
 
-    case 'Fortnite':
-      return Icons.Fortnite;
+    case 'FreeFire Max':
+      return Icons.FFMax;
+
+    case 'Pubg Mobile':
+      return Icons.Pubg;
+
+    case 'CODM':
+      return Icons.COD;
 
     default:
       break;
+  }
+}
+
+export function ReturnGameMap(GameName: string) {
+  switch (GameName) {
+    case 'FreeFire':
+      return FreeFireMap;
+
+    case 'BGMI':
+      return BgmiMap;
+
+    case 'FreeFire Max':
+      return FreeFireMap;
+
+    case 'Pubg Mobile':
+      return PubgMap;
+
+    case 'CODM':
+      return CodMMap;
+
+    default:
+      return DefaultMap;
+  }
+}
+
+export function ReturnMap_Modal_Height(GameName: string) {
+  switch (GameName) {
+    case 'FreeFire':
+      return Dpheight(43);
+
+    case 'BGMI':
+      return Dpheight(43);
+
+    case 'FreeFire Max':
+      return Dpheight(43);
+
+    case 'Pubg Mobile':
+      return Dpheight(34.5);
+
+    case 'CODM':
+      return Dpheight(18);
+
+    default:
+      return Dpheight(10);
   }
 }
