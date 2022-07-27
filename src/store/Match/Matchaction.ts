@@ -136,6 +136,7 @@ function Get_Joined_Matchs(Guild_id: any, MatchType: any) {
   };
 }
 
+//Update Match Result
 function Update_Match(Data: any, id: any) {
   return async function (dispatch: any) {
     try {
@@ -165,6 +166,42 @@ function Update_Match(Data: any, id: any) {
     } catch (error: any) {
       dispatch({
         type: 'Update_Result_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
+//Update Match Room Details
+function Update_Match_Room_Details(Room_Details_Data: any, Matchid: any) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'Update_Room_Details_Request',
+      });
+      const Token: string = (await Return_Token(
+        'Update_Room_Details_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.put(
+        `${Ip_Address}/UpdateRoom_Details/${Matchid}`,
+        Room_Details_Data,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'Update_Room_Details_Sucess',
+        payload: response.data,
+      });
+      console.log(response.data);
+    } catch (error: any) {
+      dispatch({
+        type: 'Update_Room_Details_Fail',
         payload: error.message,
       });
     }
@@ -277,4 +314,5 @@ export {
   Fetch_Home_Page_Matchs,
   Push_In_Array,
   Update_Match,
+  Update_Match_Room_Details,
 };

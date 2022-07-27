@@ -14,6 +14,7 @@ import BottomPopup from "../../components/BottomPopup";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
+  Join_Match_action,
   Clear_Match_Reducer_Error,
   Clear_Match_Reducer_Sucess,
   RemoveMatchItem,
@@ -31,13 +32,9 @@ const GameDetailsPage = ({
 
   const { Item, GameImage } = route.params;
 
-  const [modalVisible, setModalVisible] = useState(false);
-
   const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
 
-  const [Disable, setDisable] = useState(false);
-
-  const [disable_joinmatch_button, setdisable_joinmatch_button] = useState(false)
+  const [disable_joinmatch_button, setdisable_joinmatch_button] = useState(false);
 
   const { Join_Sucess, Error, Responce } = useSelector(
     (state: any) => state.Join_Match_Reducer
@@ -54,6 +51,11 @@ const GameDetailsPage = ({
   });
 
   const dispatch = useDispatch();
+
+  const Join_Match_Action_Func = bindActionCreators(
+    Join_Match_action,
+    dispatch
+  );
 
   const Remove_Match_Item = bindActionCreators(RemoveMatchItem, dispatch);
 
@@ -88,8 +90,6 @@ const GameDetailsPage = ({
         {
           text: "OK",
           onPress: () => {
-            setDisable(false);
-            setModalVisible(!modalVisible);
             Clear_Match_ReducerError();
           },
         },
@@ -335,7 +335,7 @@ const GameDetailsPage = ({
         </View>
       </View>
       {/* Match By Guild */}
-      {Item.Is_Finished && (<View style={style.Elevation}>
+      {Item.Match_Status === 'Completed' && (<View style={style.Elevation}>
         <View>
           <ModalJoinedPlayers modalVisible={JoinedPlayermodal}
             setModalVisible={setJoinedPlayermodal}
@@ -387,7 +387,7 @@ const GameDetailsPage = ({
         <View>
           <TouchableOpacity
             onPress={() => {
-              setModalVisible(!modalVisible);
+              Join_Match_Action_Func(Item._id, Item.EntryFee);
             }}
             disabled={disable_joinmatch_button}
             style={{
@@ -411,37 +411,6 @@ const GameDetailsPage = ({
               Entry &#x20B9;10
             </Text>
           </TouchableOpacity>
-          {/* Modal */}
-          <BottomPopup
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-            MatchId={Item._id}
-            Amount={null}
-            EntryFee={Item.EntryFee}
-            Disable={Disable}
-            setDisable={setDisable}
-            ModalContainerStyle={
-              {
-                position: "absolute",
-                bottom: -8,
-                left: 2,
-                right: 2,
-                margin: 20,
-                height: Dpheight(25),
-                backgroundColor: "white",
-                borderRadius: SIZES.radius,
-                padding: 5,
-                shadowColor: COLORS.black,
-                shadowOpacity: 0.25,
-                shadowRadius: 4,
-                elevation: 5,
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-              }
-            }
-          />
         </View>
       )}
     </View>

@@ -10,12 +10,13 @@ import {
   FlatList,
   StyleSheet
 } from "react-native";
-import { SIZES, COLORS, FONTS, Dpheight, DPwidth } from "../constants/Theame";
+import { SIZES, COLORS, FONTS, Dpheight } from "../constants/Theame";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Join_Match_action } from "../store/Match/Matchaction";
+import { Update_Match_Room_Details, Clear_Match_Reducer_Sucess, Clear_Match_Reducer_Error } from "../store/Match/Matchaction";
 import HeadingComp from "./HeadingComp";
 import { Create_withdrawls_request, GetPendingWithdrawls, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../store/Payment/PaymentAction";
+import Textinput from "../screens/Menu/YourGuild/Textinput";
 import Icon from "react-native-vector-icons/Feather";
 
 const BottomPopup = ({
@@ -24,22 +25,28 @@ const BottomPopup = ({
   setModalVisible,
   MatchId,
   Amount,
-  EntryFee,
+  Match_Status,
   Disable,
   setDisable,
+  navigation
 }: {
   ModalContainerStyle: any;
   modalVisible: any;
   setModalVisible: any;
   MatchId: any;
   Amount: any;
-  EntryFee: any;
+  Match_Status: any;
   Disable: boolean;
   setDisable: Function;
+  navigation: any;
 }) => {
   const { loading } = useSelector((state: any) => state.Join_Match_Reducer);
 
   const [WithdrawlsAmount, setWithdrawlsAmount] = useState(0)
+
+  const [Custom_Room_Name, setCustom_Room_Name] = useState('')
+
+  const [Custom_Room_Password, setCustom_Room_Password] = useState('')
 
   const { PWloading, Pending_Withdrawls, Error } = useSelector(
     (state: any) => state.PendingWithdrawls_Reducer
@@ -49,11 +56,27 @@ const BottomPopup = ({
     (state: any) => state.Create_withdrawls_Reducer
   );
 
+  const Room_Details_Reducer = useSelector(
+    (state: any) => state.Update_Room_Details_Reducer
+  );
+
   const dispatch = useDispatch();
-  const Join_Match_Action_Func = bindActionCreators(
-    Join_Match_action,
+
+  const Update_Match_Room_Details_Func = bindActionCreators(
+    Update_Match_Room_Details,
     dispatch
   );
+
+  const Clear_Match_Reducer_Sucess_Func = bindActionCreators(
+    Clear_Match_Reducer_Sucess,
+    dispatch
+  );
+
+  const Clear_Match_Reducer_Error_Func = bindActionCreators(
+    Clear_Match_Reducer_Error,
+    dispatch
+  );
+
   const Create_withdrawls_request_Func = bindActionCreators(
     Create_withdrawls_request,
     dispatch
@@ -76,6 +99,35 @@ const BottomPopup = ({
       GetPendingWithdrawls_Func()
     }
   }, [modalVisible])
+
+  useEffect(() => {
+    if (Room_Details_Reducer.Sucess) {
+
+      Alert.alert("Message", Room_Details_Reducer.Sucess_Responce, [{
+        text: "OK",
+        onPress: () => {
+          setDisable(false);
+          setModalVisible(!modalVisible);
+          Clear_Match_Reducer_Sucess_Func()
+          navigation.navigate("YourGuild");
+        },
+      }]);
+    }
+  }, [Room_Details_Reducer.Sucess])
+
+  useEffect(() => {
+    if (Room_Details_Reducer.Error) {
+
+      Alert.alert("Error", Room_Details_Reducer.Error, [{
+        text: "OK",
+        onPress: () => {
+          setDisable(false);
+          setModalVisible(!modalVisible);
+          Clear_Match_Reducer_Error_Func();
+        },
+      }]);
+    }
+  }, [Room_Details_Reducer.Error])
 
   useEffect(() => {
     if (Error) {
@@ -111,53 +163,72 @@ const BottomPopup = ({
         {MatchId ? (
           <View
             style={{
-              padding: 20,
-              alignItems: "center",
+              margin: '4%',
               justifyContent: "center",
             }}
           >
             <View>
               <Text
                 style={{
-                  fontSize: SIZES.Size24,
+                  marginTop: '4%',
+                  textAlign: 'center',
+                  fontSize: SIZES.body2,
                   fontWeight: "bold",
                   color: COLORS.black,
                 }}
               >
-                Pay And Join Match
+                {Match_Status === 'Started' ? 'Update Room Details' : 'Enter Room Details'}
               </Text>
             </View>
-            <Text
-              style={{
-                marginTop: 15,
-                fontSize: SIZES.Size24,
-                fontWeight: "bold",
-                color: COLORS.black,
+            <Textinput
+              containerStyle={{ marginTop: 10 }}
+              label="Custom Room Name"
+              Placeholder={"Enter Custom Room Name"}
+              KeyboardType="default"
+              autoCapatilize={"none"}
+              maxLength={35}
+              onchange={(Value: any) => {
+                const text = Value.replace(/\s{2,}/g, ' ').trim()
+                setCustom_Room_Name(text);
               }}
-            >
-              &#x20B9; 10
-            </Text>
+              Msg={null}
+            />
+            <Textinput
+              containerStyle={{ marginTop: 10 }}
+              label="Custom Room Password"
+              Placeholder={"Enter Custom Room Password"}
+              KeyboardType="default"
+              autoCapatilize={"none"}
+              maxLength={15}
+              onchange={(Value: any) => {
+                const text = Value.replace(/\s{2,}/g, ' ').trim()
+                setCustom_Room_Password(text);
+              }}
+              Msg={null}
+            />
             <TouchableOpacity
               onPress={() => {
-                Join_Match_Action_Func(MatchId, EntryFee);
+                const RoomData = {
+                  Name: Custom_Room_Name,
+                  Password: Custom_Room_Password
+                }
+                Update_Match_Room_Details_Func(RoomData, MatchId)
                 setDisable(true);
               }}
               disabled={Disable}
               style={{
                 height: Dpheight(6.8),
-                width: DPwidth(25),
                 alignItems: "center",
                 justifyContent: "center",
                 marginTop: SIZES.padding,
-                marginBottom: SIZES.padding,
                 borderRadius: SIZES.radius,
                 backgroundColor: Disable
                   ? COLORS.transparentPrimray
                   : COLORS.primary,
-                marginHorizontal: SIZES.padding,
+                marginHorizontal: SIZES.base,
               }}
             >
-              {loading ? (
+              {Room_Details_Reducer.loading ? (
                 <ActivityIndicator size="large" color={COLORS.primary} />
               ) : (
                 <Text
@@ -167,7 +238,7 @@ const BottomPopup = ({
                     fontSize: SIZES.h2,
                   }}
                 >
-                  Pay
+                  Submit
                 </Text>
               )}
             </TouchableOpacity>

@@ -135,7 +135,8 @@ const ModalScreen = ({
           text: "OK",
           onPress: () => {
             setDisable(false)
-            setModalVisible(!modalVisible);
+            ClearData()
+            setModalVisible(false);
           },
         },
       ]);
@@ -150,6 +151,7 @@ const ModalScreen = ({
           text: "OK",
           onPress: () => {
             setDisable(false);
+            ClearData()
             setModalVisible(false);
           },
         },
@@ -169,6 +171,19 @@ const ModalScreen = ({
     setMap('')
   }, [Select_Game])
 
+  function ClearData() {
+    setMaindateDateTime('')
+    setFormateddate('')
+    setFormatedTime('')
+    setSelect_Game('')
+    setGameType('')
+    setMap('')
+    setTotal_Players('')
+    setPrize_Pool('')
+    setPrizeLength()
+    setEntryFee('')
+    setEntryFeeLength()
+  }
 
   return (
     <Modal
@@ -176,18 +191,7 @@ const ModalScreen = ({
       visible={modalVisible}
       onRequestClose={() => {
         setModalVisible(!modalVisible);
-
-        setMaindateDateTime('')
-        setFormateddate('')
-        setFormatedTime('')
-        setSelect_Game('')
-        setGameType('')
-        setMap('')
-        setTotal_Players('')
-        setPrize_Pool('')
-        setPrizeLength()
-        setEntryFee('')
-        setEntryFeeLength()
+        ClearData()
       }}
     >
       <ScrollView

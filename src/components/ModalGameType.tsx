@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     Text: {
-        color: COLORS.white,
+        color: COLORS.black,
         fontSize: SIZES.body3,
         fontWeight: 'bold'
     }

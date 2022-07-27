@@ -137,6 +137,6 @@ export function ReturnMap_Modal_Height(GameName: string) {
       return Dpheight(18);
 
     default:
-      return Dpheight(10);
+      return Dpheight(9);
   }
 }

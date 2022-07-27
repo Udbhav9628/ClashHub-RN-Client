@@ -95,7 +95,7 @@ const GameItems = ({
       </View>
       {/* Info */}
       <View style={{
-        width: '69%'
+        width: '70.1%'
       }}>
         {/* Name */}
         <Text

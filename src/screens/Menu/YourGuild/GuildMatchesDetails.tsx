@@ -11,6 +11,7 @@ import { SIZES, COLORS, FONTS, Dpheight, DPwidth } from "../../../constants/Thea
 import { useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import ModalJoinedPlayers from "./ModalJoinedPlayers";
+import BottomPopup from "../../../components/BottomPopup";
 
 const GuildMatchesDetails = ({
     route,
@@ -22,13 +23,13 @@ const GuildMatchesDetails = ({
     const { Item, SelectedMenu, GameImage
     } = route.params;
 
+    const [modalVisible, setModalVisible] = useState(false)
+
+    const [Disable, setDisable] = useState(false)
+
     const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
 
     const { User } = useSelector((state: any) => state.FetchUser_reducer);
-
-    const isJoined = Item.Joined_User.find((Item: any) => {
-        return Item.UserId === User.id;
-    });
 
     const [Days, setDays] = useState(0);
     const [Hours, setHours] = useState(0);
@@ -140,19 +141,7 @@ const GuildMatchesDetails = ({
                             {Item.Game_Name} {Item.GameType} Match
                         </Text>
                     </View>
-                    {Minutes !== 0 && (isJoined ? (
-                        <View style={style.EntryFeeWraper}>
-                            <Text
-                                style={{
-                                    ...FONTS.body3,
-                                    color: COLORS.primary,
-                                    fontWeight: "700",
-                                }}
-                            >
-                                Joined
-                            </Text>
-                        </View>
-                    ) : (
+                    {Minutes !== 0 && (
                         <View style={style.EntryFeeWraper}>
                             <Text
                                 style={{
@@ -173,7 +162,73 @@ const GuildMatchesDetails = ({
                                 {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H:`}{`${Minutes}M`}
                             </Text>
                         </View>
-                    ))}
+                    )}
+                    {SelectedMenu === 'Ongoing' && (
+                        <View style={style.EntryFeeWraper}>
+                            <Text
+                                style={{
+                                    ...FONTS.body3,
+                                    color: COLORS.primary,
+                                    fontWeight: "700",
+                                }}
+                            >
+                                Match Is
+                            </Text>
+                            <Text
+                                style={{
+                                    ...FONTS.body2,
+                                    color: COLORS.primary,
+                                    fontWeight: "700",
+                                }}
+                            >
+                                Live
+                            </Text>
+                        </View>
+                    )}
+                    {SelectedMenu === 'Resultant' && (
+                        <View style={style.EntryFeeWraper}>
+                            <Text
+                                style={{
+                                    ...FONTS.body3,
+                                    color: COLORS.primary,
+                                    fontWeight: "700",
+                                }}
+                            >
+                                Match Is
+                            </Text>
+                            <Text
+                                style={{
+                                    ...FONTS.body2,
+                                    color: COLORS.primary,
+                                    fontWeight: "700",
+                                }}
+                            >
+                                Completed
+                            </Text>
+                        </View>
+                    )}
+                    {SelectedMenu === 'Cancelled' && (
+                        <View style={style.EntryFeeWraper}>
+                            <Text
+                                style={{
+                                    ...FONTS.body3,
+                                    color: COLORS.primary,
+                                    fontWeight: "700",
+                                }}
+                            >
+                                Match Is
+                            </Text>
+                            <Text
+                                style={{
+                                    ...FONTS.body2,
+                                    color: COLORS.primary,
+                                    fontWeight: "700",
+                                }}
+                            >
+                                Cancelled
+                            </Text>
+                        </View>
+                    )}
                     {/* Match Info */}
                     <View style={style.InfoWrapper}>
                         {/* Info Left Details */}
@@ -261,8 +316,70 @@ const GuildMatchesDetails = ({
                     <Image source={GameImage} style={style.InfoWrapperImage} />
                 </View>
             </View>
-            {/* Match By Guild */}
-            {SelectedMenu !== 'Scheduled' && <View style={style.Elevation}>
+            {/* Bottom Button */}
+            {SelectedMenu === 'Scheduled' && (
+                <>
+                    {/* Modal */}
+                    <BottomPopup
+                        modalVisible={modalVisible}
+                        setModalVisible={setModalVisible}
+                        MatchId={Item._id}
+                        Amount={null}
+                        Match_Status={Item.Match_Status}
+                        Disable={Disable}
+                        setDisable={setDisable}
+                        navigation={navigation}
+                        ModalContainerStyle={
+                            {
+                                position: "absolute",
+                                bottom: -8,
+                                left: 2,
+                                right: 2,
+                                margin: 10,
+                                height: Dpheight(47),
+                                backgroundColor: "white",
+                                borderRadius: SIZES.radius,
+                                padding: 5,
+                                shadowColor: COLORS.black,
+                                shadowOpacity: 0.25,
+                                shadowRadius: 4,
+                                elevation: 5,
+                                shadowOffset: {
+                                    width: 0,
+                                    height: 2,
+                                },
+                            }
+                        }
+                    />
+                    <TouchableOpacity
+                        onPress={() => {
+                            setModalVisible(true)
+                        }}
+                        style={{
+                            height: Dpheight(6.9),
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginTop: SIZES.padding,
+                            marginBottom: SIZES.padding,
+                            borderRadius: SIZES.radius,
+                            backgroundColor: Item.Match_Status === 'Started' ? COLORS.transparentPrimray : COLORS.primary,
+                            marginHorizontal: SIZES.padding,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: COLORS.white,
+                                fontWeight: "bold",
+                                fontSize: SIZES.h3,
+                            }}
+                        >
+                            {Item.Match_Status === 'Started' ? 'Update Room Details' : 'Enter Room Details'}
+                        </Text>
+                    </TouchableOpacity>
+                </>
+            )
+            }
+            {SelectedMenu === 'Ongoing' && (<View style={style.Elevation}>
                 <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}
                 >
                     <View style={style.GuildWrapper}>
@@ -303,7 +420,7 @@ const GuildMatchesDetails = ({
                         </View>
                     </View>
                 </TouchableOpacity>
-            </View>}
+            </View>)}
             <ModalJoinedPlayers modalVisible={JoinedPlayermodal}
                 setModalVisible={setJoinedPlayermodal}
                 navigation={navigation}

@@ -10,6 +10,7 @@ import {
   Join_Match_Reducer,
   Get_Joined_Match_Reducer,
   Update_Match_Result_Reducer,
+  Update_Room_Details_Reducer,
 } from './Match/Matchreducer';
 import {
   Add_Wallet_Ballance_Reducer,
@@ -47,4 +48,5 @@ export default combineReducers({
   Create_withdrawls_Reducer,
   Get_Specific_User_Details_reducer,
   Join_Guild_Reducer,
+  Update_Room_Details_Reducer,
 });

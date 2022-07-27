@@ -171,7 +171,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
               <View style={styles.NotificationWrapper}>
                 <Icon name="person" size={Dpheight(3.5)} color="black" />
                 <View style={styles.DashboardBox}>
-                  <Text style={styles.NotificationText}>6565 Followers</Text>
+                  <Text style={styles.NotificationText}>{Guild_Details.Followers.length} Follower</Text>
                 </View>
                 <View
                   style={{
