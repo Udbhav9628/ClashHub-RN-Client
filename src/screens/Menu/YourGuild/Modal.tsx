@@ -292,7 +292,7 @@ const ModalScreen = ({
           <View style={{ marginTop: 15 }}>
             <ModalGameType modalVisible={Modal_GameType_modalVisible}
               setModalVisible={setModal_GameType_modalVisible} Selectected_GameType={setGameType}
-              height={Dpheight(27)}
+              height={Dpheight(10)}
               Data={MatchType}
             />
             <Text style={{

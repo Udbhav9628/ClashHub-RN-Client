@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import ModalJoinedPlayers from "./ModalJoinedPlayers";
 import BottomPopup from "../../../components/BottomPopup";
+import RoomDetailsModal from "../../Home/RoomDetailsModal";
+import JoinedUserModal from "../../Home/JoinedUserModal";
 
 const GuildMatchesDetails = ({
     route,
@@ -29,7 +31,7 @@ const GuildMatchesDetails = ({
 
     const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
 
-    const { User } = useSelector((state: any) => state.FetchUser_reducer);
+    const [RoomDetailsModals, setRoomDetailsModal] = useState(false)
 
     const [Days, setDays] = useState(0);
     const [Hours, setHours] = useState(0);
@@ -379,48 +381,49 @@ const GuildMatchesDetails = ({
                 </>
             )
             }
-            {SelectedMenu === 'Ongoing' && (<View style={style.Elevation}>
-                <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}
-                >
-                    <View style={style.GuildWrapper}>
-                        <Image
-                            style={{
-                                marginHorizontal: 12,
-                                width: DPwidth(12),
-                                height: Dpheight(7),
-                                borderRadius: SIZES.radius,
-                                resizeMode: "cover",
-                            }}
-                            source={{
-                                uri: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-result-internet-marketing-service-flaticons-flat-flat-icons.png",
-                            }}
-                        />
-                        {/* Info Of Guild */}
-                        <View style={style.GuildInfo}>
-                            <View>
-                                <Text
+            {SelectedMenu === 'Ongoing' || SelectedMenu === 'Resultant' && (
+                <View style={style.Elevation}>
+                    <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}
+                    >
+                        <View style={style.GuildWrapper}>
+                            <Image
+                                style={{
+                                    marginHorizontal: 12,
+                                    width: DPwidth(12),
+                                    height: Dpheight(7),
+                                    borderRadius: SIZES.radius,
+                                    resizeMode: "cover",
+                                }}
+                                source={{
+                                    uri: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-result-internet-marketing-service-flaticons-flat-flat-icons.png",
+                                }}
+                            />
+                            {/* Info Of Guild */}
+                            <View style={style.GuildInfo}>
+                                <View>
+                                    <Text
+                                        style={{
+                                            color: COLORS.black,
+                                            fontSize: SIZES.h3,
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        {SelectedMenu === 'Ongoing' ? "Update Players Kills" : 'See Result'}
+                                    </Text>
+                                </View>
+                                <View
                                     style={{
-                                        color: COLORS.black,
-                                        fontSize: SIZES.h3,
-                                        fontWeight: "bold",
+                                        position: "absolute",
+                                        top: -2,
+                                        right: 15,
                                     }}
                                 >
-                                    {SelectedMenu === 'Ongoing' ? "Update Players Kills" : 'See Result'}
-                                </Text>
-                            </View>
-                            <View
-                                style={{
-                                    position: "absolute",
-                                    top: -2,
-                                    right: 15,
-                                }}
-                            >
-                                <Icon name="angle-right" size={24} color="black" />
+                                    <Icon name="angle-right" size={24} color="black" />
+                                </View>
                             </View>
                         </View>
-                    </View>
-                </TouchableOpacity>
-            </View>)}
+                    </TouchableOpacity>
+                </View>)}
             <ModalJoinedPlayers modalVisible={JoinedPlayermodal}
                 setModalVisible={setJoinedPlayermodal}
                 navigation={navigation}
@@ -476,8 +479,6 @@ const style = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: SIZES.radius,
         elevation: 3,
-        marginVertical: 30,
-        margin: SIZES.padding,
         marginHorizontal: SIZES.padding,
         //For Ios Only -- SHOWdow code
         shadowColor: "#171717",

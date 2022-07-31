@@ -208,7 +208,11 @@ function Update_Match_Room_Details(Room_Details_Data: any, Matchid: any) {
   };
 }
 
-function Join_Match_action(id: any, Amount_to_be_paid: any) {
+function Join_Match_action(
+  id: any,
+  Amount_to_be_paid: any,
+  InGameName: String,
+) {
   return async function (dispatch: any) {
     try {
       dispatch({
@@ -221,7 +225,10 @@ function Join_Match_action(id: any, Amount_to_be_paid: any) {
       )) as string;
       const response = await axios.put(
         `${Ip_Address}/Jointournament/${id}`,
-        {Amount_to_be_paid: Amount_to_be_paid},
+        {
+          Amount_to_be_paid: Amount_to_be_paid,
+          InGameName,
+        },
         {
           headers: {
             'content-type': 'application/json',
@@ -237,6 +244,40 @@ function Join_Match_action(id: any, Amount_to_be_paid: any) {
     } catch (error: any) {
       dispatch({
         type: 'Join_Match_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
+function Fetch_Match_Room_Details(Match_id: any) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'Fetch_Room_Details_Request',
+      });
+      const Token: string = (await Return_Token(
+        'Fetch_Room_Details_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/Fetch_Match_Room_Details/${Match_id}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'Fetch_Room_Details_Sucess',
+        payload: response.data,
+      });
+      console.log(response.data);
+    } catch (error: any) {
+      dispatch({
+        type: 'Fetch_Room_Details_Fail',
         payload: error.message,
       });
     }
@@ -315,4 +356,5 @@ export {
   Push_In_Array,
   Update_Match,
   Update_Match_Room_Details,
+  Fetch_Match_Room_Details,
 };

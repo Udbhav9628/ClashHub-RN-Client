@@ -1,116 +1,21 @@
-import { StyleSheet, Text, View, Modal, FlatList, TextInput, Alert, TouchableOpacity } from 'react-native';
-import React, { useEffect } from "react";
-import { COLORS, SIZES, FONTS, Dpheight, DPwidth } from "../../../constants/Theame";
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Update_Match, Clear_Match_Reducer_Error, Clear_Match_Reducer_Sucess } from "../../../store/Match/Matchaction";
+import { FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React from 'react'
+import { COLORS, Dpheight, DPwidth, FONTS, SIZES } from '../../constants/Theame';
 import Icon from "react-native-vector-icons/Ionicons";
 
-const ModalJoinedPlayers = ({
+const JoinedUserModal = ({
     modalVisible,
     setModalVisible,
     navigation,
     Joined_User,
-    Match,
-    ShowReportButton
+    Match
 }: {
     modalVisible: any;
     setModalVisible: any;
     navigation: any;
     Joined_User: any;
-    Match: any
-    ShowReportButton: Boolean
+    Match: any;
 }) => {
-
-    let Duplicate_Match = JSON.parse(JSON.stringify(Match));
-
-    const dispatch = useDispatch();
-    const Update_Match_Function = bindActionCreators(Update_Match, dispatch);
-
-    const Clear_Match_Error = bindActionCreators(
-        Clear_Match_Reducer_Error,
-        dispatch
-    );
-
-    const Clear_Match_Sucess = bindActionCreators(
-        Clear_Match_Reducer_Sucess,
-        dispatch
-    );
-
-    function Push_In_Array(Duplicate_Match: any, Data: any) {
-        if (Duplicate_Match) {
-            let User = Duplicate_Match.Joined_User.find(
-                (Element: any) => Element._id === Data.Id,
-            );
-            if (User) {
-                User.Kills = Data.Kills;
-                console.log(Duplicate_Match);
-            } else {
-                console.log('User Not Found');
-            }
-        } else {
-            console.log('Match Not Found');
-        }
-    }
-
-    function Publish_Result(Match_in_Function: any) {
-        if (Match_in_Function) {
-            const User = Match_in_Function.Joined_User.find(
-                (Element: any) => Element.Kills === null
-            );
-            if (User) {
-                Alert.alert("Message", `Update ${User.UserName}'s Kills First`, [
-                    {
-                        text: "OK",
-                    },
-                ]);
-            } else {
-                Alert.alert("Alert", 'This Process is Ireversible , Check All Player Kills before Publish', [
-                    {
-                        text: "Cancel",
-                    },
-                    {
-                        text: "Publish",
-                        onPress: () => {
-                            Update_Match_Function(Match_in_Function, Match_in_Function._id)
-                        },
-                    },
-                ]);
-            }
-        } else {
-            console.log('Match is Not Available');
-        }
-    }
-
-    const { Error, Sucess, Sucess_Responce } = useSelector(
-        (state: any) => state.Update_Match_Result_Reducer
-    );
-
-    useEffect(() => {
-        if (Sucess) {
-            Clear_Match_Sucess();
-            Alert.alert("Alert", Sucess_Responce, [
-                {
-                    text: "OK",
-                    onPress: () => {
-                        navigation.navigate("YourGuild");
-                    },
-                },
-            ]);
-        }
-    }, [Sucess]);
-
-    useEffect(() => {
-        if (Error) {
-            Clear_Match_Error()
-            Alert.alert("Error", Error + " , Try Again", [
-                {
-                    text: "OK",
-                },
-            ]);
-        }
-    }, [Error]);
-
     return (
         <Modal
             animationType="slide"
@@ -119,7 +24,6 @@ const ModalJoinedPlayers = ({
                 setModalVisible(!modalVisible);
             }}
         >
-            {/* Header */}
             <View>
                 <View style={styles.CrossSign}>
                     <TouchableOpacity
@@ -140,16 +44,14 @@ const ModalJoinedPlayers = ({
                         style={{
                             fontSize: SIZES.h2,
                             fontWeight: "bold",
+                            color: COLORS.black
                         }}
                     >
-                        {/* Correct This */}
-                        {Match.Match_Status === 'Completed' ? ("Match Result") : ("Enter Player Kills")}
+                        Participants
                     </Text>
                 </View>
-            </View>
-            <View style={styles.Container}>
-                {Joined_User != 0 ? (
-                    <>
+                <View style={styles.Container}>
+                    {Joined_User != 0 ? (<>
                         <View style={{ backgroundColor: COLORS.primary, marginTop: 10, paddingVertical: 10, borderTopRightRadius: SIZES.radius, borderTopLeftRadius: SIZES.radius, }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: SIZES.padding }}>
                                 <View style={{
@@ -162,9 +64,8 @@ const ModalJoinedPlayers = ({
                                         fontWeight: "900",
                                     }}>Name</Text>
                                 </View>
-                                <View style={{
+                                {Match.Match_Status === 'Completed' && <View style={{
                                     alignItems: 'center',
-
                                     width: DPwidth(18)
                                 }}>
                                     <Text style={{
@@ -172,7 +73,7 @@ const ModalJoinedPlayers = ({
                                         ...FONTS.h2,
                                         fontWeight: "900",
                                     }}>Kills</Text>
-                                </View>
+                                </View>}
                                 {Match.Match_Status === 'Completed' && <View style={{
                                     alignItems: 'center',
                                     width: DPwidth(18)
@@ -183,7 +84,6 @@ const ModalJoinedPlayers = ({
                                         fontWeight: "900",
                                     }}>Earning</Text>
                                 </View>}
-
                             </View>
                         </View>
                         <FlatList
@@ -216,7 +116,7 @@ const ModalJoinedPlayers = ({
                                                 }}>{item.UserName}</Text>
                                             </View>
 
-                                            {Match.Match_Status === 'Completed' ? (<View style={{
+                                            {Match.Match_Status === 'Completed' && (<View style={{
                                                 marginTop: 6,
                                                 alignItems: 'center',
 
@@ -224,27 +124,7 @@ const ModalJoinedPlayers = ({
                                             }}><Text style={{
                                                 color: COLORS.black,
                                                 ...FONTS.body3,
-                                            }}>{item.Kills}</Text></View>) : (<View style={{
-                                                height: Dpheight(7),
-                                            }}>
-                                                <TextInput
-                                                    style={{ borderColor: COLORS.black }}
-                                                    placeholder='Enter Kill'
-                                                    placeholderTextColor={COLORS.gray}
-                                                    keyboardType="number-pad"
-                                                    maxLength={2}
-                                                    textAlign="center"
-                                                    onChangeText={(text) => {
-                                                        const Kill_to_update = text ? text : null
-                                                        const Data = {
-                                                            Id: item._id,
-                                                            TournamentId: Duplicate_Match._id,
-                                                            Kills: Kill_to_update,
-                                                        }
-                                                        Push_In_Array(Duplicate_Match, Data)
-                                                    }}
-                                                />
-                                            </View>)}
+                                            }}>{item.Kills}</Text></View>)}
                                             {Match.Match_Status === 'Completed' && <View style={{
                                                 marginTop: 6,
                                                 alignItems: 'center',
@@ -260,34 +140,42 @@ const ModalJoinedPlayers = ({
                                 </TouchableOpacity>
                             )}
                         />
-                        {Match.Match_Status !== 'Completed' && (
+                        {/* Report Button */}
+                        {/* <View>
                             <TouchableOpacity
-                                onPress={() => {
-                                    Publish_Result(Duplicate_Match)
-                                }}
                                 style={{
-                                    height: Dpheight(7),
+                                    height: Dpheight(5),
                                     alignItems: "center",
                                     justifyContent: "center",
                                     marginTop: SIZES.padding,
-                                    marginBottom: SIZES.padding,
+                                    marginBottom: SIZES.base,
                                     borderRadius: SIZES.radius,
-                                    backgroundColor: COLORS.primary,
-                                    marginHorizontal: 100,
+                                    backgroundColor: COLORS.lightGray1,
+                                    marginHorizontal: 130,
                                 }}
                             >
                                 <Text
                                     style={{
-                                        color: COLORS.white,
+                                        color: COLORS.black,
                                         fontWeight: "bold",
                                         fontSize: SIZES.body3,
                                     }}
                                 >
-                                    Publish Result
+                                    Report
                                 </Text>
-                            </TouchableOpacity>)}
-                    </>) : (
-                    <View
+                            </TouchableOpacity>
+                            <Text
+                                style={{
+                                    marginBottom: 5,
+                                    color: COLORS.darkGray,
+                                    fontSize: SIZES.body5,
+                                    textAlign: 'center'
+                                }}
+                            >
+                                You Can Report If have Problem With Your Shown Kills
+                            </Text>
+                        </View> */}
+                    </>) : (<View
                         style={{
                             flex: 1,
                             justifyContent: "center",
@@ -303,16 +191,16 @@ const ModalJoinedPlayers = ({
                             No Joined Players
                         </Text>
                     </View>)}
+                </View>
             </View>
         </Modal>
     )
 }
 
-export default ModalJoinedPlayers
+export default JoinedUserModal
 
 const styles = StyleSheet.create({
     Container: {
-        flex: 1,
         backgroundColor: COLORS.white,
         padding: 15,
     },

@@ -6,11 +6,10 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { SIZES, COLORS, FONTS, Dpheight, DPwidth } from "../../constants/Theame";
-import Icons from "../../constants/Icons";
-import BottomPopup from "../../components/BottomPopup";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
@@ -21,6 +20,9 @@ import {
 } from "../../store/Match/Matchaction";
 import { useFocusEffect } from "@react-navigation/native";
 import ModalJoinedPlayers from "../Menu/YourGuild/ModalJoinedPlayers";
+import PlayerGameNameInputModal from "./PlayerGameNameInputModal";
+import JoinedUserModal from "./JoinedUserModal";
+import RoomDetailsModal from "./RoomDetailsModal";
 
 const GameDetailsPage = ({
   route,
@@ -34,9 +36,15 @@ const GameDetailsPage = ({
 
   const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
 
+  const [PlayerInputModal, setPlayerInputModal] = useState(false)
+
   const [disable_joinmatch_button, setdisable_joinmatch_button] = useState(false);
 
-  const { Join_Sucess, Error, Responce } = useSelector(
+  const [Disable, setDisable] = useState(false);
+
+  const [RoomDetailsModals, setRoomDetailsModal] = useState(false)
+
+  const { Join_Sucess, Error, Responce, loading } = useSelector(
     (state: any) => state.Join_Match_Reducer
   );
 
@@ -162,258 +170,477 @@ const GameDetailsPage = ({
 
   return (
     <View style={style.container}>
-      {/* Header */}
-      <View style={style.Header}>
-        {/* Header Left */}
-        <TouchableOpacity
-          style={style.HeaderLeft}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="angle-left" size={20} color="black" />
-        </TouchableOpacity>
-        <View
-          style={{
-            marginLeft: "21%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              color: COLORS.black,
-              ...FONTS.body2,
-              fontWeight: "700",
-            }}
-          >
-            Match Details
-          </Text>
-        </View>
-      </View>
-      <View
-        style={{
-          flex: 1,
-          marginTop: SIZES.padding,
-          flexDirection: "row",
-        }}
-      >
-        {/* all Info */}
-        <View
-          style={{
-            width: "50%",
-          }}
-        >
-          {/* Title */}
-          <View style={style.TitleWraper}>
-            <Text
+      {isJoined ? (
+        <ScrollView>
+          {/* Header */}
+          <View style={style.Header}>
+            {/* Header Left */}
+            <TouchableOpacity
+              style={style.HeaderLeft}
+              onPress={() => navigation.goBack()}
+            >
+              <Icon name="angle-left" size={20} color="black" />
+            </TouchableOpacity>
+            <View
               style={{
-                ...FONTS.h1,
-                fontWeight: "700",
-                color: COLORS.black,
+                marginLeft: "21%",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              {Item.Game_Name} {Item.GameType} Match
-            </Text>
-          </View>
-          {Minutes !== 0 && (isJoined ? (
-            <View style={style.EntryFeeWraper}>
               <Text
                 style={{
-                  ...FONTS.h1,
-                  color: COLORS.primary,
-                  fontWeight: "700",
-                }}
-              >
-                Joined
-              </Text>
-            </View>
-          ) : (
-            <View style={style.EntryFeeWraper}>
-              <Text
-                style={{
+                  color: COLORS.black,
                   ...FONTS.body2,
-                  color: COLORS.primary,
                   fontWeight: "700",
                 }}
               >
-                Starts In
-              </Text>
-              <Text
-                style={{
-                  ...FONTS.body2,
-                  color: COLORS.primary,
-                  fontWeight: "700",
-                }}
-              >
-                {!Days || Days === 0 ? '' : `${Days}D`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{`${Minutes}M`}
+                Match Details
               </Text>
             </View>
-          ))}
-          {/* Match Info */}
-          <View style={style.InfoWrapper}>
-            {/* Info Left Details */}
-            <View>
-              {/* Joined Players Number */}
-              <View style={style.InfoLeftItem}>
-                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
-                  Slots
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.black,
-                    ...FONTS.body3,
-                    fontWeight: "700",
-                  }}
-                >
-                  {Item.Joined_User.length}/{Item.Total_Players}
-                </Text>
-              </View>
-              <View style={style.InfoLeftItem}>
-                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
-                  Prize
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.black,
-                    ...FONTS.body3,
-                    fontWeight: "700",
-                  }}
-                >
-                  &#x20B9; {Item.Perkill_Prize} Per Kill
-                </Text>
-              </View>
-              {/* Match Map */}
-              <View style={style.InfoLeftItem}>
-                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
-                  Map
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.black,
-                    ...FONTS.body3,
-                    fontWeight: "700",
-                  }}
-                >
-                  {Item.Map}
-                </Text>
-              </View>
-              {/* Match Date */}
-              <View style={style.InfoLeftItem}>
-                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
-                  Match Date
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.black,
-                    ...FONTS.body3,
-                    fontWeight: "700",
-                  }}
-                >
-                  {new Date(Item.Date_Time).toDateString()}
-                </Text>
-              </View>
-              {/* Match Time */}
-              <View style={style.InfoLeftItem}>
-                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
-                  Match Time
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.black,
-                    ...FONTS.body3,
-                    fontWeight: "700",
-                  }}
-                >
-                  {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
-                </Text>
-              </View>
-            </View>
           </View>
-        </View>
-        {/* Info Right Image */}
-        <View>
-          <Image source={GameImage} style={style.InfoWrapperImage} />
-        </View>
-      </View>
-      {/* Match By Guild */}
-      {Item.Match_Status === 'Completed' && (<View style={style.Elevation}>
-        <View>
-          <ModalJoinedPlayers modalVisible={JoinedPlayermodal}
-            setModalVisible={setJoinedPlayermodal}
-            navigation={navigation}
-            Joined_User={Item.Joined_User} Match={Item} ShowReportButton={true} />
-        </View>
-        <TouchableOpacity
-          onPress={() => { setJoinedPlayermodal(true) }}>
-          <View style={style.GuildWrapper}>
-            <Image
-              style={{
-                marginHorizontal: 12,
-                width: DPwidth(12),
-                height: Dpheight(7),
-                borderRadius: SIZES.radius,
-                resizeMode: "cover",
-              }}
-              source={{
-                uri: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-result-internet-marketing-service-flaticons-flat-flat-icons.png",
-              }}
-            />
-            {/* Info Of Guild */}
-            <View style={style.GuildInfo}>
-              <View>
-                <Text
-                  style={{
-                    color: COLORS.black,
-                    fontSize: SIZES.h3,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Match Results
-                </Text>
-              </View>
-              <View
-                style={{
-                  position: "absolute",
-                  top: -2,
-                  right: 15,
-                }}
-              >
-                <Icon name="angle-right" size={24} color="black" />
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </View>)}
-      {!isJoined && (
-        <View>
-          <TouchableOpacity
-            onPress={() => {
-              Join_Match_Action_Func(Item._id, Item.EntryFee);
-            }}
-            disabled={disable_joinmatch_button}
+          <View
             style={{
-              height: Dpheight(6.9),
-              alignItems: "center",
-              justifyContent: "center",
+              flex: 1,
               marginTop: SIZES.padding,
-              marginBottom: SIZES.padding,
-              borderRadius: SIZES.radius,
-              backgroundColor: COLORS.primary,
-              marginHorizontal: SIZES.padding,
+              flexDirection: "row",
             }}
           >
-            <Text
+            {/* all Info */}
+            <View
               style={{
-                color: COLORS.white,
-                fontWeight: "bold",
-                fontSize: SIZES.body3,
+                width: "50%",
               }}
             >
-              Entry &#x20B9;10
-            </Text>
-          </TouchableOpacity>
-        </View>
+              {/* Title */}
+              <View style={style.TitleWraper}>
+                <Text
+                  style={{
+                    ...FONTS.h1,
+                    fontWeight: "700",
+                    color: COLORS.black,
+                  }}
+                >
+                  {Item.Game_Name} {Item.GameType} Match
+                </Text>
+              </View>
+              <View style={style.EntryFeeWraper}>
+                <Text
+                  style={{
+                    ...FONTS.h1,
+                    color: COLORS.primary,
+                    fontWeight: "700",
+                  }}
+                >
+                  Joined
+                </Text>
+              </View>
+              {/* Match Info */}
+              <View style={style.InfoWrapper}>
+                {/* Info Left Details */}
+                <View>
+                  {/* Joined Players Number */}
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                      Slots
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        ...FONTS.body3,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {Item.Joined_User.length}/{Item.Total_Players}
+                    </Text>
+                  </View>
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                      Prize
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        ...FONTS.body3,
+                        fontWeight: "700",
+                      }}
+                    >
+                      &#x20B9; {Item.Perkill_Prize} Per Kill
+                    </Text>
+                  </View>
+                  {/* Match Map */}
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                      Map
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        ...FONTS.body3,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {Item.Map}
+                    </Text>
+                  </View>
+                  {/* Match Date */}
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                      Match Date
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        ...FONTS.body3,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {new Date(Item.Date_Time).toDateString()}
+                    </Text>
+                  </View>
+                  {/* Match Time */}
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                      Match Time
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        ...FONTS.body3,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            {/* Info Right Image */}
+            <View>
+              <Image source={GameImage} style={style.InfoWrapperImage} />
+            </View>
+          </View>
+          <View style={{ marginTop: 40 }}>
+            <View style={{
+              // backgroundColor: COLORS.primary,
+              marginHorizontal: SIZES.padding,
+            }}>
+              <Text
+                style={{
+                  ...FONTS.body2,
+                  color: COLORS.black,
+                  fontWeight: "700",
+                }}
+              >
+                Rules
+              </Text>
+              <Text
+                style={{
+                  color: COLORS.darkGray2, ...FONTS.h3,
+                  textAlign: 'justify',
+                  marginBottom: 15,
+                }}
+              >
+                &#187; Room ID and Password will be shared in the app before 15 minutes of match Start time
+              </Text>
+              <Text
+                style={{
+                  color: COLORS.darkGray2, ...FONTS.h3,
+                  textAlign: 'justify',
+                  marginBottom: 15,
+                }}
+              >
+                &#187; If in anyway you fail to join room by the match start time then you would be responsible for this.
+              </Text>
+              <Text
+                style={{
+                  color: COLORS.darkGray2, ...FONTS.h3,
+                  textAlign: 'justify',
+                  marginBottom: 15,
+                }}
+              >
+                &#187; Make sure you join the Match Room ASAP before the match start
+              </Text>
+              <Text
+                style={{
+                  color: COLORS.darkGray2, ...FONTS.h3,
+                  textAlign: 'justify',
+                  marginBottom: 15,
+                }}
+              >
+                &#187; Do Not Disclose Room Details to Others
+              </Text>
+            </View>
+            <View style={{
+              marginVertical: 2
+            }}>
+              {/* Room Id and Pass */}
+              <View style={style.Elevation}>
+                <RoomDetailsModal modalVisible={RoomDetailsModals}
+                  setModalVisible={setRoomDetailsModal}
+                  MatchId={Item._id} />
+                <TouchableOpacity
+                  onPress={() => { setRoomDetailsModal(true) }}>
+                  <View style={style.GuildWrapper}>
+                    <View style={{ margin: 10 }}><Icon name="users" size={Dpheight(3.5)} color="black" /></View>
+                    {/* Info Of Guild */}
+                    <View style={style.GuildInfo}>
+                      <View>
+                        <Text
+                          style={{
+                            color: COLORS.black,
+                            fontSize: SIZES.h3,
+                            fontWeight: "bold",
+                          }}
+                        >
+                          Room Details
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          position: "absolute",
+                          top: -2,
+                          right: 15,
+                        }}
+                      >
+                        <Icon name="angle-right" size={24} color="black" />
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              {/* Participants */}
+              <View style={style.Elevation}>
+                <View>
+                  <JoinedUserModal modalVisible={JoinedPlayermodal}
+                    setModalVisible={setJoinedPlayermodal}
+                    navigation={navigation}
+                    Joined_User={Item.Joined_User}
+                    Match={Item} />
+                </View>
+                <TouchableOpacity
+                  onPress={() => { setJoinedPlayermodal(true) }}>
+                  <View style={style.GuildWrapper}>
+                    <View style={{ margin: 10 }}><Icon name="users" size={Dpheight(3.5)} color="black" /></View>
+                    {/* Info Of Guild */}
+                    <View style={style.GuildInfo}>
+                      <View>
+                        <Text
+                          style={{
+                            color: COLORS.black,
+                            fontSize: SIZES.h3,
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {Item.Match_Status === 'Completed' ? "Results" : 'Particpants'}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          position: "absolute",
+                          top: -2,
+                          right: 15,
+                        }}
+                      >
+                        <Icon name="angle-right" size={24} color="black" />
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+      ) : (
+        <>
+          {/* Header */}
+          <View style={style.Header}>
+            {/* Header Left */}
+            <TouchableOpacity
+              style={style.HeaderLeft}
+              onPress={() => navigation.goBack()}
+            >
+              <Icon name="angle-left" size={20} color="black" />
+            </TouchableOpacity>
+            <View
+              style={{
+                marginLeft: "21%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: COLORS.black,
+                  ...FONTS.body2,
+                  fontWeight: "700",
+                }}
+              >
+                Match Details
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              marginTop: SIZES.padding,
+              flexDirection: "row",
+            }}
+          >
+            {/* all Info */}
+            <View
+              style={{
+                width: "50%",
+              }}
+            >
+              {/* Title */}
+              <View style={style.TitleWraper}>
+                <Text
+                  style={{
+                    ...FONTS.h1,
+                    fontWeight: "700",
+                    color: COLORS.black,
+                  }}
+                >
+                  {Item.Game_Name} {Item.GameType} Match
+                </Text>
+              </View>
+              {/* Match Info */}
+              <View style={style.InfoWrapper}>
+                {/* Info Left Details */}
+                <View>
+                  {/* Joined Players Number */}
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                      Slots
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        ...FONTS.body3,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {Item.Joined_User.length}/{Item.Total_Players}
+                    </Text>
+                  </View>
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                      Prize
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        ...FONTS.body3,
+                        fontWeight: "700",
+                      }}
+                    >
+                      &#x20B9; {Item.Perkill_Prize} Per Kill
+                    </Text>
+                  </View>
+                  {/* Match Map */}
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                      Map
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        ...FONTS.body3,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {Item.Map}
+                    </Text>
+                  </View>
+                  {/* Match Date */}
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                      Match Date
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        ...FONTS.body3,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {new Date(Item.Date_Time).toDateString()}
+                    </Text>
+                  </View>
+                  {/* Match Time */}
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                      Match Time
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        ...FONTS.body3,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            {/* Info Right Image */}
+            <View>
+              <Image source={GameImage} style={style.InfoWrapperImage} />
+            </View>
+          </View>
+          {/* Button */}
+          <View>
+            <PlayerGameNameInputModal modalVisible={PlayerInputModal}
+              setModalVisible={setPlayerInputModal}
+              Disable={Disable}
+              MatchId={Item._id}
+              EntryFee={Item.EntryFee}
+              setDisable={setDisable}
+              loading={loading}
+              JoinMatchFunction={Join_Match_Action_Func} />
+            <TouchableOpacity
+              onPress={() => {
+                setPlayerInputModal(true)
+              }}
+              disabled={disable_joinmatch_button}
+              style={{
+                height: Dpheight(6.9),
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: SIZES.padding,
+                marginBottom: SIZES.padding,
+                borderRadius: SIZES.radius,
+                backgroundColor: COLORS.primary,
+                marginHorizontal: SIZES.padding,
+              }}
+            >
+              {Item.Joined_User.length === Item.Total_Players ? (<Text
+                style={{
+                  color: COLORS.white,
+                  fontWeight: "bold",
+                  fontSize: SIZES.body3,
+                }}
+              >
+                Slots Full
+              </Text>) : (<Text
+                style={{
+                  color: COLORS.white,
+                  fontWeight: "bold",
+                  fontSize: SIZES.body3,
+                }}
+              >
+                Entry &#x20B9;{Item.EntryFee}
+              </Text>)}
+            </TouchableOpacity>
+          </View>
+        </>
       )}
     </View>
+
   );
 };
 

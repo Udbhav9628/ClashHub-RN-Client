@@ -19,7 +19,6 @@ import {
   Clear_Guild_Reducer_Error,
 } from "../../store/Guild/GuildAction";
 import Createguild from "./YourGuild/Createguild";
-import { ScrollView } from "react-native-gesture-handler";
 
 const YourGuild = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
