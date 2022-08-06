@@ -27,12 +27,53 @@ async function Gernerate_Paytm_Token() {
   }
 }
 
+function Gernerate_Razorpay_Token() {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'Gernerate_Razorpay_Token_Request',
+      });
+      const Token: string = (await Return_Token(
+        'Gernerate_Razorpay_Token_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.post(
+        `${Ip_Address}/MakePayment`,
+        {
+          Amount: 10,
+        },
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'Gernerate_Razorpay_Token_Sucess',
+        payload: response.data,
+      });
+      console.log(response.data);
+    } catch (error: any) {
+      console.log(error.message);
+      dispatch({
+        type: 'Gernerate_Razorpay_Token_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
 function Add_Wallet_Ballance(
   BallanceToAdd: any,
   Transaction_Id: any,
   Message: String,
   Type: Boolean,
   Date: any,
+  razorpay_payment_id: any,
+  razorpay_order_id: any,
+  razorpay_signature: any,
 ) {
   return async function (dispatch: any) {
     try {
@@ -53,6 +94,9 @@ function Add_Wallet_Ballance(
           Message,
           Date,
           Type,
+          razorpay_payment_id,
+          razorpay_order_id,
+          razorpay_signature,
         },
         {
           headers: {
@@ -294,6 +338,7 @@ export {
   Clear_Payment_Reducer_Error,
   Clear_Payment_Reducer_Sucess,
   Gernerate_Paytm_Token,
+  Gernerate_Razorpay_Token,
   Get_ClubWallet_Ballance,
   GetUserTransaction,
   GetClubTransaction,

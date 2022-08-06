@@ -17,11 +17,11 @@ import { useFocusEffect } from "@react-navigation/native";
 import { GetUserWalletBallance, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../../store/Payment/PaymentAction";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import AllInOneSDKManager from 'paytm_allinone_react-native';
-import { MID, URL_SCHEME } from '../../constants/Data';
-import { Gernerate_Paytm_Token, Add_Wallet_Ballance } from "../../store/Payment/PaymentAction";
+import { Ip_Address, MID, URL_SCHEME } from '../../constants/Data';
+import { Gernerate_Paytm_Token, Gernerate_Razorpay_Token, Add_Wallet_Ballance } from "../../store/Payment/PaymentAction";
 import TransctionModal from "./TransctionModal";
 import BottomPopup from "../../components/BottomPopup";
+import RazorpayCheckout from 'react-native-razorpay';
 
 const Wallet = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
@@ -49,41 +49,94 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     dispatch
   );
 
+  const Gernerate_Razorpay_Token_FUNC = bindActionCreators(
+    Gernerate_Razorpay_Token,
+    dispatch
+  );
+
   const { loading, sucess, Error, Amount } = useSelector(
     (state: any) => state.Get_Ballance_Reducer
   );
 
   // To DO - Chech comming responce see DOCUMENTATION
-  const AddMoneyFunction = async () => {
-    let amt = "10.00";
-    const token = await Gernerate_Paytm_Token();
-    const parsed = JSON.parse(token.post_data)
-    console.log(parsed.body.orderId);
-    console.log(parsed.body.callbackUrl);
-    try {
-      AllInOneSDKManager.startTransaction(
-        parsed.body.orderId,//order id
-        MID,
-        token.responsePaytm.body.txnToken,//token
-        amt,
-        parsed.body.callbackUrl,
-        true,
-        true,
-        URL_SCHEME
-      )
-        .then((result) => {
-          if (result.STATUS === 'TXN_SUCCESS') {
-            console.log(result);
-            Add_Wallet_Ballance_FUNC(result.TXNAMOUNT, result.TXNID, `Added To Gamer Wallet`, true, result.TXNDATE)
-          }
-        })
-        .catch((err) => {
-          console.log("gateway error", err);
-        });
-    } catch (error) {
-      console.log("try catch error", error)
+  // const AddMoneyFunction = async () => {
+  //   let amt = "10.00";
+  //   const token = await Gernerate_Paytm_Token();
+  //   const parsed = JSON.parse(token.post_data)
+  //   console.log(parsed.body.orderId);
+  //   console.log(parsed.body.callbackUrl);
+  //   try {
+  //     AllInOneSDKManager.startTransaction(
+  //       parsed.body.orderId,//order id
+  //       MID,
+  //       token.responsePaytm.body.txnToken,//token
+  //       amt,
+  //       parsed.body.callbackUrl,
+  //       true,
+  //       true,
+  //       URL_SCHEME
+  //     )
+  //       .then((result) => {
+  //         if (result.STATUS === 'TXN_SUCCESS') {
+  //           console.log(result);
+  //           Add_Wallet_Ballance_FUNC(result.TXNAMOUNT, result.TXNID, `Added To Gamer Wallet`, true, result.TXNDATE)
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log("gateway error", err);
+  //       });
+  //   } catch (error) {
+  //     console.log("try catch error", error)
+  //   }
+  //   setTempLoading(false)
+  // }
+
+  const { Tsucess, RazorPay_Token, TError } = useSelector(
+    (state: any) => state.Razorpay_Token_Reducer
+  );
+
+  const { User } = useSelector(
+    (state: any) => state.FetchUser_reducer
+  );
+
+  useEffect(() => {
+    if (Tsucess) {
+      Clear_Payment_Reducer_Sucess_Func();
+      const Amount = RazorPay_Token.amount / 100;
+      console.log(User);
+
+      var options = {
+        image: 'https://i.imgur.com/3g7nmJC.png',
+        currency: 'INR',
+        key: RazorPay_Token.key_id,
+        amount: RazorPay_Token.amount,
+        name: 'ClashHub',
+        order_id: RazorPay_Token.id,
+        prefill: {
+          contact: '8750778918',
+          name: 'Udbhav',
+        },
+        theme: { color: COLORS.primary }
+      }
+      setTempLoading(false)
+      RazorpayCheckout.open(options).then((data: any) => {
+        const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = data;
+        Add_Wallet_Ballance_FUNC(Amount, data.razorpay_payment_id, `Added To Gamer Wallet`, true, Date.now(), razorpay_payment_id, razorpay_order_id, razorpay_signature);
+      }).catch((error: any) => {
+        Alert.alert("Error", `${error.code} | ${error.description}`, [{ text: "OK" }]);
+      });
     }
-    setTempLoading(false)
+  }, [Tsucess])
+
+  useEffect(() => {
+    if (TError) {
+      Clear_Payment_Reducer_Sucess_Func()
+      Alert.alert("Error", TError, [{ text: "OK" }]);
+    }
+  }, [TError])
+
+  const AddMoneyFunction = async () => {
+    Gernerate_Razorpay_Token_FUNC()
   }
 
   useFocusEffect(
@@ -407,7 +460,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                   </View>
                 </View>
                 {/* Text Notes */}
-                <View style={{
+                {/* <View style={{
                   position: "absolute",
                   bottom: 2,
                   right: 78
@@ -442,7 +495,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                   >
                     Use This credentials To Pay With Paytm Wallet
                   </Text>
-                </View>
+                </View> */}
               </>
             </>
           )

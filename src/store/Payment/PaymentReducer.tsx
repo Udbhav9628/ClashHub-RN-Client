@@ -165,3 +165,36 @@ export const Create_withdrawls_Reducer = (State = [], action: any) => {
       return State;
   }
 };
+
+export const Razorpay_Token_Reducer = (State = [], action: any) => {
+  switch (action.type) {
+    case 'Gernerate_Razorpay_Token_Request':
+      return {
+        Tloading: true,
+      };
+    case 'Gernerate_Razorpay_Token_Sucess':
+      return {
+        Tsucess: true,
+        Tloading: false,
+        RazorPay_Token: action.payload,
+      };
+    case 'Gernerate_Razorpay_Token_Fail':
+      return {
+        Tsucess: false,
+        Tloading: false,
+        TError: action.payload,
+      };
+    case 'Clear_Wallet_Sucess':
+      return {
+        ...State,
+        Tsucess: false,
+      };
+    case 'Clear_Wallet_Error':
+      return {
+        ...State,
+        TError: null,
+      };
+    default:
+      return State;
+  }
+};
