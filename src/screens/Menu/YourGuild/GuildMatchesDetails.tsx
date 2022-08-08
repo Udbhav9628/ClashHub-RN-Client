@@ -381,7 +381,50 @@ const GuildMatchesDetails = ({
                 </>
             )
             }
-            {SelectedMenu === 'Ongoing' || SelectedMenu === 'Resultant' && (
+            {SelectedMenu === 'Ongoing' && (
+                <View style={style.Elevation}>
+                    <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}
+                    >
+                        <View style={style.GuildWrapper}>
+                            <Image
+                                style={{
+                                    marginHorizontal: 12,
+                                    width: DPwidth(12),
+                                    height: Dpheight(7),
+                                    borderRadius: SIZES.radius,
+                                    resizeMode: "cover",
+                                }}
+                                source={{
+                                    uri: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-result-internet-marketing-service-flaticons-flat-flat-icons.png",
+                                }}
+                            />
+                            {/* Info Of Guild */}
+                            <View style={style.GuildInfo}>
+                                <View>
+                                    <Text
+                                        style={{
+                                            color: COLORS.black,
+                                            fontSize: SIZES.h3,
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        {SelectedMenu === 'Ongoing' ? "Update Players Kills" : 'See Result'}
+                                    </Text>
+                                </View>
+                                <View
+                                    style={{
+                                        position: "absolute",
+                                        top: -2,
+                                        right: 15,
+                                    }}
+                                >
+                                    <Icon name="angle-right" size={24} color="black" />
+                                </View>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                </View>)}
+            {SelectedMenu === 'Resultant' && (
                 <View style={style.Elevation}>
                     <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}
                     >
@@ -487,12 +530,13 @@ const style = StyleSheet.create({
         shadowRadius: 3,
     },
     GuildWrapper: {
-        height: Dpheight(8),
+        height: Dpheight(6.9),
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: SIZES.padding,
+        marginBottom: SIZES.padding,
         borderRadius: SIZES.radius,
         flexDirection: "row",
-        alignItems: "center",
-        // backgroundColor: COLORS.primary,
-        justifyContent: "space-between",
     },
     GuildInfo: {
         flex: 1,

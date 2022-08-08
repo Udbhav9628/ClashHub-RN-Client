@@ -91,12 +91,10 @@ const GuildDetails = ({
 
   useEffect(() => {
     if (Join_Guild_Reducer.Sucess) {
+      Clear_Guild_Reducer_Sucess_Func()
       Alert.alert("Message", Join_Guild_Reducer.Responce, [
         {
           text: "OK",
-          onPress: () => {
-            Clear_Guild_Reducer_Sucess_Func()
-          },
         },
       ]);
     }
@@ -104,12 +102,10 @@ const GuildDetails = ({
 
   useEffect(() => {
     if (Join_Guild_Reducer.Error) {
+      Clear_Guild_ReducerError();
       Alert.alert("Error", Join_Guild_Reducer.Error, [
         {
           text: "OK",
-          onPress: () => {
-            Clear_Guild_ReducerError();
-          },
         },
       ]);
     }
@@ -142,7 +138,15 @@ const GuildDetails = ({
             backgroundColor: COLORS.primary,
           }}
           onPress={() => {
-            Join_Guild_Func(Item._id)
+            if (is_Guild_Joined) {
+              Alert.alert("Message", "You Have Allready Joined This Club", [
+                {
+                  text: "OK",
+                },
+              ]);
+            } else {
+              Join_Guild_Func(Item._id)
+            }
           }}
         >
           <Text
@@ -152,7 +156,7 @@ const GuildDetails = ({
               fontSize: SIZES.body3,
             }}
           >
-            {is_Guild_Joined ? 'Joined' : 'Join Guild'}
+            {is_Guild_Joined ? 'Joined' : 'Join Club'}
           </Text>
         </TouchableOpacity>
       </View>

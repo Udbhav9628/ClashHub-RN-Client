@@ -79,16 +79,25 @@ const GameDetailsPage = ({
 
   useEffect(() => {
     if (Join_Sucess) {
-      Alert.alert("Message", Responce, [
-        {
-          text: "OK",
-          onPress: () => {
-            Clear_Match_Sucess();
-            Remove_Match_Item(Home_Matchs, Item._id);
-            navigation.goBack()
+      Clear_Match_Sucess();
+      if (Responce.Sucess) {
+        Remove_Match_Item(Home_Matchs, Item._id);//problem here
+        Alert.alert("Message", Responce.Msg, [
+          {
+            text: "OK",
           },
-        },
-      ]);
+        ]);
+        navigation.goBack();
+      } else {
+        Alert.alert("Message", Responce.Msg, [
+          {
+            text: "OK",
+            onPress: () => {
+              setDisable(false);
+            }
+          },
+        ]);
+      }
     }
   }, [Join_Sucess]);
 
@@ -224,16 +233,96 @@ const GameDetailsPage = ({
                   {Item.Game_Name} {Item.GameType} Match
                 </Text>
               </View>
-              <View style={style.EntryFeeWraper}>
-                <Text
-                  style={{
-                    ...FONTS.h1,
-                    color: COLORS.primary,
-                    fontWeight: "700",
-                  }}
-                >
-                  Joined
-                </Text>
+              {/* Match Status */}
+              <View>
+                {Minutes !== 0 && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        ...FONTS.body3,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Starts In
+                    </Text>
+                    <Text
+                      style={{
+                        ...FONTS.body2,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H:`}{`${Minutes}M`}
+                    </Text>
+                  </View>
+                )}
+                {Minutes === 0 && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        ...FONTS.body3,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Match Is
+                    </Text>
+                    <Text
+                      style={{
+                        ...FONTS.body2,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Live
+                    </Text>
+                  </View>
+                )}
+                {Item.Match_Status === 'Completed' && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        ...FONTS.body3,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Match Is
+                    </Text>
+                    <Text
+                      style={{
+                        ...FONTS.body2,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Completed
+                    </Text>
+                  </View>
+                )}
+                {/* {SelectedMenu === 'Cancelled' && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        ...FONTS.body3,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Match Is
+                    </Text>
+                    <Text
+                      style={{
+                        ...FONTS.body2,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Cancelled
+                    </Text>
+                  </View>
+                )} */}
               </View>
               {/* Match Info */}
               <View style={style.InfoWrapper}>
@@ -506,6 +595,97 @@ const GameDetailsPage = ({
                   {Item.Game_Name} {Item.GameType} Match
                 </Text>
               </View>
+              {/* Match Status */}
+              <View>
+                {Minutes !== 0 && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        ...FONTS.body3,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Starts In
+                    </Text>
+                    <Text
+                      style={{
+                        ...FONTS.body2,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H:`}{`${Minutes}M`}
+                    </Text>
+                  </View>
+                )}
+                {Minutes === 0 && Item.Match_Status !== 'Completed' && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        ...FONTS.body3,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Match Is
+                    </Text>
+                    <Text
+                      style={{
+                        ...FONTS.body2,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Live
+                    </Text>
+                  </View>
+                )}
+                {Item.Match_Status === 'Completed' && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        ...FONTS.body3,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Match Is
+                    </Text>
+                    <Text
+                      style={{
+                        ...FONTS.body2,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Completed
+                    </Text>
+                  </View>
+                )}
+                {/* {SelectedMenu === 'Cancelled' && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        ...FONTS.body3,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Match Is
+                    </Text>
+                    <Text
+                      style={{
+                        ...FONTS.body2,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Cancelled
+                    </Text>
+                  </View>
+                )} */}
+              </View>
               {/* Match Info */}
               <View style={style.InfoWrapper}>
                 {/* Info Left Details */}
@@ -604,6 +784,24 @@ const GameDetailsPage = ({
               JoinMatchFunction={Join_Match_Action_Func} />
             <TouchableOpacity
               onPress={() => {
+                if (Item.Joined_User.length === Item.Total_Players) {
+                  Alert.alert("Message", "Oh Ho! Slots Full", [
+                    {
+                      text: "OK",
+                    },
+                  ]);
+                  return;
+                }
+                const date = new Date(Item.Date_Time);
+                const milliseconds = date.getTime();
+                if (Date.now() >= milliseconds) {
+                  Alert.alert("Message", "Oh Ho! You Are Late , Match Allready Started", [
+                    {
+                      text: "OK",
+                    },
+                  ]);
+                  return;
+                }
                 setPlayerInputModal(true)
               }}
               disabled={disable_joinmatch_button}

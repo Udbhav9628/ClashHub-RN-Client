@@ -44,7 +44,6 @@ const ModalJoinedPlayers = ({
             );
             if (User) {
                 User.Kills = Data.Kills;
-                console.log(Duplicate_Match);
             } else {
                 console.log('User Not Found');
             }
@@ -65,17 +64,30 @@ const ModalJoinedPlayers = ({
                     },
                 ]);
             } else {
-                Alert.alert("Alert", 'This Process is Ireversible , Check All Player Kills before Publish', [
-                    {
-                        text: "Cancel",
-                    },
-                    {
-                        text: "Publish",
-                        onPress: () => {
-                            Update_Match_Function(Match_in_Function, Match_in_Function._id)
+                let Total_Kills = 0;
+                Match_in_Function.Joined_User.forEach((data: any) => {
+                    console.log(data);
+                    Total_Kills = Total_Kills + Number(data.Kills)
+                });
+                if (Total_Kills > Match.Joined_User.length) {
+                    Alert.alert("Message", `Total kill of All Players Combined can't be more then ${Match.Joined_User.length} , Cross Check All players Kills Once Again`, [
+                        {
+                            text: "OK",
                         },
-                    },
-                ]);
+                    ]);
+                } else {
+                    Alert.alert("Alert", 'This Process is Ireversible , Check All Player Kills before Publish', [
+                        {
+                            text: "Cancel",
+                        },
+                        {
+                            text: "Publish",
+                            onPress: () => {
+                                Update_Match_Function(Match_in_Function, Match_in_Function._id)
+                            },
+                        },
+                    ]);
+                }
             }
         } else {
             console.log('Match is Not Available');

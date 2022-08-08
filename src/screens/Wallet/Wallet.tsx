@@ -102,26 +102,23 @@ const Wallet = ({ navigation }: { navigation: any }) => {
   useEffect(() => {
     if (Tsucess) {
       Clear_Payment_Reducer_Sucess_Func();
-      const Amount = RazorPay_Token.amount / 100;
-      console.log(User);
+      const AmountToadd = (RazorPay_Token.order.amount_due / 100);
 
       var options = {
         image: 'https://i.imgur.com/3g7nmJC.png',
         currency: 'INR',
         key: RazorPay_Token.key_id,
-        amount: RazorPay_Token.amount,
+        amount: (RazorPay_Token.order.amount_due),
         name: 'ClashHub',
-        order_id: RazorPay_Token.id,
-        prefill: {
-          contact: '8750778918',
-          name: 'Udbhav',
-        },
+        order_id: RazorPay_Token.order.id,
         theme: { color: COLORS.primary }
       }
       setTempLoading(false)
       RazorpayCheckout.open(options).then((data: any) => {
         const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = data;
-        Add_Wallet_Ballance_FUNC(Amount, data.razorpay_payment_id, `Added To Gamer Wallet`, true, Date.now(), razorpay_payment_id, razorpay_order_id, razorpay_signature);
+        console.log(data);
+
+        Add_Wallet_Ballance_FUNC(AmountToadd, razorpay_payment_id, `Added To Gamer Wallet`, true, Date.now(), razorpay_payment_id, razorpay_order_id, razorpay_signature);
       }).catch((error: any) => {
         Alert.alert("Error", `${error.code} | ${error.description}`, [{ text: "OK" }]);
       });
