@@ -73,20 +73,7 @@ const ModalScreen = ({
     setShow(false);
 
     let tempdate = new Date(selectedDate);
-    // if (tempdate.getTime() < Date.now() + 14400000) {
-    //   setShow(false)
-    //   Alert.alert("Alert", "Chose Date At least 4 Hours Ahead", [
-    //     {
-    //       text: "OK",
-    //       onPress: () => {
-    //         setFormateddate("")
-    //         setFormatedTime("")
-    //         setMaindateDateTime("")
-    //       },
-    //     },
-    //   ]);
-    //   return
-    // }
+
     setMaindateDateTime(selectedDate)
     setdateTime(selectedDate);
 
@@ -161,8 +148,38 @@ const ModalScreen = ({
 
   function CreateMatchOnClick(Data: object) {
     if (User) {
+      if (Select_Game === "" || GameType === '' || Map === '' || Total_Players === '' || EntryFee === '' || Prize_Pool === '' || MaindateDateTime === '') {
+        Alert.alert("Alert", "Please Fill All Details To create Match", [
+          {
+            text: "OK",
+          },
+        ]);
+        return
+      }
+      // 4 Hours
+      let tempdate = new Date(MaindateDateTime);
+      if (tempdate.getTime() <= Date.now() + 14400000) {
+        setShow(false)
+        Alert.alert("Alert", "Please Choose Match's Date & Time At least 4 Hours Ahead From Now", [
+          {
+            text: "OK",
+          },
+        ]);
+        return
+      }
+      // 30 Days
+      if (tempdate.getTime() >= Date.now() + 2592000000) {
+        setShow(false)
+        Alert.alert("Alert", "Please Choose Match's Date & Time atleast Within 30 Days", [
+          {
+            text: "OK",
+          },
+        ]);
+        return
+      }
       Create_Match_action(Data);
     } else {
+      setDisable(true);
       navigation.navigate("Signin");
     }
   }
@@ -495,7 +512,6 @@ const ModalScreen = ({
             }}
             onPress={() => {
               CreateMatchOnClick(Data);
-              setDisable(true);
             }}
             disabled={Disable}
           >

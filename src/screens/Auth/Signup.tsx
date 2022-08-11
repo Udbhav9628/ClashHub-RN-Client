@@ -9,7 +9,7 @@ import {
   StyleSheet,
   ActivityIndicator
 } from "react-native";
-import { COLORS, Dpheight, SIZES } from "../../constants/Theame";
+import { COLORS, Dpheight, DPwidth, SIZES } from "../../constants/Theame";
 import FormInput from "./FormInput";
 import { validateNumber } from "../../utils/Utils";
 import auth from '@react-native-firebase/auth';
@@ -24,7 +24,7 @@ import { useFocusEffect } from '@react-navigation/native';
 const Signup = ({ navigation }: { navigation: any }) => {
   const [Name, setName] = useState("");
   const [UserName, setUserName] = useState("");
-  const [Phone_No, setPhone_No] = useState();
+  const [Phone_No, setPhone_No] = useState("");
   const [Phone_No_Msg, setPhone_No_Msg] = useState("");
   const [NavigatetoOTP, setNavigatetoOTP] = useState(false)
   const [Nowregister, setNowregister] = useState(false)
@@ -49,7 +49,7 @@ const Signup = ({ navigation }: { navigation: any }) => {
     } else if (Name === "" || Phone_No === "" || UserName === "") {
       Alert.alert("Error", "Fill All Details First", [{ text: "OK" }]);
     } else if (Phone_No !== "") {
-      Alert.alert("Error", "Phone_No is Less 10 characters", [{ text: "OK" }]);
+      Alert.alert("Error", "Phone_No is Less 10 Digit", [{ text: "OK" }]);
     }
   }
 
@@ -369,6 +369,8 @@ const style = StyleSheet.create({
     height: Dpheight(8),
   },
   codeInputFieldStyle: {
+    width: DPwidth(15),
+    height: Dpheight(6.9),
     borderRadius: SIZES.radius,
     backgroundColor: COLORS.transparentBlack1,
     fontSize: SIZES.h3,

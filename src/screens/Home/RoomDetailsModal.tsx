@@ -136,19 +136,11 @@ const RoomDetailsModal = ({
                                 style={{
                                     fontSize: SIZES.h2,
                                     fontWeight: "700",
-                                    color: COLORS.black
+                                    color: COLORS.black,
+                                    textAlign: "center"
                                 }}
                             >
-                                Room Details Not Available Yet
-                            </Text>
-                            <Text
-                                style={{
-                                    fontSize: SIZES.h2,
-                                    fontWeight: "700",
-                                    color: COLORS.black
-                                }}
-                            >
-                                Check Later
+                                This Match Is Cancelled Because Organiser Failed To Provide Room Details Within Time Limit
                             </Text>
                         </View>
                     ))}

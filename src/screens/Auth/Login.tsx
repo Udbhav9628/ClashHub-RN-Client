@@ -24,7 +24,7 @@ import auth from '@react-native-firebase/auth';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 
 const Login = ({ navigation }: { navigation: any }) => {
-  const [Phone_No, setPhone_No] = useState();
+  const [Phone_No, setPhone_No] = useState("");
   const [Phone_No_Msg, setPhone_No_Msg] = useState("");
   const [Disable, setDisable] = useState(false);
   const [Nowregister, setNowregister] = useState(false)
@@ -35,20 +35,18 @@ const Login = ({ navigation }: { navigation: any }) => {
 
   function HandleOnPress() {
     setDisable(true);
-    if (
-      Phone_No !== "" &&
-      Phone_No_Msg === ""
-    ) {
-      signInWithPhoneNumber(`+91${Phone_No}`)
-      setNavigatetoOTP(true)
-    } else if (Phone_No === "") {
+    if (Phone_No === "" || Phone_No_Msg !== "") {
       setDisable(false);
-      Alert.alert("Error", "Enter Mobile No to Login", [
+      Alert.alert("Error", "Please Enter 10 Digit Mobile No", [
         {
           text: "OK",
         },
       ]);
+      setDisable(false);
+      return;
     }
+    signInWithPhoneNumber(`+91${Phone_No}`)
+    setNavigatetoOTP(true)
   }
 
   const { loading, sucess } = useSelector(

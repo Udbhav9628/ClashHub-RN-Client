@@ -178,6 +178,14 @@ const Createguild = ({ navigation }: { navigation: any }) => {
               backgroundColor: COLORS.primary,
             }}
             onPress={() => {
+              if (GuildName === "" || GuildID === "" || GuildDescription === "") {
+                Alert.alert("Alert", "Please Fill All Details", [
+                  {
+                    text: "OK",
+                  },
+                ]);
+                return;
+              }
               const Data = {
                 GuildName: GuildName,
                 GuildID: GuildID,

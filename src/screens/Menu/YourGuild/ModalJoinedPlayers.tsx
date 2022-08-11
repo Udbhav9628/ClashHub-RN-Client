@@ -69,8 +69,8 @@ const ModalJoinedPlayers = ({
                     console.log(data);
                     Total_Kills = Total_Kills + Number(data.Kills)
                 });
-                if (Total_Kills > Match.Joined_User.length) {
-                    Alert.alert("Message", `Total kill of All Players Combined can't be more then ${Match.Joined_User.length} , Cross Check All players Kills Once Again`, [
+                if ((Total_Kills - 1) > Match.Joined_User.length) {
+                    Alert.alert("Message", `Total kill of All Players Combined can't be more then ${(Match.Joined_User.length - 1)} , Cross Check All players Kills Once Again`, [
                         {
                             text: "OK",
                         },
@@ -278,6 +278,9 @@ const ModalJoinedPlayers = ({
                                     Publish_Result(Duplicate_Match)
                                 }}
                                 style={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    width: '100%',
                                     height: Dpheight(7),
                                     alignItems: "center",
                                     justifyContent: "center",
@@ -285,7 +288,7 @@ const ModalJoinedPlayers = ({
                                     marginBottom: SIZES.padding,
                                     borderRadius: SIZES.radius,
                                     backgroundColor: COLORS.primary,
-                                    marginHorizontal: 100,
+                                    marginHorizontal: SIZES.padding,
                                 }}
                             >
                                 <Text
@@ -314,6 +317,35 @@ const ModalJoinedPlayers = ({
                         >
                             No Joined Players
                         </Text>
+                        {Match.Match_Status !== 'Completed' && (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    Publish_Result(Duplicate_Match)
+                                }}
+                                style={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    width: '100%',
+                                    height: Dpheight(7),
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    marginTop: SIZES.padding,
+                                    marginBottom: SIZES.padding,
+                                    borderRadius: SIZES.radius,
+                                    backgroundColor: COLORS.primary,
+                                    marginHorizontal: SIZES.padding,
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: COLORS.white,
+                                        fontWeight: "bold",
+                                        fontSize: SIZES.body3,
+                                    }}
+                                >
+                                    End Match
+                                </Text>
+                            </TouchableOpacity>)}
                     </View>)}
             </View>
         </Modal>

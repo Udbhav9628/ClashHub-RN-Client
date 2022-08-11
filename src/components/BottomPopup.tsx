@@ -95,7 +95,7 @@ const BottomPopup = ({
   );
 
   useEffect(() => {
-    if (modalVisible) {
+    if (modalVisible && MatchId === null) {
       GetPendingWithdrawls_Func()
     }
   }, [modalVisible])
@@ -208,6 +208,12 @@ const BottomPopup = ({
             />
             <TouchableOpacity
               onPress={() => {
+                if (Custom_Room_Name === '' || Custom_Room_Password === '') {
+                  Alert.alert("Message", 'Fill All Details Please', [{
+                    text: "OK",
+                  }]);
+                  return
+                }
                 const RoomData = {
                   Name: Custom_Room_Name,
                   Password: Custom_Room_Password
@@ -286,7 +292,12 @@ const BottomPopup = ({
                 keyboardType="numeric"
                 autoCapitalize="none"
                 onChangeText={(text) => {
-                  setWithdrawlsAmount(parseInt(text))
+                  console.log(parseInt(text));
+                  if (parseInt(text)) {
+                    setWithdrawlsAmount(parseInt(text))
+                  } else {
+                    setWithdrawlsAmount(0)
+                  }
                 }}
               />
               <TouchableOpacity
@@ -297,7 +308,7 @@ const BottomPopup = ({
                     if (Amount < WithdrawlsAmount) {
                       Alert.alert("Error", 'Low Wallet Ballance', [{ text: "OK" }]);
                     } else {
-                      console.log('in else wallet');
+                      setWithdrawlsAmount(0)
                       setModalVisible(false)
                       Create_withdrawls_request_Func(WithdrawlsAmount)
                     }

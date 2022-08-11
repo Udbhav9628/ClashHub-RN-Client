@@ -253,7 +253,7 @@ const GameDetailsPage = ({
                         fontWeight: "700",
                       }}
                     >
-                      {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H:`}{`${Minutes}M`}
+                      {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
                     </Text>
                   </View>
                 )}
@@ -431,16 +431,7 @@ const GameDetailsPage = ({
                   marginBottom: 15,
                 }}
               >
-                &#187; Room ID and Password will be shared in the app before 15 minutes of match Start time
-              </Text>
-              <Text
-                style={{
-                  color: COLORS.darkGray2, ...FONTS.h3,
-                  textAlign: 'justify',
-                  marginBottom: 15,
-                }}
-              >
-                &#187; If in anyway you fail to join room by the match start time then you would be responsible for this.
+                &#187; Room ID and Password will be shared Here, 10 minutes Brfore match Start time
               </Text>
               <Text
                 style={{
@@ -462,10 +453,10 @@ const GameDetailsPage = ({
               </Text>
             </View>
             <View style={{
-              marginVertical: 2
+              marginBottom: SIZES.padding
             }}>
               {/* Room Id and Pass */}
-              <View style={style.Elevation}>
+              {Minutes < 10 && (<View style={style.Elevation}>
                 <RoomDetailsModal modalVisible={RoomDetailsModals}
                   setModalVisible={setRoomDetailsModal}
                   MatchId={Item._id} />
@@ -498,7 +489,7 @@ const GameDetailsPage = ({
                     </View>
                   </View>
                 </TouchableOpacity>
-              </View>
+              </View>)}
               {/* Participants */}
               <View style={style.Elevation}>
                 <View>
@@ -615,7 +606,7 @@ const GameDetailsPage = ({
                         fontWeight: "700",
                       }}
                     >
-                      {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H:`}{`${Minutes}M`}
+                      {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
                     </Text>
                   </View>
                 )}

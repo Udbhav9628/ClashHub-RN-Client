@@ -235,36 +235,6 @@ const GuildMatchesDetails = ({
                     <View style={style.InfoWrapper}>
                         {/* Info Left Details */}
                         <View>
-                            {/* Joined Players Number */}
-                            <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
-                                    Slots
-                                </Text>
-                                <Text
-                                    style={{
-                                        color: COLORS.black,
-                                        ...FONTS.body3,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    {Item.Joined_User.length}/{Item.Total_Players}
-                                </Text>
-                            </View>
-                            {/* Prize Per Kill */}
-                            <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
-                                    Prize
-                                </Text>
-                                <Text
-                                    style={{
-                                        color: COLORS.black,
-                                        ...FONTS.body3,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    &#x20B9; {Item.Perkill_Prize} Per Kill
-                                </Text>
-                            </View>
                             {/* Match Map */}
                             <View style={style.InfoLeftItem}>
                                 <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
@@ -298,7 +268,7 @@ const GuildMatchesDetails = ({
                             {/* Match Time */}
                             <View style={style.InfoLeftItem}>
                                 <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
-                                    Match Time
+                                    Time - 24H Format
                                 </Text>
                                 <Text
                                     style={{
@@ -310,6 +280,66 @@ const GuildMatchesDetails = ({
                                     {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
                                 </Text>
                             </View>
+                            {/* prize */}
+                            <View style={style.InfoLeftItem}>
+                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                                    Prize
+                                </Text>
+                                <Text
+                                    style={{
+                                        color: COLORS.black,
+                                        ...FONTS.body3,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    &#x20B9; {Item.Perkill_Prize} Per Kill
+                                </Text>
+                            </View>
+                            {/* Profit Per Player */}
+                            <View style={style.InfoLeftItem}>
+                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                                    Profit Per Player
+                                </Text>
+                                <Text
+                                    style={{
+                                        color: COLORS.black,
+                                        ...FONTS.body3,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    &#x20B9; {Item.EntryFee - Item.Perkill_Prize}
+                                </Text>
+                            </View>
+                            {/* Joined Players Number */}
+                            <View style={style.InfoLeftItem}>
+                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                                    Slots
+                                </Text>
+                                <Text
+                                    style={{
+                                        color: COLORS.black,
+                                        ...FONTS.body3,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    {Item.Joined_User.length}/{Item.Total_Players}
+                                </Text>
+                            </View>
+                            {/* Entry Fee */}
+                            <View style={style.InfoLeftItem}>
+                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                                    Entry Fee
+                                </Text>
+                                <Text
+                                    style={{
+                                        color: COLORS.black,
+                                        ...FONTS.body3,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    &#x20B9; {Item.EntryFee}
+                                </Text>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -318,155 +348,157 @@ const GuildMatchesDetails = ({
                     <Image source={GameImage} style={style.InfoWrapperImage} />
                 </View>
             </View>
-            {/* Bottom Button */}
-            {SelectedMenu === 'Scheduled' && (
-                <>
-                    {/* Modal */}
-                    <BottomPopup
-                        modalVisible={modalVisible}
-                        setModalVisible={setModalVisible}
-                        MatchId={Item._id}
-                        Amount={null}
-                        Match_Status={Item.Match_Status}
-                        Disable={Disable}
-                        setDisable={setDisable}
-                        navigation={navigation}
-                        ModalContainerStyle={
-                            {
-                                position: "absolute",
-                                bottom: -8,
-                                left: 2,
-                                right: 2,
-                                margin: 10,
-                                height: Dpheight(47),
-                                backgroundColor: "white",
-                                borderRadius: SIZES.radius,
-                                padding: 5,
-                                shadowColor: COLORS.black,
-                                shadowOpacity: 0.25,
-                                shadowRadius: 4,
-                                elevation: 5,
-                                shadowOffset: {
-                                    width: 0,
-                                    height: 2,
-                                },
+            {/* Bottom Button -- Do Something about this*/}
+            <View>
+                {SelectedMenu === 'Scheduled' && (
+                    <>
+                        {/* Modal */}
+                        <BottomPopup
+                            modalVisible={modalVisible}
+                            setModalVisible={setModalVisible}
+                            MatchId={Item._id}
+                            Amount={null}
+                            Match_Status={Item.Match_Status}
+                            Disable={Disable}
+                            setDisable={setDisable}
+                            navigation={navigation}
+                            ModalContainerStyle={
+                                {
+                                    position: "absolute",
+                                    bottom: -8,
+                                    left: 2,
+                                    right: 2,
+                                    margin: 10,
+                                    height: Dpheight(47),
+                                    backgroundColor: "white",
+                                    borderRadius: SIZES.radius,
+                                    padding: 5,
+                                    shadowColor: COLORS.black,
+                                    shadowOpacity: 0.25,
+                                    shadowRadius: 4,
+                                    elevation: 5,
+                                    shadowOffset: {
+                                        width: 0,
+                                        height: 2,
+                                    },
+                                }
                             }
-                        }
-                    />
-                    <TouchableOpacity
-                        onPress={() => {
-                            setModalVisible(true)
-                        }}
-                        style={{
-                            height: Dpheight(6.9),
-                            alignItems: "center",
-                            justifyContent: "center",
-                            marginTop: SIZES.padding,
-                            marginBottom: SIZES.padding,
-                            borderRadius: SIZES.radius,
-                            backgroundColor: Item.Match_Status === 'Started' ? COLORS.transparentPrimray : COLORS.primary,
-                            marginHorizontal: SIZES.padding,
-                        }}
-                    >
-                        <Text
+                        />
+                        <TouchableOpacity
+                            onPress={() => {
+                                setModalVisible(true)
+                            }}
                             style={{
-                                color: COLORS.white,
-                                fontWeight: "bold",
-                                fontSize: SIZES.h3,
+                                height: Dpheight(6.9),
+                                alignItems: "center",
+                                justifyContent: "center",
+                                marginTop: SIZES.padding,
+                                marginBottom: SIZES.padding,
+                                borderRadius: SIZES.radius,
+                                backgroundColor: Item.Match_Status === 'Started' ? COLORS.transparentPrimray : COLORS.primary,
+                                marginHorizontal: SIZES.padding,
                             }}
                         >
-                            {Item.Match_Status === 'Started' ? 'Update Room Details' : 'Enter Room Details'}
-                        </Text>
-                    </TouchableOpacity>
-                </>
-            )
-            }
-            {SelectedMenu === 'Ongoing' && (
-                <View style={style.Elevation}>
-                    <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}
-                    >
-                        <View style={style.GuildWrapper}>
-                            <Image
+                            <Text
                                 style={{
-                                    marginHorizontal: 12,
-                                    width: DPwidth(12),
-                                    height: Dpheight(7),
-                                    borderRadius: SIZES.radius,
-                                    resizeMode: "cover",
+                                    color: COLORS.white,
+                                    fontWeight: "bold",
+                                    fontSize: SIZES.h3,
                                 }}
-                                source={{
-                                    uri: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-result-internet-marketing-service-flaticons-flat-flat-icons.png",
-                                }}
-                            />
-                            {/* Info Of Guild */}
-                            <View style={style.GuildInfo}>
-                                <View>
-                                    <Text
+                            >
+                                {Item.Match_Status === 'Started' ? 'Update Room Details' : 'Enter Room Details'}
+                            </Text>
+                        </TouchableOpacity>
+                    </>
+                )
+                }
+                {SelectedMenu === 'Ongoing' && (
+                    <View style={style.Elevation}>
+                        <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}
+                        >
+                            <View style={style.GuildWrapper}>
+                                <Image
+                                    style={{
+                                        marginHorizontal: 12,
+                                        width: DPwidth(12),
+                                        height: Dpheight(7),
+                                        borderRadius: SIZES.radius,
+                                        resizeMode: "cover",
+                                    }}
+                                    source={{
+                                        uri: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-result-internet-marketing-service-flaticons-flat-flat-icons.png",
+                                    }}
+                                />
+                                {/* Info Of Guild */}
+                                <View style={style.GuildInfo}>
+                                    <View>
+                                        <Text
+                                            style={{
+                                                color: COLORS.black,
+                                                fontSize: SIZES.h3,
+                                                fontWeight: "bold",
+                                            }}
+                                        >
+                                            {SelectedMenu === 'Ongoing' ? "Update Players Kills" : 'See Result'}
+                                        </Text>
+                                    </View>
+                                    <View
                                         style={{
-                                            color: COLORS.black,
-                                            fontSize: SIZES.h3,
-                                            fontWeight: "bold",
+                                            position: "absolute",
+                                            top: -2,
+                                            right: 15,
                                         }}
                                     >
-                                        {SelectedMenu === 'Ongoing' ? "Update Players Kills" : 'See Result'}
-                                    </Text>
-                                </View>
-                                <View
-                                    style={{
-                                        position: "absolute",
-                                        top: -2,
-                                        right: 15,
-                                    }}
-                                >
-                                    <Icon name="angle-right" size={24} color="black" />
+                                        <Icon name="angle-right" size={24} color="black" />
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    </TouchableOpacity>
-                </View>)}
-            {SelectedMenu === 'Resultant' && (
-                <View style={style.Elevation}>
-                    <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}
-                    >
-                        <View style={style.GuildWrapper}>
-                            <Image
-                                style={{
-                                    marginHorizontal: 12,
-                                    width: DPwidth(12),
-                                    height: Dpheight(7),
-                                    borderRadius: SIZES.radius,
-                                    resizeMode: "cover",
-                                }}
-                                source={{
-                                    uri: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-result-internet-marketing-service-flaticons-flat-flat-icons.png",
-                                }}
-                            />
-                            {/* Info Of Guild */}
-                            <View style={style.GuildInfo}>
-                                <View>
-                                    <Text
+                        </TouchableOpacity>
+                    </View>)}
+                {SelectedMenu === 'Resultant' && (
+                    <View style={style.Elevation}>
+                        <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}
+                        >
+                            <View style={style.GuildWrapper}>
+                                <Image
+                                    style={{
+                                        marginHorizontal: 12,
+                                        width: DPwidth(12),
+                                        height: Dpheight(7),
+                                        borderRadius: SIZES.radius,
+                                        resizeMode: "cover",
+                                    }}
+                                    source={{
+                                        uri: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-result-internet-marketing-service-flaticons-flat-flat-icons.png",
+                                    }}
+                                />
+                                {/* Info Of Guild */}
+                                <View style={style.GuildInfo}>
+                                    <View>
+                                        <Text
+                                            style={{
+                                                color: COLORS.black,
+                                                fontSize: SIZES.h3,
+                                                fontWeight: "bold",
+                                            }}
+                                        >
+                                            {SelectedMenu === 'Ongoing' ? "Update Players Kills" : 'See Result'}
+                                        </Text>
+                                    </View>
+                                    <View
                                         style={{
-                                            color: COLORS.black,
-                                            fontSize: SIZES.h3,
-                                            fontWeight: "bold",
+                                            position: "absolute",
+                                            top: -2,
+                                            right: 15,
                                         }}
                                     >
-                                        {SelectedMenu === 'Ongoing' ? "Update Players Kills" : 'See Result'}
-                                    </Text>
-                                </View>
-                                <View
-                                    style={{
-                                        position: "absolute",
-                                        top: -2,
-                                        right: 15,
-                                    }}
-                                >
-                                    <Icon name="angle-right" size={24} color="black" />
+                                        <Icon name="angle-right" size={24} color="black" />
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    </TouchableOpacity>
-                </View>)}
+                        </TouchableOpacity>
+                    </View>)}
+            </View>
             <ModalJoinedPlayers modalVisible={JoinedPlayermodal}
                 setModalVisible={setJoinedPlayermodal}
                 navigation={navigation}
