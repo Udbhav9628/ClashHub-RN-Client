@@ -179,7 +179,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                     </TouchableOpacity>
                                 </View>
                                 {/* Club Wallet */}
-                                <View style={style.Elevation}>
+                                {/* <View style={style.Elevation}>
                                     <TouchableOpacity onPress={() => navigation.replace('Wallet')}>
                                         <View style={style.NotificationWrapper}>
                                             <MaterialCommunityIcons
@@ -205,7 +205,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                             </View>
                                         </View>
                                     </TouchableOpacity>
-                                </View>
+                                </View> */}
                                 {/* Withdraw Money */}
                                 <View style={style.Elevation}>
                                     <TouchableOpacity>

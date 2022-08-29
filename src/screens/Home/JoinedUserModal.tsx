@@ -1,6 +1,6 @@
 import { FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { COLORS, Dpheight, DPwidth, FONTS, SIZES } from '../../constants/Theame';
+import { COLORS, DPwidth, FONTS, SIZES } from '../../constants/Theame';
 import Icon from "react-native-vector-icons/Ionicons";
 
 const JoinedUserModal = ({
@@ -64,7 +64,7 @@ const JoinedUserModal = ({
                                         fontWeight: "900",
                                     }}>Name</Text>
                                 </View>
-                                {Match.Match_Status === 'Completed' && <View style={{
+                                {Match && Match.Match_Status === 'Completed' && <View style={{
                                     alignItems: 'center',
                                     width: DPwidth(18)
                                 }}>
@@ -74,7 +74,7 @@ const JoinedUserModal = ({
                                         fontWeight: "900",
                                     }}>Kills</Text>
                                 </View>}
-                                {Match.Match_Status === 'Completed' && <View style={{
+                                {Match && Match.Match_Status === 'Completed' && <View style={{
                                     alignItems: 'center',
                                     width: DPwidth(18)
                                 }}>
@@ -116,7 +116,7 @@ const JoinedUserModal = ({
                                                 }}>{item.UserName}</Text>
                                             </View>
 
-                                            {Match.Match_Status === 'Completed' && (<View style={{
+                                            {Match && Match.Match_Status === 'Completed' && (<View style={{
                                                 marginTop: 6,
                                                 alignItems: 'center',
 
@@ -125,7 +125,7 @@ const JoinedUserModal = ({
                                                 color: COLORS.black,
                                                 ...FONTS.body3,
                                             }}>{item.Kills}</Text></View>)}
-                                            {Match.Match_Status === 'Completed' && <View style={{
+                                            {Match && Match.Match_Status === 'Completed' && <View style={{
                                                 marginTop: 6,
                                                 alignItems: 'center',
                                                 width: DPwidth(18)
@@ -133,7 +133,7 @@ const JoinedUserModal = ({
                                                 <Text style={{
                                                     color: COLORS.black,
                                                     ...FONTS.body3,
-                                                }}>{Match.Perkill_Prize * item.Kills}</Text>
+                                                }}>{Match && Match.Perkill_Prize * item.Kills}</Text>
                                             </View>}
                                         </View>
                                     </View>

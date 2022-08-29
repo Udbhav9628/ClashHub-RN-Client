@@ -143,94 +143,101 @@ const GuildMatchesDetails = ({
                             {Item.Game_Name} {Item.GameType} Match
                         </Text>
                     </View>
-                    {Minutes !== 0 && (
-                        <View style={style.EntryFeeWraper}>
-                            <Text
-                                style={{
-                                    ...FONTS.body3,
-                                    color: COLORS.primary,
-                                    fontWeight: "700",
-                                }}
-                            >
-                                Starts In
-                            </Text>
-                            <Text
-                                style={{
-                                    ...FONTS.body2,
-                                    color: COLORS.primary,
-                                    fontWeight: "700",
-                                }}
-                            >
-                                {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H:`}{`${Minutes}M`}
-                            </Text>
-                        </View>
-                    )}
-                    {SelectedMenu === 'Ongoing' && (
-                        <View style={style.EntryFeeWraper}>
-                            <Text
-                                style={{
-                                    ...FONTS.body3,
-                                    color: COLORS.primary,
-                                    fontWeight: "700",
-                                }}
-                            >
-                                Match Is
-                            </Text>
-                            <Text
-                                style={{
-                                    ...FONTS.body2,
-                                    color: COLORS.primary,
-                                    fontWeight: "700",
-                                }}
-                            >
-                                Live
-                            </Text>
-                        </View>
-                    )}
-                    {SelectedMenu === 'Resultant' && (
-                        <View style={style.EntryFeeWraper}>
-                            <Text
-                                style={{
-                                    ...FONTS.body3,
-                                    color: COLORS.primary,
-                                    fontWeight: "700",
-                                }}
-                            >
-                                Match Is
-                            </Text>
-                            <Text
-                                style={{
-                                    ...FONTS.body2,
-                                    color: COLORS.primary,
-                                    fontWeight: "700",
-                                }}
-                            >
-                                Completed
-                            </Text>
-                        </View>
-                    )}
-                    {SelectedMenu === 'Cancelled' && (
-                        <View style={style.EntryFeeWraper}>
-                            <Text
-                                style={{
-                                    ...FONTS.body3,
-                                    color: COLORS.primary,
-                                    fontWeight: "700",
-                                }}
-                            >
-                                Match Is
-                            </Text>
-                            <Text
-                                style={{
-                                    ...FONTS.body2,
-                                    color: COLORS.primary,
-                                    fontWeight: "700",
-                                }}
-                            >
-                                Cancelled
-                            </Text>
-                        </View>
-                    )}
+                    {/* Match Status */}
+                    <View>
+                        {/* Secheduled */}
+                        {Minutes !== 0 && (
+                            <View style={style.EntryFeeWraper}>
+                                <Text
+                                    style={{
+                                        ...FONTS.body3,
+                                        color: COLORS.primary,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    Starts In
+                                </Text>
+                                <Text
+                                    style={{
+                                        ...FONTS.body2,
+                                        color: COLORS.primary,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                                </Text>
+                            </View>
+                        )}
+                        {/* Ongoing */}
+                        {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && (
+                            <View style={style.EntryFeeWraper}>
+                                <Text
+                                    style={{
+                                        ...FONTS.body3,
+                                        color: COLORS.primary,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    Match Is
+                                </Text>
+                                <Text
+                                    style={{
+                                        ...FONTS.body2,
+                                        color: COLORS.primary,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    Live
+                                </Text>
+                            </View>
+                        )}
+                        {/* Completed */}
+                        {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed' && (
+                            <View style={style.EntryFeeWraper}>
+                                <Text
+                                    style={{
+                                        ...FONTS.body3,
+                                        color: COLORS.primary,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    Match Is
+                                </Text>
+                                <Text
+                                    style={{
+                                        ...FONTS.body2,
+                                        color: COLORS.primary,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    Completed
+                                </Text>
+                            </View>
+                        )}
+                        {/* Cancelled */}
+                        {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed' && (
+                            <View style={style.EntryFeeWraper}>
+                                <Text
+                                    style={{
+                                        ...FONTS.body3,
+                                        color: COLORS.primary,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    Match Is
+                                </Text>
+                                <Text
+                                    style={{
+                                        ...FONTS.body2,
+                                        color: COLORS.primary,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    Cancelled
+                                </Text>
+                            </View>
+                        )}
+                    </View>
                     {/* Match Info */}
                     <View style={style.InfoWrapper}>
                         {/* Info Left Details */}

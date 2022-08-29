@@ -235,6 +235,7 @@ const GameDetailsPage = ({
               </View>
               {/* Match Status */}
               <View>
+                {/* Secheduled */}
                 {Minutes !== 0 && (
                   <View style={style.EntryFeeWraper}>
                     <Text
@@ -257,7 +258,8 @@ const GameDetailsPage = ({
                     </Text>
                   </View>
                 )}
-                {Minutes === 0 && (
+                {/* Ongoing */}
+                {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && (
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
@@ -279,7 +281,8 @@ const GameDetailsPage = ({
                     </Text>
                   </View>
                 )}
-                {Item.Match_Status === 'Completed' && (
+                {/* Completed */}
+                {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed' && (
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
@@ -301,7 +304,8 @@ const GameDetailsPage = ({
                     </Text>
                   </View>
                 )}
-                {/* {SelectedMenu === 'Cancelled' && (
+                {/* Cancelled */}
+                {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed' && (
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
@@ -322,7 +326,7 @@ const GameDetailsPage = ({
                       Cancelled
                     </Text>
                   </View>
-                )} */}
+                )}
               </View>
               {/* Match Info */}
               <View style={style.InfoWrapper}>
@@ -390,7 +394,7 @@ const GameDetailsPage = ({
                   {/* Match Time */}
                   <View style={style.InfoLeftItem}>
                     <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
-                      Match Time
+                      Time - 24H Format
                     </Text>
                     <Text
                       style={{
@@ -410,9 +414,10 @@ const GameDetailsPage = ({
               <Image source={GameImage} style={style.InfoWrapperImage} />
             </View>
           </View>
-          <View style={{ marginTop: 40 }}>
-            <View style={{
-              // backgroundColor: COLORS.primary,
+          <View style={{ marginTop: Dpheight(4) }}>
+            {/* Rules */}
+            {/* Sechduled */}
+            {Minutes !== 0 && (<View style={{
               marginHorizontal: SIZES.padding,
             }}>
               <Text
@@ -420,6 +425,7 @@ const GameDetailsPage = ({
                   ...FONTS.body2,
                   color: COLORS.black,
                   fontWeight: "700",
+                  marginBottom: Dpheight(0.6)
                 }}
               >
                 Rules
@@ -451,12 +457,136 @@ const GameDetailsPage = ({
               >
                 &#187; Do Not Disclose Room Details to Others
               </Text>
-            </View>
+            </View>)}
+            {/* Ongoing */}
+            {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && (
+              <View style={{
+                marginHorizontal: SIZES.padding,
+              }}>
+                <Text
+                  style={{
+                    ...FONTS.body2,
+                    color: COLORS.black,
+                    fontWeight: "700",
+                    marginBottom: Dpheight(0.6)
+                  }}
+                >
+                  Rules
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.darkGray2, ...FONTS.h3,
+                    textAlign: 'justify',
+                    marginBottom: 15,
+                  }}
+                >
+                  &#187; Custom Room ID and Password Is Available, Join The Match ASAP
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.darkGray2, ...FONTS.h3,
+                    textAlign: 'justify',
+                    marginBottom: 15,
+                  }}
+                >
+                  &#187; Do Not Disclose Room Details to Others
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.darkGray2, ...FONTS.h3,
+                    textAlign: 'justify',
+                    marginBottom: 15,
+                  }}
+                >
+                  &#187; You Can Always Report to Us , If Organiser Provide The Wrong Room Details
+                </Text>
+              </View>
+            )}
+            {/* Completed */}
+            {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed' && (
+              <View style={{
+                marginHorizontal: SIZES.padding,
+              }}>
+                <Text
+                  style={{
+                    ...FONTS.body2,
+                    color: COLORS.black,
+                    fontWeight: "700",
+                    marginBottom: Dpheight(0.6)
+                  }}
+                >
+                  Rules
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.darkGray2, ...FONTS.h3,
+                    textAlign: 'justify',
+                    marginBottom: 15,
+                  }}
+                >
+                  &#187; Match Is Sucessfully Completed You Can Check Out Your Result
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.darkGray2, ...FONTS.h3,
+                    textAlign: 'justify',
+                    marginBottom: 15,
+                  }}
+                >
+                  &#187; You Can Always Report to Us, If You Have Any Problem with Your Result
+                </Text>
+              </View>
+            )}
+            {/* Cancelled */}
+            {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed' && (
+              <View style={{
+                marginHorizontal: SIZES.padding,
+              }}>
+                <Text
+                  style={{
+                    ...FONTS.body2,
+                    color: COLORS.black,
+                    fontWeight: "700",
+                    marginBottom: Dpheight(0.6)
+                  }}
+                >
+                  Rules
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.darkGray2, ...FONTS.h3,
+                    textAlign: 'justify',
+                    marginBottom: 15,
+                  }}
+                >
+                  &#187; Match Is Unfortunately Cancelled, Because Organiser Failed To Provide Room Details With in Time Limit
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.darkGray2, ...FONTS.h3,
+                    textAlign: 'justify',
+                    marginBottom: 15,
+                  }}
+                >
+                  &#187; You Can Claim You Money Back, It will Be added to Wallet ASAP
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.darkGray2, ...FONTS.h3,
+                    textAlign: 'justify',
+                    marginBottom: 15,
+                  }}
+                >
+                  &#187; You Can Always Contect Us If You Have any Problem
+                </Text>
+              </View>
+            )}
+            {/* Participants And Room Details */}
             <View style={{
               marginBottom: SIZES.padding
             }}>
               {/* Room Id and Pass */}
-              {Minutes < 10 && (<View style={style.Elevation}>
+              {Days === 0 && Hours === 0 && Minutes < 10 && (<View style={style.Elevation}>
                 <RoomDetailsModal modalVisible={RoomDetailsModals}
                   setModalVisible={setRoomDetailsModal}
                   MatchId={Item._id} />
@@ -610,72 +740,6 @@ const GameDetailsPage = ({
                     </Text>
                   </View>
                 )}
-                {Minutes === 0 && Item.Match_Status !== 'Completed' && (
-                  <View style={style.EntryFeeWraper}>
-                    <Text
-                      style={{
-                        ...FONTS.body3,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Match Is
-                    </Text>
-                    <Text
-                      style={{
-                        ...FONTS.body2,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Live
-                    </Text>
-                  </View>
-                )}
-                {Item.Match_Status === 'Completed' && (
-                  <View style={style.EntryFeeWraper}>
-                    <Text
-                      style={{
-                        ...FONTS.body3,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Match Is
-                    </Text>
-                    <Text
-                      style={{
-                        ...FONTS.body2,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Completed
-                    </Text>
-                  </View>
-                )}
-                {/* {SelectedMenu === 'Cancelled' && (
-                  <View style={style.EntryFeeWraper}>
-                    <Text
-                      style={{
-                        ...FONTS.body3,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Match Is
-                    </Text>
-                    <Text
-                      style={{
-                        ...FONTS.body2,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Cancelled
-                    </Text>
-                  </View>
-                )} */}
               </View>
               {/* Match Info */}
               <View style={style.InfoWrapper}>
@@ -743,7 +807,7 @@ const GameDetailsPage = ({
                   {/* Match Time */}
                   <View style={style.InfoLeftItem}>
                     <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
-                      Match Time
+                      Time - 24H Format
                     </Text>
                     <Text
                       style={{

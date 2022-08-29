@@ -19,12 +19,14 @@ import {
   Clear_Guild_Reducer_Error,
 } from "../../store/Guild/GuildAction";
 import Createguild from "./YourGuild/Createguild";
+import JoinedUserModal from "../Home/JoinedUserModal";
 
 const YourGuild = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
   const { Guild_Details, Sucess_response, Error, loading } = useSelector(
     (state: any) => state.Get_user_Guild_details_reducer
   );
+  const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
   const dispatch = useDispatch();
   const Fetch_User_Guild_Details = bindActionCreators(
     getUserGuildDetails,
@@ -166,7 +168,14 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
             </Text>
           </View>
           <View style={styles.Elevation}>
-            <TouchableOpacity>
+            <View>
+              <JoinedUserModal modalVisible={JoinedPlayermodal}
+                setModalVisible={setJoinedPlayermodal}
+                navigation={navigation}
+                Joined_User={Guild_Details.Followers}
+                Match={null} />
+            </View>
+            <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}>
               <View style={styles.NotificationWrapper}>
                 <Icon name="person" size={Dpheight(3.5)} color="black" />
                 <View style={styles.DashboardBox}>
@@ -218,11 +227,11 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.Elevation}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.replace('ClubWallet')} >
               <View style={styles.NotificationWrapper}>
                 <Icon name="wallet" size={Dpheight(3.5)} color="black" />
                 <View style={styles.DashboardBox}>
-                  <Text style={styles.NotificationText}>Guild Wallet</Text>
+                  <Text style={styles.NotificationText}>Club Wallet</Text>
                 </View>
                 <View
                   style={{

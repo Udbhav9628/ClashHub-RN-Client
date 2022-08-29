@@ -18,6 +18,17 @@ const Menu = ({ navigation }: { navigation: any }) => {
         <TouchableOpacity
           style={styles.menuTouchableOpacity}
           onPress={() => {
+            navigation.navigate("YourGuild");
+          }}
+        >
+          <View style={styles.menuItem}>
+            <Icon name="people" size={Dpheight(3.5)} color="black" />
+            <Text style={styles.Menutitle}>Your Club</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.menuTouchableOpacity}
+          onPress={() => {
             navigation.navigate("YourProfile");
           }}
         >
@@ -35,17 +46,6 @@ const Menu = ({ navigation }: { navigation: any }) => {
           <View style={styles.menuItem}>
             <Icon name="wallet" size={Dpheight(3.5)} color="black" />
             <Text style={styles.Menutitle}>Wallet</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.menuTouchableOpacity}
-          onPress={() => {
-            navigation.navigate("YourGuild");
-          }}
-        >
-          <View style={styles.menuItem}>
-            <Icon name="people" size={Dpheight(3.5)} color="black" />
-            <Text style={styles.Menutitle}>Your Guild</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuTouchableOpacity}>
