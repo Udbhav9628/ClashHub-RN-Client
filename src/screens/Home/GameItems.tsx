@@ -99,9 +99,12 @@ const GameItems = ({
       }}>
         {/* Name */}
         <Text
-          style={{ ...FONTS.body3, fontWeight: "700", color: COLORS.black }}
+          style={{
+            fontFamily: 'Poppins-Regular',
+            fontSize: Dpheight(0.7) * DPwidth(0.8), fontWeight: "700", color: COLORS.black
+          }}
         >
-          {Item.Game_Name} {Item.GameType} Match
+          {Item.Game_Name} {Item.GameType}
         </Text>
         {/* Description */}
         <Progressbar step={Item.Joined_User.length} totalsteps={Item.Total_Players} Height={Dpheight(0.8)} />
@@ -116,9 +119,15 @@ const GameItems = ({
               alignItems: "center",
             }}
           >
-            <Text style={{ ...FONTS.h3, color: COLORS.darkGray2 }}>Prize Per Kill </Text>
+            <Text style={{
+              fontFamily: 'Poppins-Regular',
+              fontSize: Dpheight(0.6) * DPwidth(0.7), color: COLORS.darkGray2
+            }}>Prize Per Kill </Text>
             <Text
-              style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
+              style={{
+                color: COLORS.black, fontFamily: 'Poppins-Regular',
+                fontSize: Dpheight(0.6) * DPwidth(0.7), fontWeight: "700"
+              }}
             >
               &#x20B9; {Item.Perkill_Prize}
             </Text>
@@ -137,11 +146,17 @@ const GameItems = ({
               alignItems: "center",
             }}
           >
-            <Text style={{ ...FONTS.h3, color: COLORS.darkGray2 }}>
+            <Text style={{
+              fontFamily: 'Poppins-Regular',
+              fontSize: Dpheight(0.6) * DPwidth(0.7), color: COLORS.darkGray2
+            }}>
               Map
             </Text>
             <Text
-              style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
+              style={{
+                color: COLORS.black, fontFamily: 'Poppins-Regular',
+                fontSize: Dpheight(0.6) * DPwidth(0.7), fontWeight: "700"
+              }}
             >
               {Item.Map}
             </Text>
@@ -152,9 +167,15 @@ const GameItems = ({
               alignItems: "center",
             }}
           >
-            <Text style={{ ...FONTS.h3, color: COLORS.darkGray2 }}>Type</Text>
+            <Text style={{
+              fontFamily: 'Poppins-Regular',
+              fontSize: Dpheight(0.6) * DPwidth(0.7), color: COLORS.darkGray2
+            }}>Type</Text>
             <Text
-              style={{ color: COLORS.black, ...FONTS.h3, fontWeight: "700" }}
+              style={{
+                color: COLORS.black, fontFamily: 'Poppins-Regular',
+                fontSize: Dpheight(0.6) * DPwidth(0.7), fontWeight: "700"
+              }}
             >
               {Item.GameType}
             </Text>
@@ -181,7 +202,8 @@ const GameItems = ({
         {Days === 0 && Hours === 0 && Minutes === 0 ? (<Text
           style={{
             color: COLORS.darkGray2,
-            ...FONTS.body4,
+            fontFamily: 'Poppins-Regular',
+            fontSize: Dpheight(0.7) * DPwidth(0.6),
             fontWeight: "bold",
           }}
         >
@@ -189,7 +211,8 @@ const GameItems = ({
         </Text>) : (<Text
           style={{
             color: "#000",
-            ...FONTS.body4,
+            fontFamily: 'Poppins-Regular',
+            fontSize: Dpheight(0.6) * DPwidth(0.7),
             fontWeight: "bold",
           }}
         >
