@@ -111,7 +111,7 @@ const Home = ({ navigation }: { navigation: any }) => {
       <GameTypesComp navigation={navigation} />
       <HeadingComp
         navigation={navigation}
-        Title={"Starting Soon"}
+        Title={"All Matches"}
         ShowViewAll={true}
         Navigate_to={"AllMatches"}
         Query={{

@@ -22,12 +22,14 @@ import { Gernerate_Paytm_Token, Gernerate_Razorpay_Token, Add_Wallet_Ballance } 
 import TransctionModal from "./TransctionModal";
 import BottomPopup from "../../components/BottomPopup";
 import RazorpayCheckout from 'react-native-razorpay';
+import AddMoneyModal from "../../components/AddMoneyModal";
 
 const Wallet = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [Disable, setDisable] = useState(false);
   const [withdrawlsmodalVisible, setwithdrawlsModalVisible] = useState(false);
+  const [Add_MoneymodalVisible, setAdd_MoneymodalVisible] = useState(false);
 
   const dispatch = useDispatch();
   const Get_User_Wallet_Ballance = bindActionCreators(
@@ -120,7 +122,8 @@ const Wallet = ({ navigation }: { navigation: any }) => {
 
         Add_Wallet_Ballance_FUNC(AmountToadd, razorpay_payment_id, `Added To Gamer Wallet`, true, Date.now(), razorpay_payment_id, razorpay_order_id, razorpay_signature);
       }).catch((error: any) => {
-        Alert.alert("Error", `${error.code} | ${error.description}`, [{ text: "OK" }]);
+        const errorhai = JSON.parse(error.description);
+        Alert.alert("Error", `${errorhai.error.description}`, [{ text: "OK" }]);
       });
     }
   }, [Tsucess])
@@ -132,8 +135,8 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     }
   }, [TError])
 
-  const AddMoneyFunction = async () => {
-    Gernerate_Razorpay_Token_FUNC()
+  const AddMoneyFunction = async (Amount: Number) => {
+    Gernerate_Razorpay_Token_FUNC(Amount)
   }
 
   useFocusEffect(
@@ -424,10 +427,36 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                   </View>
                   {/* ADD MONEY */}
                   <View style={style.Elevation}>
+                    <AddMoneyModal
+                      modalVisible={Add_MoneymodalVisible}
+                      setModalVisible={setAdd_MoneymodalVisible}
+                      AddMoneyFunction={AddMoneyFunction}
+                      setTempLoading={setTempLoading}
+                      TempLoading={TempLoading}
+                      ModalContainerStyle={
+                        {
+                          position: "absolute",
+                          bottom: -8,
+                          left: 2,
+                          right: 2,
+                          margin: 20,
+                          height: Dpheight(31),
+                          backgroundColor: "white",
+                          borderRadius: SIZES.radius,
+                          shadowColor: COLORS.black,
+                          shadowOpacity: 0.25,
+                          shadowRadius: 4,
+                          elevation: 5,
+                          shadowOffset: {
+                            width: 0,
+                            height: 2,
+                          },
+                        }
+                      }
+                    />
                     <TouchableOpacity
                       onPress={() => {
-                        AddMoneyFunction()
-                        setTempLoading(true)
+                        setAdd_MoneymodalVisible(true)
                       }}
                     >
                       <View style={style.NotificationWrapper}>

@@ -27,7 +27,7 @@ async function Gernerate_Paytm_Token() {
   }
 }
 
-function Gernerate_Razorpay_Token() {
+function Gernerate_Razorpay_Token(Amount: Number) {
   return async function (dispatch: any) {
     try {
       dispatch({
@@ -40,7 +40,7 @@ function Gernerate_Razorpay_Token() {
       const response = await axios.post(
         `${Ip_Address}/MakePayment`,
         {
-          Amount: 10,
+          Amount: Amount,
         },
         {
           headers: {
