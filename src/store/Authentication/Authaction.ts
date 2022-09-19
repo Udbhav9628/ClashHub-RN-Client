@@ -11,8 +11,6 @@ function Register_User(Data: any, Firebase_auth_token: any) {
       dispatch({
         type: 'FetchUser_Request',
       });
-      console.log('in Register function');
-      console.log(Data);
       const responce = await axios.post(`${Ip_Address}/Register`, Data, {
         headers: {
           'content-type': 'application/json',
@@ -21,7 +19,7 @@ function Register_User(Data: any, Firebase_auth_token: any) {
         },
       });
       await storeToken('Token', responce.data, dispatch);
-      if (responce.data.Message) {
+      if (responce.data.Registration_Fail) {
         dispatch({
           type: 'FetchUser_Fail',
           payload: responce.data.Message,
@@ -37,7 +35,6 @@ function Register_User(Data: any, Firebase_auth_token: any) {
         type: 'FetchUser_Fail',
         payload: error.message,
       });
-      console.log(error.message);
     }
   };
 }
@@ -60,10 +57,17 @@ function Login_User(Msgtoken: any, Token: any) {
         },
       });
       await storeToken('Token', responce.data, dispatch);
-      dispatch({
-        type: 'FetchUser_Sucess',
-        payload: responce.data,
-      });
+      if (responce.data.Login_Fail) {
+        dispatch({
+          type: 'FetchUser_Fail',
+          payload: responce.data.Message,
+        });
+      } else {
+        dispatch({
+          type: 'FetchUser_Sucess',
+          payload: responce.data,
+        });
+      }
     } catch (error: any) {
       dispatch({
         type: 'FetchUser_Fail',

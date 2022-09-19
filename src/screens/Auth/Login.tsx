@@ -16,7 +16,8 @@ import { validateNumber } from "../../utils/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
-  Login_User
+  Login_User,
+  Clear_Auth_Error
 } from "../../store/Authentication/Authaction";
 import messaging from '@react-native-firebase/messaging';
 import getAuth from "@react-native-firebase/auth";
@@ -32,6 +33,7 @@ const Login = ({ navigation }: { navigation: any }) => {
 
   const dispatch = useDispatch();
   const Login_User_Func = bindActionCreators(Login_User, dispatch);
+  const Clear_Auth_Error_Func = bindActionCreators(Clear_Auth_Error, dispatch);
 
   function HandleOnPress() {
     setDisable(true);
@@ -49,9 +51,26 @@ const Login = ({ navigation }: { navigation: any }) => {
     setNavigatetoOTP(true)
   }
 
-  const { loading, sucess } = useSelector(
+  const { loading, sucess, Message } = useSelector(
     (state: any) => state.FetchUser_reducer
   );
+
+  useEffect(() => {
+    if (Message) {
+      Alert.alert(
+        "Error",
+        Message,
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              Clear_Auth_Error_Func();
+            },
+          },
+        ]
+      );
+    }
+  }, [Message]);
 
   const [confirm, setConfirm] = useState({});
   async function signInWithPhoneNumber(phoneNumber: any) {

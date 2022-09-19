@@ -30,7 +30,7 @@ export const FetchUser_reducer = (State = [], action: any) => {
     case 'Clear_Error':
       return {
         ...State,
-        Error: null,
+        Message: null,
       };
     case 'Make_Auth_Sucess_Null':
       return {

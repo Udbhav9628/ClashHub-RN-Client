@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 const Profile = ({ navigation }: { navigation: any }) => {
 
   const { User } = useSelector((state: any) => state.FetchUser_reducer);
+  console.log(User);
 
   return (
     <View style={styles.Container}>
@@ -22,22 +23,22 @@ const Profile = ({ navigation }: { navigation: any }) => {
           }} />
         <View style={styles.Textwrapper}>
           <Text style={styles.Name}>{User.User}</Text>
-          <Text style={styles.Caption}>Play, Win and Earn</Text>
+          <Text style={styles.Caption}>{User.UserName}</Text>
         </View>
       </View>
       {/* Stats */}
       <View style={styles.statswrapper}>
         <View>
           <Text style={styles.statsTitle}>5</Text>
-          <Text style={styles.statsCaption}>Played</Text>
+          <Text style={styles.statsCaption}>Match</Text>
         </View>
         <View>
-          <Text style={styles.statsTitle}>12%</Text>
-          <Text style={styles.statsCaption}>Winrate</Text>
+          <Text style={styles.statsTitle}>12</Text>
+          <Text style={styles.statsCaption}>Kills</Text>
         </View>
         <View>
-          <Text style={styles.statsTitle}>&#x20B9;5454</Text>
-          <Text style={styles.statsCaption}>Income</Text>
+          <Text style={styles.statsTitle}>&#x20B9;54</Text>
+          <Text style={styles.statsCaption}>Earning</Text>
         </View>
       </View>
       {/* Dsahboard */}

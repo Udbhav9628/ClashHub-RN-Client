@@ -471,7 +471,7 @@ const GameDetailsPage = ({
                     marginBottom: Dpheight(0.6)
                   }}
                 >
-                  Rules
+                  Update
                 </Text>
                 <Text
                   style={{
@@ -515,7 +515,7 @@ const GameDetailsPage = ({
                     marginBottom: Dpheight(0.6)
                   }}
                 >
-                  Rules
+                  Update
                 </Text>
                 <Text
                   style={{
@@ -550,7 +550,7 @@ const GameDetailsPage = ({
                     marginBottom: Dpheight(0.6)
                   }}
                 >
-                  Rules
+                  Update
                 </Text>
                 <Text
                   style={{

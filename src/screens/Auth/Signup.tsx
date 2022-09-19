@@ -32,10 +32,9 @@ const Signup = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch();
   const Register_User_func = bindActionCreators(Register_User, dispatch);
 
-  const { loading, Message } = useSelector(
+  const { loading } = useSelector(
     (state: any) => state.FetchUser_reducer
   );
-
 
   async function HandleOnPress() {
     if (
@@ -82,7 +81,6 @@ const Signup = ({ navigation }: { navigation: any }) => {
 
 
   async function Register() {
-    console.log('in Register');
     await messaging().registerDeviceForRemoteMessages();
     const Msgtoken = await messaging().getToken();
 
@@ -127,8 +125,6 @@ const Signup = ({ navigation }: { navigation: any }) => {
       ]);
     }
   }
-
-
 
   // const [Timer, setTimer] = useState(60);
   // useEffect(() => {

@@ -20,6 +20,7 @@ import {
 } from "../../store/Guild/GuildAction";
 import Createguild from "./YourGuild/Createguild";
 import JoinedUserModal from "../Home/JoinedUserModal";
+import ClubFollowres from "./YourGuild/ClubFollowres";
 
 const YourGuild = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
@@ -169,11 +170,10 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
           </View>
           <View style={styles.Elevation}>
             <View>
-              <JoinedUserModal modalVisible={JoinedPlayermodal}
+              <ClubFollowres modalVisible={JoinedPlayermodal}
                 setModalVisible={setJoinedPlayermodal}
                 navigation={navigation}
-                Joined_User={Guild_Details.Followers}
-                Match={null} />
+                Followers={Guild_Details.Followers} />
             </View>
             <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}>
               <View style={styles.NotificationWrapper}>

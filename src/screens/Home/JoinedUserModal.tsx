@@ -1,4 +1,4 @@
-import { FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { COLORS, DPwidth, FONTS, SIZES } from '../../constants/Theame';
 import Icon from "react-native-vector-icons/Ionicons";
