@@ -18,11 +18,13 @@ import {
   Clear_Match_Reducer_Sucess,
   RemoveMatchItem,
 } from "../../store/Match/Matchaction";
+import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useFocusEffect } from "@react-navigation/native";
 import ModalJoinedPlayers from "../Menu/YourGuild/ModalJoinedPlayers";
 import PlayerGameNameInputModal from "./PlayerGameNameInputModal";
 import JoinedUserModal from "./JoinedUserModal";
 import RoomDetailsModal from "./RoomDetailsModal";
+import MatchUpdateModal from "../../components/MatchUpdateModal";
 
 const GameDetailsPage = ({
   route,
@@ -41,6 +43,8 @@ const GameDetailsPage = ({
   const [disable_joinmatch_button, setdisable_joinmatch_button] = useState(false);
 
   const [Disable, setDisable] = useState(false);
+
+  const [ShowUpdate_Modal, setShowUpdate_Modal] = useState(false);
 
   const [RoomDetailsModals, setRoomDetailsModal] = useState(false)
 
@@ -414,173 +418,46 @@ const GameDetailsPage = ({
               <Image source={GameImage} style={style.InfoWrapperImage} />
             </View>
           </View>
-          <View style={{ marginTop: Dpheight(4) }}>
-            {/* Rules */}
-            {/* Sechduled */}
-            {Minutes !== 0 && (<View style={{
-              marginHorizontal: SIZES.padding,
-            }}>
-              <Text
-                style={{
-                  ...FONTS.body2,
-                  color: COLORS.black,
-                  fontWeight: "700",
-                  marginBottom: Dpheight(0.6)
-                }}
-              >
-                Rules
-              </Text>
-              <Text
-                style={{
-                  color: COLORS.darkGray2, ...FONTS.h3,
-                  textAlign: 'justify',
-                  marginBottom: 15,
-                }}
-              >
-                &#187; Room ID and Password will be shared Here, 10 minutes Brfore match Start time
-              </Text>
-              <Text
-                style={{
-                  color: COLORS.darkGray2, ...FONTS.h3,
-                  textAlign: 'justify',
-                  marginBottom: 15,
-                }}
-              >
-                &#187; Make sure you join the Match Room ASAP before the match start
-              </Text>
-              <Text
-                style={{
-                  color: COLORS.darkGray2, ...FONTS.h3,
-                  textAlign: 'justify',
-                  marginBottom: 15,
-                }}
-              >
-                &#187; Do Not Disclose Room Details to Others
-              </Text>
-            </View>)}
-            {/* Ongoing */}
-            {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && (
-              <View style={{
-                marginHorizontal: SIZES.padding,
-              }}>
-                <Text
-                  style={{
-                    ...FONTS.body2,
-                    color: COLORS.black,
-                    fontWeight: "700",
-                    marginBottom: Dpheight(0.6)
-                  }}
-                >
-                  Update
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.darkGray2, ...FONTS.h3,
-                    textAlign: 'justify',
-                    marginBottom: 15,
-                  }}
-                >
-                  &#187; Custom Room ID and Password Is Available, Join The Match ASAP
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.darkGray2, ...FONTS.h3,
-                    textAlign: 'justify',
-                    marginBottom: 15,
-                  }}
-                >
-                  &#187; Do Not Disclose Room Details to Others
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.darkGray2, ...FONTS.h3,
-                    textAlign: 'justify',
-                    marginBottom: 15,
-                  }}
-                >
-                  &#187; You Can Always Report to Us , If Organiser Provide The Wrong Room Details
-                </Text>
+          <View style={{ marginTop: Dpheight(9.4) }}>
+            <View style={style.Elevation}>
+              <View>
+                <MatchUpdateModal modalVisible={ShowUpdate_Modal}
+                  setModalVisible={setShowUpdate_Modal}
+                  Days={Days}
+                  Hours={Hours}
+                  Minutes={Minutes}
+                  Match_Status={Item.Match_Status} />
               </View>
-            )}
-            {/* Completed */}
-            {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed' && (
-              <View style={{
-                marginHorizontal: SIZES.padding,
-              }}>
-                <Text
-                  style={{
-                    ...FONTS.body2,
-                    color: COLORS.black,
-                    fontWeight: "700",
-                    marginBottom: Dpheight(0.6)
-                  }}
-                >
-                  Update
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.darkGray2, ...FONTS.h3,
-                    textAlign: 'justify',
-                    marginBottom: 15,
-                  }}
-                >
-                  &#187; Match Is Sucessfully Completed You Can Check Out Your Result
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.darkGray2, ...FONTS.h3,
-                    textAlign: 'justify',
-                    marginBottom: 15,
-                  }}
-                >
-                  &#187; You Can Always Report to Us, If You Have Any Problem with Your Result
-                </Text>
-              </View>
-            )}
-            {/* Cancelled */}
-            {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed' && (
-              <View style={{
-                marginHorizontal: SIZES.padding,
-              }}>
-                <Text
-                  style={{
-                    ...FONTS.body2,
-                    color: COLORS.black,
-                    fontWeight: "700",
-                    marginBottom: Dpheight(0.6)
-                  }}
-                >
-                  Update
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.darkGray2, ...FONTS.h3,
-                    textAlign: 'justify',
-                    marginBottom: 15,
-                  }}
-                >
-                  &#187; Match Is Unfortunately Cancelled, Because Organiser Failed To Provide Room Details With in Time Limit
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.darkGray2, ...FONTS.h3,
-                    textAlign: 'justify',
-                    marginBottom: 15,
-                  }}
-                >
-                  &#187; You Can Claim You Money Back, It will Be added to Wallet ASAP
-                </Text>
-                <Text
-                  style={{
-                    color: COLORS.darkGray2, ...FONTS.h3,
-                    textAlign: 'justify',
-                    marginBottom: 15,
-                  }}
-                >
-                  &#187; You Can Always Contect Us If You Have any Problem
-                </Text>
-              </View>
-            )}
+              <TouchableOpacity
+                onPress={() => { setShowUpdate_Modal(true) }}>
+                <View style={style.GuildWrapper}>
+                  <View style={{ margin: 10 }}><Icons name="update" size={Dpheight(3.6)} color="black" /></View>
+                  {/* Info Of Guild */}
+                  <View style={style.GuildInfo}>
+                    <View>
+                      <Text
+                        style={{
+                          color: COLORS.black,
+                          fontSize: SIZES.h3,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Update
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        position: "absolute",
+                        top: -2,
+                        right: 15,
+                      }}
+                    >
+                      <Icon name="angle-right" size={20} color="black" />
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
             {/* Participants And Room Details */}
             <View style={{
               marginBottom: SIZES.padding
@@ -893,7 +770,6 @@ const GameDetailsPage = ({
         </>
       )}
     </View>
-
   );
 };
 
@@ -944,7 +820,6 @@ const style = StyleSheet.create({
     borderRadius: SIZES.radius,
     elevation: 3,
     marginVertical: 8,
-    margin: SIZES.padding,
     marginHorizontal: SIZES.padding,
     //For Ios Only -- SHOWdow code
     shadowColor: "#171717",

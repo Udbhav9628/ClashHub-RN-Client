@@ -121,7 +121,7 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
               GameImage={ReturnGameImage(item.Game_Name)}
               onPress={() =>
                 navigation.navigate("GuildMatchesDetails", {
-                  Item: item, SelectedMenu: SelectedMenu, GameImage: ReturnGameImage(item.Game_Name)
+                  Item: item, GameImage: ReturnGameImage(item.Game_Name)
                 })
               }
             />

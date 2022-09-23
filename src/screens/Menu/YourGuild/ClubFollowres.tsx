@@ -77,18 +77,19 @@ const ClubFollowres = ({
                                             UserId: item.FollowersId,
                                         })
                                     }}>
-                                        <View style={{ backgroundColor: index % 2 === 0 ? COLORS.lightGray2 : COLORS.white, paddingVertical: 10, borderBottomRightRadius: index === Followers.length - 1 ? SIZES.radius : 0, borderBottomLeftRadius: index === Followers.length - 1 ? SIZES.radius : 0, }}>
+                                        <View style={{ backgroundColor: index % 2 === 0 ? COLORS.lightGray2 : COLORS.lightGray1, paddingVertical: 10, borderBottomRightRadius: index === Followers.length - 1 ? SIZES.radius : 0, borderBottomLeftRadius: index === Followers.length - 1 ? SIZES.radius : 0, }}>
                                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: SIZES.padding }}>
                                                 <View style={{
-                                                    marginTop: 6,
                                                     alignItems: 'flex-start',
-
-                                                    width: DPwidth(38)
                                                 }}>
                                                     <Text style={{
                                                         color: COLORS.black,
                                                         ...FONTS.body3,
-                                                    }}>{item.FollowersName}</Text>
+                                                    }}>{item.FollowersName || item.UserName}</Text>
+                                                    {item.InGameName && <Text style={{
+                                                        color: COLORS.gray,
+                                                        ...FONTS.body4,
+                                                    }}>{item.InGameName}</Text>}
                                                 </View>
                                             </View>
                                         </View>

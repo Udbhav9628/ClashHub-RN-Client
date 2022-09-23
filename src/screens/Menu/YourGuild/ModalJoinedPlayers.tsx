@@ -210,12 +210,10 @@ const ModalJoinedPlayers = ({
                                         UserId: item.UserId,
                                     })
                                 }}>
-                                    <View style={{ backgroundColor: index % 2 === 0 ? COLORS.lightGray2 : COLORS.white, paddingVertical: 10, borderBottomRightRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, borderBottomLeftRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, }}>
+                                    <View style={{ backgroundColor: index % 2 === 0 ? COLORS.lightGray2 : COLORS.lightGray1, paddingVertical: 10, borderBottomRightRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, borderBottomLeftRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, }}>
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: SIZES.padding }}>
                                             <View style={{
-                                                marginTop: 6,
                                                 alignItems: 'flex-start',
-
                                                 width: DPwidth(38)
                                             }}>
                                                 <Text style={{
@@ -229,9 +227,7 @@ const ModalJoinedPlayers = ({
                                             </View>
 
                                             {Match.Match_Status === 'Completed' ? (<View style={{
-                                                marginTop: 6,
                                                 alignItems: 'center',
-
                                                 width: DPwidth(18)
                                             }}><Text style={{
                                                 color: COLORS.black,
@@ -258,7 +254,6 @@ const ModalJoinedPlayers = ({
                                                 />
                                             </View>)}
                                             {Match.Match_Status === 'Completed' && <View style={{
-                                                marginTop: 6,
                                                 alignItems: 'center',
                                                 width: DPwidth(18)
                                             }}>

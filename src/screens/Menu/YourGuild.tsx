@@ -11,6 +11,7 @@ import React, { useState, useEffect } from "react";
 import { SIZES, COLORS, DPwidth, Dpheight } from "../../constants/Theame";
 import Heading from "../../components/Heading";
 import Icon from "react-native-vector-icons/Ionicons";
+import Icons from "react-native-vector-icons/FontAwesome5";
 import ModalScreen from "./YourGuild/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -19,7 +20,6 @@ import {
   Clear_Guild_Reducer_Error,
 } from "../../store/Guild/GuildAction";
 import Createguild from "./YourGuild/Createguild";
-import JoinedUserModal from "../Home/JoinedUserModal";
 import ClubFollowres from "./YourGuild/ClubFollowres";
 
 const YourGuild = ({ navigation }: { navigation: any }) => {
@@ -177,7 +177,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
             </View>
             <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}>
               <View style={styles.NotificationWrapper}>
-                <Icon name="person" size={Dpheight(3.5)} color="black" />
+                <Icons name="users" size={Dpheight(3.4)} color="black" />
                 <View style={styles.DashboardBox}>
                   <Text style={styles.NotificationText}>{Guild_Details.Followers.length} Follower</Text>
                 </View>

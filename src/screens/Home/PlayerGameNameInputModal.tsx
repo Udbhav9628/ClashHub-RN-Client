@@ -1,6 +1,6 @@
 import { ActivityIndicator, Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react';
-import { COLORS, Dpheight, SIZES } from '../../constants/Theame';
+import { COLORS, Dpheight, FONTS, SIZES } from '../../constants/Theame';
 import HeadingComp from '../../components/HeadingComp';
 import FormInput from '../Auth/FormInput';
 
@@ -39,7 +39,7 @@ const PlayerGameNameInputModal = ({
                 left: 2,
                 right: 2,
                 margin: 20,
-                height: Dpheight(36),
+                height: Dpheight(30),
                 backgroundColor: "white",
                 borderRadius: SIZES.radius,
                 shadowColor: COLORS.black,
@@ -54,26 +54,26 @@ const PlayerGameNameInputModal = ({
                 <View style={{
                     marginTop: 30,
                 }}>
-                    <View style={{
-                        marginBottom: 15,
-                    }}>
+                    <View>
                         <View style={{
                             alignItems: 'center',
                         }}>
-                            <HeadingComp
-                                navigation={null}
-                                Title={"Enter In Game Name"}
-                                ShowViewAll={false}
-                                Navigate_to={''}
-                                Query={null}
-                            />
+                            <Text
+                                style={{
+                                    ...FONTS.h2,
+                                    fontWeight: "700",
+                                    color: COLORS.black,
+                                }}
+                            >
+                                Enter In Game Name
+                            </Text>
                         </View>
                         <View style={{
                             paddingHorizontal: 10
                         }}>
                             <FormInput
-                                containerStyle={{ marginTop: SIZES.radius }}
-                                label="InGame Name"
+                                containerStyle={{ marginTop: 0 }}
+                                label=""
                                 Placeholder={"Enter Here"}
                                 KeyboardType="default"
                                 autocomplete="off"
