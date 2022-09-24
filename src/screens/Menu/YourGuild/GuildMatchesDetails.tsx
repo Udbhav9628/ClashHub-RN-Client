@@ -33,8 +33,6 @@ const GuildMatchesDetails = ({
     const [ShowUpdate_Modal, setShowUpdate_Modal] = useState(false);
     const [ShowParticipants_Modal, setShowParticipants_Modal] = useState(false);
 
-    const [RoomDetailsModals, setRoomDetailsModal] = useState(false)
-
     const [Days, setDays] = useState(0);
     const [Hours, setHours] = useState(0);
     const [Minutes, setMinutes] = useState(0);

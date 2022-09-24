@@ -69,13 +69,19 @@ const ModalScreen = ({
     setMode(currentMode);
   }
 
+  // Time Function
   const onChange = (event: any, selectedDate: any) => {
     setShow(false);
 
     let tempdate = new Date(selectedDate);
 
-    setMaindateDateTime(selectedDate)
-    setdateTime(selectedDate);
+    const Match_HR = tempdate.getHours()
+    const Match_Min = tempdate.getMinutes()
+
+    tempdate.setHours(Match_HR, Match_Min, 0, 0);
+
+    setMaindateDateTime(tempdate);
+    setdateTime(tempdate);
 
     setFormateddate(tempdate.getDate() + " / " + (tempdate.getMonth() + 1) + " / " + tempdate.getFullYear());
 
