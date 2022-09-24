@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   Alert,
   ScrollView,
+  RefreshControl
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Crousal from "../../components/Crousal";
@@ -95,8 +96,25 @@ const Home = ({ navigation }: { navigation: any }) => {
     }
   }, [Guild_Error]);
 
+  const [refreshing, setRefreshing] = React.useState(false);
+  const wait = (timeout: any) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  }
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    Fetch_Home_Page_Match();
+    FetchAll_Guild();
+    wait(500).then(() => setRefreshing(false));
+  }, []);
+
   return (
-    <ScrollView style={styles.Container}>
+    <ScrollView style={styles.Container}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }>
       <StatusBarComp />
       <View style={styles.Crousal}>{<Crousal />}</View>
       <View style={styles.Heading}>

@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
+  ScrollView,
+  RefreshControl
 } from "react-native";
 import { SIZES, COLORS, FONTS, Dpheight } from "../../constants/Theame";
 import Icons from "../../constants/Icons";
@@ -174,6 +176,17 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     }
   }, [AddError])
 
+  const [refreshing, setRefreshing] = React.useState(false);
+  const wait = (timeout: any) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  }
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTempLoading(false);
+    Get_User_Wallet_Ballance();
+    wait(500).then(() => setRefreshing(false));
+  }, []);
+
   if (Addloading) {
     return (
       <View style={style.Container}>
@@ -200,7 +213,13 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     );
   } else {
     return (
-      <View style={style.Container}>
+      <ScrollView style={style.Container}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }>
         <Heading navigation={navigation} Title={"     Wallet"} />
         {TempLoading || loading ? (
           <View
@@ -526,7 +545,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
             </>
           )
         )}
-      </View>
+      </ScrollView>
     );
   }
 };

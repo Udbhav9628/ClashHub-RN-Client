@@ -7,6 +7,8 @@ import {
   Alert,
   FlatList,
   ActivityIndicator,
+  ScrollView,
+  RefreshControl
 } from "react-native";
 import React, { useEffect } from "react";
 import { SIZES, COLORS, Dpheight, DPwidth } from "../../constants/Theame";
@@ -49,6 +51,16 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
     }
   }, [Guild_Error]);
 
+  const [refreshing, setRefreshing] = React.useState(false);
+  const wait = (timeout: any) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  }
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    FetchAll_Guild();
+    wait(500).then(() => setRefreshing(false));
+  }, []);
+
   return (
     <View style={styles.Container}>
       {Guild_loading ? (
@@ -62,12 +74,18 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
           <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
       ) : All_Guilds && All_Guilds.length === 0 ? (
-        <View
+        <ScrollView
           style={{
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
           }}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
         >
           <Text
             style={{
@@ -77,13 +95,15 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
           >
             No Guilds Available
           </Text>
-        </View>
+        </ScrollView>
       ) : (
         <FlatList
           data={All_Guilds}
           keyExtractor={(Item) => `${Item._id}`}
           showsVerticalScrollIndicator={false}
           numColumns={2}
+          onRefresh={() => FetchAll_Guild()}
+          refreshing={Guild_loading}
           renderItem={({ item }: { item: any }) => (
             <View style={styles.Elevation}>
               <TouchableOpacity
