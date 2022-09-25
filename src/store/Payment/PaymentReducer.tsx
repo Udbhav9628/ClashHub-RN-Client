@@ -72,6 +72,16 @@ export const ClubWallet_Ballance_reducer = (State = [], action: any) => {
         loading: false,
         Error: action.payload,
       };
+    case 'Clear_Wallet_Sucess':
+      return {
+        ...State,
+        sucess: false,
+      };
+    case 'Clear_Wallet_Error':
+      return {
+        ...State,
+        Error: null,
+      };
     default:
       return State;
   }

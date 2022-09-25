@@ -48,11 +48,11 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     if (Error) {
+      Clear_Guild_ReducerError();
       Alert.alert("Error", Error, [
         {
           text: "OK",
           onPress: () => {
-            Clear_Guild_ReducerError();
             setSelectedMenu('Scheduled')
             navigation.goBack();
           },

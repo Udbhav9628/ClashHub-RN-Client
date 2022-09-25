@@ -107,12 +107,10 @@ const GameDetailsPage = ({
 
   useEffect(() => {
     if (Error) {
+      Clear_Match_ReducerError();
       Alert.alert("Error", Error, [
         {
           text: "OK",
-          onPress: () => {
-            Clear_Match_ReducerError();
-          },
         },
       ]);
     }
@@ -418,7 +416,8 @@ const GameDetailsPage = ({
               <Image source={GameImage} style={style.InfoWrapperImage} />
             </View>
           </View>
-          <View style={{ marginTop: Dpheight(9.4) }}>
+          {/* Bottom Buttons */}
+          <View style={{ marginTop: Dpheight(14) }}>
             <View style={style.Elevation}>
               <View>
                 <MatchUpdateModal modalVisible={ShowUpdate_Modal}
@@ -509,7 +508,7 @@ const GameDetailsPage = ({
                 <TouchableOpacity
                   onPress={() => { setJoinedPlayermodal(true) }}>
                   <View style={style.GuildWrapper}>
-                    <View style={{ margin: 10 }}><Icon name="users" size={Dpheight(3.5)} color="black" /></View>
+                    <View style={{ margin: 10 }}><Icon name="users" size={Dpheight(3)} color="black" /></View>
                     {/* Info Of Guild */}
                     <View style={style.GuildInfo}>
                       <View>
@@ -530,7 +529,7 @@ const GameDetailsPage = ({
                           right: 15,
                         }}
                       >
-                        <Icon name="angle-right" size={24} color="black" />
+                        <Icon name="angle-right" size={20} color="black" />
                       </View>
                     </View>
                   </View>

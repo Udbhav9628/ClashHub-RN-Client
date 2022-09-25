@@ -123,12 +123,12 @@ const ModalScreen = ({
   useEffect(() => {
     if (Sucess) {
       Clear_Match_Sucess();
+      ClearData()
+      setDisable(false)
       Alert.alert("Alert", "Match Created Sucessfully", [
         {
           text: "OK",
           onPress: () => {
-            setDisable(false)
-            ClearData()
             setModalVisible(false);
           },
         },
@@ -138,13 +138,13 @@ const ModalScreen = ({
 
   useEffect(() => {
     if (Error) {
+      ClearData()
       Clear_Match_Error()
+      setDisable(false);
       Alert.alert("Error", Error + " , Try Again", [
         {
           text: "OK",
           onPress: () => {
-            setDisable(false);
-            ClearData()
             setModalVisible(false);
           },
         },

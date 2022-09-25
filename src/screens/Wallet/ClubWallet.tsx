@@ -9,7 +9,7 @@ import { COLORS, Dpheight, SIZES } from '../../constants/Theame';
 import TransctionModal from './TransctionModal';
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Get_ClubWallet_Ballance, } from "../../store/Payment/PaymentAction";
+import { Get_ClubWallet_Ballance, Clear_Payment_Reducer_Error } from "../../store/Payment/PaymentAction";
 
 const ClubWallet = ({ navigation }: { navigation: any }) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -24,6 +24,10 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
         Get_ClubWallet_Ballance,
         dispatch
     );
+    const Clear_Payment_Reducer_Error_Func = bindActionCreators(
+        Clear_Payment_Reducer_Error,
+        dispatch
+    );
 
     useFocusEffect(
         React.useCallback(() => {
@@ -33,6 +37,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
     );
 
     useEffect(() => {
+        Clear_Payment_Reducer_Error_Func()
         if (Error) {
             Alert.alert("Error", Error, [{ text: "OK" }]);
         }

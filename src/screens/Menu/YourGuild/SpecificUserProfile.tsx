@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import { SIZES, COLORS, DPwidth, Dpheight } from "../../../constants/Theame";
 import Heading from "../../../components/Heading";
 import Icon from "react-native-vector-icons/Ionicons";

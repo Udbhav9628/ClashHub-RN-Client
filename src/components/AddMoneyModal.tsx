@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
     Modal,
     Text,
@@ -77,6 +77,7 @@ const AddMoneyModal = ({
                         placeholderTextColor={COLORS.gray}
                         keyboardType="numeric"
                         autoCapitalize="none"
+                        maxLength={3}
                         onChangeText={(text) => {
                             setAmmount_To_Add(parseInt(text))
                         }}

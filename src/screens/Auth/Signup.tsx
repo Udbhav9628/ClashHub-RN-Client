@@ -129,8 +129,6 @@ const Signup = ({ navigation }: { navigation: any }) => {
   // const [Timer, setTimer] = useState(60);
   // useEffect(() => {
   //   let Intervel = setInterval(() => {
-  //     console.log('In Interval');
-
   //     setTimer((prevtimer) => {
   //       if (prevtimer > 0) {
   //         return prevtimer - 1;
@@ -284,7 +282,7 @@ const Signup = ({ navigation }: { navigation: any }) => {
               Placeholder={"Enter Mobile No"}
               secureTextEntry={false}
               KeyboardType="phone-pad"
-              maxLength={15}
+              maxLength={10}
               autocomplete="off"
               autoCapatilize={"none"}
               containerStyle={{ marginTop: SIZES.radius }}

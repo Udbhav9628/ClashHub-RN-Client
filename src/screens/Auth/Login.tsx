@@ -57,15 +57,13 @@ const Login = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     if (Message) {
+      Clear_Auth_Error_Func();
       Alert.alert(
         "Error",
         Message,
         [
           {
             text: "OK",
-            onPress: () => {
-              Clear_Auth_Error_Func();
-            },
           },
         ]
       );
@@ -147,25 +145,11 @@ const Login = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     if (sucess) {
-      // Clear_Sucess_Func();
       setDisable(false);
       navigation.navigate("EnterInApp");
     }
   }, [sucess]);
 
-  // useEffect(() => {
-  //   if (Error) {
-  //     Alert.alert("Error", Error, [
-  //       {
-  //         text: "OK",
-  //         onPress: () => {
-  //           setDisable(false);
-  //           // Clear_Error_Func();
-  //         },
-  //       },
-  //     ]);
-  //   }
-  // }, [Error]);
   return (
     <ScrollView
       showsHorizontalScrollIndicator={false}
@@ -265,7 +249,7 @@ const Login = ({ navigation }: { navigation: any }) => {
                 KeyboardType="phone-pad"
                 autocomplete="off"
                 autoCapatilize={"none"}
-                maxLength={15}
+                maxLength={10}
                 containerStyle={{ marginTop: SIZES.radius }}
                 onchange={(Value: any) => {
                   validateNumber(Value, setPhone_No_Msg);

@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import React, { useCallback } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Linking } from "react-native";
 import { COLORS, Dpheight, SIZES } from "../../constants/Theame";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,17 @@ const Menu = ({ navigation }: { navigation: any }) => {
   const FetchUser_reducer = useSelector((state: any) => state.FetchUser_reducer);
   const dispatch = useDispatch();
   const SignOut_Func = bindActionCreators(SignOut, dispatch);
+
+  const url = "https://google.com";
+  const Open_Google_Form = useCallback(async () => {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  }, [url]);
+
   return (
     <View style={styles.container}>
       <View style={styles.menuWrapper}>
@@ -48,7 +59,10 @@ const Menu = ({ navigation }: { navigation: any }) => {
             <Text style={styles.Menutitle}>Wallet</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuTouchableOpacity}>
+        <TouchableOpacity style={styles.menuTouchableOpacity}
+          onPress={() => {
+            Open_Google_Form();
+          }}>
           <View style={styles.menuItem}>
             <Icon name="call" size={Dpheight(3.5)} color="black" />
             <Text style={styles.Menutitle}>Help</Text>

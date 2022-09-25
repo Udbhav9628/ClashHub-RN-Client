@@ -77,13 +77,10 @@ const GuildDetails = ({
 
   useEffect(() => {
     if (Error) {
+      Clear_Guild_ReducerError();
       Alert.alert("Error", Error, [
         {
           text: "OK",
-          onPress: () => {
-            Clear_Guild_ReducerError();
-            // Get_Guild_Matches(Item._id);
-          },
         },
       ]);
     }

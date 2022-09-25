@@ -117,14 +117,11 @@ const BottomPopup = ({
 
   useEffect(() => {
     if (Room_Details_Reducer.Error) {
-
+      setDisable(false);
+      setModalVisible(!modalVisible);
+      Clear_Match_Reducer_Error_Func();
       Alert.alert("Error", Room_Details_Reducer.Error, [{
         text: "OK",
-        onPress: () => {
-          setDisable(false);
-          setModalVisible(!modalVisible);
-          Clear_Match_Reducer_Error_Func();
-        },
       }]);
     }
   }, [Room_Details_Reducer.Error])
@@ -186,7 +183,7 @@ const BottomPopup = ({
               Placeholder={"Enter Custom Room Name"}
               KeyboardType="default"
               autoCapatilize={"none"}
-              maxLength={35}
+              maxLength={30}
               onchange={(Value: any) => {
                 const text = Value.replace(/\s{2,}/g, ' ').trim()
                 setCustom_Room_Name(text);
@@ -291,6 +288,7 @@ const BottomPopup = ({
                 placeholderTextColor={COLORS.gray}
                 keyboardType="numeric"
                 autoCapitalize="none"
+                maxLength={3}
                 onChangeText={(text) => {
                   console.log(parseInt(text));
                   if (parseInt(text)) {

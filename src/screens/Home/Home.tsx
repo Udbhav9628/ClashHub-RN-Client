@@ -63,16 +63,13 @@ const Home = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     if (Error) {
+      Clear_Match_ReducerError();
       Alert.alert(
         "Home Match Error",
         Error + "  check ip and running , Reload",
         [
           {
             text: "OK",
-            onPress: () => {
-              Clear_Match_ReducerError();
-              // Fetch_Home_Page_Match();
-            },
           },
         ]
       );
@@ -81,15 +78,13 @@ const Home = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     if (Guild_Error) {
+      Clear_Guild_ReducerError();
       Alert.alert(
         "Guild Error",
         Guild_Error + "  check ip and running , Reload",
         [
           {
             text: "OK",
-            onPress: () => {
-              Clear_Guild_ReducerError();
-            },
           },
         ]
       );

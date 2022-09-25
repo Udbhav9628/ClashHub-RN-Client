@@ -46,11 +46,11 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     if (Error) {
+      Clear_Guild_ReducerError();
       Alert.alert("Error", Error, [
         {
           text: "OK",
           onPress: () => {
-            Clear_Guild_ReducerError();
             navigation.navigate("Menu");
           },
         },

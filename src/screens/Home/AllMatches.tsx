@@ -48,12 +48,10 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
 
   useEffect(() => {
     if (Error) {
+      Clear_Match_ReducerError();
       Alert.alert("Error", Error + "  check ip and running , Reload", [
         {
           text: "OK",
-          onPress: () => {
-            Clear_Match_ReducerError();
-          },
         },
       ]);
     }

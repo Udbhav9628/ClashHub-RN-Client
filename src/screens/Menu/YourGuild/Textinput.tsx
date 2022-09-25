@@ -61,8 +61,8 @@ const Textinput = ({
           placeholderTextColor={COLORS.gray}
           keyboardType={KeyboardType}
           autoCapitalize={autoCapatilize}
-          // autoCompleteType={'off'}
-          onChangeText={(text) => {
+          onChangeText={(Value) => {
+            const text = Value.replace(/\s{2,}/g, ' ').trim()
             onchange(text);
           }}
         />

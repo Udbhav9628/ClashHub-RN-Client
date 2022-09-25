@@ -74,7 +74,6 @@ const Createguild = ({ navigation }: { navigation: any }) => {
         {
           text: "OK",
           onPress: () => {
-            Clear_Guild_Sucess();
             navigation.goBack();
           },
         },
@@ -84,12 +83,10 @@ const Createguild = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     if (Error) {
+      Clear_Guild_Error();
       Alert.alert("Error", Error + " , Try Again", [
         {
           text: "OK",
-          onPress: () => {
-            Clear_Guild_Error();
-          },
         },
       ]);
     }

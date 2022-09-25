@@ -72,7 +72,8 @@ const FormInput = ({
           autoCapitalize={autoCapatilize}
           autoComplete={autocomplete}
           maxLength={maxLength}
-          onChangeText={(text) => {
+          onChangeText={(Value) => {
+            const text = Value.replace(/\s{2,}/g, ' ').trim()
             onchange(text);
           }}
         />

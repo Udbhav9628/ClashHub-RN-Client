@@ -132,7 +132,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     if (TError) {
-      Clear_Payment_Reducer_Sucess_Func()
+      Clear_Payment_Reducer_Error_Func()
       Alert.alert("Error", TError, [{ text: "OK" }]);
     }
   }, [TError])
@@ -171,7 +171,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
   //Add Money Fail
   useEffect(() => {
     if (AddError) {
-      Clear_Payment_Reducer_Sucess_Func()
+      Clear_Payment_Reducer_Error_Func()
       Alert.alert("Error", 'Payment Faild!, Content Us if Money get duducted from your Bank, Do not worry we will make you refund if needed ', [{ text: "OK" }]);
     }
   }, [AddError])
