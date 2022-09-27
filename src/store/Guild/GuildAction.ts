@@ -165,6 +165,40 @@ function Join_Guild(Guildid: any) {
   };
 }
 
+function Get_Specific_Club_Details(Club_id: any) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'Get_Specific_Club_Request',
+      });
+
+      const Token: string = (await Return_Token(
+        'Get_Specific_Club_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/getSpecificClubDetails/${Club_id}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'Get_Specific_Club_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'Get_Specific_Club_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
 function Clear_Guild_Reducer_Sucess() {
   return (dispatch: any) => {
     dispatch({
@@ -188,4 +222,5 @@ export {
   Get_Guild_Matches_Details,
   Clear_Guild_Reducer_Sucess,
   Join_Guild,
+  Get_Specific_Club_Details,
 };

@@ -8,10 +8,9 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
-import React, { useEffect } from "react";
-import { SIZES, COLORS, Dpheight, DPwidth } from "../../constants/Theame";
+import React, { useEffect, useState } from "react";
+import { SIZES, COLORS, Dpheight, DPwidth, FONTS } from "../../constants/Theame";
 import Heading from "../../components/Heading";
-const logo = require("../../Assets/Images/logo_02.png");
 import GameItems from "../Home/GameItems";
 import HeadingComp from "../../components/HeadingComp";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +23,12 @@ import {
 } from "../../store/Guild/GuildAction";
 import { useFocusEffect } from "@react-navigation/native";
 import { ReturnGameImage } from "../../utils/Utils";
+import { ScrollView } from "react-native-gesture-handler";
+import Icons from "react-native-vector-icons/FontAwesome5";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import Iconss from "react-native-vector-icons/MaterialCommunityIcons";
+import ModalClub_Menu from "../Home/ModalClub_Menu";
+import ClubFollowres from "../Menu/YourGuild/ClubFollowres";
 
 const GuildDetails = ({
   navigation,
@@ -39,6 +44,10 @@ const GuildDetails = ({
   const is_Guild_Joined = Item.Followers.find((Item: any) => {
     return Item.FollowersId === User.id;
   });
+
+  const [Show_Admin_Menu, setShow_Admin_Menu] = useState(false)
+  const [ShowFollowers, setShowFollowers] = useState(false)
+  const [ClubJoined, setClubJoined] = useState(false)
 
   const dispatch = useDispatch();
   const Get_Guild_Matches = bindActionCreators(
@@ -71,7 +80,7 @@ const GuildDetails = ({
 
   useFocusEffect(
     React.useCallback(() => {
-      Get_Guild_Matches(Item._id, '');
+      Get_Guild_Matches(Item._id, 'Scheduled');
     }, [])
   );
 
@@ -88,6 +97,7 @@ const GuildDetails = ({
 
   useEffect(() => {
     if (Join_Guild_Reducer.Sucess) {
+      setClubJoined(true)
       Clear_Guild_Reducer_Sucess_Func()
       Alert.alert("Message", Join_Guild_Reducer.Responce, [
         {
@@ -109,7 +119,7 @@ const GuildDetails = ({
   }, [Join_Guild_Reducer.Error]);
 
   return (
-    <View style={styles.Container}>
+    <ScrollView style={styles.Container}>
       <Heading navigation={navigation} Title={" Guild Details"} />
       <View style={styles.Profile}>
         <Image
@@ -146,21 +156,21 @@ const GuildDetails = ({
             }
           }}
         >
-          <Text
+          {Join_Guild_Reducer.loading ? (<ActivityIndicator size="large" color={COLORS.primary} />) : (<Text
             style={{
               color: COLORS.white,
               fontWeight: "bold",
               fontSize: SIZES.body3,
             }}
           >
-            {is_Guild_Joined ? 'Joined' : 'Join Club'}
-          </Text>
+            {is_Guild_Joined || ClubJoined ? 'Joined' : 'Join Club'}
+          </Text>)}
         </TouchableOpacity>
       </View>
       <View style={{ marginTop: 8 }}>
         <HeadingComp
           navigation={null}
-          Title={"Upcomming Tournaments"}
+          Title={"Upcomming Matches"}
           ShowViewAll={false}
           Navigate_to={""}
           Query={null}
@@ -195,7 +205,7 @@ const GuildDetails = ({
                 fontWeight: "700",
               }}
             >
-              No Guild's Matches
+              No Upcomming Matches
             </Text>
           </View>
         ) : (
@@ -239,7 +249,93 @@ const GuildDetails = ({
           </View>
         )}
       </View>
-    </View>
+      {/* {About Club} */}
+      <View style={{ marginTop: 26 }}>
+        <Text style={{
+          ...FONTS.body3,
+          fontWeight: "700",
+          color: COLORS.black,
+          marginHorizontal: "4%",
+        }}>About Club</Text>
+        <View style={{
+          height: Dpheight(21),
+          borderRadius: SIZES.radius,
+          alignItems: "flex-start",
+          marginHorizontal: SIZES.padding,
+        }}>
+          <View style={{ marginVertical: 6, flexDirection: 'row', alignItems: 'center' }}>
+            <View><Icon name="description" size={28} color="black" /></View><Text
+              style={{
+                marginHorizontal: 12,
+                color: COLORS.black,
+                fontSize: SIZES.h3,
+                textAlign: 'justify',
+                marginRight: SIZES.padding,
+              }}
+            >
+              {Item.GuildDescription}.
+            </Text></View>
+          <View style={{ marginVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
+            <View><Icons name="users" size={22} color="black" /></View>
+            <View>
+              <ClubFollowres modalVisible={ShowFollowers}
+                setModalVisible={setShowFollowers}
+                navigation={navigation}
+                Followers={Item.Followers} />
+            </View>
+            <View style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <Text
+                style={{
+                  marginHorizontal: 12,
+                  color: COLORS.black,
+                  fontSize: SIZES.h3,
+                }}
+              >
+                {Item.Followers.length} Followers
+              </Text>
+              <TouchableOpacity onPress={() => setShowFollowers(true)} style={{
+                position: "absolute",
+                right: 15,
+              }}><Iconss name="dots-horizontal" size={20} color="black" /></TouchableOpacity>
+            </View>
+          </View>
+          <View style={{ marginVertical: 9, flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ marginLeft: 4 }}><Icons name="user-tie" size={24} color="black" /></View>
+            <View style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <ModalClub_Menu modalVisible={Show_Admin_Menu}
+                setModalVisible={setShow_Admin_Menu}
+                navigation={navigation}
+                Club_Details={null}
+                Admin_Id={Item.OwnerId}
+              />
+              <Text
+                style={{
+                  marginHorizontal: 12,
+                  color: COLORS.black,
+                  fontSize: SIZES.h3,
+                }}
+              >
+                Admin
+              </Text>
+              <TouchableOpacity onPress={() => setShow_Admin_Menu(true)} style={{
+                position: "absolute",
+                right: 15,
+              }}><Iconss name="dots-horizontal" size={20} color="black" /></TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

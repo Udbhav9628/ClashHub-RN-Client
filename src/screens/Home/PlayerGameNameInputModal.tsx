@@ -1,7 +1,6 @@
 import { ActivityIndicator, Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react';
 import { COLORS, Dpheight, FONTS, SIZES } from '../../constants/Theame';
-import HeadingComp from '../../components/HeadingComp';
 import FormInput from '../Auth/FormInput';
 
 const PlayerGameNameInputModal = ({
