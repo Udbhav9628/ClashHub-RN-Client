@@ -1,6 +1,6 @@
-import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { COLORS, Dpheight, DPwidth, FONTS, SIZES } from '../constants/Theame';
+import { COLORS, FONTS, SIZES } from '../constants/Theame';
 import Icon from "react-native-vector-icons/Ionicons";
 
 const MatchUpdateModal = ({ modalVisible,

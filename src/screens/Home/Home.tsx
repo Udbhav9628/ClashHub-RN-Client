@@ -237,7 +237,7 @@ const Home = ({ navigation }: { navigation: any }) => {
           >
             <Text
               style={{
-                ...FONTS.h3,
+                ...FONTS.h2,
                 fontWeight: "700",
               }}
             >

@@ -13,13 +13,12 @@ const Menu = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch();
   const SignOut_Func = bindActionCreators(SignOut, dispatch);
 
-  const url = "https://google.com";
-  const Open_Google_Form = useCallback(async () => {
+  let url: any;
+  const Open_Google_Form = useCallback(async (URL: any) => {
+    url = URL;
     const supported = await Linking.canOpenURL(url);
     if (supported) {
       await Linking.openURL(url);
-    } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
     }
   }, [url]);
 
@@ -61,7 +60,7 @@ const Menu = ({ navigation }: { navigation: any }) => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuTouchableOpacity}
           onPress={() => {
-            Open_Google_Form();
+            Open_Google_Form("https://forms.gle/Dh7uJ8NoELMy8BG6A");
           }}>
           <View style={styles.menuItem}>
             <Icon name="call" size={Dpheight(3.5)} color="black" />
@@ -70,12 +69,33 @@ const Menu = ({ navigation }: { navigation: any }) => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuTouchableOpacity}
           onPress={() => {
-            SignOut_Func()
+            Alert.alert(
+              "Alert",
+              "Are You Sure",
+              [
+                {
+                  text: "Yes",
+                  onPress: () => { SignOut_Func() }
+                },
+                {
+                  text: "Cancel",
+                },
+              ]
+            );
           }}
         >
           <View style={styles.menuItem}>
             <Icon name="log-out" size={Dpheight(3.5)} color="black" />
             <Text style={styles.Menutitle}>Logout</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuTouchableOpacity}
+          onPress={() => {
+            Open_Google_Form("https://forms.gle/2dRnSWZLr5HB5zWV8");
+          }}>
+          <View style={styles.menuItem}>
+            <Icon name="ios-bug-sharp" size={Dpheight(3.5)} color="black" />
+            <Text style={styles.Menutitle}>Report Bug</Text>
           </View>
         </TouchableOpacity>
       </View>

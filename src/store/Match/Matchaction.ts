@@ -103,7 +103,6 @@ function Fetch_All_Matchs(SelectedMenu: any) {
 }
 
 function Get_Joined_Matchs(Guild_id: any, MatchType: any) {
-  console.log(MatchType);
   return async function (dispatch: any) {
     try {
       dispatch({
@@ -162,7 +161,6 @@ function Update_Match(Data: any, id: any) {
         type: 'Update_Result_Sucess',
         payload: response.data,
       });
-      console.log(response.data);
     } catch (error: any) {
       dispatch({
         type: 'Update_Result_Fail',
@@ -198,7 +196,6 @@ function Update_Match_Room_Details(Room_Details_Data: any, Matchid: any) {
         type: 'Update_Room_Details_Sucess',
         payload: response.data,
       });
-      console.log(response.data);
     } catch (error: any) {
       dispatch({
         type: 'Update_Room_Details_Fail',
@@ -274,7 +271,6 @@ function Fetch_Match_Room_Details(Match_id: any) {
         type: 'Fetch_Room_Details_Sucess',
         payload: response.data,
       });
-      console.log(response.data);
     } catch (error: any) {
       dispatch({
         type: 'Fetch_Room_Details_Fail',
@@ -292,14 +288,8 @@ function Push_In_Array(Match: any, Data: any) {
         (Element: any) => Element._id === Data.Id,
       );
       if (User) {
-        console.log('Entry SucessFull');
         User.Kills = Data.Kills;
-        console.log(Duplicate_match);
-      } else {
-        console.log('User Not Found');
       }
-    } else {
-      console.log('Match Not Found');
     }
     dispatch({
       type: 'Push In an Array',

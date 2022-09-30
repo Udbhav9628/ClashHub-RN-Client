@@ -22,7 +22,6 @@ import {
 import { Get_Specific_Club_Details } from "../../store/Guild/GuildAction";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useFocusEffect } from "@react-navigation/native";
-import ModalJoinedPlayers from "../Menu/YourGuild/ModalJoinedPlayers";
 import PlayerGameNameInputModal from "./PlayerGameNameInputModal";
 import JoinedUserModal from "./JoinedUserModal";
 import RoomDetailsModal from "./RoomDetailsModal";
@@ -103,12 +102,9 @@ const GameDetailsPage = ({
       Clear_Match_Sucess();
       if (Responce.Sucess) {
         Remove_Match_Item(Home_Matchs, Item._id);//problem here
-        Alert.alert("Message", Responce.Msg, [
-          {
-            text: "OK",
-          },
-        ]);
-        navigation.goBack();
+        navigation.navigate("PaymentSucess", {
+          Matched_Joined: true
+        })
       } else {
         Alert.alert("Message", Responce.Msg, [
           {

@@ -1,10 +1,9 @@
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react';
-import { COLORS, Dpheight, FONTS, SIZES } from '../../constants/Theame';
+import { Modal, StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native'
+import React from 'react';
+import { COLORS, Dpheight, SIZES } from '../../constants/Theame';
 import Icon from "react-native-vector-icons/Ionicons";
 import Icons from "react-native-vector-icons/Entypo";
 import Iconss from "react-native-vector-icons/FontAwesome";
-import ClubFollowres from '../Menu/YourGuild/ClubFollowres';
 
 const ModalClub_Menu = ({
     modalVisible,
@@ -65,6 +64,17 @@ const ModalClub_Menu = ({
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.menuTouchableOpacity}
+                                onPress={() => {
+                                    Alert.alert(
+                                        "Message",
+                                        "Feature Comming Soon",
+                                        [
+                                            {
+                                                text: "ok",
+                                            },
+                                        ]
+                                    );
+                                }}
                             >
                                 <View style={styles.menuItem}>
                                     <Icons name="share" size={Dpheight(3.2)} color="black" />
@@ -73,6 +83,17 @@ const ModalClub_Menu = ({
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.menuTouchableOpacity}
+                                onPress={() => {
+                                    Alert.alert(
+                                        "Message",
+                                        "Feature Comming Soon",
+                                        [
+                                            {
+                                                text: "ok",
+                                            },
+                                        ]
+                                    );
+                                }}
                             >
                                 <View style={styles.menuItem}>
                                     <Iconss name="exclamation-triangle" size={Dpheight(3.2)} color="black" />

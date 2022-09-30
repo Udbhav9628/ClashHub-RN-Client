@@ -44,11 +44,7 @@ const ModalJoinedPlayers = ({
             );
             if (User) {
                 User.Kills = Data.Kills;
-            } else {
-                console.log('User Not Found');
             }
-        } else {
-            console.log('Match Not Found');
         }
     }
 
@@ -66,7 +62,6 @@ const ModalJoinedPlayers = ({
             } else {
                 let Total_Kills = 0;
                 Match_in_Function.Joined_User.forEach((data: any) => {
-                    console.log(data);
                     Total_Kills = Total_Kills + Number(data.Kills)
                 });
                 if ((Total_Kills - 1) > Match.Joined_User.length) {
@@ -89,8 +84,6 @@ const ModalJoinedPlayers = ({
                     ]);
                 }
             }
-        } else {
-            console.log('Match is Not Available');
         }
     }
 

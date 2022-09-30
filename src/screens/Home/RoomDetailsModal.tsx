@@ -1,7 +1,7 @@
-import { ActivityIndicator, Alert, Modal, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Alert, Modal, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { COLORS, Dpheight, FONTS, SIZES } from '../../constants/Theame';
-import { Fetch_Match_Room_Details, Clear_Match_Reducer_Sucess, Clear_Match_Reducer_Error } from "../../store/Match/Matchaction";
+import { Fetch_Match_Room_Details, Clear_Match_Reducer_Error } from "../../store/Match/Matchaction";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 

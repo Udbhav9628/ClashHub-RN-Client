@@ -18,7 +18,6 @@ import {
   Fetch_All_Guild,
   Clear_Guild_Reducer_Error,
 } from "../../store/Guild/GuildAction";
-const logo = require("../../Assets/Images/logo_02.png");
 
 const GuildScreen = ({ navigation }: { navigation: any }) => {
   const { All_Guilds, Guild_loading, Guild_Error } = useSelector(
@@ -72,11 +71,6 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
         </View>
       ) : All_Guilds && All_Guilds.length === 0 ? (
         <ScrollView
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -86,8 +80,9 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
         >
           <Text
             style={{
-              fontSize: SIZES.h3,
+              fontSize: SIZES.h2,
               fontWeight: "700",
+              marginTop: 330
             }}
           >
             No Guilds Available

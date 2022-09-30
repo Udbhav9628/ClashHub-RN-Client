@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from "react-native";
 import React from "react";
 import { SIZES, COLORS, DPwidth, Dpheight } from "../../constants/Theame";
 import Heading from "../../components/Heading";
@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 const Profile = ({ navigation }: { navigation: any }) => {
 
   const { User } = useSelector((state: any) => state.FetchUser_reducer);
-  console.log(User);
 
   return (
     <View style={styles.Container}>
@@ -43,7 +42,17 @@ const Profile = ({ navigation }: { navigation: any }) => {
       </View>
       {/* Dsahboard */}
       <View style={styles.Elevation}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          Alert.alert(
+            "Message",
+            "Feature Comming Soon",
+            [
+              {
+                text: "ok",
+              },
+            ]
+          );
+        }}>
           <View style={styles.NotificationWrapper}>
             <Icon name="shirt" size={Dpheight(3.5)} color="black" />
             <View style={styles.DashboardBox}>
@@ -62,7 +71,17 @@ const Profile = ({ navigation }: { navigation: any }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.Elevation}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          Alert.alert(
+            "Message",
+            "Feature Comming Soon",
+            [
+              {
+                text: "ok",
+              },
+            ]
+          );
+        }}>
           <View style={styles.NotificationWrapper}>
             <Icon name="game-controller-sharp" size={Dpheight(3.5)} color="black" />
             <View style={styles.DashboardBox}>
@@ -81,7 +100,17 @@ const Profile = ({ navigation }: { navigation: any }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.Elevation}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          Alert.alert(
+            "Message",
+            "Feature Comming Soon",
+            [
+              {
+                text: "ok",
+              },
+            ]
+          );
+        }}>
           <View style={styles.NotificationWrapper}>
             <Icon name="people" size={Dpheight(3.5)} color="black" />
             <View style={styles.DashboardBox}>

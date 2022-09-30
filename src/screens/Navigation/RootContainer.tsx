@@ -14,7 +14,6 @@ import Profile from "../Menu/Profile";
 import YourGuild from "../Menu/YourGuild";
 import YourGuildMatches from "../Menu/YourGuild/YourGuildMatches";
 import AllMatches from "../Home/AllMatches";
-import Notification from "../Notification/Notification";
 import GuildMatchesDetails from "../Menu/YourGuild/GuildMatchesDetails";
 import auth from '@react-native-firebase/auth';
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +21,7 @@ import { bindActionCreators } from "redux";
 import { FetchUser } from "../../store/Authentication/Authaction";
 import ClubWallet from "../Wallet/ClubWallet";
 import SpecificUserProfile from "../Menu/YourGuild/SpecificUserProfile";
+import PaymentSucess from "../Wallet/Payment_Sucess";
 
 const Stack = createStackNavigator();
 
@@ -37,11 +37,9 @@ export default function App() {
     try {
       const Unsubscriber = auth().onAuthStateChanged((user) => {
         if (user) {
-          console.log('In Root Fetch user');
           FetchUser_Func(user);
           Unsubscriber();
         } else {
-          console.log('In Root Fetch user else part');
           FetchUser_Func(null);
           Unsubscriber();
         }
@@ -130,15 +128,15 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name="Notification"
-            component={Notification}
+            name="SpecificUserProfile"
+            component={SpecificUserProfile}
             options={{
               headerShown: false,
             }}
           />
           <Stack.Screen
-            name="SpecificUserProfile"
-            component={SpecificUserProfile}
+            name="PaymentSucess"
+            component={PaymentSucess}
             options={{
               headerShown: false,
             }}

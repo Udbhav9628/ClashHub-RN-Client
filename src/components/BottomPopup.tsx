@@ -290,7 +290,6 @@ const BottomPopup = ({
                 autoCapitalize="none"
                 maxLength={3}
                 onChangeText={(text) => {
-                  console.log(parseInt(text));
                   if (parseInt(text)) {
                     setWithdrawlsAmount(parseInt(text))
                   } else {

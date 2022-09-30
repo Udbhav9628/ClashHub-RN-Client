@@ -76,7 +76,6 @@ const Login = ({ navigation }: { navigation: any }) => {
       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
       setConfirm(confirmation);
     } catch (error) {
-      console.log(error);
       Alert.alert("Error", "Something went wront" + error, [
         {
           text: "OK",
@@ -88,7 +87,6 @@ const Login = ({ navigation }: { navigation: any }) => {
   async function confirmCode(code: any, confirm: any) {
     try {
       const responce = await confirm.confirm(code);
-      console.log(responce);
     } catch (error) {
       Alert.alert("Error", 'Invalid code.', [
         {
@@ -104,7 +102,7 @@ const Login = ({ navigation }: { navigation: any }) => {
       const users = auths.currentUser;
       let unsubscribe: any;
       if (users) {
-        auth().signOut().then(() => console.log('User signed out!'));
+        auth().signOut()
       }
       try {
         unsubscribe = auth().onAuthStateChanged((user) => {
@@ -172,35 +170,6 @@ const Login = ({ navigation }: { navigation: any }) => {
               }}
             />
           </View>
-
-          {/* CountDown Timer for OTP */}
-          {/* <View style={style.TimerContainer}>
-          <Text
-            style={{
-              marginRight: SIZES.base,
-              fontSize: SIZES.h3,
-            }}
-          >
-            Didn't recieved code?
-          </Text>
-          <TouchableOpacity
-            onPress={() => {
-              setTimer(60);
-            }}
-            disabled={Timer === 0 ? false : true}
-          >
-            <Text
-              style={{
-                color: Timer === 0 ? COLORS.primary : COLORS.gray2,
-                fontWeight: "bold",
-                fontSize: SIZES.h3,
-              }}
-            >
-              {Timer === 0 ? "Resend" : `Resend in ${Timer} s`}
-            </Text>
-          </TouchableOpacity>
-        </View> */}
-
           {/* Footer Section */}
           <View>
             <TouchableOpacity

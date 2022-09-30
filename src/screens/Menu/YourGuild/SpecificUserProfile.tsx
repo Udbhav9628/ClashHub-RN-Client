@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
 import React from "react";
 import { SIZES, COLORS, DPwidth, Dpheight } from "../../../constants/Theame";
 import Heading from "../../../components/Heading";
-import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Get_Specific_User_Details } from "../../../store/Authentication/Authaction";
@@ -23,8 +22,6 @@ const SpecificUserProfile = ({
 
     useFocusEffect(
         React.useCallback(() => {
-            console.log('in profile focus');
-            console.log(UserId);
             Get_Specific_User_Details_Function(UserId)
         }, [])
     );

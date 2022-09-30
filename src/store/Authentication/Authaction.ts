@@ -48,7 +48,6 @@ function Login_User(Msgtoken: any, Token: any) {
       const Data = {
         Msgtoken,
       };
-      console.log('in Login function');
       const responce = await axios.put(`${Ip_Address}/Login`, Data, {
         headers: {
           'content-type': 'application/json',
@@ -133,13 +132,11 @@ function Get_Specific_User_Details(User_id: any) {
           },
         },
       );
-      console.log(response.data);
       dispatch({
         type: 'Get_Specific_User_Sucess',
         payload: response.data,
       });
     } catch (error: any) {
-      console.log(error.message);
       dispatch({
         type: 'Get_Specific_User_Fail',
         payload: error.message,
@@ -151,9 +148,7 @@ function Get_Specific_User_Details(User_id: any) {
 function SignOut() {
   return async function (dispatch: any) {
     try {
-      auth()
-        .signOut()
-        .then(() => console.log('User signed out in SignOut function'));
+      auth().signOut();
       await AsyncStorage.removeItem('Token');
       dispatch({
         type: 'SignOut',

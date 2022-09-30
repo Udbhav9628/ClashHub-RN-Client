@@ -116,7 +116,6 @@ const Signup = ({ navigation }: { navigation: any }) => {
   async function confirmCode(code: any, confirm: any) {
     try {
       const responce = await confirm.confirm(code);
-      console.log(responce);
     } catch (error) {
       Alert.alert("Error", "Something went wront" + error, [
         {

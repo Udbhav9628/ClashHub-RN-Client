@@ -54,9 +54,7 @@ function Gernerate_Razorpay_Token(Amount: Number) {
         type: 'Gernerate_Razorpay_Token_Sucess',
         payload: response.data,
       });
-      console.log(response.data);
     } catch (error: any) {
-      console.log(error.message);
       dispatch({
         type: 'Gernerate_Razorpay_Token_Fail',
         payload: error.message,
@@ -80,7 +78,6 @@ function Add_Wallet_Ballance(
       dispatch({
         type: 'Add_Wallet_Request',
       });
-      console.log('in add wallet ballane');
 
       const Token: string = (await Return_Token(
         'Add_Wallet_Fail',
@@ -267,8 +264,6 @@ function GetPendingWithdrawls() {
         payload: response.data,
       });
     } catch (error: any) {
-      console.log(error.message);
-
       dispatch({
         type: 'GetPendingWithdrawls_Fail',
         payload: error.message,
@@ -283,7 +278,6 @@ function Create_withdrawls_request(Amount: any) {
       dispatch({
         type: 'Create_withdrawls_Request',
       });
-      console.log('Create_withdrawls');
 
       const Token: string = (await Return_Token(
         'Create_withdrawls_Fail',
@@ -307,7 +301,6 @@ function Create_withdrawls_request(Amount: any) {
         payload: response.data,
       });
     } catch (error: any) {
-      console.log(error.message);
       dispatch({
         type: 'Create_withdrawls_Fail',
         payload: error.message,

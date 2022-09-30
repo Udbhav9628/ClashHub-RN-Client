@@ -7,17 +7,10 @@ import {
     ActivityIndicator,
     TextInput,
     Alert,
-    FlatList,
     StyleSheet
 } from "react-native";
-import { SIZES, COLORS, FONTS, Dpheight } from "../constants/Theame";
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Update_Match_Room_Details, Clear_Match_Reducer_Sucess, Clear_Match_Reducer_Error } from "../store/Match/Matchaction";
+import { SIZES, COLORS, Dpheight } from "../constants/Theame";
 import HeadingComp from "./HeadingComp";
-import { Create_withdrawls_request, GetPendingWithdrawls, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../store/Payment/PaymentAction";
-import Textinput from "../screens/Menu/YourGuild/Textinput";
-import Icon from "react-native-vector-icons/Feather";
 
 
 const AddMoneyModal = ({

@@ -100,11 +100,6 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
               <Text style={styles.NotificationText2}>
                 {Guild_Details.Followers.length} Followers
               </Text>
-              {/* <View style={{ marginBottom: 10 }}>
-                <Text style={styles.NotificationText2}>
-                  {Guild_Details.GuildDescription}
-                </Text>
-              </View> */}
             </View>
           </View>
           <View style={styles.statswrapper}>

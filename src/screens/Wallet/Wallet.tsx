@@ -19,8 +19,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { GetUserWalletBallance, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../../store/Payment/PaymentAction";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { Ip_Address, MID, URL_SCHEME } from '../../constants/Data';
-import { Gernerate_Paytm_Token, Gernerate_Razorpay_Token, Add_Wallet_Ballance } from "../../store/Payment/PaymentAction";
+import { Gernerate_Razorpay_Token, Add_Wallet_Ballance } from "../../store/Payment/PaymentAction";
 import TransctionModal from "./TransctionModal";
 import BottomPopup from "../../components/BottomPopup";
 import RazorpayCheckout from 'react-native-razorpay';
@@ -62,39 +61,6 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     (state: any) => state.Get_Ballance_Reducer
   );
 
-  // To DO - Chech comming responce see DOCUMENTATION
-  // const AddMoneyFunction = async () => {
-  //   let amt = "10.00";
-  //   const token = await Gernerate_Paytm_Token();
-  //   const parsed = JSON.parse(token.post_data)
-  //   console.log(parsed.body.orderId);
-  //   console.log(parsed.body.callbackUrl);
-  //   try {
-  //     AllInOneSDKManager.startTransaction(
-  //       parsed.body.orderId,//order id
-  //       MID,
-  //       token.responsePaytm.body.txnToken,//token
-  //       amt,
-  //       parsed.body.callbackUrl,
-  //       true,
-  //       true,
-  //       URL_SCHEME
-  //     )
-  //       .then((result) => {
-  //         if (result.STATUS === 'TXN_SUCCESS') {
-  //           console.log(result);
-  //           Add_Wallet_Ballance_FUNC(result.TXNAMOUNT, result.TXNID, `Added To Gamer Wallet`, true, result.TXNDATE)
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log("gateway error", err);
-  //       });
-  //   } catch (error) {
-  //     console.log("try catch error", error)
-  //   }
-  //   setTempLoading(false)
-  // }
-
   const { Tsucess, RazorPay_Token, TError } = useSelector(
     (state: any) => state.Razorpay_Token_Reducer
   );
@@ -120,7 +86,6 @@ const Wallet = ({ navigation }: { navigation: any }) => {
       setTempLoading(false)
       RazorpayCheckout.open(options).then((data: any) => {
         const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = data;
-        console.log(data);
 
         Add_Wallet_Ballance_FUNC(AmountToadd, razorpay_payment_id, `Added To Gamer Wallet`, true, Date.now(), razorpay_payment_id, razorpay_order_id, razorpay_signature);
       }).catch((error: any) => {
@@ -163,8 +128,9 @@ const Wallet = ({ navigation }: { navigation: any }) => {
   useEffect(() => {
     if (Addsucess) {
       Clear_Payment_Reducer_Sucess_Func()
-      Get_User_Wallet_Ballance();
-      Alert.alert("Message", 'Payment Sucessfull', [{ text: "OK" }]);
+      navigation.navigate("PaymentSucess", {
+        Matched_Joined: false
+      })
     }
   }, [Addsucess])
 
@@ -355,35 +321,6 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                       </View>
                     </TouchableOpacity>
                   </View>
-                  {/* Club Wallet */}
-                  {/* <View style={style.Elevation}>
-                    <TouchableOpacity onPress={() => navigation.replace('ClubWallet')}>
-                      <View style={style.NotificationWrapper}>
-                        <MaterialCommunityIcons
-                          name="wallet"
-                          size={Dpheight(3.1)}
-                          color="black"
-                        />
-                        <View style={style.DashboardBox}>
-                          <Text style={style.NotificationText}>Club Wallet</Text>
-                        </View>
-                        <View
-                          style={{
-                            position: "absolute",
-                            top: 20,
-                            right: 5,
-                          }}
-                        >
-                          <Icon
-                            name="chevron-forward-outline"
-                            size={Dpheight(3)}
-                            color="black"
-                          />
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View> */}
-                  {/* Withdraw Money */}
                   <View style={style.Elevation}>
                     {/* withdrawls modal */}
                     <BottomPopup
@@ -504,43 +441,6 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                     </TouchableOpacity>
                   </View>
                 </View>
-                {/* Text Notes */}
-                {/* <View style={{
-                  position: "absolute",
-                  bottom: 2,
-                  right: 78
-                }}>
-                  <Text
-                    style={{
-                      marginBottom: 10,
-                      color: COLORS.darkGray,
-                      fontSize: SIZES.body5,
-                      textAlign: 'center'
-                    }}
-                  >
-                    This is Test Payment System
-                  </Text>
-                  <Text
-                    style={{
-                      marginBottom: 10,
-                      color: COLORS.darkGray,
-                      fontSize: SIZES.body5,
-                      textAlign: 'center'
-                    }}
-                  >
-                    Phone No = 77777 77777 and Otp = 489871
-                  </Text>
-                  <Text
-                    style={{
-                      marginBottom: 10,
-                      color: COLORS.darkGray,
-                      fontSize: SIZES.body5,
-                      textAlign: 'center'
-                    }}
-                  >
-                    Use This credentials To Pay With Paytm Wallet
-                  </Text>
-                </View> */}
               </>
             </>
           )

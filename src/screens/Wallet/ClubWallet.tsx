@@ -99,7 +99,8 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                             }}
                                         >
                                             {/* Temporaly Solution */}
-                                            &#x20B9; {parseFloat(Amount.Ballance).toFixed(2)}
+                                            {/* &#x20B9; {parseFloat(Amount.Ballance).toFixed(2)} */}
+                                            &#x20B9; {(Amount.Ballance)}
                                         </Text>
                                     </View>
                                     {/* User Details */}
@@ -183,37 +184,18 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                         </View>
                                     </TouchableOpacity>
                                 </View>
-                                {/* Club Wallet */}
-                                {/* <View style={style.Elevation}>
-                                    <TouchableOpacity onPress={() => navigation.replace('Wallet')}>
-                                        <View style={style.NotificationWrapper}>
-                                            <MaterialCommunityIcons
-                                                name="wallet"
-                                                size={Dpheight(3)}
-                                                color="black"
-                                            />
-                                            <View style={style.DashboardBox}>
-                                                <Text style={style.NotificationText}>Gamer Wallet</Text>
-                                            </View>
-                                            <View
-                                                style={{
-                                                    position: "absolute",
-                                                    top: 20,
-                                                    right: 5,
-                                                }}
-                                            >
-                                                <Icon
-                                                    name="chevron-forward-outline"
-                                                    size={Dpheight(3)}
-                                                    color="black"
-                                                />
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View> */}
-                                {/* Withdraw Money */}
                                 <View style={style.Elevation}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => {
+                                        Alert.alert(
+                                            "Message",
+                                            "Feature Comming Soon",
+                                            [
+                                                {
+                                                    text: "Yes",
+                                                },
+                                            ]
+                                        );
+                                    }}>
                                         <View style={style.NotificationWrapper}>
                                             <MaterialCommunityIcons
                                                 name="credit-card-minus"
