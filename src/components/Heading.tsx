@@ -9,17 +9,16 @@ const Heading = ({ navigation, Title }: { navigation: any; Title: string }) => {
       {/* Header */}
       <View style={styles.Header}>
         {/* Back Button */}
-        <TouchableOpacity
-          style={styles.HeaderLeft}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="angle-left" size={20} color="black" />
-        </TouchableOpacity>
-        <View
-          style={{
-            marginLeft: 79,
-          }}
-        >
+        <View style={{ width: '26%' }}>
+          <TouchableOpacity
+            style={styles.HeaderLeft}
+            onPress={() => navigation.goBack()}
+          >
+            <Icon name="angle-left" size={20} color="black" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ width: '68%' }}>
           <Text
             style={{
               color: COLORS.black,
@@ -29,6 +28,8 @@ const Heading = ({ navigation, Title }: { navigation: any; Title: string }) => {
           >
             {Title}
           </Text>
+        </View>
+        <View>
         </View>
       </View>
     </View>
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 8,
     marginHorizontal: SIZES.h3,
+    justifyContent: 'space-between',
   },
   HeaderLeft: {
     alignItems: "center",

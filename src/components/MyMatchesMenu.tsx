@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity, FlatList } from "react-native";
 import React from "react";
 import { COLORS, SIZES, FONTS } from "../constants/Theame";
+import StyleSheet from 'react-native-media-query';
 
 const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Matchs, Guild_id }: { SelectedMenu: any; setSelectedMenu: any; GamesTypes: any; Fetch_Matchs: any; Guild_id: any }) => {
   return (
@@ -30,8 +31,7 @@ const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Matchs
                 SelectedMenu === item.Name
                   ? COLORS.primary
                   : COLORS.black,
-              ...FONTS.body3,
-              fontWeight: "700",
+              ...styles.Title
             }}
           >
             {item.Name}
@@ -43,3 +43,14 @@ const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Matchs
 };
 
 export default MyMatchesMenu;
+
+const { styles } = StyleSheet.create({
+  Title: {
+    fontFamily: 'Poppins-SemiBold', fontSize: 14,
+    fontWeight: "700",
+    '@media (min-height:  805.8181818181819)': {
+      ...FONTS.body3,
+      fontWeight: "700",
+    },
+  },
+})

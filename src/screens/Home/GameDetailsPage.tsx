@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  StyleSheet,
+  StyleSheet as RN_Styles,
   Image,
   TouchableOpacity,
   Alert,
@@ -27,6 +27,7 @@ import JoinedUserModal from "./JoinedUserModal";
 import RoomDetailsModal from "./RoomDetailsModal";
 import MatchUpdateModal from "../../components/MatchUpdateModal";
 import ModalClub_Menu from "./ModalClub_Menu";
+import StyleSheet from 'react-native-media-query';
 
 const GameDetailsPage = ({
   route,
@@ -240,11 +241,7 @@ const GameDetailsPage = ({
               {/* Title */}
               <View style={style.TitleWraper}>
                 <Text
-                  style={{
-                    ...FONTS.h1,
-                    fontWeight: "700",
-                    color: COLORS.black,
-                  }}
+                  style={styles.Title}
                 >
                   {Item.Game_Name} {Item.GameType} Match
                 </Text>
@@ -662,11 +659,7 @@ const GameDetailsPage = ({
               {/* Title */}
               <View style={style.TitleWraper}>
                 <Text
-                  style={{
-                    ...FONTS.h1,
-                    fontWeight: "700",
-                    color: COLORS.black,
-                  }}
+                  style={styles.Title}
                 >
                   {Item.Game_Name} {Item.GameType} Match
                 </Text>
@@ -676,20 +669,12 @@ const GameDetailsPage = ({
                 {Minutes !== 0 && (
                   <View style={style.EntryFeeWraper}>
                     <Text
-                      style={{
-                        ...FONTS.body3,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
+                      style={styles.Starts_In}
                     >
                       Starts In
                     </Text>
                     <Text
-                      style={{
-                        ...FONTS.body2,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
+                      style={styles.Time}
                     >
                       {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
                     </Text>
@@ -702,74 +687,54 @@ const GameDetailsPage = ({
                 <View>
                   {/* Joined Players Number */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                    <Text style={styles.Content_Heading}>
                       Slots
                     </Text>
                     <Text
-                      style={{
-                        color: COLORS.black,
-                        ...FONTS.body3,
-                        fontWeight: "700",
-                      }}
+                      style={styles.MaiN_Content}
                     >
                       {Item.Joined_User.length}/{Item.Total_Players}
                     </Text>
                   </View>
                   <View style={style.InfoLeftItem}>
-                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                    <Text style={styles.Content_Heading}>
                       Prize
                     </Text>
                     <Text
-                      style={{
-                        color: COLORS.black,
-                        ...FONTS.body3,
-                        fontWeight: "700",
-                      }}
+                      style={styles.MaiN_Content}
                     >
                       &#x20B9; {Item.Perkill_Prize} Per Kill
                     </Text>
                   </View>
                   {/* Match Map */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                    <Text style={styles.Content_Heading}>
                       Map
                     </Text>
                     <Text
-                      style={{
-                        color: COLORS.black,
-                        ...FONTS.body3,
-                        fontWeight: "700",
-                      }}
+                      style={styles.MaiN_Content}
                     >
                       {Item.Map}
                     </Text>
                   </View>
                   {/* Match Date */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                    <Text style={styles.Content_Heading}>
                       Match Date
                     </Text>
                     <Text
-                      style={{
-                        color: COLORS.black,
-                        ...FONTS.body3,
-                        fontWeight: "700",
-                      }}
+                      style={styles.MaiN_Content}
                     >
                       {new Date(Item.Date_Time).toDateString()}
                     </Text>
                   </View>
                   {/* Match Time */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                    <Text style={styles.Content_Heading}>
                       Time - 24H Format
                     </Text>
                     <Text
-                      style={{
-                        color: COLORS.black,
-                        ...FONTS.body3,
-                        fontWeight: "700",
-                      }}
+                      style={styles.MaiN_Content}
                     >
                       {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
                     </Text>
@@ -784,11 +749,7 @@ const GameDetailsPage = ({
           </View>
           {/* Hosted By */}
           <View style={{ marginHorizontal: SIZES.padding }}>
-            <Text style={{
-              ...FONTS.body3,
-              fontWeight: "700",
-              color: COLORS.black,
-            }}>Hosted by</Text>
+            <Text style={styles.Hosted_By}>Hosted by</Text>
             <View style={{
               height: Dpheight(8),
               borderRadius: SIZES.radius,
@@ -917,7 +878,7 @@ const GameDetailsPage = ({
 
 export default GameDetailsPage;
 
-const style = StyleSheet.create({
+const style = RN_Styles.create({
   container: {
     backgroundColor: COLORS.white,
     flex: 1,
@@ -983,3 +944,63 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
   },
 });
+
+const { styles } = StyleSheet.create({
+  Title: {
+    ...FONTS.body2,
+    fontWeight: "700",
+    color: COLORS.black,
+    '@media (min-height:  805.8181818181819)': {
+      ...FONTS.h1,
+      fontWeight: "700",
+      color: COLORS.black,
+    },
+  },
+  Starts_In: {
+    ...FONTS.h3,
+    color: COLORS.primary,
+    fontWeight: "700",
+    '@media (min-height:  805.8181818181819)': {
+      ...FONTS.body3,
+      color: COLORS.primary,
+      fontWeight: "700",
+    },
+  },
+  Time: {
+    ...FONTS.body3,
+    color: COLORS.primary,
+    fontWeight: "700",
+    '@media (min-height:  805.8181818181819)': {
+      ...FONTS.body2,
+      color: COLORS.primary,
+      fontWeight: "700",
+    },
+  },
+  MaiN_Content: {
+    color: COLORS.black,
+    fontFamily: 'Poppins-SemiBold', fontSize: 14,
+    fontWeight: "700",
+    '@media (min-height:  805.8181818181819)': {
+      color: COLORS.black,
+      ...FONTS.body3,
+      fontWeight: "700",
+    },
+  },
+  Content_Heading: {
+    color: COLORS.darkGray2,
+    fontFamily: 'Poppins-SemiBold', fontSize: 12,
+    '@media (min-height:  805.8181818181819)': {
+      color: COLORS.darkGray2, ...FONTS.h3
+    },
+  },
+  Hosted_By: {
+    fontFamily: 'Poppins-SemiBold', fontSize: 15,
+    fontWeight: "700",
+    color: COLORS.black,
+    '@media (min-height:  805.8181818181819)': {
+      ...FONTS.body3,
+      fontWeight: "700",
+      color: COLORS.black,
+    },
+  },
+})

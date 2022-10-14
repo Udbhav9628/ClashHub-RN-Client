@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View, Modal, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { StyleSheet as RN_Styles, Text, View, Modal, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native'
+import React, { useEffect } from 'react'
 import HeadingComp from '../../components/HeadingComp';
 import Icon from "react-native-vector-icons/Feather";
 import { SIZES, COLORS, Dpheight, DPwidth } from '../../constants/Theame';
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import { GetUserTransaction, GetClubTransaction } from "../../store/Payment/PaymentAction";
+import StyleSheet from 'react-native-media-query';
 
 const TransctionModal = ({
     modalVisible,
@@ -98,21 +99,18 @@ const TransctionModal = ({
                                             </View>
                                             <View>
                                                 <Text
-                                                    style={{
-                                                        ...style.NotificationText,
-                                                        color: COLORS.black,
-                                                    }}
+                                                    style={styles.Title}
                                                 >
                                                     {item.Message}
                                                 </Text>
                                                 <View style={{ flexDirection: 'row' }}>
-                                                    <Text style={{ ...style.NotificationText2, marginRight: '5%' }}>{new Date(item.Date).toDateString()}</Text>
-                                                    <Text style={style.NotificationText2}>{new Date(item.Date).toLocaleTimeString().slice(0, 5)}</Text>
+                                                    <Text style={{ ...styles.NotificationText2, marginRight: '5%' }}>{new Date(item.Date).toDateString()}</Text>
+                                                    <Text style={styles.NotificationText2}>{new Date(item.Date).toLocaleTimeString().slice(0, 5)}</Text>
                                                 </View>
                                             </View>
                                             <View style={style.Value}>
                                                 <Text
-                                                    style={{ ...style.ValueText, color: COLORS.black }}
+                                                    style={styles.Amount}
                                                 >
                                                     &#x20B9;{item.Amount}
                                                 </Text>
@@ -130,7 +128,7 @@ const TransctionModal = ({
 
 export default TransctionModal
 
-const style = StyleSheet.create({
+const style = RN_Styles.create({
     Container: {
         flex: 1,
         backgroundColor: COLORS.white,
@@ -154,23 +152,42 @@ const style = StyleSheet.create({
         borderRadius: SIZES.radius,
         paddingHorizontal: SIZES.base,
     },
-    NotificationText: {
-        fontSize: SIZES.body4,
-        fontWeight: "bold",
-    },
-    NotificationText2: {
-        fontSize: SIZES.h5,
-        fontWeight: "600",
-        color: COLORS.gray,
-    },
     Value: {
         position: "absolute",
         top: 17,
         right: 15,
     },
-    ValueText: {
-        fontSize: SIZES.body4,
+});
+
+const { styles } = StyleSheet.create({
+    Title: {
+        fontSize: SIZES.body5,
         fontWeight: "bold",
         color: COLORS.black,
+        '@media (min-height:  805.8181818181819)': {
+            fontSize: SIZES.body4,
+            fontWeight: "bold",
+            color: COLORS.black,
+        },
     },
-});
+    NotificationText2: {
+        fontSize: 10,
+        fontWeight: "600",
+        color: COLORS.gray,
+        '@media (min-height:  805.8181818181819)': {
+            fontSize: SIZES.h5,
+            fontWeight: "600",
+            color: COLORS.gray,
+        },
+    },
+    Amount: {
+        fontSize: SIZES.body5,
+        fontWeight: "bold",
+        color: COLORS.black,
+        '@media (min-height:  805.8181818181819)': {
+            fontSize: SIZES.body4,
+            fontWeight: "bold",
+            color: COLORS.black
+        },
+    },
+})

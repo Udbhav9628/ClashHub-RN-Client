@@ -1,5 +1,5 @@
 import {
-  StyleSheet,
+  StyleSheet as RN_Styles,
   Text,
   View,
   FlatList,
@@ -19,6 +19,7 @@ import {
 } from "../../store/Match/Matchaction";
 import Heading from "../../components/Heading";
 import { ReturnGameImage } from "../../utils/Utils";
+import StyleSheet from 'react-native-media-query';
 
 const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
   //const [All_Matches_State, setAll_Matches_State] = useState([] as Array<any>);
@@ -58,7 +59,7 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
   }, [Error]);
 
   return (
-    <View style={styles.Container}>
+    <View style={style.Container}>
       <Heading navigation={navigation} Title={" All Matches"} />
       <View>
         <FlatList
@@ -88,8 +89,7 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
                     SelectedMenu === item.Query_String
                       ? COLORS.primary
                       : COLORS.black,
-                  ...FONTS.body3,
-                  fontWeight: "700",
+                  ...styles.Title
                 }}
               >
                 {item.name}
@@ -138,7 +138,7 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
           renderItem={({ item }) => (
             <GameItems
               ContainerStyle={{
-                ...styles.Elevation,
+                ...style.Elevation,
                 height: Dpheight(25),
                 alignItems: "center",
                 justifyContent: "center",
@@ -171,7 +171,7 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
 
 export default AllMatches;
 
-const styles = StyleSheet.create({
+const style = RN_Styles.create({
   Container: {
     flex: 1,
     backgroundColor: COLORS.white,
@@ -189,3 +189,14 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
 });
+
+const { styles } = StyleSheet.create({
+  Title: {
+    fontFamily: 'Poppins-SemiBold', fontSize: 14,
+    fontWeight: "700",
+    '@media (min-height:  805.8181818181819)': {
+      ...FONTS.body3,
+      fontWeight: "700",
+    },
+  },
+})
