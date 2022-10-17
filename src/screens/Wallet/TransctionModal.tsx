@@ -63,64 +63,80 @@ const TransctionModal = ({
                     }}
                 >
                     <ActivityIndicator size="large" color={COLORS.primary} />
-                </View>) : (<>
-                    <View style={{ marginTop: 12 }}>
-                        <HeadingComp
-                            navigation={null}
-                            Title={"All Transctions"}
-                            ShowViewAll={false}
-                            Navigate_to={''}
-                            Query={null}
-                        />
-                    </View>
-                    <View style={{
-                        marginTop: 10,
-                        marginBottom: 50
-                    }}>
-                        <FlatList
-                            data={Transactions}
-                            keyExtractor={(Item) => `${Item._id}`}
-                            showsHorizontalScrollIndicator={false}
-                            showsVerticalScrollIndicator={false}
-                            renderItem={({ item }: { item: any }) => (
-                                <View style={style.Elevation}>
-                                    <TouchableOpacity>
-                                        <View style={style.NotificationWrapper}>
-                                            <View
-                                                style={{
-                                                    height: Dpheight(8.7),
-                                                    width: DPwidth(8),
-                                                    marginLeft: 4,
-                                                    justifyContent: "center",
-                                                    borderRadius: SIZES.radius,
-                                                }}
-                                            >
-                                                <Icon name={item.Type ? "arrow-down-right" : "arrow-up-left"} size={Dpheight(2.5)} color="#000" />
-                                            </View>
-                                            <View>
-                                                <Text
-                                                    style={styles.Title}
+                </View>) : Transactions && Transactions.length === 0 ? (
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontSize: SIZES.h2,
+                                fontWeight: "700",
+                            }}
+                        >
+                            No Transaction
+                        </Text>
+                    </View>) : (<>
+                        <View style={{ marginTop: 12 }}>
+                            <HeadingComp
+                                navigation={null}
+                                Title={"All Transctions"}
+                                ShowViewAll={false}
+                                Navigate_to={''}
+                                Query={null}
+                            />
+                        </View>
+                        <View style={{
+                            marginTop: 10,
+                            marginBottom: 50
+                        }}>
+                            <FlatList
+                                data={Transactions}
+                                keyExtractor={(Item) => `${Item._id}`}
+                                showsHorizontalScrollIndicator={false}
+                                showsVerticalScrollIndicator={false}
+                                renderItem={({ item }: { item: any }) => (
+                                    <View style={style.Elevation}>
+                                        <TouchableOpacity>
+                                            <View style={style.NotificationWrapper}>
+                                                <View
+                                                    style={{
+                                                        height: Dpheight(8.7),
+                                                        width: DPwidth(8),
+                                                        marginLeft: 4,
+                                                        justifyContent: "center",
+                                                        borderRadius: SIZES.radius,
+                                                    }}
                                                 >
-                                                    {item.Message}
-                                                </Text>
-                                                <View style={{ flexDirection: 'row' }}>
-                                                    <Text style={{ ...styles.NotificationText2, marginRight: '5%' }}>{new Date(item.Date).toDateString()}</Text>
-                                                    <Text style={styles.NotificationText2}>{new Date(item.Date).toLocaleTimeString().slice(0, 5)}</Text>
+                                                    <Icon name={item.Type ? "arrow-down-right" : "arrow-up-left"} size={Dpheight(2.5)} color="#000" />
+                                                </View>
+                                                <View>
+                                                    <Text
+                                                        style={styles.Title}
+                                                    >
+                                                        {item.Message}
+                                                    </Text>
+                                                    <View style={{ flexDirection: 'row' }}>
+                                                        <Text style={{ ...styles.NotificationText2, marginRight: '5%' }}>{new Date(item.Date).toDateString()}</Text>
+                                                        <Text style={styles.NotificationText2}>{new Date(item.Date).toLocaleTimeString().slice(0, 5)}</Text>
+                                                    </View>
+                                                </View>
+                                                <View style={style.Value}>
+                                                    <Text
+                                                        style={styles.Amount}
+                                                    >
+                                                        &#x20B9;{item.Amount}
+                                                    </Text>
                                                 </View>
                                             </View>
-                                            <View style={style.Value}>
-                                                <Text
-                                                    style={styles.Amount}
-                                                >
-                                                    &#x20B9;{item.Amount}
-                                                </Text>
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            )}
-                        />
-                    </View></>)}
+                                        </TouchableOpacity>
+                                    </View>
+                                )}
+                            />
+                        </View></>)}
             </View>
         </Modal >
     )

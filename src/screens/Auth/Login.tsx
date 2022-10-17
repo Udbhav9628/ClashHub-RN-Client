@@ -6,13 +6,9 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-  ActivityIndicator,
-  StyleSheet
+  ActivityIndicator
 } from "react-native";
-import { useFocusEffect } from '@react-navigation/native';
-import { COLORS, SIZES, Dpheight, DPwidth } from "../../constants/Theame";
-import FormInput from "./FormInput";
-import { validateNumber } from "../../utils/Utils";
+import { COLORS, SIZES, Dpheight } from "../../constants/Theame";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
@@ -22,36 +18,44 @@ import {
 import messaging from '@react-native-firebase/messaging';
 import getAuth from "@react-native-firebase/auth";
 import auth from '@react-native-firebase/auth';
-import OTPInputView from '@twotalltotems/react-native-otp-input';
+import {
+  GoogleSignin
+} from '@react-native-google-signin/google-signin';
+import Icon from "react-native-vector-icons/AntDesign";
 
 const Login = ({ navigation }: { navigation: any }) => {
-  const [Phone_No, setPhone_No] = useState("");
-  const [Phone_No_Msg, setPhone_No_Msg] = useState("");
   const [Disable, setDisable] = useState(false);
-  const [Nowregister, setNowregister] = useState(false)
-  const [NavigatetoOTP, setNavigatetoOTP] = useState(false)
 
   const dispatch = useDispatch();
   const Login_User_Func = bindActionCreators(Login_User, dispatch);
   const Clear_Auth_Error_Func = bindActionCreators(Clear_Auth_Error, dispatch);
 
-  function HandleOnPress() {
-    setDisable(true);
-    if (Phone_No === "" || Phone_No_Msg !== "") {
+  async function onGoogleButtonPress() {
+    try {
+      setDisable(true);
+      await GoogleSignin.signOut();
+      const { idToken } = await GoogleSignin.signIn();
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      await auth().signInWithCredential(googleCredential);
+      Login();
+    } catch (error) {
       setDisable(false);
-      Alert.alert("Error", "Please Enter 10 Digit Mobile No", [
+      Alert.alert("Error", "Something went wront" + error, [
         {
           text: "OK",
         },
       ]);
-      setDisable(false);
-      return;
     }
-    signInWithPhoneNumber(`+91${Phone_No}`)
-    setNavigatetoOTP(true)
   }
 
-  const { loading, sucess, Message } = useSelector(
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: '624037012209-e0hlc0kf2bcfhohn976tu9um2obvjn30.apps.googleusercontent.com',
+    });
+  }, []);
+
+  const { sucess, Message } = useSelector(
     (state: any) => state.FetchUser_reducer
   );
 
@@ -69,65 +73,6 @@ const Login = ({ navigation }: { navigation: any }) => {
       );
     }
   }, [Message]);
-
-  const [confirm, setConfirm] = useState({});
-  async function signInWithPhoneNumber(phoneNumber: any) {
-    try {
-      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-      setConfirm(confirmation);
-    } catch (error) {
-      Alert.alert("Error", "Something went wront" + error, [
-        {
-          text: "OK",
-        },
-      ]);
-    }
-  }
-
-  async function confirmCode(code: any, confirm: any) {
-    try {
-      const responce = await confirm.confirm(code);
-    } catch (error) {
-      Alert.alert("Error", 'Invalid code.', [
-        {
-          text: "OK",
-        },
-      ]);
-    }
-  }
-
-  useFocusEffect(
-    React.useCallback(() => {
-      const auths = getAuth();
-      const users = auths.currentUser;
-      let unsubscribe: any;
-      if (users) {
-        auth().signOut()
-      }
-      try {
-        unsubscribe = auth().onAuthStateChanged((user) => {
-          if (user) {
-            setNowregister(true)
-          }
-        });
-      } catch (error) {
-        Alert.alert("Error", "Something went wront" + error, [
-          {
-            text: "OK",
-          },
-        ]);
-      }
-      return () => {
-        unsubscribe()
-      };
-    }, [])
-  );
-
-  useEffect(() => {
-    if (Nowregister) {
-      Login()
-    }
-  }, [Nowregister])
 
   async function Login() {
     await messaging().registerDeviceForRemoteMessages();
@@ -153,203 +98,83 @@ const Login = ({ navigation }: { navigation: any }) => {
       showsHorizontalScrollIndicator={false}
       style={{ backgroundColor: COLORS.white }}
     >
-      {NavigatetoOTP ? (
-        <View>
-          <AuthLayout
-            Title={"OTP Authentication"}
-            SubTitle={`An Authentication code has been send to ${Phone_No}`}
-          />
-          {/* Otp Section */}
-          <View style={style.OtpContainer}>
-            <OTPInputView
-              pinCount={6}
-              style={style.OTPInputView}
-              codeInputFieldStyle={style.codeInputFieldStyle}
-              onCodeFilled={(code) => {
-                confirmCode(code, confirm);
-              }}
-            />
-          </View>
-          {/* Footer Section */}
-          <View>
-            <TouchableOpacity
-              style={style.FooterContainer_Touchable}
-            >
-              {loading ? (
-                <View>
-                  <ActivityIndicator size="large" color={COLORS.primary} />
-                </View>
-              ) : (
-                <Text
-                  style={{
-                    color: COLORS.white,
-                    fontWeight: "bold",
-                    fontSize: SIZES.body3,
-                  }}
-                >
-                  Continue
-                </Text>
-              )}
-            </TouchableOpacity>
-          </View>
-          {/* Terms And Conditions */}
-          <View style={style.TermsandConditions}>
-            <Text style={style.TimerContainer_Text}>
-              By singinup you agree to our.
-            </Text>
-            <TouchableOpacity>
-              <Text style={style.TermsandConditions_Text2}>
-                Terms And Conditions
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>) : (<>
-          <View style={{ marginTop: "0%" }}><AuthLayout Title={"Let's Sign You In"} SubTitle={"Login To continue"} />
-            <View
+      <View style={{ marginTop: "0%" }}><AuthLayout Title={"Welcome To ClashHub"} SubTitle={"A Dream Place For Gamers"} />
+        <View
+          style={{
+            marginTop: Dpheight('48%'),
+            paddingHorizontal: SIZES.padding,
+          }}
+        >
+          {/* Sign In Button */}
+          <TouchableOpacity
+            style={{
+              height: Dpheight(6.9),
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: SIZES.padding,
+              borderRadius: SIZES.radius,
+              backgroundColor: Disable
+                ? COLORS.transparentPrimray
+                : COLORS.primary,
+            }}
+            onPress={onGoogleButtonPress}
+            disabled={Disable}
+          >
+            {Disable ? (<View
               style={{
-                marginTop: Dpheight('37%'),
-                paddingHorizontal: SIZES.padding,
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              <FormInput
-                label="Mobile"
-                Placeholder={"Enter Mobile No"}
-                secureTextEntry={false}
-                KeyboardType="phone-pad"
-                autocomplete="off"
-                autoCapatilize={"none"}
-                maxLength={10}
-                containerStyle={{ marginTop: SIZES.radius }}
-                onchange={(Value: any) => {
-                  validateNumber(Value, setPhone_No_Msg);
-                  setPhone_No(Value);
-                }}
-                errorMsg={Phone_No_Msg}
-                prepandComponent={null}
-                appendComponent={
-                  null
-                }
-              />
-              {/* Sign In Button */}
-              <TouchableOpacity
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            </View>) : (<View style={{ flexDirection: 'row' }}>
+              <Icon name="google" size={26} color="white" />
+              <Text
                 style={{
-                  height: Dpheight(6.9),
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginTop: SIZES.padding,
-                  borderRadius: SIZES.radius,
-                  backgroundColor: Disable
-                    ? COLORS.transparentPrimray
-                    : COLORS.primary,
-                }}
-                onPress={HandleOnPress}
-                disabled={Disable}
-              >
-                {loading ? (
-                  <View>
-                    <ActivityIndicator size="large" color={COLORS.primary} />
-                  </View>
-                ) : (
-                  <Text
-                    style={{
-                      color: COLORS.white,
-                      fontWeight: "bold",
-                      fontSize: SIZES.body3,
-                    }}
-                  >
-                    Login
-                  </Text>
-                )}
-              </TouchableOpacity>
-
-              {/* Sign Up */}
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginTop: SIZES.padding,
-                  justifyContent: "center",
+                  textAlignVertical: "center",
+                  marginLeft: 5,
+                  color: COLORS.white,
+                  fontWeight: "bold",
+                  fontSize: SIZES.body3,
                 }}
               >
-                <Text style={{ fontSize: SIZES.body4 }}>
-                  Don't have an Account?{"  "}
-                </Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate("Register");
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: SIZES.h3,
-                      color: COLORS.primary,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Register Here
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </>)}
+                Continue With Google
+              </Text>
+            </View>)}
+          </TouchableOpacity>
+        </View>
+        {/* Sign Up */}
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: SIZES.padding,
+            justifyContent: "center",
+          }}
+        >
+          <Text style={{ fontSize: SIZES.body4 }}>
+            Don't have an Account?{"  "}
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Register");
+            }}
+          >
+            <Text
+              style={{
+                fontSize: SIZES.h3,
+                color: COLORS.primary,
+                fontWeight: "bold",
+              }}
+            >
+              Register Here
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </ScrollView>
   );
 };
 
 export default Login;
 
-const style = StyleSheet.create({
-  Container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
-  OtpContainer: {
-    marginTop: SIZES.padding,
-  },
-  OTPInputView: {
-    // marginTop: SIZES.padding,
-    height: Dpheight(8),
-  },
-  codeInputFieldStyle: {
-    width: DPwidth(15),
-    height: Dpheight(6.9),
-    borderRadius: SIZES.radius,
-    backgroundColor: COLORS.transparentBlack1,
-    fontSize: SIZES.h3,
-  },
-  TimerContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: SIZES.padding,
-  },
-  TimerContainer_Text: {
-    color: COLORS.darkGray,
-    fontSize: SIZES.body3,
-  },
-  FooterContainer_Touchable: {
-    height: Dpheight(6.9),
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: SIZES.padding,
-    marginHorizontal: SIZES.padding,
-    borderRadius: SIZES.radius,
-    backgroundColor: COLORS.primary,
-  },
-  FooterContainer_Text: {
-    color: COLORS.white,
-    fontWeight: "bold",
-    fontSize: SIZES.body3,
-  },
-  TermsandConditions: {
-    marginTop: SIZES.padding,
-    alignItems: "center",
-  },
-  TermsandConditions_Text: {
-    color: COLORS.darkGray,
-    fontSize: SIZES.h3,
-  },
-  TermsandConditions_Text2: {
-    color: COLORS.primary,
-    fontSize: SIZES.h3,
-  },
-});
+

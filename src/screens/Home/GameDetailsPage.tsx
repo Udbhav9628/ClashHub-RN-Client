@@ -48,6 +48,7 @@ const GameDetailsPage = ({
   const [Disable, setDisable] = useState(false);
 
   const [ShowUpdate_Modal, setShowUpdate_Modal] = useState(false);
+  const [MoneyRefund, setMoneyRefund] = useState(false)
 
   const [RoomDetailsModals, setRoomDetailsModal] = useState(false)
   const [Show_Club_Menu_Modal, setShow_Club_Menu_Modal] = useState(false)
@@ -493,6 +494,47 @@ const GameDetailsPage = ({
           </View>
           {/* Bottom Buttons */}
           <View style={{ marginTop: Dpheight(1) }}>
+            {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed' && <View style={style.Elevation}>
+
+
+
+              {/* Work Here****** */}
+              <TouchableOpacity
+                onPress={() => { }}>
+                <View style={style.GuildWrapper}>
+                  {/* <MoneyRefund modalVisible={MoneyRefund}
+                    setModalVisible={setMoneyRefund}
+                    Disable={Disable}
+                    setDisable={setDisable}
+                    navigation={navigation} /> */}
+                  <View style={{ margin: 10 }}><Icon name="money-check-alt" size={Dpheight(2.5)} color="black" /></View>
+                  {/* Info Of Guild */}
+                  <View style={style.GuildInfo}>
+                    <View>
+                      <Text
+                        style={{
+                          color: COLORS.black,
+                          fontSize: SIZES.h3,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Money Refund
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        position: "absolute",
+                        top: -2,
+                        right: 15,
+                      }}
+                    >
+                      <Icon name="angle-right" size={20} color="black" />
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>}
+            {/* Update Button */}
             <View style={style.Elevation}>
               <View>
                 <MatchUpdateModal modalVisible={ShowUpdate_Modal}
@@ -544,7 +586,7 @@ const GameDetailsPage = ({
                 <TouchableOpacity
                   onPress={() => { setRoomDetailsModal(true) }}>
                   <View style={style.GuildWrapper}>
-                    <View style={{ margin: 10 }}><Icon name="users" size={Dpheight(3.5)} color="black" /></View>
+                    <View style={{ margin: 12 }}><Icon name="info-circle" size={Dpheight(3)} color="black" /></View>
                     {/* Info Of Guild */}
                     <View style={style.GuildInfo}>
                       <View>

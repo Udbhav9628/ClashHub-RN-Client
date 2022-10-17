@@ -4,6 +4,7 @@ import {storeToken} from '../../utils/Utils';
 import {Return_Token} from '../../utils/Utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
+import {Alert} from 'react-native';
 
 function Register_User(Data: any, Firebase_auth_token: any) {
   return async function (dispatch: any) {
@@ -55,13 +56,13 @@ function Login_User(Msgtoken: any, Token: any) {
           Firebase_Auth_Token: Token,
         },
       });
-      await storeToken('Token', responce.data, dispatch);
       if (responce.data.Login_Fail) {
         dispatch({
           type: 'FetchUser_Fail',
           payload: responce.data.Message,
         });
       } else {
+        await storeToken('Token', responce.data, dispatch);
         dispatch({
           type: 'FetchUser_Sucess',
           payload: responce.data,
@@ -105,7 +106,7 @@ function FetchUser(user: any) {
     } else {
       dispatch({
         type: 'FetchUser_Fail',
-        payload: 'Login again',
+        payload: null,
       });
     }
   };
@@ -153,7 +154,13 @@ function SignOut() {
       dispatch({
         type: 'SignOut',
       });
-    } catch (error) {}
+    } catch (error) {
+      Alert.alert('Error', 'Logout Fail, Try Again', [
+        {
+          text: 'OK',
+        },
+      ]);
+    }
   };
 }
 

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SIZES, COLORS, DPwidth, Dpheight } from "../../constants/Theame";
 import Heading from "../../components/Heading";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -9,12 +9,13 @@ const Profile = ({ navigation }: { navigation: any }) => {
 
   const { User } = useSelector((state: any) => state.FetchUser_reducer);
 
+
   return (
     <View style={styles.Container}>
       <Heading navigation={navigation} Title={" Your Profile"} />
       {/* Profile */}
       <View style={styles.Profile}>
-        <Image source={{ uri: `https://api.multiavatar.com/${User.User}.png` }}
+        <Image source={{ uri: `${User.PhotoUrl}` }}
           style={{
             width: DPwidth(31),
             height: Dpheight(15),

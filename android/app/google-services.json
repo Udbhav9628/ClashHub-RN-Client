@@ -14,7 +14,31 @@
       },
       "oauth_client": [
         {
-          "client_id": "624037012209-djsl3grkrqbsacfkoefd11h807amklc0.apps.googleusercontent.com",
+          "client_id": "624037012209-gjlsqpb8nk7sjg6qpbhlvo1oiit7gesp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clashhub",
+            "certificate_hash": "4db14149c730a04f4928c7f264d7778fde9e7062"
+          }
+        },
+        {
+          "client_id": "624037012209-ip126if3ihl9c8agqrjv4stgauk5dkr2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clashhub",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "624037012209-phe9es9dqh9vgc2e3vbn0atljib48h61.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clashhub",
+            "certificate_hash": "ca358dd0395d5c6201d89d17c048c71740a4855f"
+          }
+        },
+        {
+          "client_id": "624037012209-e0hlc0kf2bcfhohn976tu9um2obvjn30.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

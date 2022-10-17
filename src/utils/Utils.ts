@@ -40,30 +40,6 @@ export async function Return_Token(ErrorType: any, dispatch: any) {
   }
 }
 
-function isValidEmail(value: string) {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(value).toLowerCase());
-}
-
-export function validateEmail(value: string, setEmailError: Function) {
-  if (value == '') {
-    setEmailError('');
-  } else if (isValidEmail(value)) {
-    setEmailError('');
-  } else {
-    setEmailError('Invalid Email');
-  }
-}
-
-export function validateNumber(value: string, setError: Function) {
-  if (value.length < 10) {
-    setError('Mobile No must be 10 characters');
-  } else {
-    setError('');
-  }
-}
-
 export function CalculateLength(
   value: string,
   setNum: Function,
