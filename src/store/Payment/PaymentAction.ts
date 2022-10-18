@@ -309,6 +309,39 @@ function Create_withdrawls_request(Amount: any) {
   };
 }
 
+function GetMoneyRefund(Match_Id: string) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'GetMoneyRefund_Request',
+      });
+      const Token: string = (await Return_Token(
+        'GetMoneyRefund_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/GetMoneyRefund/${Match_Id}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'GetMoneyRefund_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'GetMoneyRefund_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
 function Clear_Payment_Reducer_Error() {
   return (dispatch: any) => {
     dispatch({
@@ -337,4 +370,5 @@ export {
   GetClubTransaction,
   Create_withdrawls_request,
   GetPendingWithdrawls,
+  GetMoneyRefund,
 };

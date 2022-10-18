@@ -41,11 +41,12 @@ const SpecificUserProfile = ({
                     <Heading navigation={navigation} Title={" Your Profile"} />
                     {/* Profile */}
                     <View style={styles.Profile}>
-                        <Image source={{ uri: `https://api.multiavatar.com/${Specific_User?.Name}.png` }}
+                        <Image source={{ uri: `${Specific_User?.PhotoUrl}` }}
                             style={{
                                 width: DPwidth(31),
                                 height: Dpheight(15),
                                 borderRadius: Dpheight(455),
+                                resizeMode: "contain",
                             }} />
                         <View style={styles.Textwrapper}>
                             <Text style={styles.Name}>{Specific_User?.Name}</Text>

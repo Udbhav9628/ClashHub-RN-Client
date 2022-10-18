@@ -60,7 +60,7 @@ const Menu = ({ navigation }: { navigation: any }) => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuTouchableOpacity}
           onPress={() => {
-            Open_Google_Form("https://forms.gle/Dh7uJ8NoELMy8BG6A");
+            Open_Google_Form("https://forms.gle/inMeDQAke889Fd8s5");
           }}>
           <View style={styles.menuItem}>
             <Icon name="call" size={Dpheight(3.5)} color="black" />
@@ -91,7 +91,7 @@ const Menu = ({ navigation }: { navigation: any }) => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuTouchableOpacity}
           onPress={() => {
-            Open_Google_Form("https://forms.gle/2dRnSWZLr5HB5zWV8");
+            Open_Google_Form("https://forms.gle/gNCFDeAUWUse7VQv9");
           }}>
           <View style={styles.menuItem}>
             <Icon name="ios-bug-sharp" size={Dpheight(3.5)} color="black" />

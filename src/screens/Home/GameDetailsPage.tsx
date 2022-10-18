@@ -28,6 +28,7 @@ import RoomDetailsModal from "./RoomDetailsModal";
 import MatchUpdateModal from "../../components/MatchUpdateModal";
 import ModalClub_Menu from "./ModalClub_Menu";
 import StyleSheet from 'react-native-media-query';
+import MoneyRefund_Comp from "./MoneyRefund_Comp";
 
 const GameDetailsPage = ({
   route,
@@ -495,18 +496,15 @@ const GameDetailsPage = ({
           {/* Bottom Buttons */}
           <View style={{ marginTop: Dpheight(1) }}>
             {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed' && <View style={style.Elevation}>
-
-
-
-              {/* Work Here****** */}
+              <View>
+                <MoneyRefund_Comp modalVisible={MoneyRefund}
+                  setModalVisible={setMoneyRefund}
+                  Match_Id={Item._id}
+                  setDisable={setDisable} />
+              </View>
               <TouchableOpacity
-                onPress={() => { }}>
+                onPress={() => { setMoneyRefund(true) }}>
                 <View style={style.GuildWrapper}>
-                  {/* <MoneyRefund modalVisible={MoneyRefund}
-                    setModalVisible={setMoneyRefund}
-                    Disable={Disable}
-                    setDisable={setDisable}
-                    navigation={navigation} /> */}
                   <View style={{ margin: 10 }}><Icon name="money-check-alt" size={Dpheight(2.5)} color="black" /></View>
                   {/* Info Of Guild */}
                   <View style={style.GuildInfo}>

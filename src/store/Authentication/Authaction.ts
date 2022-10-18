@@ -94,7 +94,7 @@ function FetchUser(user: any) {
         } else {
           dispatch({
             type: 'FetchUser_Fail',
-            payload: 'Login again',
+            payload: null,
           });
         }
       } catch (error) {

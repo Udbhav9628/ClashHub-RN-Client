@@ -208,3 +208,36 @@ export const Razorpay_Token_Reducer = (State = [], action: any) => {
       return State;
   }
 };
+
+export const Money_Refund_Reducer = (State = [], action: any) => {
+  switch (action.type) {
+    case 'GetMoneyRefund_Request':
+      return {
+        loading: true,
+      };
+    case 'GetMoneyRefund_Sucess':
+      return {
+        sucess: true,
+        loading: false,
+        Sucess_Message: action.payload,
+      };
+    case 'GetMoneyRefund_Fail':
+      return {
+        sucess: false,
+        loading: false,
+        Error: action.payload,
+      };
+    case 'Clear_Wallet_Sucess':
+      return {
+        ...State,
+        sucess: false,
+      };
+    case 'Clear_Wallet_Error':
+      return {
+        ...State,
+        Error: null,
+      };
+    default:
+      return State;
+  }
+};

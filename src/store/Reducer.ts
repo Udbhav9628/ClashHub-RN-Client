@@ -21,6 +21,7 @@ import {
   PendingWithdrawls_Reducer,
   Create_withdrawls_Reducer,
   Razorpay_Token_Reducer,
+  Money_Refund_Reducer,
 } from './Payment/PaymentReducer';
 import {
   Get_All_Guild,
@@ -55,4 +56,5 @@ export default combineReducers({
   Update_Room_Details_Reducer,
   Fetch_Match_Room_Details,
   Razorpay_Token_Reducer,
+  Money_Refund_Reducer,
 });

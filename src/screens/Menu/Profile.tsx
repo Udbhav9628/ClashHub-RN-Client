@@ -20,6 +20,7 @@ const Profile = ({ navigation }: { navigation: any }) => {
             width: DPwidth(31),
             height: Dpheight(15),
             borderRadius: Dpheight(455),
+            resizeMode: "contain",
           }} />
         <View style={styles.Textwrapper}>
           <Text style={styles.Name}>{User.User}</Text>
