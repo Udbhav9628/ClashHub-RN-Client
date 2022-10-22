@@ -57,7 +57,7 @@ const RoomDetailsModal = ({
                 left: 2,
                 right: 2,
                 margin: 20,
-                height: Dpheight(25),
+                height: 200,
                 backgroundColor: "white",
                 borderRadius: SIZES.radius,
                 shadowColor: COLORS.black,

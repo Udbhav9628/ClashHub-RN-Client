@@ -12,7 +12,7 @@ const Profile = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={styles.Container}>
-      <Heading navigation={navigation} Title={" Your Profile"} />
+      <Heading navigation={navigation} Title={"Your Profile"} />
       {/* Profile */}
       <View style={styles.Profile}>
         <Image source={{ uri: `${User.PhotoUrl}` }}

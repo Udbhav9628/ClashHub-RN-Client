@@ -79,7 +79,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
             navigation={navigation}
             Guild_Id={Guild_Details._id}
           />
-          <Heading navigation={navigation} Title={"  Your Guild"} />
+          <Heading navigation={navigation} Title={"Your Club"} />
           <View style={styles.Profile}>
             <Image
               source={{ uri: `https://api.multiavatar.com/${Guild_Details.GuildName}.png` }}

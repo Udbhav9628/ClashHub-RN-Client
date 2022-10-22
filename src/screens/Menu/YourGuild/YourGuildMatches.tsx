@@ -63,7 +63,7 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={styles.Container}>
-      <Heading navigation={navigation} Title={"Guild Matches"} />
+      <Heading navigation={navigation} Title={"Club Matches"} />
       <View>
         <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={Get_Guild_Matches} Guild_id={Guild_Details?._id} />
       </View>

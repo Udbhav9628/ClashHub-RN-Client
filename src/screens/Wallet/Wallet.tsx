@@ -156,7 +156,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
   if (Addloading) {
     return (
       <View style={style.Container}>
-        <Heading navigation={navigation} Title={"     Wallet"} />
+        <Heading navigation={navigation} Title={"Wallet"} />
         <View
           style={{
             flex: 1,
@@ -186,7 +186,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
             onRefresh={onRefresh}
           />
         }>
-        <Heading navigation={navigation} Title={"     Wallet"} />
+        <Heading navigation={navigation} Title={"Wallet"} />
         {TempLoading || loading ? (
           <View
             style={{
@@ -339,7 +339,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                           left: 2,
                           right: 2,
                           margin: 20,
-                          height: Dpheight(50),
+                          height: 400,
                           backgroundColor: "white",
                           borderRadius: SIZES.radius,
                           shadowColor: COLORS.black,
@@ -396,7 +396,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                           left: 2,
                           right: 2,
                           margin: 20,
-                          height: Dpheight(31),
+                          height: 250,
                           backgroundColor: "white",
                           borderRadius: SIZES.radius,
                           shadowColor: COLORS.black,

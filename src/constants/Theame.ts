@@ -28,7 +28,7 @@ export const SIZES = {
   h5: Dpheight(1.5),
 
   Size24: Dpheight(3.1),
-  body2: Dpheight(2.8), //24
+  body2: Dpheight(2.8),
   body3: Dpheight(2.3),
   body4: Dpheight(1.8),
   body5: Dpheight(1.5),

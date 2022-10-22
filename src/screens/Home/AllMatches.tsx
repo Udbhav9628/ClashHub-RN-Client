@@ -60,7 +60,7 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
 
   return (
     <View style={style.Container}>
-      <Heading navigation={navigation} Title={" All Matches"} />
+      <Heading navigation={navigation} Title={"All Matches"} />
       <View>
         <FlatList
           horizontal

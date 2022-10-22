@@ -27,8 +27,8 @@ import JoinedUserModal from "./JoinedUserModal";
 import RoomDetailsModal from "./RoomDetailsModal";
 import MatchUpdateModal from "../../components/MatchUpdateModal";
 import ModalClub_Menu from "./ModalClub_Menu";
-import StyleSheet from 'react-native-media-query';
 import MoneyRefund_Comp from "./MoneyRefund_Comp";
+import Heading from "../../components/Heading";
 
 const GameDetailsPage = ({
   route,
@@ -201,32 +201,7 @@ const GameDetailsPage = ({
         // Joined
         <ScrollView>
           {/* Header */}
-          <View style={style.Header}>
-            {/* Header Left */}
-            <TouchableOpacity
-              style={style.HeaderLeft}
-              onPress={() => navigation.goBack()}
-            >
-              <Icon name="angle-left" size={20} color="black" />
-            </TouchableOpacity>
-            <View
-              style={{
-                marginLeft: "21%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  color: COLORS.black,
-                  ...FONTS.body2,
-                  fontWeight: "700",
-                }}
-              >
-                Match Details
-              </Text>
-            </View>
-          </View>
+          <Heading navigation={navigation} Title={"Detail"} />
           <View
             style={{
               flex: 1,
@@ -243,7 +218,11 @@ const GameDetailsPage = ({
               {/* Title */}
               <View style={style.TitleWraper}>
                 <Text
-                  style={styles.Title}
+                  style={{
+                    ...FONTS.body2,
+                    fontWeight: "700",
+                    color: COLORS.black,
+                  }}
                 >
                   {Item.Game_Name} {Item.GameType} Match
                 </Text>
@@ -657,32 +636,7 @@ const GameDetailsPage = ({
         // Not Joined
         <>
           {/* Header */}
-          <View style={style.Header}>
-            {/* Header Left */}
-            <TouchableOpacity
-              style={style.HeaderLeft}
-              onPress={() => navigation.goBack()}
-            >
-              <Icon name="angle-left" size={20} color="black" />
-            </TouchableOpacity>
-            <View
-              style={{
-                marginLeft: "21%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  color: COLORS.black,
-                  ...FONTS.body2,
-                  fontWeight: "700",
-                }}
-              >
-                Match Details
-              </Text>
-            </View>
-          </View>
+          <Heading navigation={navigation} Title={"Match Details"} />
           <View
             style={{
               flex: 1,
@@ -699,7 +653,11 @@ const GameDetailsPage = ({
               {/* Title */}
               <View style={style.TitleWraper}>
                 <Text
-                  style={styles.Title}
+                  style={{
+                    ...FONTS.body2,
+                    fontWeight: "700",
+                    color: COLORS.black,
+                  }}
                 >
                   {Item.Game_Name} {Item.GameType} Match
                 </Text>
@@ -709,12 +667,20 @@ const GameDetailsPage = ({
                 {Minutes !== 0 && (
                   <View style={style.EntryFeeWraper}>
                     <Text
-                      style={styles.Starts_In}
+                      style={{
+                        ...FONTS.h3,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
                     >
                       Starts In
                     </Text>
                     <Text
-                      style={styles.Time}
+                      style={{
+                        ...FONTS.body3,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
                     >
                       {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
                     </Text>
@@ -727,54 +693,89 @@ const GameDetailsPage = ({
                 <View>
                   {/* Joined Players Number */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={styles.Content_Heading}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                    }}>
                       Slots
                     </Text>
                     <Text
-                      style={styles.MaiN_Content}
+                      style={{
+                        color: COLORS.black,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                        fontWeight: "700",
+                      }}
                     >
                       {Item.Joined_User.length}/{Item.Total_Players}
                     </Text>
                   </View>
                   <View style={style.InfoLeftItem}>
-                    <Text style={styles.Content_Heading}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                    }}>
                       Prize
                     </Text>
                     <Text
-                      style={styles.MaiN_Content}
+                      style={{
+                        color: COLORS.black,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                        fontWeight: "700",
+                      }}
                     >
                       &#x20B9; {Item.Perkill_Prize} Per Kill
                     </Text>
                   </View>
                   {/* Match Map */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={styles.Content_Heading}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                    }}>
                       Map
                     </Text>
                     <Text
-                      style={styles.MaiN_Content}
+                      style={{
+                        color: COLORS.black,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                        fontWeight: "700",
+                      }}
                     >
                       {Item.Map}
                     </Text>
                   </View>
                   {/* Match Date */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={styles.Content_Heading}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                    }}>
                       Match Date
                     </Text>
                     <Text
-                      style={styles.MaiN_Content}
+                      style={{
+                        color: COLORS.black,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                        fontWeight: "700",
+                      }}
                     >
                       {new Date(Item.Date_Time).toDateString()}
                     </Text>
                   </View>
                   {/* Match Time */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={styles.Content_Heading}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                    }}>
                       Time - 24H Format
                     </Text>
                     <Text
-                      style={styles.MaiN_Content}
+                      style={{
+                        color: COLORS.black,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                        fontWeight: "700",
+                      }}
                     >
                       {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
                     </Text>
@@ -789,7 +790,11 @@ const GameDetailsPage = ({
           </View>
           {/* Hosted By */}
           <View style={{ marginHorizontal: SIZES.padding }}>
-            <Text style={styles.Hosted_By}>Hosted by</Text>
+            <Text style={{
+              fontFamily: 'Poppins-SemiBold', fontSize: 17,
+              fontWeight: "700",
+              color: COLORS.black,
+            }}>Hosted by</Text>
             <View style={{
               height: Dpheight(8),
               borderRadius: SIZES.radius,
@@ -826,7 +831,7 @@ const GameDetailsPage = ({
                       <Text
                         style={{
                           color: Get_Specific_Club_Reducer.Sucess ? COLORS.black : COLORS.gray,
-                          fontSize: SIZES.h3,
+                          fontSize: 15,
                           fontWeight: "bold",
                         }}
                       >
@@ -984,63 +989,3 @@ const style = RN_Styles.create({
     justifyContent: "space-between",
   },
 });
-
-const { styles } = StyleSheet.create({
-  Title: {
-    ...FONTS.body2,
-    fontWeight: "700",
-    color: COLORS.black,
-    '@media (min-height:  805.8181818181819)': {
-      ...FONTS.h1,
-      fontWeight: "700",
-      color: COLORS.black,
-    },
-  },
-  Starts_In: {
-    ...FONTS.h3,
-    color: COLORS.primary,
-    fontWeight: "700",
-    '@media (min-height:  805.8181818181819)': {
-      ...FONTS.body3,
-      color: COLORS.primary,
-      fontWeight: "700",
-    },
-  },
-  Time: {
-    ...FONTS.body3,
-    color: COLORS.primary,
-    fontWeight: "700",
-    '@media (min-height:  805.8181818181819)': {
-      ...FONTS.body2,
-      color: COLORS.primary,
-      fontWeight: "700",
-    },
-  },
-  MaiN_Content: {
-    color: COLORS.black,
-    fontFamily: 'Poppins-SemiBold', fontSize: 14,
-    fontWeight: "700",
-    '@media (min-height:  805.8181818181819)': {
-      color: COLORS.black,
-      ...FONTS.body3,
-      fontWeight: "700",
-    },
-  },
-  Content_Heading: {
-    color: COLORS.darkGray2,
-    fontFamily: 'Poppins-SemiBold', fontSize: 12,
-    '@media (min-height:  805.8181818181819)': {
-      color: COLORS.darkGray2, ...FONTS.h3
-    },
-  },
-  Hosted_By: {
-    fontFamily: 'Poppins-SemiBold', fontSize: 15,
-    fontWeight: "700",
-    color: COLORS.black,
-    '@media (min-height:  805.8181818181819)': {
-      ...FONTS.body3,
-      fontWeight: "700",
-      color: COLORS.black,
-    },
-  },
-})

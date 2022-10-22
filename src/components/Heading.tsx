@@ -9,7 +9,11 @@ const Heading = ({ navigation, Title }: { navigation: any; Title: string }) => {
       {/* Header */}
       <View style={styles.Header}>
         {/* Back Button */}
-        <View style={{ width: '26%' }}>
+        <View style={{
+          position: "absolute",
+          top: -6.2,
+          left: 3,
+        }}>
           <TouchableOpacity
             style={styles.HeaderLeft}
             onPress={() => navigation.goBack()}
@@ -17,8 +21,7 @@ const Heading = ({ navigation, Title }: { navigation: any; Title: string }) => {
             <Icon name="angle-left" size={20} color="black" />
           </TouchableOpacity>
         </View>
-
-        <View style={{ width: '68%' }}>
+        <View >
           <Text
             style={{
               color: COLORS.black,
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 8,
     marginHorizontal: SIZES.h3,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   HeaderLeft: {
     alignItems: "center",

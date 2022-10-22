@@ -58,7 +58,7 @@ const AddMoneyModal = ({
                     <TextInput
                         style={{
                             marginTop: 4,
-                            height: Dpheight(6.8),
+                            height: 55,
                             alignSelf: 'center',
                             width: '90%',
                             paddingLeft: 25,
@@ -87,7 +87,7 @@ const AddMoneyModal = ({
                         }}
                         style={{
                             alignSelf: 'center',
-                            height: Dpheight(6.8),
+                            height: 53,
                             width: '35%',
                             alignItems: "center",
                             justifyContent: "center",

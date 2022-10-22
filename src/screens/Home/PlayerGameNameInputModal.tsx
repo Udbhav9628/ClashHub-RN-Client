@@ -1,6 +1,6 @@
 import { ActivityIndicator, Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react';
-import { COLORS, Dpheight, FONTS, SIZES } from '../../constants/Theame';
+import { COLORS, FONTS, SIZES } from '../../constants/Theame';
 import FormInput from '../Auth/FormInput';
 
 const PlayerGameNameInputModal = ({
@@ -38,7 +38,7 @@ const PlayerGameNameInputModal = ({
                 left: 2,
                 right: 2,
                 margin: 20,
-                height: Dpheight(30),
+                height: 250,
                 backgroundColor: "white",
                 borderRadius: SIZES.radius,
                 shadowColor: COLORS.black,
@@ -103,7 +103,7 @@ const PlayerGameNameInputModal = ({
                             disabled={Disable}
                             style={{
                                 alignSelf: 'center',
-                                height: Dpheight(6.8),
+                                height: 53,
                                 width: '35%',
                                 alignItems: "center",
                                 justifyContent: "center",

@@ -45,7 +45,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
 
     return (
         <View style={style.Container}>
-            <Heading navigation={navigation} Title={" Club Wallet"} />
+            <Heading navigation={navigation} Title={"Club Wallet"} />
             {TempLoading || loading ? (
                 <View
                     style={{

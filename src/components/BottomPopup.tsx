@@ -220,7 +220,7 @@ const BottomPopup = ({
               }}
               disabled={Disable}
               style={{
-                height: Dpheight(6.8),
+                height: 53,
                 alignItems: "center",
                 justifyContent: "center",
                 marginTop: SIZES.padding,
@@ -276,7 +276,7 @@ const BottomPopup = ({
               <TextInput
                 style={{
                   marginTop: 10,
-                  height: Dpheight(6.8),
+                  height: 55,
                   alignSelf: 'center',
                   width: '90%',
                   paddingLeft: 25,
@@ -314,7 +314,7 @@ const BottomPopup = ({
                 disabled={Disable}
                 style={{
                   alignSelf: 'center',
-                  height: Dpheight(6.8),
+                  height: 53,
                   width: '35%',
                   alignItems: "center",
                   justifyContent: "center",

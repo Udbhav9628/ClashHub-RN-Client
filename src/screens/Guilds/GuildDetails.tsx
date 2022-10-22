@@ -120,7 +120,7 @@ const GuildDetails = ({
 
   return (
     <ScrollView style={styles.Container}>
-      <Heading navigation={navigation} Title={" Guild Details"} />
+      <Heading navigation={navigation} Title={"Guild Details"} />
       <View style={styles.Profile}>
         <Image
           source={{ uri: `https://api.multiavatar.com/${Item.GuildName}.png` }}

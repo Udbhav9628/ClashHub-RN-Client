@@ -93,7 +93,7 @@ const Createguild = ({ navigation }: { navigation: any }) => {
   }, [Error]);
   return (
     <>
-      <Heading navigation={navigation} Title={"Create Guild"} />
+      <Heading navigation={navigation} Title={"Create Club"} />
       <ScrollView
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}

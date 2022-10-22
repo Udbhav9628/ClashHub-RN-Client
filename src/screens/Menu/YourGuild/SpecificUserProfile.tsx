@@ -38,7 +38,7 @@ const SpecificUserProfile = ({
                 >
                     <ActivityIndicator size="large" color={COLORS.primary} />
                 </View>) : (<>
-                    <Heading navigation={navigation} Title={" Your Profile"} />
+                    <Heading navigation={navigation} Title={"Profile"} />
                     {/* Profile */}
                     <View style={styles.Profile}>
                         <Image source={{ uri: `${Specific_User?.PhotoUrl}` }}
