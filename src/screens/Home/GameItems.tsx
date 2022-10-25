@@ -32,7 +32,7 @@ const GameItems = ({
   const [Msg, setMsg] = useState("");
 
   function Timer_Function() {
-    const Match_time = new Date(Item.Date_Time).getTime();
+    const Match_time = new Date(Item?.Date_Time).getTime();
     const now = new Date().getTime();
     const Gap = Match_time - now;
     const TextDay = Math.floor(Gap / Day);
@@ -104,10 +104,10 @@ const GameItems = ({
             fontSize: Dpheight(0.7) * DPwidth(0.8), fontWeight: "700", color: COLORS.black
           }}
         >
-          {Item.Game_Name} {Item.GameType}
+          {Item?.Game_Name} {Item?.GameType}
         </Text>
         {/* Description */}
-        <Progressbar step={Item.Joined_User.length} totalsteps={Item.Total_Players} Height={Dpheight(0.8)} />
+        <Progressbar step={Item?.Joined_User.length} totalsteps={Item?.Total_Players} Height={Dpheight(0.8)} />
         {/* More Info Section */}
         <View
           style={{
@@ -129,7 +129,7 @@ const GameItems = ({
                 fontSize: Dpheight(0.6) * DPwidth(0.7), fontWeight: "700"
               }}
             >
-              &#x20B9; {Item.Perkill_Prize}
+              &#x20B9; {Item?.Perkill_Prize}
             </Text>
           </View>
         </View>
@@ -158,7 +158,7 @@ const GameItems = ({
                 fontSize: Dpheight(0.6) * DPwidth(0.7), fontWeight: "700"
               }}
             >
-              {Item.Map}
+              {Item?.Map}
             </Text>
           </View>
           <View
@@ -177,7 +177,7 @@ const GameItems = ({
                 fontSize: Dpheight(0.6) * DPwidth(0.7), fontWeight: "700"
               }}
             >
-              {Item.GameType}
+              {Item?.GameType}
             </Text>
           </View>
         </View>
@@ -207,7 +207,7 @@ const GameItems = ({
             fontWeight: "bold",
           }}
         >
-          {Item.Is_Finished === true ? "Finished" : " It's Live"}
+          {Item?.Is_Finished === true ? "Finished" : " It's Live"}
         </Text>) : (<Text
           style={{
             color: "#000",
@@ -243,7 +243,7 @@ const GameItems = ({
             fontWeight: "bold",
           }}
         >
-          &#x20B9; {Item.EntryFee}
+          &#x20B9; {Item?.EntryFee}
         </Text>
       </View>
     </TouchableOpacity>

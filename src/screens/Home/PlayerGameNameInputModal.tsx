@@ -95,9 +95,20 @@ const PlayerGameNameInputModal = ({
                                     Alert.alert("Alert", "Enter InGame Name Firsr", [{ text: "OK" }]);
                                 }
                                 else {
-                                    JoinMatchFunction(MatchId,
-                                        EntryFee, InGameName)
-                                    setDisable(true)
+                                    Alert.alert("Are You Sure", "You can't Change after Joining Match", [
+                                        {
+                                            text: "Yes",
+                                            onPress: () => {
+                                                JoinMatchFunction(MatchId,
+                                                    EntryFee, InGameName)
+                                                setDisable(true)
+                                            },
+
+                                        },
+                                        {
+                                            text: "Cancel"
+                                        }
+                                    ]);
                                 }
                             }}
                             disabled={Disable}

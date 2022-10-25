@@ -3,7 +3,7 @@ import React from "react";
 import { COLORS, SIZES, FONTS } from "../constants/Theame";
 import StyleSheet from 'react-native-media-query';
 
-const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Matchs, Guild_id }: { SelectedMenu: any; setSelectedMenu: any; GamesTypes: any; Fetch_Matchs: any; Guild_id: any }) => {
+const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Matchs, setPage, SetLoading }: { SelectedMenu: any; setSelectedMenu: any; GamesTypes: any; Fetch_Matchs: any; setPage: Function; SetLoading: Function }) => {
   return (
     <FlatList
       horizontal
@@ -21,7 +21,9 @@ const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Matchs
             marginRight: 53,
           }}
           onPress={() => {
-            Fetch_Matchs(Guild_id, item.Name);
+            SetLoading(true)
+            setPage(1);
+            Fetch_Matchs(item.Name, 1, true);
             setSelectedMenu(item.Name);
           }}
         >

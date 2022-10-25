@@ -6,69 +6,99 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { SIZES, COLORS, Dpheight, DPwidth } from "../../constants/Theame";
 import GameItems from "../Home/GameItems";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
-  Get_Joined_Matchs,
-  Clear_Match_Reducer_Error,
   Clear_ReFetch_Joined_Matches,
 } from "../../store/Match/Matchaction";
 import MyMatchesMenu from "../../components/MyMatchesMenu";
 import { GamesTypes } from "../../constants/Data";
 import { ReturnGameImage } from "../../utils/Utils";
+import { Ip_Address } from '../../constants/Data';
+import axios from 'axios';
+import { Return_Token } from '../../utils/Utils';
 
 const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
   const [SelectedMenu, setSelectedMenu] = useState("Scheduled");
-  const [Refetch, setRefetch] = useState(true);
-  const { Joined_Matches, loading, Error } = useSelector(
-    (state: any) => state.Get_Joined_Match_Reducer
-  );
+  const [Refetch, setRefetch] = useState(true);//check
+  const [loading, setloading] = useState(true)
+  const [Data_Length, setData_Length] = useState(0)
+  const [PreMatchType, setPreMatchType] = useState('')
+
+  const [Page, setPage] = useState(1);
+
+  const [Matches_State, setMatches_State] = useState([] as Array<any>);
 
   const { ReFetch_Joined_Matches } = useSelector(
     (state: any) => state.Join_Match_Reducer
   );
 
   const dispatch = useDispatch();
-  const Fetch_Joined_Matchs = bindActionCreators(Get_Joined_Matchs, dispatch);
 
-  const Clear_Match_ReducerError = bindActionCreators(
-    Clear_Match_Reducer_Error,
-    dispatch
-  );
   const Clear_Re_Fetch_Joined_Matches = bindActionCreators(
     Clear_ReFetch_Joined_Matches,
     dispatch
   );
 
-  useEffect(() => {
-    if (Refetch || ReFetch_Joined_Matches) {
-      setRefetch(false)
-      Clear_Re_Fetch_Joined_Matches();
-      Fetch_Joined_Matchs(null, SelectedMenu);
-    }
-  }, [ReFetch_Joined_Matches]);
-
-  useEffect(() => {
-    if (Error) {
-      Clear_Match_ReducerError();
-      Alert.alert("Error", Error + "  check ip and running , Reload", [
+  async function FetchData(MatchType: any, Page: Number, Reset: Boolean) {
+    try {
+      const Token: string = (await Return_Token(
+        'Get_Joined_Matches_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/GetJoinedMatches?MatchType=${MatchType}&Page=${Page}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      if (PreMatchType === MatchType && !Reset) {
+        setMatches_State([...Matches_State, ...response.data])
+      } else {
+        setMatches_State(response.data)
+      }
+      setloading(false);
+      setPreMatchType(MatchType);
+      setData_Length(response.data.length);
+    } catch (error: any) {
+      Alert.alert("Error", error, [
         {
           text: "OK",
           onPress: () => {
             setSelectedMenu("Scheduled")
+            setloading(false)
           },
         },
       ]);
     }
-  }, [Error]);
+  }
+
+  useEffect(() => {
+    if (Refetch || ReFetch_Joined_Matches) {
+      setRefetch(false)
+      Clear_Re_Fetch_Joined_Matches();
+      FetchData(SelectedMenu, 1, true);
+    }
+  }, [ReFetch_Joined_Matches]);
+
+  function WhenEndReached() {
+    if (Data_Length === 4) {//4 Here is ResultPerPage
+      FetchData(SelectedMenu, Page + 1, false);
+      setPage((Previous) => Previous + 1);
+    }
+  }
 
   return (
     <View style={styles.Container}>
       <View>
-        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={Fetch_Joined_Matchs} Guild_id={null} />
+        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={FetchData} setPage={setPage} SetLoading={setloading} />
       </View>
       {loading ? (
         <View
@@ -79,7 +109,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
         >
           <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
-      ) : Joined_Matches && Joined_Matches.length === 0 ? (
+      ) : Matches_State && Matches_State.length === 0 ? (
         <View
           style={{
             flex: 1,
@@ -98,12 +128,16 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
         </View>
       ) : (
         <FlatList
-          data={Joined_Matches}
-          keyExtractor={(Item) => `${Item._id}`}
+          data={Matches_State}
+          keyExtractor={(Item) => `${Item?._id}`}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          onRefresh={() => Fetch_Joined_Matchs(null, SelectedMenu)}
-          refreshing={loading || false}
+          refreshing={false}
+          onRefresh={() => {
+            setloading(true)
+            FetchData(SelectedMenu, 1, true)
+            setPage(1)
+          }}
           renderItem={({ item }) => (
             <GameItems
               ContainerStyle={{
@@ -123,14 +157,28 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
                 resizeMode: "stretch",
               }}
               Item={item}
-              GameImage={ReturnGameImage(item.Game_Name)}
+              GameImage={ReturnGameImage(item?.Game_Name)}
               onPress={() =>
                 navigation.navigate("GameDetailsPage", {
-                  Item: item, SelectedMenu: SelectedMenu, GameImage: ReturnGameImage(item.Game_Name)
+                  Item: item, SelectedMenu: SelectedMenu, GameImage: ReturnGameImage(item?.Game_Name)
                 })
               }
             />
           )}
+          onEndReached={() => {
+            WhenEndReached();
+          }}
+          onEndReachedThreshold={0}
+          ListFooterComponent={(<View>
+            {Data_Length === 4 && <View
+              style={{
+                marginVertical: 16,
+                alignItems: "center",
+              }}
+            >
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            </View>}
+          </View>)}
         />
       )}
     </View>
