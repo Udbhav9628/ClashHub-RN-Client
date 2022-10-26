@@ -10,46 +10,52 @@ import React, { useEffect, useState } from "react";
 import { SIZES, COLORS, Dpheight, DPwidth } from "../../../constants/Theame";
 import Heading from "../../../components/Heading";
 import GameItems from "../../Home/GameItems";
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import {
-  Get_Guild_Matches_Details,
-  Clear_Guild_Reducer_Error,
-} from "../../../store/Guild/GuildAction";
+import { useSelector } from "react-redux";
 import MyMatchesMenu from "../../../components/MyMatchesMenu";
 import { GamesTypes } from "../../../constants/Data";
 import { ReturnGameImage } from "../../../utils/Utils";
+import { Ip_Address } from '../../../constants/Data';
+import axios from 'axios';
+import { Return_Token } from '../../../utils/Utils';
 
 const YourGuildMatches = ({ navigation }: { navigation: any }) => {
   const [SelectedMenu, setSelectedMenu] = useState('');
-  const dispatch = useDispatch();
-  const Get_Guild_Matches = bindActionCreators(
-    Get_Guild_Matches_Details,
-    dispatch
-  );
-
-  const Clear_Guild_ReducerError = bindActionCreators(
-    Clear_Guild_Reducer_Error,
-    dispatch
-  );
-
-  const { Guild_Matches, loading, Error } = useSelector(
-    (state: any) => state.Get_Guild_Matchs_Reducer
-  );
+  const [PreMatchType, setPreMatchType] = useState('')
+  const [Matches, setMatches] = useState([] as Array<any>);
+  const [loading, setloading] = useState(true)
+  const [Page, setPage] = useState(1);
+  const [Data_Length, setData_Length] = useState(0);
 
   const { Guild_Details } = useSelector(
     (state: any) => state.Get_user_Guild_details_reducer
   );
 
-  useEffect(() => {
-    setSelectedMenu('Scheduled')
-    Get_Guild_Matches(Guild_Details._id, 'Scheduled');
-  }, [])
-
-  useEffect(() => {
-    if (Error) {
-      Clear_Guild_ReducerError();
-      Alert.alert("Error", Error, [
+  async function Get_Guild_Matches(id: any, MatchType: string, Page: Number, Reset: Boolean) {
+    try {
+      const Token: string = (await Return_Token(
+        'Get_Guild_Matches_Details_Fail',
+        null,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/getGuildtournaments/${id}?MatchType=${MatchType}&Page=${Page}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      if (PreMatchType === MatchType && !Reset) {
+        setMatches([...Matches, ...response.data.Data])
+      } else {
+        setMatches(response.data.Data)
+      }
+      setloading(false);
+      setPreMatchType(MatchType);
+      setData_Length(response.data.Data.length);
+    } catch (error: any) {
+      Alert.alert("Error", error.message, [
         {
           text: "OK",
           onPress: () => {
@@ -59,13 +65,25 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
         },
       ]);
     }
-  }, [Error]);
+  }
+
+  useEffect(() => {
+    setSelectedMenu('Scheduled')
+    Get_Guild_Matches(Guild_Details._id, 'Scheduled', 1, true);
+  }, [])
+
+  function WhenEndReached() {
+    if (Data_Length === 4) {
+      Get_Guild_Matches(Guild_Details._id, SelectedMenu, Page + 1, false);
+      setPage((Previous) => Previous + 1);
+    }
+  }
 
   return (
     <View style={styles.Container}>
       <Heading navigation={navigation} Title={"Club Matches"} />
       <View>
-        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={Get_Guild_Matches} Guild_id={Guild_Details?._id} />
+        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={Get_Guild_Matches} setPage={setPage} SetLoading={setloading} Club_Id={Guild_Details._id} />
       </View>
       {loading ? (
         <View
@@ -76,7 +94,7 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
         >
           <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
-      ) : Guild_Matches && Guild_Matches.length === 0 ? (
+      ) : Matches.length === 0 ? (
         <View
           style={{
             flex: 1,
@@ -95,10 +113,16 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
         </View>
       ) : (
         <FlatList
-          data={Guild_Matches}
+          data={Matches}
           keyExtractor={(Item) => `${Item._id}`}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
+          refreshing={false}
+          onRefresh={() => {
+            setloading(true)
+            Get_Guild_Matches(Guild_Details._id, 'Scheduled', 1, true);
+            setPage(1)
+          }}
           renderItem={({ item }) => (
             <GameItems
               ContainerStyle={{
@@ -126,6 +150,20 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
               }
             />
           )}
+          onEndReached={() => {
+            WhenEndReached();
+          }}
+          onEndReachedThreshold={0}
+          ListFooterComponent={(<View>
+            {Data_Length === 4 && <View
+              style={{
+                marginVertical: 16,
+                alignItems: "center",
+              }}
+            >
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            </View>}
+          </View>)}
         />
       )}
     </View>

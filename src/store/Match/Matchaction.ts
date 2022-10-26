@@ -69,39 +69,6 @@ function Fetch_Home_Page_Matchs() {
   };
 }
 
-function Fetch_All_Matchs(SelectedMenu: any) {
-  return async function (dispatch: any) {
-    try {
-      dispatch({
-        type: 'Get_All_Matches_Request',
-      });
-      const Token: string = (await Return_Token(
-        'Get_All_Matches_Fail',
-        dispatch,
-      )) as string;
-      const response = await axios.get(
-        `${Ip_Address}/fetchalltournament?Game_Name=${SelectedMenu}`,
-        {
-          headers: {
-            'content-type': 'application/json',
-            Accept: 'application/json',
-            authToken: Token,
-          },
-        },
-      );
-      dispatch({
-        type: 'Get_All_Matches_Sucess',
-        payload: response.data.Data,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: 'Get_All_Matches_Fail',
-        payload: error.message,
-      });
-    }
-  };
-}
-
 //Update Match Result
 function Update_Match(Data: any, id: any) {
   return async function (dispatch: any) {
@@ -302,7 +269,6 @@ function Clear_Match_Reducer_Sucess() {
 
 export {
   Create_Match,
-  Fetch_All_Matchs,
   Clear_Match_Reducer_Error,
   Clear_Match_Reducer_Sucess,
   Join_Match_action,

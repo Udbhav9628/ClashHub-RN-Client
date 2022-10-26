@@ -6,7 +6,6 @@ import {
 import {
   Get_Home_Page_Matches,
   Create_matches_Reducer,
-  Get_All_Matches,
   Join_Match_Reducer,
   Update_Match_Result_Reducer,
   Update_Room_Details_Reducer,
@@ -26,7 +25,6 @@ import {
   Get_All_Guild,
   Get_user_Guild_details_reducer,
   Create_Guild_Reducer,
-  Get_Guild_Matchs_Reducer,
   Join_Guild_Reducer,
   Get_Specific_Club_Reducer,
 } from './Guild/GuildReducer';
@@ -34,14 +32,12 @@ import {
 export default combineReducers({
   Get_Home_Page_Matches,
   Create_matches_Reducer,
-  Get_All_Matches,
   Join_Match_Reducer,
   Add_Wallet_Ballance_Reducer,
   Get_Ballance_Reducer,
   Get_All_Guild,
   Get_user_Guild_details_reducer,
   Create_Guild_Reducer,
-  Get_Guild_Matchs_Reducer,
   Update_Match_Result_Reducer,
   FetchUser_reducer,
   ClubWallet_Ballance_reducer,

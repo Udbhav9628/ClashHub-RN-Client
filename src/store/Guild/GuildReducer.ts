@@ -93,34 +93,6 @@ export const Create_Guild_Reducer = (State = [], action: any) => {
   }
 };
 
-export const Get_Guild_Matchs_Reducer = (State = [], action: any) => {
-  switch (action.type) {
-    case 'Get_Guild_Matches_Details_Request':
-      return {
-        loading: true,
-      };
-    case 'Get_Guild_Matches_Details_Sucess':
-      return {
-        sucess: true,
-        loading: false,
-        Guild_Matches: action.payload,
-      };
-    case 'Get_Guild_Matches_Details_Fail':
-      return {
-        sucess: false,
-        loading: false,
-        Error: action.payload,
-      };
-    case 'Clear_Guild_Reducer_Error':
-      return {
-        ...State,
-        Error: null,
-      };
-    default:
-      return State;
-  }
-};
-
 // Join_Guild_Reducer
 export const Join_Guild_Reducer = (state = [], action: any) => {
   switch (action.type) {

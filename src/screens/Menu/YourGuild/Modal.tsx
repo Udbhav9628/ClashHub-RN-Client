@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
   Create_Match,
-  Fetch_All_Matchs,
   Clear_Match_Reducer_Error,
   Clear_Match_Reducer_Sucess,
 } from "../../../store/Match/Matchaction";
@@ -103,8 +102,6 @@ const ModalScreen = ({
   };
 
   const { User } = useSelector((state: any) => state.FetchUser_reducer);
-
-  const Fetch_All_Match = bindActionCreators(Fetch_All_Matchs, dispatch);
 
   const Clear_Match_Error = bindActionCreators(
     Clear_Match_Reducer_Error,

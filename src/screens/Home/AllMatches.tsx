@@ -11,52 +11,69 @@ import React, { useState, useEffect } from "react";
 import { SIZES, COLORS, FONTS, Dpheight, DPwidth } from "../../constants/Theame";
 import { GameTypesMenu } from "../../constants/Data";
 import GameItems from "../Home/GameItems";
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import {
-  Fetch_All_Matchs,
-  Clear_Match_Reducer_Error,
-} from "../../store/Match/Matchaction";
 import Heading from "../../components/Heading";
 import { ReturnGameImage } from "../../utils/Utils";
 import StyleSheet from 'react-native-media-query';
+import { Ip_Address } from '../../constants/Data';
+import axios from 'axios';
+import { Return_Token } from '../../utils/Utils';
 
 const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
-  //const [All_Matches_State, setAll_Matches_State] = useState([] as Array<any>);
-
-  const [TempLoading, setTempLoading] = useState(true);
-
-  const { All_Matchs, loading, Error } = useSelector(
-    (state: any) => state.Get_All_Matches
-  );
+  const [Loading, setLoading] = useState(true);
+  const [Page, setPage] = useState(1);
+  const [Data_Length, setData_Length] = useState(0);
+  const [PreMatchType, setPreMatchType] = useState('')
+  const [All_Matchs, setAll_Matches] = useState([] as Array<any>);
 
   const [SelectedMenu, setSelectedMenu] = useState(
     route.params.Query_Props ? route.params.Query_Props : ""
   );
 
-  const dispatch = useDispatch();
-  const Fetch_All_Match = bindActionCreators(Fetch_All_Matchs, dispatch);
+  async function Fetch_All_Match(SelectedMenu: any, Page: Number, Reset: Boolean) {
+    try {
+      const Token: string = (await Return_Token(
+        'Get_All_Matches_Fail',
+        null,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/fetchalltournament?Game_Name=${SelectedMenu}&Page=${Page}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      if (PreMatchType === SelectedMenu && !Reset) {
+        setAll_Matches([...All_Matchs, ...response.data.Data])
+      } else {
+        setAll_Matches(response.data.Data)
+      }
+      console.log(response.data.Data);
 
-  const Clear_Match_ReducerError = bindActionCreators(
-    Clear_Match_Reducer_Error,
-    dispatch
-  );
-
-  useEffect(() => {
-    Fetch_All_Match(SelectedMenu);
-    setTempLoading(false);
-  }, []);
-
-  useEffect(() => {
-    if (Error) {
-      Clear_Match_ReducerError();
-      Alert.alert("Error", Error + "  check ip and running , Reload", [
+      setLoading(false)
+      setPreMatchType(SelectedMenu);
+      setData_Length(response.data.Data.length);
+    } catch (error: any) {
+      Alert.alert("Error", error.message, [
         {
           text: "OK",
         },
       ]);
     }
-  }, [Error]);
+  }
+
+  function WhenEndReached() {
+    if (Data_Length === 4) {//4 Here is ResultPerPage
+      Fetch_All_Match(SelectedMenu, Page + 1, false);
+      setPage((Previous) => Previous + 1);
+    }
+  }
+
+  useEffect(() => {
+    Fetch_All_Match(SelectedMenu, 1, true);
+  }, []);
 
   return (
     <View style={style.Container}>
@@ -79,7 +96,9 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
                   index === GameTypesMenu.length - 1 ? SIZES.padding : 0,
               }}
               onPress={() => {
-                Fetch_All_Match(item.Query_String);
+                setLoading(true)
+                setPage(1);
+                Fetch_All_Match(item.Query_String, 1, true);
                 setSelectedMenu(item.Query_String);
               }}
             >
@@ -98,7 +117,7 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
           )}
         />
       </View>
-      {TempLoading || loading ? (
+      {Loading ? (
         <>
           <View
             style={{
@@ -110,7 +129,7 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
             <ActivityIndicator size="large" color={COLORS.primary} />
           </View>
         </>
-      ) : All_Matchs && All_Matchs.length === 0 ? (
+      ) : All_Matchs.length === 0 ? (
         <View
           style={{
             flex: 1,
@@ -133,8 +152,12 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
           keyExtractor={(Item) => `${Item._id}`}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          onRefresh={() => Fetch_All_Match(SelectedMenu)}
-          refreshing={loading}
+          onRefresh={() => {
+            setLoading(true)
+            Fetch_All_Match(SelectedMenu, 1, true)
+            setPage(1);
+          }}
+          refreshing={Loading}
           renderItem={({ item }) => (
             <GameItems
               ContainerStyle={{
@@ -163,6 +186,20 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
               }
             />
           )}
+          onEndReached={() => {
+            WhenEndReached();
+          }}
+          onEndReachedThreshold={0}
+          ListFooterComponent={(<View>
+            {Data_Length === 4 && <View
+              style={{
+                marginVertical: 16,
+                alignItems: "center",
+              }}
+            >
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            </View>}
+          </View>)}
         />
       )}
     </View>

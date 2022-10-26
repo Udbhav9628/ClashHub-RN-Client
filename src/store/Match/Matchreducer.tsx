@@ -31,39 +31,6 @@ export const Create_matches_Reducer = (state = [], action: any) => {
   }
 };
 
-export const Get_All_Matches = (state = [], action: any) => {
-  switch (action.type) {
-    case 'Get_All_Matches_Request':
-      return {
-        loading: true,
-      };
-    case 'Get_All_Matches_Sucess':
-      return {
-        loading: false,
-        All_Matchs: action.payload,
-        Sucess: true,
-      };
-    case 'Get_All_Matches_Fail':
-      return {
-        loading: false,
-        Error: action.payload,
-        Sucess: false,
-      };
-    case 'Clear_Match_Error':
-      return {
-        ...state,
-        Error: null,
-      };
-    case 'Clear_Match_Sucess':
-      return {
-        ...state,
-        Sucess: null,
-      };
-    default:
-      return state;
-  }
-};
-
 export const Get_Home_Page_Matches = (state = [], action: any) => {
   switch (action.type) {
     case 'Get_Home_Page_Matches_Request':

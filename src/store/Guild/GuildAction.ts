@@ -62,40 +62,6 @@ function getUserGuildDetails() {
   };
 }
 
-function Get_Guild_Matches_Details(id: any, MatchType: string) {
-  return async function (dispatch: any) {
-    try {
-      dispatch({
-        type: 'Get_Guild_Matches_Details_Request',
-      });
-
-      const Token: string = (await Return_Token(
-        'Get_Guild_Matches_Details_Fail',
-        dispatch,
-      )) as string;
-      const response = await axios.get(
-        `${Ip_Address}/getGuildtournaments/${id}?MatchType=${MatchType}`,
-        {
-          headers: {
-            'content-type': 'application/json',
-            Accept: 'application/json',
-            authToken: Token,
-          },
-        },
-      );
-      dispatch({
-        type: 'Get_Guild_Matches_Details_Sucess',
-        payload: response.data.Data,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: 'Get_Guild_Matches_Details_Fail',
-        payload: error.message,
-      });
-    }
-  };
-}
-
 //Create Guild
 function Create_Guild(Data: any) {
   return async function (dispatch: any) {
@@ -219,7 +185,6 @@ export {
   getUserGuildDetails,
   Create_Guild,
   Clear_Guild_Reducer_Error,
-  Get_Guild_Matches_Details,
   Clear_Guild_Reducer_Sucess,
   Join_Guild,
   Get_Specific_Club_Details,

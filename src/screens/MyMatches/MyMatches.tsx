@@ -6,7 +6,7 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { SIZES, COLORS, Dpheight, DPwidth } from "../../constants/Theame";
 import GameItems from "../Home/GameItems";
 import { useDispatch, useSelector } from "react-redux";
@@ -68,7 +68,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
       setPreMatchType(MatchType);
       setData_Length(response.data.length);
     } catch (error: any) {
-      Alert.alert("Error", error, [
+      Alert.alert("Error", error.message, [
         {
           text: "OK",
           onPress: () => {
@@ -89,7 +89,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
   }, [ReFetch_Joined_Matches]);
 
   function WhenEndReached() {
-    if (Data_Length === 4) {//4 Here is ResultPerPage
+    if (Data_Length === 4) {
       FetchData(SelectedMenu, Page + 1, false);
       setPage((Previous) => Previous + 1);
     }
@@ -98,7 +98,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
   return (
     <View style={styles.Container}>
       <View>
-        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={FetchData} setPage={setPage} SetLoading={setloading} />
+        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={FetchData} setPage={setPage} SetLoading={setloading} Club_Id={null} />
       </View>
       {loading ? (
         <View
@@ -109,7 +109,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
         >
           <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
-      ) : Matches_State && Matches_State.length === 0 ? (
+      ) : Matches_State.length === 0 ? (
         <View
           style={{
             flex: 1,
