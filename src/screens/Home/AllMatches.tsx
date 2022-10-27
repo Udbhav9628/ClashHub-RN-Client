@@ -50,8 +50,6 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
       } else {
         setAll_Matches(response.data.Data)
       }
-      console.log(response.data.Data);
-
       setLoading(false)
       setPreMatchType(SelectedMenu);
       setData_Length(response.data.Data.length);

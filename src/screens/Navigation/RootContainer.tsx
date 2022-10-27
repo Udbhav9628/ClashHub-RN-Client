@@ -145,15 +145,15 @@ export default function App() {
       ) : (
         Error && <Stack.Navigator>
           <Stack.Screen
-            name="Login"
-            component={Login}
+            name="Register"
+            component={Signup}
             options={{
               headerShown: false,
             }}
           />
           <Stack.Screen
-            name="Register"
-            component={Signup}
+            name="Login"
+            component={Login}
             options={{
               headerShown: false,
             }}

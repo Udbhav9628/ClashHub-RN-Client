@@ -55,6 +55,7 @@ const Textinput = ({
         <TextInput
           style={{
             flex: 1,
+            color: COLORS.black
           }}
           maxLength={maxLength}
           placeholder={Placeholder}

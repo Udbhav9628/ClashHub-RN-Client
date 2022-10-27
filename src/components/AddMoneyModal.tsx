@@ -64,7 +64,8 @@ const AddMoneyModal = ({
                             paddingLeft: 25,
                             justifyContent: "center",
                             borderRadius: SIZES.radius,
-                            backgroundColor: COLORS.lightGray2
+                            backgroundColor: COLORS.lightGray2,
+                            color: COLORS.black
                         }}
                         placeholder='Enter Amount'
                         placeholderTextColor={COLORS.gray}

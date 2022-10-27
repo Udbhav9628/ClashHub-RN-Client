@@ -229,7 +229,7 @@ const ModalJoinedPlayers = ({
                                                 height: Dpheight(7),
                                             }}>
                                                 <TextInput
-                                                    style={{ borderColor: COLORS.black }}
+                                                    style={{ borderColor: COLORS.black, color: COLORS.black }}
                                                     placeholder='Enter Kill'
                                                     placeholderTextColor={COLORS.gray}
                                                     keyboardType="number-pad"

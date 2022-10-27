@@ -201,7 +201,7 @@ const GameDetailsPage = ({
         // Joined
         <ScrollView>
           {/* Header */}
-          <Heading navigation={navigation} Title={"Detail"} />
+          <Heading navigation={navigation} Title={"Match Details"} />
           <View
             style={{
               flex: 1,
@@ -243,7 +243,7 @@ const GameDetailsPage = ({
                     </Text>
                     <Text
                       style={{
-                        ...FONTS.body2,
+                        ...FONTS.body3,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -266,7 +266,7 @@ const GameDetailsPage = ({
                     </Text>
                     <Text
                       style={{
-                        ...FONTS.body2,
+                        ...FONTS.body3,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -289,7 +289,7 @@ const GameDetailsPage = ({
                     </Text>
                     <Text
                       style={{
-                        ...FONTS.body2,
+                        ...FONTS.body3,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -312,7 +312,7 @@ const GameDetailsPage = ({
                     </Text>
                     <Text
                       style={{
-                        ...FONTS.body2,
+                        ...FONTS.body3,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -328,13 +328,16 @@ const GameDetailsPage = ({
                 <View>
                   {/* Joined Players Number */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                    }}>
                       Slots
                     </Text>
                     <Text
                       style={{
                         color: COLORS.black,
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                         fontWeight: "700",
                       }}
                     >
@@ -342,13 +345,16 @@ const GameDetailsPage = ({
                     </Text>
                   </View>
                   <View style={style.InfoLeftItem}>
-                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                    }}>
                       Prize
                     </Text>
                     <Text
                       style={{
                         color: COLORS.black,
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                         fontWeight: "700",
                       }}
                     >
@@ -357,13 +363,16 @@ const GameDetailsPage = ({
                   </View>
                   {/* Match Map */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                    }}>
                       Map
                     </Text>
                     <Text
                       style={{
                         color: COLORS.black,
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                         fontWeight: "700",
                       }}
                     >
@@ -372,13 +381,16 @@ const GameDetailsPage = ({
                   </View>
                   {/* Match Date */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                    }}>
                       Match Date
                     </Text>
                     <Text
                       style={{
                         color: COLORS.black,
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                         fontWeight: "700",
                       }}
                     >
@@ -387,13 +399,16 @@ const GameDetailsPage = ({
                   </View>
                   {/* Match Time */}
                   <View style={style.InfoLeftItem}>
-                    <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                    }}>
                       Time - 24H Format
                     </Text>
                     <Text
                       style={{
                         color: COLORS.black,
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                         fontWeight: "700",
                       }}
                     >

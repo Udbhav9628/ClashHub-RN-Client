@@ -14,7 +14,7 @@ import getAuth from "@react-native-firebase/auth";
 import messaging from '@react-native-firebase/messaging';
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Register_User } from "../../store/Authentication/Authaction";
+import { Register_User, Clear_Auth_Error } from "../../store/Authentication/Authaction";
 import {
   GoogleSignin
 } from '@react-native-google-signin/google-signin';
@@ -28,8 +28,9 @@ const Signup = ({ navigation }: { navigation: any }) => {
 
   const dispatch = useDispatch();
   const Register_User_func = bindActionCreators(Register_User, dispatch);
+  const Clear_Auth_Error_Func = bindActionCreators(Clear_Auth_Error, dispatch);
 
-  const { loading } = useSelector(
+  const { loading, sucess, Message } = useSelector(
     (state: any) => state.FetchUser_reducer
   );
 
@@ -83,6 +84,27 @@ const Signup = ({ navigation }: { navigation: any }) => {
       Register_User_func(Data, AuthToken)
     }
   }
+
+  useEffect(() => {
+    if (sucess) {
+      navigation.navigate("EnterInApp");
+    }
+  }, [sucess]);
+
+  useEffect(() => {
+    if (Message) {
+      Clear_Auth_Error_Func();
+      Alert.alert(
+        "Error",
+        Message,
+        [
+          {
+            text: "OK",
+          },
+        ]
+      );
+    }
+  }, [Message]);
 
 
   return (
@@ -169,7 +191,7 @@ const Signup = ({ navigation }: { navigation: any }) => {
             <Text style={{ fontSize: SIZES.body4 }}>
               If you already have an Account?{"  "}
             </Text>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <Text
                 style={{
                   fontSize: SIZES.h3,

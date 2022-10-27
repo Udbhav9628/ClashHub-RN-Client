@@ -88,7 +88,6 @@ const Login = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     if (sucess) {
-      setDisable(false);
       navigation.navigate("EnterInApp");
     }
   }, [sucess]);

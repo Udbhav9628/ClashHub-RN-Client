@@ -27,6 +27,7 @@ import {
   Create_Guild_Reducer,
   Join_Guild_Reducer,
   Get_Specific_Club_Reducer,
+  Get_Guild_Matchs_Reducer,
 } from './Guild/GuildReducer';
 
 export default combineReducers({
@@ -51,4 +52,5 @@ export default combineReducers({
   Fetch_Match_Room_Details,
   Razorpay_Token_Reducer,
   Money_Refund_Reducer,
+  Get_Guild_Matchs_Reducer,
 });
