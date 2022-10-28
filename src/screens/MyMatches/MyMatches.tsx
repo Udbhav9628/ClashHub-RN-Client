@@ -89,7 +89,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
   }, [ReFetch_Joined_Matches]);
 
   function WhenEndReached() {
-    if (Data_Length === 4) {
+    if (Data_Length === 10) {
       FetchData(SelectedMenu, Page + 1, false);
       setPage((Previous) => Previous + 1);
     }
@@ -170,7 +170,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
           }}
           onEndReachedThreshold={0}
           ListFooterComponent={(<View>
-            {Data_Length === 4 && <View
+            {Data_Length === 10 && <View
               style={{
                 marginVertical: 16,
                 alignItems: "center",

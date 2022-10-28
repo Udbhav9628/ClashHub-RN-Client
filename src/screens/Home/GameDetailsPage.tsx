@@ -219,7 +219,7 @@ const GameDetailsPage = ({
               <View style={style.TitleWraper}>
                 <Text
                   style={{
-                    ...FONTS.body2,
+                    fontFamily: 'Poppins-SemiBold', fontSize: 22,
                     fontWeight: "700",
                     color: COLORS.black,
                   }}
@@ -234,7 +234,7 @@ const GameDetailsPage = ({
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -243,7 +243,7 @@ const GameDetailsPage = ({
                     </Text>
                     <Text
                       style={{
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -257,7 +257,7 @@ const GameDetailsPage = ({
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -266,7 +266,7 @@ const GameDetailsPage = ({
                     </Text>
                     <Text
                       style={{
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -280,7 +280,7 @@ const GameDetailsPage = ({
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -289,7 +289,7 @@ const GameDetailsPage = ({
                     </Text>
                     <Text
                       style={{
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -303,7 +303,7 @@ const GameDetailsPage = ({
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -312,7 +312,7 @@ const GameDetailsPage = ({
                     </Text>
                     <Text
                       style={{
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -426,7 +426,7 @@ const GameDetailsPage = ({
           {/* Hosted By */}
           <View style={{ marginHorizontal: SIZES.padding, marginTop: Dpheight(8) }}>
             <Text style={{
-              ...FONTS.body3,
+              fontFamily: 'Poppins-SemiBold', fontSize: 17,
               fontWeight: "700",
               color: COLORS.black,
             }}>Hosted by</Text>
@@ -466,7 +466,7 @@ const GameDetailsPage = ({
                       <Text
                         style={{
                           color: Get_Specific_Club_Reducer.Sucess ? COLORS.black : COLORS.gray,
-                          fontSize: SIZES.h3,
+                          fontSize: 15,
                           fontWeight: "bold",
                         }}
                       >
@@ -669,7 +669,7 @@ const GameDetailsPage = ({
               <View style={style.TitleWraper}>
                 <Text
                   style={{
-                    ...FONTS.body2,
+                    fontFamily: 'Poppins-SemiBold', fontSize: 22,
                     fontWeight: "700",
                     color: COLORS.black,
                   }}
@@ -683,7 +683,7 @@ const GameDetailsPage = ({
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
-                        ...FONTS.h3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -692,7 +692,7 @@ const GameDetailsPage = ({
                     </Text>
                     <Text
                       style={{
-                        ...FONTS.body3,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                         color: COLORS.primary,
                         fontWeight: "700",
                       }}
@@ -901,12 +901,12 @@ const GameDetailsPage = ({
               }}
               disabled={disable_joinmatch_button}
               style={{
-                height: Dpheight(6.9),
+                height: 48,
                 alignItems: "center",
                 justifyContent: "center",
                 marginTop: SIZES.padding,
                 marginBottom: SIZES.padding,
-                borderRadius: SIZES.radius,
+                borderRadius: 8,
                 backgroundColor: COLORS.primary,
                 marginHorizontal: SIZES.padding,
               }}

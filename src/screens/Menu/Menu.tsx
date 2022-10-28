@@ -91,11 +91,11 @@ const Menu = ({ navigation }: { navigation: any }) => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuTouchableOpacity}
           onPress={() => {
-            Open_Google_Form("https://forms.gle/gNCFDeAUWUse7VQv9");
+            Open_Google_Form("https://forms.gle/MTw2pk7WffGrtDwp8");
           }}>
           <View style={styles.menuItem}>
             <Icon name="ios-bug-sharp" size={Dpheight(3.5)} color="black" />
-            <Text style={styles.Menutitle}>Report Bug</Text>
+            <Text style={styles.Menutitle}>Feedback</Text>
           </View>
         </TouchableOpacity>
       </View>

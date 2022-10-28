@@ -135,7 +135,7 @@ const GuildMatchesDetails = ({
                     <View style={style.TitleWraper}>
                         <Text
                             style={{
-                                ...FONTS.h1,
+                                fontFamily: 'Poppins-SemiBold', fontSize: 22,
                                 fontWeight: "700",
                                 color: COLORS.black,
                             }}
@@ -150,7 +150,7 @@ const GuildMatchesDetails = ({
                             <View style={style.EntryFeeWraper}>
                                 <Text
                                     style={{
-                                        ...FONTS.body3,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                                         color: COLORS.primary,
                                         fontWeight: "700",
                                     }}
@@ -159,7 +159,7 @@ const GuildMatchesDetails = ({
                                 </Text>
                                 <Text
                                     style={{
-                                        ...FONTS.body2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                                         color: COLORS.primary,
                                         fontWeight: "700",
                                     }}
@@ -173,7 +173,7 @@ const GuildMatchesDetails = ({
                             <View style={style.EntryFeeWraper}>
                                 <Text
                                     style={{
-                                        ...FONTS.body3,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                                         color: COLORS.primary,
                                         fontWeight: "700",
                                     }}
@@ -182,7 +182,7 @@ const GuildMatchesDetails = ({
                                 </Text>
                                 <Text
                                     style={{
-                                        ...FONTS.body2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                                         color: COLORS.primary,
                                         fontWeight: "700",
                                     }}
@@ -196,7 +196,7 @@ const GuildMatchesDetails = ({
                             <View style={style.EntryFeeWraper}>
                                 <Text
                                     style={{
-                                        ...FONTS.body3,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                                         color: COLORS.primary,
                                         fontWeight: "700",
                                     }}
@@ -205,7 +205,7 @@ const GuildMatchesDetails = ({
                                 </Text>
                                 <Text
                                     style={{
-                                        ...FONTS.body2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                                         color: COLORS.primary,
                                         fontWeight: "700",
                                     }}
@@ -219,7 +219,7 @@ const GuildMatchesDetails = ({
                             <View style={style.EntryFeeWraper}>
                                 <Text
                                     style={{
-                                        ...FONTS.body3,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                                         color: COLORS.primary,
                                         fontWeight: "700",
                                     }}
@@ -228,7 +228,7 @@ const GuildMatchesDetails = ({
                                 </Text>
                                 <Text
                                     style={{
-                                        ...FONTS.body2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
                                         color: COLORS.primary,
                                         fontWeight: "700",
                                     }}
@@ -244,13 +244,16 @@ const GuildMatchesDetails = ({
                         <View>
                             {/* Match Map */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                                <Text style={{
+                                    color: COLORS.darkGray2,
+                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                                }}>
                                     Map
                                 </Text>
                                 <Text
                                     style={{
                                         color: COLORS.black,
-                                        ...FONTS.body3,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                                         fontWeight: "700",
                                     }}
                                 >
@@ -259,13 +262,16 @@ const GuildMatchesDetails = ({
                             </View>
                             {/* Match Date */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                                <Text style={{
+                                    color: COLORS.darkGray2,
+                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                                }}>
                                     Match Date
                                 </Text>
                                 <Text
                                     style={{
                                         color: COLORS.black,
-                                        ...FONTS.body3,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                                         fontWeight: "700",
                                     }}
                                 >
@@ -274,13 +280,16 @@ const GuildMatchesDetails = ({
                             </View>
                             {/* Match Time */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                                <Text style={{
+                                    color: COLORS.darkGray2,
+                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                                }}>
                                     Time - 24H Format
                                 </Text>
                                 <Text
                                     style={{
                                         color: COLORS.black,
-                                        ...FONTS.body3,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                                         fontWeight: "700",
                                     }}
                                 >
@@ -289,13 +298,16 @@ const GuildMatchesDetails = ({
                             </View>
                             {/* prize */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                                <Text style={{
+                                    color: COLORS.darkGray2,
+                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                                }}>
                                     Prize
                                 </Text>
                                 <Text
                                     style={{
                                         color: COLORS.black,
-                                        ...FONTS.body3,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                                         fontWeight: "700",
                                     }}
                                 >
@@ -304,13 +316,16 @@ const GuildMatchesDetails = ({
                             </View>
                             {/* Profit Per Player */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                                <Text style={{
+                                    color: COLORS.darkGray2,
+                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                                }}>
                                     Profit Per Player
                                 </Text>
                                 <Text
                                     style={{
                                         color: COLORS.black,
-                                        ...FONTS.body3,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                                         fontWeight: "700",
                                     }}
                                 >
@@ -319,13 +334,16 @@ const GuildMatchesDetails = ({
                             </View>
                             {/* Joined Players Number */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                                <Text style={{
+                                    color: COLORS.darkGray2,
+                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                                }}>
                                     Slots
                                 </Text>
                                 <Text
                                     style={{
                                         color: COLORS.black,
-                                        ...FONTS.body3,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                                         fontWeight: "700",
                                     }}
                                 >
@@ -334,13 +352,16 @@ const GuildMatchesDetails = ({
                             </View>
                             {/* Entry Fee */}
                             <View style={style.InfoLeftItem}>
-                                <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
+                                <Text style={{
+                                    color: COLORS.darkGray2,
+                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                                }}>
                                     Entry Fee
                                 </Text>
                                 <Text
                                     style={{
                                         color: COLORS.black,
-                                        ...FONTS.body3,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
                                         fontWeight: "700",
                                     }}
                                 >
@@ -534,12 +555,12 @@ const GuildMatchesDetails = ({
                                     setModalVisible(true)
                                 }}
                                 style={{
-                                    height: Dpheight(6.9),
+                                    height: 48,
                                     alignItems: "center",
                                     justifyContent: "center",
                                     marginTop: SIZES.padding,
                                     marginBottom: SIZES.padding,
-                                    borderRadius: SIZES.radius,
+                                    borderRadius: 8,
                                     backgroundColor: Item.Match_Status === 'Started' ? COLORS.transparentPrimray : COLORS.primary,
                                     marginHorizontal: SIZES.padding,
                                 }}
