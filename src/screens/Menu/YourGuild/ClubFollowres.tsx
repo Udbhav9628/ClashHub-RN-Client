@@ -1,5 +1,5 @@
-import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native'
+import React, { useState } from 'react'
 import { COLORS, DPwidth, FONTS, SIZES } from '../../../constants/Theame';
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -14,6 +14,16 @@ const ClubFollowres = ({
     navigation: any;
     Followers: any;
 }) => {
+
+    const [Data, setData] = useState(Followers);
+
+    function OnSearch_Text_Change(text: string) {
+        var query = text;
+        let expr = new RegExp(query, "i");
+        var SearchedPlayers = Followers.filter((elem: any) => expr.test(elem.InGameName || elem.FollowersName));
+        setData(SearchedPlayers)
+    }
+
     return (
         <Modal
             animationType="slide"
@@ -45,8 +55,37 @@ const ClubFollowres = ({
                             color: COLORS.black
                         }}
                     >
-                        Followers
+                        Players
                     </Text>
+                </View>
+                {/* Search Component */}
+                <View>
+                    <View
+                        style={{
+                            marginTop: SIZES.padding,
+                            height: 50,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginHorizontal: SIZES.padding,
+                            marginVertical: SIZES.base,
+                            paddingHorizontal: SIZES.radius,
+                            borderRadius: SIZES.radius,
+                            backgroundColor: COLORS.lightGray2,
+                        }}>
+                        <Icon name="search" size={26} color="black" />
+                        <TextInput
+                            style={{
+                                flex: 1,
+                                marginLeft: SIZES.radius,
+                                fontSize: 16,
+                                lineHeight: 22,
+                            }}
+                            placeholder={Followers && Followers[0]?.InGameName ? "Search by IGN..." : 'Search Here...'}
+                            onChangeText={(Value) => {
+                                OnSearch_Text_Change(Value);
+                            }}
+                        />
+                    </View>
                 </View>
                 <View style={styles.Container}>
                     {Followers.length != 0 ? (
@@ -66,7 +105,7 @@ const ClubFollowres = ({
                                 </View>
                             </View>
                             <FlatList
-                                data={Followers}
+                                data={Data}
                                 keyExtractor={(Item) => `${Item._id}`}
                                 showsHorizontalScrollIndicator={false}
                                 showsVerticalScrollIndicator={false}
@@ -85,11 +124,11 @@ const ClubFollowres = ({
                                                     <Text style={{
                                                         color: COLORS.black,
                                                         ...FONTS.body3,
-                                                    }}>{item.FollowersName || item.UserName}</Text>
+                                                    }}>{item.FollowersName || `IGN- ${item.InGameName}`}</Text>
                                                     {item.InGameName && <Text style={{
                                                         color: COLORS.gray,
-                                                        ...FONTS.body4,
-                                                    }}>{item.InGameName}</Text>}
+                                                        ...FONTS.body5,
+                                                    }}>{item.UserName}</Text>}
                                                 </View>
                                             </View>
                                         </View>
@@ -109,7 +148,7 @@ const ClubFollowres = ({
                                     fontWeight: "700",
                                 }}
                             >
-                                No Followers
+                                No Warriors
                             </Text>
                         </View>)}
                 </View>

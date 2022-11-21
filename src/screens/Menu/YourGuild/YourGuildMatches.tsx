@@ -118,11 +118,11 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           refreshing={false}
-          onRefresh={() => {
-            setloading(true)
-            Get_Guild_Matches(Guild_Details._id, 'Scheduled', 1, true);
-            setPage(1)
-          }}
+          // onRefresh={() => {
+          //   setloading(true)
+          //   Get_Guild_Matches(Guild_Details._id, 'Scheduled', 1, true);
+          //   setPage(1)
+          // }}
           renderItem={({ item }) => (
             <GameItems
               ContainerStyle={{

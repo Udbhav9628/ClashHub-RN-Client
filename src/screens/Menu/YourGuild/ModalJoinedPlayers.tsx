@@ -64,14 +64,16 @@ const ModalJoinedPlayers = ({
                 Match_in_Function.Joined_User.forEach((data: any) => {
                     Total_Kills = Total_Kills + Number(data.Kills)
                 });
-                if ((Total_Kills - 1) > Match.Joined_User.length) {
-                    Alert.alert("Message", `Total kill of All Players Combined can't be more then ${(Match.Joined_User.length - 1)} , Cross Check All players Kills Once Again`, [
+                console.log(Total_Kills - 1);
+
+                if (Total_Kills > (Match.Joined_User.length - 1)) {
+                    Alert.alert("Message", `Total kill of All Players Combined can't be more then ${(Match.Joined_User.length - 1)} , Cross Check All players Entered Kills Once Again`, [
                         {
                             text: "OK",
                         },
                     ]);
                 } else {
-                    Alert.alert("Alert", 'This Process is Ireversible , Check All Player Kills before Publish', [
+                    Alert.alert("Alert", 'This Process is Ireversible , Check All Player Kills before Publishing Results', [
                         {
                             text: "Cancel",
                         },
@@ -268,7 +270,7 @@ const ModalJoinedPlayers = ({
                                 style={{
                                     position: "absolute",
                                     bottom: 0,
-                                    width: '100%',
+                                    width: '95%',
                                     height: Dpheight(7),
                                     alignItems: "center",
                                     justifyContent: "center",
