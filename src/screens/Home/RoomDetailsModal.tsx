@@ -1,18 +1,23 @@
-import { ActivityIndicator, Alert, Modal, Text, View } from 'react-native'
+import { ActivityIndicator, Alert, Modal, Text, View, TouchableOpacity } from 'react-native'
 import React, { useEffect } from 'react'
 import { COLORS, Dpheight, FONTS, SIZES } from '../../constants/Theame';
 import { Fetch_Match_Room_Details, Clear_Match_Reducer_Error } from "../../store/Match/Matchaction";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const RoomDetailsModal = ({
     modalVisible,
     setModalVisible,
     MatchId,
+    RoomDetails,
+    Toogle_Update_Button
 }: {
     modalVisible: any;
     setModalVisible: any;
     MatchId: any;
+    RoomDetails: any;
+    Toogle_Update_Button: any;
 }) => {
 
     const dispatch = useDispatch();
@@ -30,7 +35,7 @@ const RoomDetailsModal = ({
     );
 
     useEffect(() => {
-        if (modalVisible) {
+        if (!RoomDetails && modalVisible) {
             Fetch_Match_Room_Details_Func(MatchId);
         }
     }, [modalVisible])
@@ -57,7 +62,7 @@ const RoomDetailsModal = ({
                 left: 2,
                 right: 2,
                 margin: 20,
-                height: 200,
+                height: 220,
                 backgroundColor: "white",
                 borderRadius: SIZES.radius,
                 shadowColor: COLORS.black,
@@ -83,11 +88,9 @@ const RoomDetailsModal = ({
                         }}
                     >
                         <ActivityIndicator size="large" color={COLORS.primary} />
-                    </View>) : (Responce?.Sucess ? (
+                    </View>) : (Responce?.Sucess || RoomDetails ? (
                         <>
-                            <View style={{
-                                marginTop: Dpheight(2)
-                            }}>
+                            <View>
                                 <Text
                                     style={{
                                         marginTop: '4%',
@@ -109,7 +112,7 @@ const RoomDetailsModal = ({
                                         fontWeight: "700",
                                     }}
                                 >
-                                    {Responce?.RoomId}
+                                    {RoomDetails ? RoomDetails.Name : Responce?.RoomId}
                                 </Text>
                                 <Text style={{ color: COLORS.darkGray2, ...FONTS.h3 }}>
                                     Room PassWord
@@ -121,7 +124,7 @@ const RoomDetailsModal = ({
                                         fontWeight: "700",
                                     }}
                                 >
-                                    {Responce?.RoomPass}
+                                    {RoomDetails ? RoomDetails.Password : Responce?.RoomPass}
                                 </Text>
                             </View></>
                     ) : (
@@ -145,6 +148,24 @@ const RoomDetailsModal = ({
                         </View>
                     ))}
                 </View>
+                {/* Bottom Button */}
+                {RoomDetails && (<TouchableOpacity
+                    onPress={() => {
+                        setModalVisible(false)
+                        Toogle_Update_Button(true)
+                    }}
+                    style={{
+                        position: "absolute",
+                        right: 0,
+                        padding: 16,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: COLORS.lightGray2,
+                        borderRadius: SIZES.radius,
+                    }}
+                >
+                    <Icon name="update" size={Dpheight(3.6)} color="black" />
+                </TouchableOpacity>)}
             </View>
         </Modal>
     )

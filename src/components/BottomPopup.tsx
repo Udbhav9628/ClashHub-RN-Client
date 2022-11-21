@@ -160,14 +160,14 @@ const BottomPopup = ({
         {MatchId ? (
           <View
             style={{
-              margin: '4%',
+              margin: 16,
               justifyContent: "center",
             }}
           >
             <View>
               <Text
                 style={{
-                  marginTop: '4%',
+                  marginTop: 2,
                   textAlign: 'center',
                   fontSize: SIZES.body2,
                   fontWeight: "bold",
@@ -220,7 +220,7 @@ const BottomPopup = ({
               }}
               disabled={Disable}
               style={{
-                height: 53,
+                height: 48,
                 alignItems: "center",
                 justifyContent: "center",
                 marginTop: SIZES.padding,

@@ -14,6 +14,7 @@ import ModalJoinedPlayers from "./ModalJoinedPlayers";
 import BottomPopup from "../../../components/BottomPopup";
 import MatchUpdateModal from "../../../components/MatchUpdateModal";
 import ClubFollowres from "./ClubFollowres";
+import RoomDetailsModal from "../../Home/RoomDetailsModal";
 
 const GuildMatchesDetails = ({
     route,
@@ -26,7 +27,7 @@ const GuildMatchesDetails = ({
     } = route.params;
 
     const [modalVisible, setModalVisible] = useState(false)
-
+    const [RoomDetailsModals, setRoomDetailsModal] = useState(false)
     const [Disable, setDisable] = useState(false)
 
     const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
@@ -560,6 +561,41 @@ const GuildMatchesDetails = ({
                                 </View>
                             </TouchableOpacity>
                         </View>)}
+                    {/* Room Details */}
+                    {Item.Match_Status === 'Started' && (<View style={style.Elevation}>
+                        <RoomDetailsModal modalVisible={RoomDetailsModals}
+                            setModalVisible={setRoomDetailsModal}
+                            MatchId={Item._id} RoomDetails={Item.RoomDetails} Toogle_Update_Button={setModalVisible} />
+                        <TouchableOpacity
+                            onPress={() => { setRoomDetailsModal(true) }}>
+                            <View style={style.GuildWrapper}>
+                                <View style={{ margin: 12 }}><Icon name="info-circle" size={Dpheight(3)} color="black" /></View>
+                                {/* Info Of Guild */}
+                                <View style={style.GuildInfo}>
+                                    <View>
+                                        <Text
+                                            style={{
+                                                color: COLORS.black,
+                                                fontSize: SIZES.h3,
+                                                fontWeight: "bold",
+                                            }}
+                                        >
+                                            Room Details
+                                        </Text>
+                                    </View>
+                                    <View
+                                        style={{
+                                            position: "absolute",
+                                            top: -2,
+                                            right: 15,
+                                        }}
+                                    >
+                                        <Icon name="angle-right" size={24} color="black" />
+                                    </View>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </View>)}
                     {/* Participants - Cancelled */}
                     <View style={style.Elevation}>
                         <View>
@@ -599,66 +635,63 @@ const GuildMatchesDetails = ({
                         </TouchableOpacity>
                     </View>
                     {/* Bottom Button */}
-                    {Minutes !== 0 && (
-                        <>
-                            {/* Modal */}
-                            <BottomPopup
-                                modalVisible={modalVisible}
-                                setModalVisible={setModalVisible}
-                                MatchId={Item._id}
-                                Amount={null}
-                                Match_Status={Item.Match_Status}
-                                Disable={Disable}
-                                setDisable={setDisable}
-                                navigation={navigation}
-                                ModalContainerStyle={
-                                    {
-                                        position: "absolute",
-                                        bottom: -8,
-                                        left: 2,
-                                        right: 2,
-                                        margin: 10,
-                                        height: Dpheight(47),
-                                        backgroundColor: "white",
-                                        borderRadius: SIZES.radius,
-                                        padding: 5,
-                                        shadowColor: COLORS.black,
-                                        shadowOpacity: 0.25,
-                                        shadowRadius: 4,
-                                        elevation: 5,
-                                        shadowOffset: {
-                                            width: 0,
-                                            height: 2,
-                                        },
-                                    }
-                                }
-                            />
-                            <TouchableOpacity
-                                onPress={() => {
-                                    setModalVisible(true)
-                                }}
+                    <BottomPopup
+                        modalVisible={modalVisible}
+                        setModalVisible={setModalVisible}
+                        MatchId={Item._id}
+                        Amount={null}
+                        Match_Status={Item.Match_Status}
+                        Disable={Disable}
+                        setDisable={setDisable}
+                        navigation={navigation}
+                        ModalContainerStyle={
+                            {
+                                position: "absolute",
+                                bottom: -8,
+                                left: 2,
+                                right: 2,
+                                margin: 10,
+                                height: 380,
+                                backgroundColor: "white",
+                                borderRadius: SIZES.radius,
+                                padding: 5,
+                                shadowColor: COLORS.black,
+                                shadowOpacity: 0.25,
+                                shadowRadius: 4,
+                                elevation: 5,
+                                shadowOffset: {
+                                    width: 0,
+                                    height: 2,
+                                },
+                            }
+                        }
+                    />
+                    {Minutes !== 0 && Item.Match_Status !== 'Started' && (
+                        <TouchableOpacity
+                            onPress={() => {
+                                setModalVisible(true)
+                            }}
+                            style={{
+                                height: 48,
+                                alignItems: "center",
+                                justifyContent: "center",
+                                marginTop: SIZES.padding,
+                                marginBottom: SIZES.padding,
+                                borderRadius: 8,
+                                backgroundColor: COLORS.primary,
+                                marginHorizontal: SIZES.padding,
+                            }}
+                        >
+                            <Text
                                 style={{
-                                    height: 48,
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: SIZES.padding,
-                                    marginBottom: SIZES.padding,
-                                    borderRadius: 8,
-                                    backgroundColor: Item.Match_Status === 'Started' ? COLORS.green : COLORS.primary,
-                                    marginHorizontal: SIZES.padding,
+                                    color: COLORS.white,
+                                    fontWeight: "bold",
+                                    fontSize: SIZES.h3,
                                 }}
                             >
-                                <Text
-                                    style={{
-                                        color: COLORS.white,
-                                        fontWeight: "bold",
-                                        fontSize: SIZES.h3,
-                                    }}
-                                >
-                                    {Item.Match_Status === 'Started' ? 'Update Room Details' : 'Enter Room Details'}
-                                </Text>
-                            </TouchableOpacity>
-                        </>
+                                Enter Room Details
+                            </Text>
+                        </TouchableOpacity>
                     )
                     }
                 </View>

@@ -574,7 +574,7 @@ const GameDetailsPage = ({
               {Days === 0 && Hours === 0 && Minutes < 10 && (<View style={style.Elevation}>
                 <RoomDetailsModal modalVisible={RoomDetailsModals}
                   setModalVisible={setRoomDetailsModal}
-                  MatchId={Item._id} />
+                  MatchId={Item._id} RoomDetails={null} Toogle_Update_Button={null} />
                 <TouchableOpacity
                   onPress={() => { setRoomDetailsModal(true) }}>
                   <View style={style.GuildWrapper}>
