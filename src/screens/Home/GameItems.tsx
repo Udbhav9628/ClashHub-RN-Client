@@ -65,6 +65,7 @@ const GameItems = ({
       Timer_Function()
     }, 1000);
   };
+
   useFocusEffect(
     React.useCallback(() => {
       Start_Timer();
@@ -75,6 +76,43 @@ const GameItems = ({
   useEffect(() => {
     Timer_Function()
   }, []);
+
+  function Return_Match_Status() {
+    if (Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started') {
+      return (<Text
+        style={{
+          color: COLORS.primary,
+          fontFamily: 'Poppins-Regular',
+          fontSize: Dpheight(0.7) * DPwidth(0.6),
+          fontWeight: "bold",
+        }}
+      >
+        Live
+      </Text>)
+    } else if (Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed') {
+      return (<Text
+        style={{
+          color: COLORS.Green2,
+          fontFamily: 'Poppins-Regular',
+          fontSize: Dpheight(0.7) * DPwidth(0.6),
+          fontWeight: "bold",
+        }}
+      >
+        Finished
+      </Text>)
+    } else if (Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed') {
+      return (<Text
+        style={{
+          color: '#DC3535',
+          fontFamily: 'Poppins-Regular',
+          fontSize: Dpheight(0.7) * DPwidth(0.6),
+          fontWeight: "bold",
+        }}
+      >
+        Suspended
+      </Text>)
+    }
+  }
 
   return (
     <TouchableOpacity
@@ -199,26 +237,18 @@ const GameItems = ({
             height: Dpheight(3.5),
           }}
         />
-        {Days === 0 && Hours === 0 && Minutes === 0 ? (<Text
-          style={{
-            color: COLORS.darkGray2,
-            fontFamily: 'Poppins-Regular',
-            fontSize: Dpheight(0.7) * DPwidth(0.6),
-            fontWeight: "bold",
-          }}
-        >
-          {Item?.Is_Finished === true ? "Finished" : " It's Live"}
-        </Text>) : (<Text
-          style={{
-            color: "#000",
-            fontFamily: 'Poppins-Regular',
-            fontSize: Dpheight(0.6) * DPwidth(0.7),
-            fontWeight: "bold",
-          }}
-        >
+        {Days === 0 && Hours === 0 && Minutes === 0 ? (
+          Return_Match_Status()) : (<Text
+            style={{
+              color: COLORS.red,
+              fontFamily: 'Poppins-Regular',
+              fontSize: Dpheight(0.6) * DPwidth(0.7),
+              fontWeight: "bold",
+            }}
+          >
 
-          {!Days || Days === 0 ? '' : `${Days}D,`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{Minutes}M
-        </Text>)}
+            {!Days || Days === 0 ? '' : `${Days}D,`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{Minutes}M
+          </Text>)}
       </View>
       {/* Bottom Box */}
       <View
