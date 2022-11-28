@@ -18,7 +18,7 @@ const GameItems = ({
   GameImage: any;
   onPress: any;
 }) => {
-  //Timer
+
   const [Days, setDays] = useState(0);
   const [Hours, setHours] = useState(0);
   const [Minutes, setMinutes] = useState(0);
@@ -28,34 +28,28 @@ const GameItems = ({
   const Hour = Minute * 60;
   const Day = Hour * 24;
 
-  const [Room_Details, setRoom_Details] = useState("");
-  const [Msg, setMsg] = useState("");
+  const [Match_Cancelled, setMatch_Cancelled] = useState(false)
 
   function Timer_Function() {
-    const Match_time = new Date(Item?.Date_Time).getTime();
+    const Match_time = new Date(Item.Date_Time).getTime();
     const now = new Date().getTime();
     const Gap = Match_time - now;
-    const TextDay = Math.floor(Gap / Day);
-    const TextHour = Math.floor((Gap % Day) / Hour);
-    const TextMinute = Math.floor((Gap % Hour) / Minute);
-    if (Gap < 0) {
-      //TO DO - Remove this match from the all matches list
+    const Gap2 = now - Match_time;
+
+    if ((Gap2 >= 14400000 && Item.Match_Status === 'Started') || (Gap <= 0 && Item.Match_Status === 'Scheduled')) {
       clearInterval(Timer);
-      setRoom_Details(
-        "You are Late, Reporting Time is 10 Min Before Match Time"
-      );
-      setMsg("Its Live");
-    } else if (Gap <= 1200000) {
+      setMatch_Cancelled(true)
+    }
+    if (Gap <= 0) {
+      setMinutes(0);
+    }
+    else {
+      const TextDay = Math.floor(Gap / Day);
+      const TextHour = Math.floor((Gap % Day) / Hour);
+      const TextMinute = Math.floor((Gap % Hour) / Minute);
       setDays(TextDay);
       setHours(TextHour);
-      setMinutes(TextMinute);
-      setRoom_Details("Room Id & Password Is Avilable, Grab It Hurry");
-    } else {
-      //Set Timer
-      setRoom_Details("Will Be Available 20 Min Before Match Time");
-      setDays(TextDay);
-      setHours(TextHour);
-      setMinutes(TextMinute);
+      setMinutes(TextMinute + 1);
     }
   }
 
@@ -78,7 +72,7 @@ const GameItems = ({
   }, []);
 
   function Return_Match_Status() {
-    if (Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started') {
+    if (Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled) {
       return (<Text
         style={{
           color: COLORS.primary,
@@ -100,7 +94,7 @@ const GameItems = ({
       >
         Finished
       </Text>)
-    } else if (Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed') {
+    } else if (Match_Cancelled) {
       return (<Text
         style={{
           color: '#DC3535',
@@ -246,7 +240,7 @@ const GameItems = ({
               fontWeight: "bold",
             }}
           >
-
+            {Item.Match_Status !== 'Scheduled' && "Room Available"}
             {!Days || Days === 0 ? '' : `${Days}D,`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{Minutes}M
           </Text>)}
       </View>

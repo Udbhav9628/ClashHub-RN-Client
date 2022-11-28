@@ -135,40 +135,33 @@ const GameDetailsPage = ({
   const [Days, setDays] = useState(0);
   const [Hours, setHours] = useState(0);
   const [Minutes, setMinutes] = useState(0);
+  const [Match_Cancelled, setMatch_Cancelled] = useState(false)
 
   const Second = 1000;
   const Minute = Second * 60;
   const Hour = Minute * 60;
   const Day = Hour * 24;
 
-  const [Room_Details, setRoom_Details] = useState("");
-  const [Msg, setMsg] = useState("");
-
   function Timer_Function() {
     const Match_time = new Date(Item.Date_Time).getTime();
     const now = new Date().getTime();
     const Gap = Match_time - now;
-    const TextDay = Math.floor(Gap / Day);
-    const TextHour = Math.floor((Gap % Day) / Hour);
-    const TextMinute = Math.floor((Gap % Hour) / Minute);
-    if (Gap < 0) {
-      //Stop Timer
+    const Gap2 = now - Match_time;
+
+    if ((Gap2 >= 14400000 && Item.Match_Status === 'Started') || (Gap <= 0 && Item.Match_Status === 'Scheduled')) {
       clearInterval(Timer);
-      setRoom_Details(
-        "You are Late, Reporting Time is 10 Min Before Match Time"
-      );
-      setMsg("Its Live");
-    } else if (Gap <= 1200000) {
+      setMatch_Cancelled(true)
+    }
+    if (Gap <= 0) {
+      setMinutes(0);
+    }
+    else {
+      const TextDay = Math.floor(Gap / Day);
+      const TextHour = Math.floor((Gap % Day) / Hour);
+      const TextMinute = Math.floor((Gap % Hour) / Minute);
       setDays(TextDay);
       setHours(TextHour);
-      setMinutes(TextMinute);
-      setRoom_Details("Room Id & Password Is Avilable, Grab It Hurry");
-    } else {
-      //Set Timer
-      setRoom_Details("Will Be Available 20 Min Before Match Time");
-      setDays(TextDay);
-      setHours(TextHour);
-      setMinutes(TextMinute);
+      setMinutes(TextMinute + 1);
     }
   }
 
@@ -230,7 +223,7 @@ const GameDetailsPage = ({
               {/* Match Status */}
               <View>
                 {/* Secheduled */}
-                {Minutes !== 0 && (
+                {(Minutes !== 0) && (Item.Match_Status === 'Scheduled') && (
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
@@ -252,8 +245,8 @@ const GameDetailsPage = ({
                     </Text>
                   </View>
                 )}
-                {/* Ongoing */}
-                {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && (
+                {/*Join Now */}
+                {Minutes !== 0 && Item.Match_Status === 'Started' && (
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
@@ -262,8 +255,22 @@ const GameDetailsPage = ({
                         fontWeight: "700",
                       }}
                     >
-                      Match Is
+                      Room Available
                     </Text>
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Starts in {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                    </Text>
+                  </View>
+                )}
+                {/* Ongoing */}
+                {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled && (
+                  <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
                         fontFamily: 'Poppins-SemiBold', fontSize: 18,
@@ -285,21 +292,12 @@ const GameDetailsPage = ({
                         fontWeight: "700",
                       }}
                     >
-                      Match Is
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Completed
+                      Finished
                     </Text>
                   </View>
                 )}
                 {/* Cancelled */}
-                {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed' && (
+                {Match_Cancelled && (
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
@@ -308,16 +306,7 @@ const GameDetailsPage = ({
                         fontWeight: "700",
                       }}
                     >
-                      Match Is
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Cancelled
+                      Suspended
                     </Text>
                   </View>
                 )}
@@ -488,44 +477,46 @@ const GameDetailsPage = ({
             </View>
           </View>
           {/* Bottom Buttons */}
+          {/* Money Refund Show On Cancelled*/}
           <View style={{ marginTop: Dpheight(1) }}>
-            {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed' && <View style={style.Elevation}>
-              <View>
-                <MoneyRefund_Comp modalVisible={MoneyRefund}
-                  setModalVisible={setMoneyRefund}
-                  Match_Id={Item._id}
-                  setDisable={setDisable} />
-              </View>
-              <TouchableOpacity
-                onPress={() => { setMoneyRefund(true) }}>
-                <View style={style.GuildWrapper}>
-                  <View style={{ margin: 10 }}><Icon name="money-check-alt" size={Dpheight(2.5)} color="black" /></View>
-                  {/* Info Of Guild */}
-                  <View style={style.GuildInfo}>
-                    <View>
-                      <Text
+            {Match_Cancelled &&
+              <View style={style.Elevation}>
+                <View>
+                  <MoneyRefund_Comp modalVisible={MoneyRefund}
+                    setModalVisible={setMoneyRefund}
+                    Match_Id={Item._id}
+                    setDisable={setDisable} />
+                </View>
+                <TouchableOpacity
+                  onPress={() => { setMoneyRefund(true) }}>
+                  <View style={style.GuildWrapper}>
+                    <View style={{ margin: 10 }}><Icon name="money-check-alt" size={Dpheight(2.5)} color="black" /></View>
+                    {/* Info Of Guild */}
+                    <View style={style.GuildInfo}>
+                      <View>
+                        <Text
+                          style={{
+                            color: COLORS.black,
+                            fontSize: SIZES.h3,
+                            fontWeight: "bold",
+                          }}
+                        >
+                          Money Refund
+                        </Text>
+                      </View>
+                      <View
                         style={{
-                          color: COLORS.black,
-                          fontSize: SIZES.h3,
-                          fontWeight: "bold",
+                          position: "absolute",
+                          top: -2,
+                          right: 15,
                         }}
                       >
-                        Money Refund
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        position: "absolute",
-                        top: -2,
-                        right: 15,
-                      }}
-                    >
-                      <Icon name="angle-right" size={20} color="black" />
+                        <Icon name="angle-right" size={20} color="black" />
+                      </View>
                     </View>
                   </View>
-                </View>
-              </TouchableOpacity>
-            </View>}
+                </TouchableOpacity>
+              </View>}
             {/* Update Button */}
             <View style={style.Elevation}>
               <View>
@@ -571,7 +562,7 @@ const GameDetailsPage = ({
               marginBottom: SIZES.padding
             }}>
               {/* Room Id and Pass */}
-              {Days === 0 && Hours === 0 && Minutes < 10 && (<View style={style.Elevation}>
+              <View style={style.Elevation}>
                 <RoomDetailsModal modalVisible={RoomDetailsModals}
                   setModalVisible={setRoomDetailsModal}
                   MatchId={Item._id} RoomDetails={null} Toogle_Update_Button={null} />
@@ -604,7 +595,7 @@ const GameDetailsPage = ({
                     </View>
                   </View>
                 </TouchableOpacity>
-              </View>)}
+              </View>
               {/* Participants */}
               <View style={style.Elevation}>
                 <View>
@@ -679,7 +670,8 @@ const GameDetailsPage = ({
               </View>
               {/* Match Status */}
               <View>
-                {Minutes !== 0 && (
+                {/* Secheduled */}
+                {(Minutes !== 0) && (Item.Match_Status === 'Scheduled') && (
                   <View style={style.EntryFeeWraper}>
                     <Text
                       style={{
@@ -698,6 +690,71 @@ const GameDetailsPage = ({
                       }}
                     >
                       {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                    </Text>
+                  </View>
+                )}
+                {/*Join Now */}
+                {Minutes !== 0 && Item.Match_Status === 'Started' && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Room Available
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Starts in {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                    </Text>
+                  </View>
+                )}
+                {/* Ongoing */}
+                {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Live
+                    </Text>
+                  </View>
+                )}
+                {/* Completed */}
+                {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed' && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Finished
+                    </Text>
+                  </View>
+                )}
+                {/* Cancelled */}
+                {Match_Cancelled && (
+                  <View style={style.EntryFeeWraper}>
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      Suspended
                     </Text>
                   </View>
                 )}

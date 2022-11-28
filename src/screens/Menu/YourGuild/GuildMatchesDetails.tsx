@@ -43,34 +43,28 @@ const GuildMatchesDetails = ({
     const Hour = Minute * 60;
     const Day = Hour * 24;
 
-    const [Room_Details, setRoom_Details] = useState("");
-    const [Msg, setMsg] = useState("");
+    const [Match_Cancelled, setMatch_Cancelled] = useState(false)
 
     function Timer_Function() {
         const Match_time = new Date(Item.Date_Time).getTime();
         const now = new Date().getTime();
         const Gap = Match_time - now;
-        const TextDay = Math.floor(Gap / Day);
-        const TextHour = Math.floor((Gap % Day) / Hour);
-        const TextMinute = Math.floor((Gap % Hour) / Minute);
-        if (Gap < 0) {
-            //Stop Timer
+        const Gap2 = now - Match_time;
+
+        if ((Gap2 >= 14400000 && Item.Match_Status === 'Started') || (Gap <= 0 && Item.Match_Status === 'Scheduled')) {
             clearInterval(Timer);
-            setRoom_Details(
-                "You are Late, Reporting Time is 10 Min Before Match Time"
-            );
-            setMsg("Its Live");
-        } else if (Gap <= 1200000) {
+            setMatch_Cancelled(true)
+        }
+        if (Gap <= 0) {
+            setMinutes(0);
+        }
+        else {
+            const TextDay = Math.floor(Gap / Day);
+            const TextHour = Math.floor((Gap % Day) / Hour);
+            const TextMinute = Math.floor((Gap % Hour) / Minute);
             setDays(TextDay);
             setHours(TextHour);
-            setMinutes(TextMinute);
-            setRoom_Details("Room Id & Password Is Avilable, Grab It Hurry");
-        } else {
-            //Set Timer
-            setRoom_Details("Will Be Available 20 Min Before Match Time");
-            setDays(TextDay);
-            setHours(TextHour);
-            setMinutes(TextMinute);
+            setMinutes(TextMinute + 1);
         }
     }
 
@@ -90,6 +84,7 @@ const GuildMatchesDetails = ({
     useEffect(() => {
         Timer_Function()
     }, []);
+
     return (
         <View style={style.container}>
             {/* Header */}
@@ -147,7 +142,7 @@ const GuildMatchesDetails = ({
                     {/* Match Status */}
                     <View>
                         {/* Secheduled */}
-                        {Minutes !== 0 && (
+                        {(Minutes !== 0) && (Item.Match_Status === 'Scheduled') && (
                             <View style={style.EntryFeeWraper}>
                                 <Text
                                     style={{
@@ -169,8 +164,8 @@ const GuildMatchesDetails = ({
                                 </Text>
                             </View>
                         )}
-                        {/* Ongoing */}
-                        {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && (
+                        {/*Join Now */}
+                        {Minutes !== 0 && Item.Match_Status === 'Started' && (
                             <View style={style.EntryFeeWraper}>
                                 <Text
                                     style={{
@@ -179,8 +174,22 @@ const GuildMatchesDetails = ({
                                         fontWeight: "700",
                                     }}
                                 >
-                                    Match Is
+                                    Room Available
                                 </Text>
+                                <Text
+                                    style={{
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                                        color: COLORS.primary,
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    Starts in {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                                </Text>
+                            </View>
+                        )}
+                        {/* Ongoing */}
+                        {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled && (
+                            <View style={style.EntryFeeWraper}>
                                 <Text
                                     style={{
                                         fontFamily: 'Poppins-SemiBold', fontSize: 18,
@@ -202,21 +211,12 @@ const GuildMatchesDetails = ({
                                         fontWeight: "700",
                                     }}
                                 >
-                                    Match Is
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                                        color: COLORS.primary,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    Completed
+                                    Finished
                                 </Text>
                             </View>
                         )}
                         {/* Cancelled */}
-                        {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed' && (
+                        {Match_Cancelled && (
                             <View style={style.EntryFeeWraper}>
                                 <Text
                                     style={{
@@ -225,16 +225,7 @@ const GuildMatchesDetails = ({
                                         fontWeight: "700",
                                     }}
                                 >
-                                    Match Is
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                                        color: COLORS.primary,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    Cancelled
+                                    Suspended
                                 </Text>
                             </View>
                         )}
@@ -384,7 +375,7 @@ const GuildMatchesDetails = ({
                 {/* Updates */}
                 <View>
                     {/* Ongoing */}
-                    {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && (
+                    {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled && (
                         <View style={style.Elevation}>
                             <View>
                                 <MatchUpdateModal modalVisible={ShowUpdate_Modal}
@@ -468,7 +459,7 @@ const GuildMatchesDetails = ({
                         </View>
                     )}
                     {/* Cancelled */}
-                    {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status !== 'Started' && Item.Match_Status !== 'Completed' && (
+                    {Match_Cancelled && Item.Match_Status !== 'Completed' && (
                         <View style={style.Elevation}>
                             <View>
                                 <MatchUpdateModal modalVisible={ShowUpdate_Modal}
@@ -518,7 +509,7 @@ const GuildMatchesDetails = ({
                         Joined_User={Item.Joined_User} Match={Item}
                         ShowReportButton={false} />
                     {/* Results - Ongoing , Completed */}
-                    {Item.Match_Status !== 'Scheduled' && Minutes === 0 && (
+                    {Item.Match_Status !== 'Scheduled' && !Match_Cancelled && Minutes === 0 && (
                         <View style={style.Elevation}>
                             <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}
                             >
@@ -596,7 +587,7 @@ const GuildMatchesDetails = ({
                             </View>
                         </TouchableOpacity>
                     </View>)}
-                    {/* Participants - Cancelled */}
+                    {/* Participants*/}
                     <View style={style.Elevation}>
                         <View>
                             <ClubFollowres modalVisible={ShowParticipants_Modal}
@@ -666,7 +657,7 @@ const GuildMatchesDetails = ({
                             }
                         }
                     />
-                    {Minutes !== 0 && Item.Match_Status !== 'Started' && (
+                    {Item.Match_Status === 'Scheduled' && !Match_Cancelled && (
                         <TouchableOpacity
                             onPress={() => {
                                 setModalVisible(true)

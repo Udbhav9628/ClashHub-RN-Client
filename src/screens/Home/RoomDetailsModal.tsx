@@ -143,7 +143,7 @@ const RoomDetailsModal = ({
                                     textAlign: "center"
                                 }}
                             >
-                                This Match Is Cancelled Because Organiser Failed To Provide Room Details Within Time Limit
+                                Room Details Not Available
                             </Text>
                         </View>
                     ))}
