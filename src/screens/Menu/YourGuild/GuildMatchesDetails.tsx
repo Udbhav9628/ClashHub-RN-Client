@@ -5,6 +5,7 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
+    ScrollView
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -87,422 +88,423 @@ const GuildMatchesDetails = ({
 
     return (
         <View style={style.container}>
-            {/* Header */}
-            <View style={style.Header}>
-                {/* Header Left */}
-                <TouchableOpacity
-                    style={style.HeaderLeft}
-                    onPress={() => navigation.goBack()}
-                >
-                    <Icon name="angle-left" size={20} color="black" />
-                </TouchableOpacity>
-                <View
-                    style={{
-                        marginLeft: "24%",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <Text
+            <ScrollView>
+                {/* Header */}
+                <View style={style.Header}>
+                    {/* Header Left */}
+                    <TouchableOpacity
+                        style={style.HeaderLeft}
+                        onPress={() => navigation.goBack()}
+                    >
+                        <Icon name="angle-left" size={20} color="black" />
+                    </TouchableOpacity>
+                    <View
                         style={{
-                            color: COLORS.black,
-                            ...FONTS.h2,
-                            fontWeight: "700",
+                            marginLeft: "24%",
+                            justifyContent: "center",
+                            alignItems: "center",
                         }}
                     >
-                        Match Details
-                    </Text>
-                </View>
-            </View>
-            <View
-                style={{
-                    flex: 1,
-                    marginTop: SIZES.padding,
-                    flexDirection: "row",
-                }}
-            >
-                {/* all Info */}
-                <View
-                    style={{
-                        width: "50%",
-                    }}
-                >
-                    {/* Title */}
-                    <View style={style.TitleWraper}>
                         <Text
                             style={{
-                                fontFamily: 'Poppins-SemiBold', fontSize: 22,
-                                fontWeight: "700",
                                 color: COLORS.black,
+                                ...FONTS.h2,
+                                fontWeight: "700",
                             }}
                         >
-                            {Item.Game_Name} {Item.GameType} Match
+                            Match Details
                         </Text>
                     </View>
-                    {/* Match Status */}
+                </View>
+                <View
+                    style={{
+                        flex: 1,
+                        marginTop: SIZES.padding,
+                        flexDirection: "row",
+                    }}
+                >
+                    {/* all Info */}
+                    <View
+                        style={{
+                            width: "50%",
+                        }}
+                    >
+                        {/* Title */}
+                        <View style={style.TitleWraper}>
+                            <Text
+                                style={{
+                                    fontFamily: 'Poppins-SemiBold', fontSize: 22,
+                                    fontWeight: "700",
+                                    color: COLORS.black,
+                                }}
+                            >
+                                {Item.Game_Name} {Item.GameType} Match
+                            </Text>
+                        </View>
+                        {/* Match Status */}
+                        <View>
+                            {/* Secheduled */}
+                            {(Minutes !== 0) && (Item.Match_Status === 'Scheduled') && (
+                                <View style={style.EntryFeeWraper}>
+                                    <Text
+                                        style={{
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                                            color: COLORS.primary,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        Starts In
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                                            color: COLORS.primary,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                                    </Text>
+                                </View>
+                            )}
+                            {/*Join Now */}
+                            {Minutes !== 0 && Item.Match_Status === 'Started' && (
+                                <View style={style.EntryFeeWraper}>
+                                    <Text
+                                        style={{
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                                            color: COLORS.primary,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        Room Available
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                                            color: COLORS.primary,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        Starts in {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                                    </Text>
+                                </View>
+                            )}
+                            {/* Ongoing */}
+                            {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled && (
+                                <View style={style.EntryFeeWraper}>
+                                    <Text
+                                        style={{
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                                            color: COLORS.primary,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        Live
+                                    </Text>
+                                </View>
+                            )}
+                            {/* Completed */}
+                            {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed' && (
+                                <View style={style.EntryFeeWraper}>
+                                    <Text
+                                        style={{
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                                            color: COLORS.primary,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        Finished
+                                    </Text>
+                                </View>
+                            )}
+                            {/* Cancelled */}
+                            {Match_Cancelled && (
+                                <View style={style.EntryFeeWraper}>
+                                    <Text
+                                        style={{
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                                            color: COLORS.primary,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        Suspended
+                                    </Text>
+                                </View>
+                            )}
+                        </View>
+                        {/* Match Info */}
+                        <View style={style.InfoWrapper}>
+                            {/* Info Left Details */}
+                            <View>
+                                {/* Match Map */}
+                                <View style={style.InfoLeftItem}>
+                                    <Text style={{
+                                        color: COLORS.darkGray2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                                    }}>
+                                        Map
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            color: COLORS.black,
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        {Item.Map}
+                                    </Text>
+                                </View>
+                                {/* Match Date */}
+                                <View style={style.InfoLeftItem}>
+                                    <Text style={{
+                                        color: COLORS.darkGray2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                                    }}>
+                                        Match Date
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            color: COLORS.black,
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        {new Date(Item.Date_Time).toDateString()}
+                                    </Text>
+                                </View>
+                                {/* Match Time */}
+                                <View style={style.InfoLeftItem}>
+                                    <Text style={{
+                                        color: COLORS.darkGray2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                                    }}>
+                                        Time - 24H Format
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            color: COLORS.black,
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
+                                    </Text>
+                                </View>
+                                {/* prize */}
+                                <View style={style.InfoLeftItem}>
+                                    <Text style={{
+                                        color: COLORS.darkGray2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                                    }}>
+                                        Prize
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            color: COLORS.black,
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        &#x20B9; {Item.Perkill_Prize} Per Kill
+                                    </Text>
+                                </View>
+                                {/* Profit Per Player */}
+                                <View style={style.InfoLeftItem}>
+                                    <Text style={{
+                                        color: COLORS.darkGray2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                                    }}>
+                                        Profit Per Player
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            color: COLORS.black,
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        &#x20B9; {Item.EntryFee - Item.Perkill_Prize}
+                                    </Text>
+                                </View>
+                                {/* Joined Players Number */}
+                                <View style={style.InfoLeftItem}>
+                                    <Text style={{
+                                        color: COLORS.darkGray2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                                    }}>
+                                        Slots
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            color: COLORS.black,
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        {Item.Joined_User.length}/{Item.Total_Players}
+                                    </Text>
+                                </View>
+                                {/* Entry Fee */}
+                                <View style={style.InfoLeftItem}>
+                                    <Text style={{
+                                        color: COLORS.darkGray2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                                    }}>
+                                        Entry Fee
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            color: COLORS.black,
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        &#x20B9; {Item.EntryFee}
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    {/* Info Right Image */}
                     <View>
-                        {/* Secheduled */}
-                        {(Minutes !== 0) && (Item.Match_Status === 'Scheduled') && (
-                            <View style={style.EntryFeeWraper}>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                                        color: COLORS.primary,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    Starts In
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                                        color: COLORS.primary,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
-                                </Text>
-                            </View>
-                        )}
-                        {/*Join Now */}
-                        {Minutes !== 0 && Item.Match_Status === 'Started' && (
-                            <View style={style.EntryFeeWraper}>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                                        color: COLORS.primary,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    Room Available
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                                        color: COLORS.primary,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    Starts in {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
-                                </Text>
-                            </View>
-                        )}
+                        <Image source={GameImage} style={style.InfoWrapperImage} />
+                    </View>
+                </View>
+                {/* Bottom */}
+                <View style={{
+                    marginTop: 60,
+                    marginBottom: 60
+                }}>
+                    {/* Updates */}
+                    <View>
                         {/* Ongoing */}
                         {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled && (
-                            <View style={style.EntryFeeWraper}>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                                        color: COLORS.primary,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    Live
-                                </Text>
+                            <View style={style.Elevation}>
+                                <View>
+                                    <MatchUpdateModal modalVisible={ShowUpdate_Modal}
+                                        setModalVisible={setShowUpdate_Modal}
+                                        Days={Days}
+                                        Hours={Hours}
+                                        Minutes={Minutes}
+                                        Match_Status={Item.Match_Status} />
+                                </View>
+                                <TouchableOpacity
+                                    onPress={() => { setShowUpdate_Modal(true) }}>
+                                    <View style={style.GuildWrapper}>
+                                        <View style={{ margin: 10 }}><Icons name="update" size={Dpheight(3.6)} color="black" /></View>
+                                        {/* Info Of Guild */}
+                                        <View style={style.GuildInfo}>
+                                            <View>
+                                                <Text
+                                                    style={{
+                                                        color: COLORS.black,
+                                                        fontSize: 17,
+                                                        fontWeight: "bold",
+                                                    }}
+                                                >
+                                                    Update
+                                                </Text>
+                                            </View>
+                                            <View
+                                                style={{
+                                                    position: "absolute",
+                                                    top: -2,
+                                                    right: 15,
+                                                }}
+                                            >
+                                                <Icon name="angle-right" size={20} color="black" />
+                                            </View>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         )}
                         {/* Completed */}
                         {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed' && (
-                            <View style={style.EntryFeeWraper}>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                                        color: COLORS.primary,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    Finished
-                                </Text>
+                            <View style={style.Elevation}>
+                                <View>
+                                    <MatchUpdateModal modalVisible={ShowUpdate_Modal}
+                                        setModalVisible={setShowUpdate_Modal}
+                                        Days={Days}
+                                        Hours={Hours}
+                                        Minutes={Minutes}
+                                        Match_Status={Item.Match_Status} />
+                                </View>
+                                <TouchableOpacity
+                                    onPress={() => { setShowUpdate_Modal(true) }}>
+                                    <View style={style.GuildWrapper}>
+                                        <View style={{ margin: 10 }}><Icons name="update" size={Dpheight(3.6)} color="black" /></View>
+                                        {/* Info Of Guild */}
+                                        <View style={style.GuildInfo}>
+                                            <View>
+                                                <Text
+                                                    style={{
+                                                        color: COLORS.black,
+                                                        fontSize: 17,
+                                                        fontWeight: "bold",
+                                                    }}
+                                                >
+                                                    Update
+                                                </Text>
+                                            </View>
+                                            <View
+                                                style={{
+                                                    position: "absolute",
+                                                    top: -2,
+                                                    right: 15,
+                                                }}
+                                            >
+                                                <Icon name="angle-right" size={20} color="black" />
+                                            </View>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         )}
                         {/* Cancelled */}
-                        {Match_Cancelled && (
-                            <View style={style.EntryFeeWraper}>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                                        color: COLORS.primary,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    Suspended
-                                </Text>
+                        {Match_Cancelled && Item.Match_Status !== 'Completed' && (
+                            <View style={style.Elevation}>
+                                <View>
+                                    <MatchUpdateModal modalVisible={ShowUpdate_Modal}
+                                        setModalVisible={setShowUpdate_Modal}
+                                        Days={Days}
+                                        Hours={Hours}
+                                        Minutes={Minutes}
+                                        Match_Status={Item.Match_Status} />
+                                </View>
+                                <TouchableOpacity
+                                    onPress={() => { setShowUpdate_Modal(true) }}>
+                                    <View style={style.GuildWrapper}>
+                                        <View style={{ margin: 10 }}><Icons name="update" size={Dpheight(3.6)} color="black" /></View>
+                                        {/* Info Of Guild */}
+                                        <View style={style.GuildInfo}>
+                                            <View>
+                                                <Text
+                                                    style={{
+                                                        color: COLORS.black,
+                                                        fontSize: 17,
+                                                        fontWeight: "bold",
+                                                    }}
+                                                >
+                                                    Updates
+                                                </Text>
+                                            </View>
+                                            <View
+                                                style={{
+                                                    position: "absolute",
+                                                    top: -2,
+                                                    right: 15,
+                                                }}
+                                            >
+                                                <Icon name="angle-right" size={20} color="black" />
+                                            </View>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         )}
                     </View>
-                    {/* Match Info */}
-                    <View style={style.InfoWrapper}>
-                        {/* Info Left Details */}
-                        <View>
-                            {/* Match Map */}
-                            <View style={style.InfoLeftItem}>
-                                <Text style={{
-                                    color: COLORS.darkGray2,
-                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                                }}>
-                                    Map
-                                </Text>
-                                <Text
-                                    style={{
-                                        color: COLORS.black,
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    {Item.Map}
-                                </Text>
-                            </View>
-                            {/* Match Date */}
-                            <View style={style.InfoLeftItem}>
-                                <Text style={{
-                                    color: COLORS.darkGray2,
-                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                                }}>
-                                    Match Date
-                                </Text>
-                                <Text
-                                    style={{
-                                        color: COLORS.black,
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    {new Date(Item.Date_Time).toDateString()}
-                                </Text>
-                            </View>
-                            {/* Match Time */}
-                            <View style={style.InfoLeftItem}>
-                                <Text style={{
-                                    color: COLORS.darkGray2,
-                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                                }}>
-                                    Time - 24H Format
-                                </Text>
-                                <Text
-                                    style={{
-                                        color: COLORS.black,
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
-                                </Text>
-                            </View>
-                            {/* prize */}
-                            <View style={style.InfoLeftItem}>
-                                <Text style={{
-                                    color: COLORS.darkGray2,
-                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                                }}>
-                                    Prize
-                                </Text>
-                                <Text
-                                    style={{
-                                        color: COLORS.black,
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    &#x20B9; {Item.Perkill_Prize} Per Kill
-                                </Text>
-                            </View>
-                            {/* Profit Per Player */}
-                            <View style={style.InfoLeftItem}>
-                                <Text style={{
-                                    color: COLORS.darkGray2,
-                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                                }}>
-                                    Profit Per Player
-                                </Text>
-                                <Text
-                                    style={{
-                                        color: COLORS.black,
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    &#x20B9; {Item.EntryFee - Item.Perkill_Prize}
-                                </Text>
-                            </View>
-                            {/* Joined Players Number */}
-                            <View style={style.InfoLeftItem}>
-                                <Text style={{
-                                    color: COLORS.darkGray2,
-                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                                }}>
-                                    Slots
-                                </Text>
-                                <Text
-                                    style={{
-                                        color: COLORS.black,
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    {Item.Joined_User.length}/{Item.Total_Players}
-                                </Text>
-                            </View>
-                            {/* Entry Fee */}
-                            <View style={style.InfoLeftItem}>
-                                <Text style={{
-                                    color: COLORS.darkGray2,
-                                    fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                                }}>
-                                    Entry Fee
-                                </Text>
-                                <Text
-                                    style={{
-                                        color: COLORS.black,
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                                        fontWeight: "700",
-                                    }}
-                                >
-                                    &#x20B9; {Item.EntryFee}
-                                </Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                {/* Info Right Image */}
-                <View>
-                    <Image source={GameImage} style={style.InfoWrapperImage} />
-                </View>
-            </View>
-            {/* Bottom */}
-            <View style={{
-                marginVertical: 6
-            }}>
-                {/* Updates */}
-                <View>
-                    {/* Ongoing */}
-                    {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled && (
-                        <View style={style.Elevation}>
-                            <View>
-                                <MatchUpdateModal modalVisible={ShowUpdate_Modal}
-                                    setModalVisible={setShowUpdate_Modal}
-                                    Days={Days}
-                                    Hours={Hours}
-                                    Minutes={Minutes}
-                                    Match_Status={Item.Match_Status} />
-                            </View>
-                            <TouchableOpacity
-                                onPress={() => { setShowUpdate_Modal(true) }}>
-                                <View style={style.GuildWrapper}>
-                                    <View style={{ margin: 10 }}><Icons name="update" size={Dpheight(3.6)} color="black" /></View>
-                                    {/* Info Of Guild */}
-                                    <View style={style.GuildInfo}>
-                                        <View>
-                                            <Text
-                                                style={{
-                                                    color: COLORS.black,
-                                                    fontSize: SIZES.h3,
-                                                    fontWeight: "bold",
-                                                }}
-                                            >
-                                                Update
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                                position: "absolute",
-                                                top: -2,
-                                                right: 15,
-                                            }}
-                                        >
-                                            <Icon name="angle-right" size={20} color="black" />
-                                        </View>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    )}
-                    {/* Completed */}
-                    {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed' && (
-                        <View style={style.Elevation}>
-                            <View>
-                                <MatchUpdateModal modalVisible={ShowUpdate_Modal}
-                                    setModalVisible={setShowUpdate_Modal}
-                                    Days={Days}
-                                    Hours={Hours}
-                                    Minutes={Minutes}
-                                    Match_Status={Item.Match_Status} />
-                            </View>
-                            <TouchableOpacity
-                                onPress={() => { setShowUpdate_Modal(true) }}>
-                                <View style={style.GuildWrapper}>
-                                    <View style={{ margin: 10 }}><Icons name="update" size={Dpheight(3.6)} color="black" /></View>
-                                    {/* Info Of Guild */}
-                                    <View style={style.GuildInfo}>
-                                        <View>
-                                            <Text
-                                                style={{
-                                                    color: COLORS.black,
-                                                    fontSize: SIZES.h3,
-                                                    fontWeight: "bold",
-                                                }}
-                                            >
-                                                Update
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                                position: "absolute",
-                                                top: -2,
-                                                right: 15,
-                                            }}
-                                        >
-                                            <Icon name="angle-right" size={20} color="black" />
-                                        </View>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    )}
-                    {/* Cancelled */}
-                    {Match_Cancelled && Item.Match_Status !== 'Completed' && (
-                        <View style={style.Elevation}>
-                            <View>
-                                <MatchUpdateModal modalVisible={ShowUpdate_Modal}
-                                    setModalVisible={setShowUpdate_Modal}
-                                    Days={Days}
-                                    Hours={Hours}
-                                    Minutes={Minutes}
-                                    Match_Status={Item.Match_Status} />
-                            </View>
-                            <TouchableOpacity
-                                onPress={() => { setShowUpdate_Modal(true) }}>
-                                <View style={style.GuildWrapper}>
-                                    <View style={{ margin: 10 }}><Icons name="update" size={Dpheight(3.6)} color="black" /></View>
-                                    {/* Info Of Guild */}
-                                    <View style={style.GuildInfo}>
-                                        <View>
-                                            <Text
-                                                style={{
-                                                    color: COLORS.black,
-                                                    fontSize: SIZES.h3,
-                                                    fontWeight: "bold",
-                                                }}
-                                            >
-                                                Updates
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                                position: "absolute",
-                                                top: -2,
-                                                right: 15,
-                                            }}
-                                        >
-                                            <Icon name="angle-right" size={20} color="black" />
-                                        </View>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    )}
-                </View>
-                {/* Bottom Button*/}
-                <View>
+                    {/* Bottom Button*/}
                     <ModalJoinedPlayers modalVisible={JoinedPlayermodal}
                         setModalVisible={setJoinedPlayermodal}
                         navigation={navigation}
@@ -532,7 +534,7 @@ const GuildMatchesDetails = ({
                                             <Text
                                                 style={{
                                                     color: COLORS.black,
-                                                    fontSize: SIZES.h3,
+                                                    fontSize: 17,
                                                     fontWeight: "bold",
                                                 }}
                                             >
@@ -567,7 +569,7 @@ const GuildMatchesDetails = ({
                                         <Text
                                             style={{
                                                 color: COLORS.black,
-                                                fontSize: SIZES.h3,
+                                                fontSize: 17,
                                                 fontWeight: "bold",
                                             }}
                                         >
@@ -605,7 +607,7 @@ const GuildMatchesDetails = ({
                                         <Text
                                             style={{
                                                 color: COLORS.black,
-                                                fontSize: SIZES.h3,
+                                                fontSize: 17,
                                                 fontWeight: "bold",
                                             }}
                                         >
@@ -657,36 +659,27 @@ const GuildMatchesDetails = ({
                             }
                         }
                     />
-                    {Item.Match_Status === 'Scheduled' && !Match_Cancelled && (
-                        <TouchableOpacity
-                            onPress={() => {
-                                setModalVisible(true)
-                            }}
-                            style={{
-                                height: 48,
-                                alignItems: "center",
-                                justifyContent: "center",
-                                marginTop: SIZES.padding,
-                                marginBottom: SIZES.padding,
-                                borderRadius: 8,
-                                backgroundColor: COLORS.primary,
-                                marginHorizontal: SIZES.padding,
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    color: COLORS.white,
-                                    fontWeight: "bold",
-                                    fontSize: SIZES.h3,
-                                }}
-                            >
-                                Enter Room Details
-                            </Text>
-                        </TouchableOpacity>
-                    )
-                    }
                 </View>
-            </View>
+            </ScrollView>
+            {Item.Match_Status === 'Scheduled' && !Match_Cancelled && (
+                <TouchableOpacity
+                    onPress={() => {
+                        setModalVisible(true)
+                    }}
+                    style={style.Floating_Button_Style}
+                >
+                    <Text
+                        style={{
+                            color: COLORS.white,
+                            fontWeight: "bold",
+                            fontSize: 17,
+                        }}
+                    >
+                        Enter Room Details
+                    </Text>
+                </TouchableOpacity>
+            )
+            }
         </View>
     )
 }
@@ -701,7 +694,7 @@ const style = StyleSheet.create({
     Header: {
         marginTop: 10,
         flexDirection: "row",
-        marginHorizontal: SIZES.h3,
+        marginHorizontal: 17,
     },
     HeaderLeft: {
         alignItems: "center",
@@ -722,7 +715,7 @@ const style = StyleSheet.create({
     InfoWrapper: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: SIZES.base,
+        marginTop: SIZES.padding,
         marginLeft: SIZES.padding,
     },
     InfoLeftItem: {
@@ -746,7 +739,7 @@ const style = StyleSheet.create({
         shadowRadius: 3,
     },
     GuildWrapper: {
-        height: Dpheight(8),
+        height: 60,
         borderRadius: SIZES.radius,
         flexDirection: "row",
         alignItems: "center",
@@ -757,5 +750,19 @@ const style = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+    },
+
+    Floating_Button_Style: {
+        position: 'absolute',
+        right: 0,
+        left: 0,
+        bottom: 30,
+        height: 48,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: SIZES.padding,
+        borderRadius: 8,
+        backgroundColor: COLORS.primary,
+        marginHorizontal: SIZES.padding,
     },
 });

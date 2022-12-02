@@ -319,14 +319,14 @@ const GameDetailsPage = ({
                   <View style={style.InfoLeftItem}>
                     <Text style={{
                       color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
                     }}>
                       Slots
                     </Text>
                     <Text
                       style={{
                         color: COLORS.black,
-                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
                         fontWeight: "700",
                       }}
                     >
@@ -336,14 +336,14 @@ const GameDetailsPage = ({
                   <View style={style.InfoLeftItem}>
                     <Text style={{
                       color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
                     }}>
                       Prize
                     </Text>
                     <Text
                       style={{
                         color: COLORS.black,
-                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
                         fontWeight: "700",
                       }}
                     >
@@ -354,14 +354,14 @@ const GameDetailsPage = ({
                   <View style={style.InfoLeftItem}>
                     <Text style={{
                       color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
                     }}>
                       Map
                     </Text>
                     <Text
                       style={{
                         color: COLORS.black,
-                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
                         fontWeight: "700",
                       }}
                     >
@@ -372,14 +372,14 @@ const GameDetailsPage = ({
                   <View style={style.InfoLeftItem}>
                     <Text style={{
                       color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
                     }}>
                       Match Date
                     </Text>
                     <Text
                       style={{
                         color: COLORS.black,
-                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
                         fontWeight: "700",
                       }}
                     >
@@ -390,14 +390,14 @@ const GameDetailsPage = ({
                   <View style={style.InfoLeftItem}>
                     <Text style={{
                       color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
                     }}>
                       Time - 24H Format
                     </Text>
                     <Text
                       style={{
                         color: COLORS.black,
-                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
                         fontWeight: "700",
                       }}
                     >
@@ -415,7 +415,7 @@ const GameDetailsPage = ({
           {/* Hosted By */}
           <View style={{ marginHorizontal: SIZES.padding, marginTop: Dpheight(8) }}>
             <Text style={{
-              fontFamily: 'Poppins-SemiBold', fontSize: 17,
+              fontFamily: 'Poppins-SemiBold', fontSize: 19,
               fontWeight: "700",
               color: COLORS.black,
             }}>Hosted by</Text>
@@ -455,7 +455,7 @@ const GameDetailsPage = ({
                       <Text
                         style={{
                           color: Get_Specific_Club_Reducer.Sucess ? COLORS.black : COLORS.gray,
-                          fontSize: 15,
+                          fontSize: 17,
                           fontWeight: "bold",
                         }}
                       >
@@ -478,7 +478,10 @@ const GameDetailsPage = ({
           </View>
           {/* Bottom Buttons */}
           {/* Money Refund Show On Cancelled*/}
-          <View style={{ marginTop: Dpheight(1) }}>
+          <View style={{
+            marginTop: 20,
+            marginBottom: 60
+          }}>
             {Match_Cancelled &&
               <View style={style.Elevation}>
                 <View>
@@ -497,7 +500,7 @@ const GameDetailsPage = ({
                         <Text
                           style={{
                             color: COLORS.black,
-                            fontSize: SIZES.h3,
+                            fontSize: 17,
                             fontWeight: "bold",
                           }}
                         >
@@ -537,7 +540,7 @@ const GameDetailsPage = ({
                       <Text
                         style={{
                           color: COLORS.black,
-                          fontSize: SIZES.h3,
+                          fontSize: 17,
                           fontWeight: "bold",
                         }}
                       >
@@ -576,7 +579,7 @@ const GameDetailsPage = ({
                         <Text
                           style={{
                             color: COLORS.black,
-                            fontSize: SIZES.h3,
+                            fontSize: 17,
                             fontWeight: "bold",
                           }}
                         >
@@ -590,7 +593,7 @@ const GameDetailsPage = ({
                           right: 15,
                         }}
                       >
-                        <Icon name="angle-right" size={24} color="black" />
+                        <Icon name="angle-right" size={20} color="black" />
                       </View>
                     </View>
                   </View>
@@ -615,7 +618,7 @@ const GameDetailsPage = ({
                         <Text
                           style={{
                             color: COLORS.black,
-                            fontSize: SIZES.h3,
+                            fontSize: 17,
                             fontWeight: "bold",
                           }}
                         >
@@ -641,290 +644,298 @@ const GameDetailsPage = ({
       ) : (
         // Not Joined
         <>
-          {/* Header */}
-          <Heading navigation={navigation} Title={"Match Details"} />
-          <View
-            style={{
-              flex: 1,
-              marginTop: SIZES.padding,
-              flexDirection: "row",
-            }}
-          >
-            {/* all Info */}
+          <ScrollView>
+            {/* Header */}
+            <Heading navigation={navigation} Title={"Match Details"} />
             <View
               style={{
-                width: "50%",
+                flex: 1,
+                marginTop: SIZES.padding,
+                flexDirection: "row",
               }}
             >
-              {/* Title */}
-              <View style={style.TitleWraper}>
-                <Text
-                  style={{
-                    fontFamily: 'Poppins-SemiBold', fontSize: 22,
-                    fontWeight: "700",
-                    color: COLORS.black,
-                  }}
-                >
-                  {Item.Game_Name} {Item.GameType} Match
-                </Text>
-              </View>
-              {/* Match Status */}
-              <View>
-                {/* Secheduled */}
-                {(Minutes !== 0) && (Item.Match_Status === 'Scheduled') && (
-                  <View style={style.EntryFeeWraper}>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Starts In
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
-                    </Text>
-                  </View>
-                )}
-                {/*Join Now */}
-                {Minutes !== 0 && Item.Match_Status === 'Started' && (
-                  <View style={style.EntryFeeWraper}>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Room Available
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Starts in {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
-                    </Text>
-                  </View>
-                )}
-                {/* Ongoing */}
-                {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled && (
-                  <View style={style.EntryFeeWraper}>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Live
-                    </Text>
-                  </View>
-                )}
-                {/* Completed */}
-                {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed' && (
-                  <View style={style.EntryFeeWraper}>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Finished
-                    </Text>
-                  </View>
-                )}
-                {/* Cancelled */}
-                {Match_Cancelled && (
-                  <View style={style.EntryFeeWraper}>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
-                        color: COLORS.primary,
-                        fontWeight: "700",
-                      }}
-                    >
-                      Suspended
-                    </Text>
-                  </View>
-                )}
-              </View>
-              {/* Match Info */}
-              <View style={style.InfoWrapper}>
-                {/* Info Left Details */}
+              {/* all Info */}
+              <View
+                style={{
+                  width: "50%",
+                }}
+              >
+                {/* Title */}
+                <View style={style.TitleWraper}>
+                  <Text
+                    style={{
+                      fontFamily: 'Poppins-SemiBold', fontSize: 22,
+                      fontWeight: "700",
+                      color: COLORS.black,
+                    }}
+                  >
+                    {Item.Game_Name} {Item.GameType} Match
+                  </Text>
+                </View>
+                {/* Match Status */}
                 <View>
-                  {/* Joined Players Number */}
-                  <View style={style.InfoLeftItem}>
-                    <Text style={{
-                      color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                    }}>
-                      Slots
-                    </Text>
-                    <Text
-                      style={{
-                        color: COLORS.black,
+                  {/* Secheduled */}
+                  {(Minutes !== 0) && (Item.Match_Status === 'Scheduled') && (
+                    <View style={style.EntryFeeWraper}>
+                      <Text
+                        style={{
+                          fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                          color: COLORS.primary,
+                          fontWeight: "700",
+                        }}
+                      >
+                        Starts In
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                          color: COLORS.primary,
+                          fontWeight: "700",
+                        }}
+                      >
+                        {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                      </Text>
+                    </View>
+                  )}
+                  {/*Join Now */}
+                  {Minutes !== 0 && Item.Match_Status === 'Started' && (
+                    <View style={style.EntryFeeWraper}>
+                      <Text
+                        style={{
+                          fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                          color: COLORS.primary,
+                          fontWeight: "700",
+                        }}
+                      >
+                        Room Available
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                          color: COLORS.primary,
+                          fontWeight: "700",
+                        }}
+                      >
+                        Starts in {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                      </Text>
+                    </View>
+                  )}
+                  {/* Ongoing */}
+                  {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled && (
+                    <View style={style.EntryFeeWraper}>
+                      <Text
+                        style={{
+                          fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                          color: COLORS.primary,
+                          fontWeight: "700",
+                        }}
+                      >
+                        Live
+                      </Text>
+                    </View>
+                  )}
+                  {/* Completed */}
+                  {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed' && (
+                    <View style={style.EntryFeeWraper}>
+                      <Text
+                        style={{
+                          fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                          color: COLORS.primary,
+                          fontWeight: "700",
+                        }}
+                      >
+                        Finished
+                      </Text>
+                    </View>
+                  )}
+                  {/* Cancelled */}
+                  {Match_Cancelled && (
+                    <View style={style.EntryFeeWraper}>
+                      <Text
+                        style={{
+                          fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                          color: COLORS.primary,
+                          fontWeight: "700",
+                        }}
+                      >
+                        Suspended
+                      </Text>
+                    </View>
+                  )}
+                </View>
+                {/* Match Info */}
+                <View style={style.InfoWrapper}>
+                  {/* Info Left Details */}
+                  <View>
+                    {/* Joined Players Number */}
+                    <View style={style.InfoLeftItem}>
+                      <Text style={{
+                        color: COLORS.darkGray2,
                         fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                        fontWeight: "700",
-                      }}
-                    >
-                      {Item.Joined_User.length}/{Item.Total_Players}
-                    </Text>
-                  </View>
-                  <View style={style.InfoLeftItem}>
-                    <Text style={{
-                      color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                    }}>
-                      Prize
-                    </Text>
-                    <Text
-                      style={{
-                        color: COLORS.black,
+                      }}>
+                        Slots
+                      </Text>
+                      <Text
+                        style={{
+                          color: COLORS.black,
+                          fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                          fontWeight: "700",
+                        }}
+                      >
+                        {Item.Joined_User.length}/{Item.Total_Players}
+                      </Text>
+                    </View>
+                    <View style={style.InfoLeftItem}>
+                      <Text style={{
+                        color: COLORS.darkGray2,
                         fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                        fontWeight: "700",
-                      }}
-                    >
-                      &#x20B9; {Item.Perkill_Prize} Per Kill
-                    </Text>
-                  </View>
-                  {/* Match Map */}
-                  <View style={style.InfoLeftItem}>
-                    <Text style={{
-                      color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                    }}>
-                      Map
-                    </Text>
-                    <Text
-                      style={{
-                        color: COLORS.black,
+                      }}>
+                        Prize
+                      </Text>
+                      <Text
+                        style={{
+                          color: COLORS.black,
+                          fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                          fontWeight: "700",
+                        }}
+                      >
+                        &#x20B9; {Item.Perkill_Prize} Per Kill
+                      </Text>
+                    </View>
+                    {/* Match Map */}
+                    <View style={style.InfoLeftItem}>
+                      <Text style={{
+                        color: COLORS.darkGray2,
                         fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                        fontWeight: "700",
-                      }}
-                    >
-                      {Item.Map}
-                    </Text>
-                  </View>
-                  {/* Match Date */}
-                  <View style={style.InfoLeftItem}>
-                    <Text style={{
-                      color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                    }}>
-                      Match Date
-                    </Text>
-                    <Text
-                      style={{
-                        color: COLORS.black,
+                      }}>
+                        Map
+                      </Text>
+                      <Text
+                        style={{
+                          color: COLORS.black,
+                          fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                          fontWeight: "700",
+                        }}
+                      >
+                        {Item.Map}
+                      </Text>
+                    </View>
+                    {/* Match Date */}
+                    <View style={style.InfoLeftItem}>
+                      <Text style={{
+                        color: COLORS.darkGray2,
                         fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                        fontWeight: "700",
-                      }}
-                    >
-                      {new Date(Item.Date_Time).toDateString()}
-                    </Text>
-                  </View>
-                  {/* Match Time */}
-                  <View style={style.InfoLeftItem}>
-                    <Text style={{
-                      color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 12,
-                    }}>
-                      Time - 24H Format
-                    </Text>
-                    <Text
-                      style={{
-                        color: COLORS.black,
+                      }}>
+                        Match Date
+                      </Text>
+                      <Text
+                        style={{
+                          color: COLORS.black,
+                          fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                          fontWeight: "700",
+                        }}
+                      >
+                        {new Date(Item.Date_Time).toDateString()}
+                      </Text>
+                    </View>
+                    {/* Match Time */}
+                    <View style={style.InfoLeftItem}>
+                      <Text style={{
+                        color: COLORS.darkGray2,
                         fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                        fontWeight: "700",
-                      }}
-                    >
-                      {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
-                    </Text>
+                      }}>
+                        Time - 24H Format
+                      </Text>
+                      <Text
+                        style={{
+                          color: COLORS.black,
+                          fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                          fontWeight: "700",
+                        }}
+                      >
+                        {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
+              {/* Info Right Image */}
+              <View>
+                <Image source={GameImage} style={style.InfoWrapperImage} />
+              </View>
             </View>
-            {/* Info Right Image */}
-            <View>
-              <Image source={GameImage} style={style.InfoWrapperImage} />
-            </View>
-          </View>
-          {/* Hosted By */}
-          <View style={{ marginHorizontal: SIZES.padding }}>
-            <Text style={{
-              fontFamily: 'Poppins-SemiBold', fontSize: 17,
-              fontWeight: "700",
-              color: COLORS.black,
-            }}>Hosted by</Text>
+            {/* Hosted By */}
             <View style={{
-              height: Dpheight(8),
-              borderRadius: SIZES.radius,
-              flexDirection: "row",
-              alignItems: "center",
+              marginHorizontal: SIZES.padding,
+              marginTop: 140,
+              marginBottom: 100
             }}>
-              {/* Info Of Guild */}
-              {Get_Specific_Club_Reducer.loading ? (<View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <ActivityIndicator size="small" color={COLORS.primary} />
-              </View>) : (
-                <>
-                  {Get_Specific_Club_Reducer.Sucess ? (<Image
-                    style={{
+              <Text style={{
+                fontFamily: 'Poppins-SemiBold', fontSize: 19,
+                fontWeight: "700",
+                color: COLORS.black,
+              }}>Hosted by</Text>
+              <View style={{
+                height: Dpheight(8),
+                borderRadius: SIZES.radius,
+                flexDirection: "row",
+                alignItems: "center",
+              }}>
+                {/* Info Of Guild */}
+                {Get_Specific_Club_Reducer.loading ? (<View
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <ActivityIndicator size="small" color={COLORS.primary} />
+                </View>) : (
+                  <>
+                    {Get_Specific_Club_Reducer.Sucess ? (<Image
+                      style={{
+                        margin: 3,
+                        width: DPwidth(10),
+                        height: Dpheight(4),
+                        resizeMode: "contain",
+                      }}
+                      source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?.GuildName}.png` }}
+                    />) : (<View style={{
                       margin: 3,
                       width: DPwidth(10),
-                      height: Dpheight(4),
-                      resizeMode: "contain",
-                    }}
-                    source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?.GuildName}.png` }}
-                  />) : (<View style={{
-                    margin: 3,
-                    width: DPwidth(10),
-                    height: Dpheight(4)
-                  }}>
-                  </View>)}
-                  <View style={style.GuildInfo}>
-                    <View>
-                      <Text
-                        style={{
-                          color: Get_Specific_Club_Reducer.Sucess ? COLORS.black : COLORS.gray,
-                          fontSize: 15,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {Get_Specific_Club_Reducer.Sucess ? (Get_Specific_Club_Reducer.Responce.GuildName) : ('Error loading')}
-                      </Text>
+                      height: Dpheight(4)
+                    }}>
+                    </View>)}
+                    <View style={style.GuildInfo}>
+                      <View>
+                        <Text
+                          style={{
+                            color: Get_Specific_Club_Reducer.Sucess ? COLORS.black : COLORS.gray,
+                            fontSize: 17,
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {Get_Specific_Club_Reducer.Sucess ? (Get_Specific_Club_Reducer.Responce.GuildName) : ('Error loading')}
+                        </Text>
+                      </View>
+                      <ModalClub_Menu modalVisible={Show_Club_Menu_Modal}
+                        setModalVisible={setShow_Club_Menu_Modal}
+                        navigation={navigation}
+                        Club_Details={Get_Specific_Club_Reducer.Responce}
+                        Admin_Id={null}
+                      />
+                      {Get_Specific_Club_Reducer.Sucess && <TouchableOpacity onPress={() => setShow_Club_Menu_Modal(true)} style={{
+                        position: "absolute",
+                        right: 15
+                      }}>
+                        <Icons name="dots-horizontal" size={20} color="black" />
+                      </TouchableOpacity>}
                     </View>
-                    <ModalClub_Menu modalVisible={Show_Club_Menu_Modal}
-                      setModalVisible={setShow_Club_Menu_Modal}
-                      navigation={navigation}
-                      Club_Details={Get_Specific_Club_Reducer.Responce}
-                      Admin_Id={null}
-                    />
-                    {Get_Specific_Club_Reducer.Sucess && <TouchableOpacity onPress={() => setShow_Club_Menu_Modal(true)} style={{
-                      position: "absolute",
-                      right: 15,
-                    }}><Icons name="dots-horizontal" size={20} color="black" /></TouchableOpacity>}
-                  </View>
-                </>)}
+                  </>)}
+              </View>
             </View>
-          </View>
-          {/* Button */}
+          </ScrollView>
+          {/* Join Button */}
           <View>
             <PlayerGameNameInputModal modalVisible={PlayerInputModal}
               setModalVisible={setPlayerInputModal}
@@ -957,22 +968,13 @@ const GameDetailsPage = ({
                 setPlayerInputModal(true)
               }}
               disabled={disable_joinmatch_button}
-              style={{
-                height: 48,
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: SIZES.padding,
-                marginBottom: SIZES.padding,
-                borderRadius: 8,
-                backgroundColor: COLORS.primary,
-                marginHorizontal: SIZES.padding,
-              }}
+              style={style.Floating_Button_Style}
             >
               {Item.Joined_User.length === Item.Total_Players ? (<Text
                 style={{
                   color: COLORS.white,
                   fontWeight: "bold",
-                  fontSize: SIZES.body3,
+                  fontSize: 20,
                 }}
               >
                 Slots Full
@@ -980,7 +982,7 @@ const GameDetailsPage = ({
                 style={{
                   color: COLORS.white,
                   fontWeight: "bold",
-                  fontSize: SIZES.body3,
+                  fontSize: 20,
                 }}
               >
                 Entry &#x20B9;{Item.EntryFee}
@@ -1048,7 +1050,7 @@ const style = RN_Styles.create({
     shadowRadius: 3,
   },
   GuildWrapper: {
-    height: Dpheight(8),
+    height: 60,
     borderRadius: SIZES.radius,
     flexDirection: "row",
     alignItems: "center",
@@ -1059,5 +1061,18 @@ const style = RN_Styles.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  Floating_Button_Style: {
+    position: 'absolute',
+    right: 0,
+    left: 0,
+    bottom: 30,
+    height: 48,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: SIZES.padding,
+    borderRadius: 8,
+    backgroundColor: COLORS.primary,
+    marginHorizontal: SIZES.padding,
   },
 });
