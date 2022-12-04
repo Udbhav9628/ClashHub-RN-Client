@@ -65,8 +65,8 @@ const Home = ({ navigation }: { navigation: any }) => {
     if (Error) {
       Clear_Match_ReducerError();
       Alert.alert(
-        "Home Match Error",
-        Error + "  check ip and running , Reload",
+        "Error",
+        Error,
         [
           {
             text: "OK",

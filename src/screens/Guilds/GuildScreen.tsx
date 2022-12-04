@@ -39,7 +39,7 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
   useEffect(() => {
     if (Guild_Error) {
       Clear_Guild_ReducerError();
-      Alert.alert("Error", Guild_Error + "  check ip and running , Reload", [
+      Alert.alert("Error", Guild_Error, [
         {
           text: "OK",
         },

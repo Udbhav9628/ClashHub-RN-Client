@@ -10,7 +10,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { SIZES, COLORS, FONTS, Dpheight, DPwidth } from "../../constants/Theame";
+import { SIZES, COLORS, Dpheight, DPwidth } from "../../constants/Theame";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
@@ -124,6 +124,7 @@ const GameDetailsPage = ({
   useEffect(() => {
     if (Error) {
       Clear_Match_ReducerError();
+      setDisable(false);
       Alert.alert("Error", Error, [
         {
           text: "OK",
@@ -264,7 +265,16 @@ const GameDetailsPage = ({
                         fontWeight: "700",
                       }}
                     >
-                      Starts in {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                      Starts in
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                        color: COLORS.primary,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
                     </Text>
                   </View>
                 )}
@@ -716,7 +726,16 @@ const GameDetailsPage = ({
                           fontWeight: "700",
                         }}
                       >
-                        Starts in {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                        Starts in
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                          color: COLORS.primary,
+                          fontWeight: "700",
+                        }}
+                      >
+                        {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
                       </Text>
                     </View>
                   )}

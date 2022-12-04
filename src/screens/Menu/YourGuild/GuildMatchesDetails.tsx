@@ -185,7 +185,16 @@ const GuildMatchesDetails = ({
                                             fontWeight: "700",
                                         }}
                                     >
-                                        Starts in {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
+                                        Starts in
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 18,
+                                            color: COLORS.primary,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        {!Days || Days === 0 ? null : `${Days}D `}{!Hours || Hours === 0 ? '' : `${Hours}H `}{`${Minutes}M`}
                                     </Text>
                                 </View>
                             )}

@@ -240,7 +240,7 @@ const GameItems = ({
               fontWeight: "bold",
             }}
           >
-            {Item.Match_Status !== 'Scheduled' && "Room Available"}
+            {Item.Match_Status !== 'Scheduled' && "Room Available "}
             {!Days || Days === 0 ? '' : `${Days}D,`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{Minutes}M
           </Text>)}
       </View>
