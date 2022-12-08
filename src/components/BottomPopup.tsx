@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Modal,
   Text,
@@ -18,6 +18,7 @@ import HeadingComp from "./HeadingComp";
 import { Create_withdrawls_request, GetPendingWithdrawls, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../store/Payment/PaymentAction";
 import Textinput from "../screens/Menu/YourGuild/Textinput";
 import Icon from "react-native-vector-icons/Feather";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const BottomPopup = ({
   ModalContainerStyle,
@@ -47,6 +48,9 @@ const BottomPopup = ({
   const [Custom_Room_Name, setCustom_Room_Name] = useState('')
 
   const [Custom_Room_Password, setCustom_Room_Password] = useState('')
+
+  const [YT_Link, setYT_Link] = useState('');
+  const [Validate_YT_Link, setValidate_YT_Link] = useState(false)
 
   const { PWloading, Pending_Withdrawls, Error } = useSelector(
     (state: any) => state.PendingWithdrawls_Reducer
@@ -107,6 +111,7 @@ const BottomPopup = ({
         text: "OK",
         onPress: () => {
           setDisable(false);
+          setValidate_YT_Link(false)
           setModalVisible(!modalVisible);
           Clear_Match_Reducer_Sucess_Func()
           navigation.navigate("YourGuild");
@@ -118,6 +123,7 @@ const BottomPopup = ({
   useEffect(() => {
     if (Room_Details_Reducer.Error) {
       setDisable(false);
+      setValidate_YT_Link(false)
       setModalVisible(!modalVisible);
       Clear_Match_Reducer_Error_Func();
       Alert.alert("Error", Room_Details_Reducer.Error, [{
@@ -147,12 +153,27 @@ const BottomPopup = ({
     }
   }, [Create_withdrawls_Reducer.Error])
 
+  const [Player_Loading, setPlayer_Loading] = useState(false)
+
+  const onChangeState = useCallback((state: any) => {
+    if (state === 'buffering') {
+      setPlayer_Loading(false)
+    }
+  }, [])
+
+  function youtube_parser(url: string) {
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return (match && match[7].length == 11) ? match[7] : '';
+  }
+
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
+        setValidate_YT_Link(false)
         setModalVisible(!modalVisible);
       }}
     >
@@ -160,91 +181,226 @@ const BottomPopup = ({
         {MatchId ? (
           <View
             style={{
-              margin: 16,
               justifyContent: "center",
             }}
           >
-            <View>
-              <Text
-                style={{
-                  marginTop: 2,
-                  textAlign: 'center',
-                  fontSize: SIZES.body2,
-                  fontWeight: "bold",
-                  color: COLORS.black,
-                }}
-              >
-                {Match_Status === 'Started' ? 'Update Room Details' : 'Enter Room Details'}
-              </Text>
-            </View>
-            <Textinput
-              containerStyle={{ marginTop: 10 }}
-              label="Custom Room Name"
-              Placeholder={"Enter Custom Room Name"}
-              KeyboardType="default"
-              autoCapatilize={"none"}
-              maxLength={30}
-              onchange={(Value: any) => {
-                const text = Value.replace(/\s{2,}/g, ' ').trim()
-                setCustom_Room_Name(text);
-              }}
-              Msg={null}
-            />
-            <Textinput
-              containerStyle={{ marginTop: 10 }}
-              label="Custom Room Password"
-              Placeholder={"Enter Custom Room Password"}
-              KeyboardType="default"
-              autoCapatilize={"none"}
-              maxLength={15}
-              onchange={(Value: any) => {
-                const text = Value.replace(/\s{2,}/g, ' ').trim()
-                setCustom_Room_Password(text);
-              }}
-              Msg={null}
-            />
-            <TouchableOpacity
-              onPress={() => {
-                if (Custom_Room_Name === '' || Custom_Room_Password === '') {
-                  Alert.alert("Message", 'Fill All Details Please', [{
-                    text: "OK",
-                  }]);
-                  return
-                }
-                const RoomData = {
-                  Name: Custom_Room_Name,
-                  Password: Custom_Room_Password
-                }
-                Update_Match_Room_Details_Func(RoomData, MatchId)
-                setDisable(true);
-              }}
-              disabled={Disable}
-              style={{
-                height: 48,
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: SIZES.padding,
-                borderRadius: SIZES.radius,
-                backgroundColor: Disable
-                  ? COLORS.transparentPrimray
-                  : COLORS.primary,
-                marginHorizontal: SIZES.base,
-              }}
-            >
-              {Room_Details_Reducer.loading ? (
-                <ActivityIndicator size="large" color={COLORS.primary} />
-              ) : (
-                <Text
+            {/* Validateing YT Link */}
+            {Validate_YT_Link ? (
+              <View>
+                {Player_Loading && (<View style={{
+                  position: 'absolute',
+                  height: '100%',
+                  width: '100%',
+                  backgroundColor: COLORS.white
+                }}>
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      alignItems: 'center'
+                    }}
+                  >
+                    <ActivityIndicator size="large" color={COLORS.primary} />
+                  </View>
+                </View>)}
+                <View style={{
+                  marginBottom: 20,
+                  alignItems: 'center'
+                }}>
+                  <HeadingComp
+                    navigation={null}
+                    Title={"Check Video"}
+                    ShowViewAll={false}
+                    Navigate_to={''}
+                    Query={null}
+                  />
+                </View>
+                <View>
+                  <YoutubePlayer
+                    height={300}
+                    play={true}
+                    videoId={YT_Link}
+                    onChangeState={onChangeState}
+                  />
+                </View>
+                <View>
+                  <TouchableOpacity
+                    disabled={Player_Loading}
+                    onPress={() => {
+                      if (Custom_Room_Name !== '' && Custom_Room_Password !== '' && YT_Link !== '') {
+                        const RoomData = {
+                          Name: Custom_Room_Name,
+                          Password: Custom_Room_Password,
+                          YT_Video_id: YT_Link
+                        }
+                        Update_Match_Room_Details_Func(RoomData, MatchId)
+                        setDisable(true);
+                      } else {
+                        Alert.alert("Message", 'Fill Room Name , Password & Video Link First', [{
+                          text: "OK",
+                        }]);
+                      }
+                    }}
+                    style={{
+                      height: 48,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginTop: SIZES.padding,
+                      borderRadius: SIZES.radius,
+                      backgroundColor: Player_Loading
+                        ? COLORS.transparentPrimray
+                        : COLORS.primary,
+                      marginHorizontal: SIZES.base,
+                    }}
+                  >
+                    {Player_Loading ? (
+                      <ActivityIndicator size="large" color={COLORS.primary} />
+                    ) : (
+                      <Text
+                        style={{
+                          color: COLORS.white,
+                          fontWeight: "bold",
+                          fontSize: SIZES.h2,
+                        }}
+                      >
+                        Start
+                      </Text>
+                    )}
+                  </TouchableOpacity>
+                  <View style={{
+                    marginVertical: 10
+                  }}>
+                    <Text style={{
+                      textAlign: 'center',
+                      color: COLORS.black,
+                      fontSize: 14,
+                      fontWeight: "bold",
+                    }}>If Network is slow Video may Blur</Text>
+                    <Text style={{
+                      textAlign: 'center',
+                      color: COLORS.black,
+                      fontSize: 14,
+                      fontWeight: "bold",
+                    }}>So, Lower Video Quality Accordingly</Text>
+                  </View>
+                </View>
+              </View>
+            ) : (
+              <View style={{
+                margin: 16
+              }}>
+                <View>
+                  <Text
+                    style={{
+                      marginTop: 2,
+                      textAlign: 'center',
+                      fontSize: SIZES.body2,
+                      fontWeight: "bold",
+                      color: COLORS.black,
+                    }}
+                  >
+                    {Match_Status === 'Started' ? 'Update Room Details' : 'Enter Room Details'}
+                  </Text>
+                </View>
+                <Textinput
+                  containerStyle={{ marginTop: 20 }}
+                  label="Custom Room Name"
+                  Placeholder={"Enter Custom Room Name"}
+                  KeyboardType="default"
+                  autoCapatilize={"none"}
+                  maxLength={30}
+                  onchange={(Value: any) => {
+                    const text = Value.replace(/\s{2,}/g, ' ').trim()
+                    setCustom_Room_Name(text);
+                  }}
+                  Msg={null}
+                />
+                <Textinput
+                  containerStyle={{ marginTop: 20 }}
+                  label="Custom Room Password"
+                  Placeholder={"Enter Custom Room Password"}
+                  KeyboardType="default"
+                  autoCapatilize={"none"}
+                  maxLength={15}
+                  onchange={(Value: any) => {
+                    const text = Value.replace(/\s{2,}/g, ' ').trim()
+                    setCustom_Room_Password(text);
+                  }}
+                  Msg={null}
+                />
+                <Textinput
+                  containerStyle={{ marginTop: 20 }}
+                  label="YouTube Live Video's Link"
+                  Placeholder={"Paste YouTube Live Video's Link (Optional)"}
+                  KeyboardType="default"
+                  autoCapatilize={"none"}
+                  maxLength={50}
+                  onchange={(Value: any) => {
+                    const text = Value.replace(/\s{2,}/g, ' ').trim()
+                    setYT_Link(youtube_parser(text));
+                  }}
+                  Msg={null}
+                />
+                <TouchableOpacity
+                  onPress={() => {
+                    if (Custom_Room_Name === '' || Custom_Room_Password === '') {
+                      Alert.alert("Message", 'Fill Room Name & Password First', [{
+                        text: "OK",
+                      }]);
+                      return
+                    }
+                    if (YT_Link !== '') {
+                      console.log(YT_Link);
+                      setPlayer_Loading(true)
+                      setValidate_YT_Link(true)
+                    }
+                    // const RoomData = {
+                    //   Name: Custom_Room_Name,
+                    //   Password: Custom_Room_Password,
+                    //   YT_Video_Link: YT_Link
+                    // }
+                    // Update_Match_Room_Details_Func(RoomData, MatchId)
+                    // setDisable(true);
+                  }}
+                  disabled={Disable}
                   style={{
-                    color: COLORS.white,
-                    fontWeight: "bold",
-                    fontSize: SIZES.h2,
+                    height: 48,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: SIZES.padding,
+                    borderRadius: SIZES.radius,
+                    backgroundColor: Disable
+                      ? COLORS.transparentPrimray
+                      : COLORS.primary,
+                    marginHorizontal: SIZES.base,
                   }}
                 >
-                  Submit
-                </Text>
-              )}
-            </TouchableOpacity>
+                  {Room_Details_Reducer.loading ? (
+                    <ActivityIndicator size="large" color={COLORS.primary} />
+                  ) : (
+                    <Text
+                      style={{
+                        color: COLORS.white,
+                        fontWeight: "bold",
+                        fontSize: SIZES.h2,
+                      }}
+                    >
+                      Start & Go Live
+                    </Text>
+                  )}
+                </TouchableOpacity>
+                <View style={{
+                  marginVertical: 10
+                }}>
+                  <Text style={{
+                    textAlign: 'center',
+                    color: COLORS.black,
+                    fontSize: 14,
+                    fontWeight: "bold",
+                  }}>Recommended Go Live for Better Reach</Text>
+                </View>
+              </View>
+            )}
           </View>) : (
           <>
             <View style={{

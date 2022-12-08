@@ -620,7 +620,7 @@ const GuildMatchesDetails = ({
                                                 fontWeight: "bold",
                                             }}
                                         >
-                                            Participants
+                                            Participants {Item.Joined_User.length}
                                         </Text>
                                     </View>
                                     <View
@@ -652,9 +652,9 @@ const GuildMatchesDetails = ({
                                 bottom: -8,
                                 left: 2,
                                 right: 2,
-                                margin: 10,
-                                height: 380,
+                                height: '100%',
                                 backgroundColor: "white",
+                                // justifyContent: 'center',
                                 borderRadius: SIZES.radius,
                                 padding: 5,
                                 shadowColor: COLORS.black,
@@ -684,7 +684,7 @@ const GuildMatchesDetails = ({
                             fontSize: 17,
                         }}
                     >
-                        Enter Room Details
+                        Start Match
                     </Text>
                 </TouchableOpacity>
             )

@@ -64,6 +64,39 @@ export const Get_Home_Page_Matches = (state = [], action: any) => {
   }
 };
 
+export const Get_Matches_Videos = (state = [], action: any) => {
+  switch (action.type) {
+    case 'Fetch_All_Matchs_Videos_Request':
+      return {
+        loading: true,
+      };
+    case 'Fetch_All_Matchs_Videos_Sucess':
+      return {
+        loading: false,
+        Matchs_Have_Vid: action.payload,
+        Sucess: true,
+      };
+    case 'Fetch_All_Matchs_Videos_Fail':
+      return {
+        loading: false,
+        Error: action.payload,
+        Sucess: false,
+      };
+    case 'Clear_Match_Error':
+      return {
+        ...state,
+        Error: null,
+      };
+    case 'Clear_Match_Sucess':
+      return {
+        ...state,
+        Sucess: null,
+      };
+    default:
+      return state;
+  }
+};
+
 export const Join_Match_Reducer = (state = [], action: any) => {
   switch (action.type) {
     case 'Join_Match_Request':

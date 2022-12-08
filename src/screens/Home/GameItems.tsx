@@ -139,7 +139,7 @@ const GameItems = ({
           {Item?.Game_Name} {Item?.GameType}
         </Text>
         {/* Description */}
-        <Progressbar step={Item?.Joined_User.length} totalsteps={Item?.Total_Players} Height={Dpheight(0.8)} />
+        <Progressbar step={Item?.Joined_User.length} totalsteps={Item?.Total_Players} Height={7} />
         {/* More Info Section */}
         <View
           style={{
@@ -154,14 +154,14 @@ const GameItems = ({
             <Text style={{
               fontFamily: 'Poppins-Regular',
               fontSize: Dpheight(0.6) * DPwidth(0.7), color: COLORS.darkGray2
-            }}>Prize Per Kill </Text>
+            }}>Entry </Text>
             <Text
               style={{
                 color: COLORS.black, fontFamily: 'Poppins-Regular',
                 fontSize: Dpheight(0.6) * DPwidth(0.7), fontWeight: "700"
               }}
             >
-              &#x20B9; {Item?.Perkill_Prize}
+              &#x20B9; {Item?.EntryFee}
             </Text>
           </View>
         </View>
@@ -267,7 +267,7 @@ const GameItems = ({
             fontWeight: "bold",
           }}
         >
-          &#x20B9; {Item?.EntryFee}
+          &#x20B9; {Item?.Perkill_Prize}
         </Text>
       </View>
     </TouchableOpacity>

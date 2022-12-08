@@ -813,7 +813,7 @@ const GameDetailsPage = ({
                       </Text>
                       <Text
                         style={{
-                          color: COLORS.black,
+                          color: COLORS.primary,
                           fontFamily: 'Poppins-SemiBold', fontSize: 16,
                           fontWeight: "700",
                         }}
@@ -1020,20 +1020,6 @@ const style = RN_Styles.create({
   container: {
     backgroundColor: COLORS.white,
     flex: 1,
-  },
-  Header: {
-    marginTop: 10,
-    flexDirection: "row",
-    marginHorizontal: SIZES.h3,
-  },
-  HeaderLeft: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: DPwidth(10),
-    height: Dpheight(5),
-    borderWidth: 2,
-    borderColor: "#CDCDCD",
-    borderRadius: SIZES.radius,
   },
   TitleWraper: {
     marginHorizontal: SIZES.padding,

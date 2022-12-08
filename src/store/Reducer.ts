@@ -10,6 +10,7 @@ import {
   Update_Match_Result_Reducer,
   Update_Room_Details_Reducer,
   Fetch_Match_Room_Details,
+  Get_Matches_Videos,
 } from './Match/Matchreducer';
 import {
   Add_Wallet_Ballance_Reducer,
@@ -32,6 +33,7 @@ import {
 
 export default combineReducers({
   Get_Home_Page_Matches,
+  Get_Matches_Videos,
   Create_matches_Reducer,
   Join_Match_Reducer,
   Add_Wallet_Ballance_Reducer,

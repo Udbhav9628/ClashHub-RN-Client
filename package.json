@@ -16,6 +16,7 @@
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-firebase/app": "^14.11.0",
     "@react-native-firebase/auth": "^14.11.0",
+    "@react-native-firebase/crashlytics": "^16.4.6",
     "@react-native-firebase/messaging": "^14.11.0",
     "@react-native-google-signin/google-signin": "^8.0.1",
     "@react-navigation/bottom-tabs": "^6.3.1",
@@ -34,6 +35,8 @@
     "react-native-screens": "^3.2.0",
     "react-native-splash-screen": "^3.3.0",
     "react-native-vector-icons": "^9.2.0",
+    "react-native-webview": "^11.25.0",
+    "react-native-youtube-iframe": "^2.2.2",
     "react-navigation": "^4.4.4",
     "react-redux": "^8.0.2",
     "redux": "^4.2.0"
