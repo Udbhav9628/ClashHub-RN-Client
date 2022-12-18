@@ -203,6 +203,39 @@ export const Update_Room_Details_Reducer = (state = [], action: any) => {
   }
 };
 
+export const Update_Video_Reducer = (state = [], action: any) => {
+  switch (action.type) {
+    case 'Update_Match_Video_Request':
+      return {
+        loading: true,
+      };
+    case 'Update_Match_Video_Sucess':
+      return {
+        loading: false,
+        Sucess: true,
+        Sucess_Responce: action.payload,
+      };
+    case 'Update_Match_Video_Fail':
+      return {
+        loading: false,
+        Sucess: false,
+        Error: action.payload,
+      };
+    case 'Clear_Match_Error':
+      return {
+        ...state,
+        Error: null,
+      };
+    case 'Clear_Match_Sucess':
+      return {
+        ...state,
+        Sucess: null,
+      };
+    default:
+      return state;
+  }
+};
+
 export const Fetch_Match_Room_Details = (state = [], action: any) => {
   switch (action.type) {
     case 'Fetch_Room_Details_Request':

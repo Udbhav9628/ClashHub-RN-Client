@@ -48,7 +48,6 @@ const GameDetailsPage = ({
 
   const [Disable, setDisable] = useState(false);
 
-  const [ShowUpdate_Modal, setShowUpdate_Modal] = useState(false);
   const [MoneyRefund, setMoneyRefund] = useState(false)
 
   const [RoomDetailsModals, setRoomDetailsModal] = useState(false)
@@ -218,7 +217,7 @@ const GameDetailsPage = ({
                     color: COLORS.black,
                   }}
                 >
-                  {Item.Game_Name} {Item.GameType} Match
+                  {Item.Game_Name} {Item.GameType} {Item._id.slice(-2)} Match
                 </Text>
               </View>
               {/* Match Status */}
@@ -530,46 +529,6 @@ const GameDetailsPage = ({
                   </View>
                 </TouchableOpacity>
               </View>}
-            {/* Update Button */}
-            <View style={style.Elevation}>
-              <View>
-                <MatchUpdateModal modalVisible={ShowUpdate_Modal}
-                  setModalVisible={setShowUpdate_Modal}
-                  Days={Days}
-                  Hours={Hours}
-                  Minutes={Minutes}
-                  Match_Status={Item.Match_Status} />
-              </View>
-              <TouchableOpacity
-                onPress={() => { setShowUpdate_Modal(true) }}>
-                <View style={style.GuildWrapper}>
-                  <View style={{ margin: 10 }}><Icons name="update" size={Dpheight(3.6)} color="black" /></View>
-                  {/* Info Of Guild */}
-                  <View style={style.GuildInfo}>
-                    <View>
-                      <Text
-                        style={{
-                          color: COLORS.black,
-                          fontSize: 17,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Update
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        position: "absolute",
-                        top: -2,
-                        right: 15,
-                      }}
-                    >
-                      <Icon name="angle-right" size={20} color="black" />
-                    </View>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
             {/* Participants And Room Details */}
             <View style={{
               marginBottom: SIZES.padding
@@ -649,6 +608,14 @@ const GameDetailsPage = ({
                 </TouchableOpacity>
               </View>
             </View>
+            {/* Updates */}
+            <View>
+              <MatchUpdateModal
+                Days={Days}
+                Hours={Hours}
+                Minutes={Minutes}
+                Match_Status={Item.Match_Status} />
+            </View>
           </View>
         </ScrollView>
       ) : (
@@ -679,7 +646,7 @@ const GameDetailsPage = ({
                       color: COLORS.black,
                     }}
                   >
-                    {Item.Game_Name} {Item.GameType} Match
+                    {Item.Game_Name} {Item.GameType} {Item._id.slice(-2)} Match
                   </Text>
                 </View>
                 {/* Match Status */}

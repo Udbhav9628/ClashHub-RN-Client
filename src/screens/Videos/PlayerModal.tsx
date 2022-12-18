@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { COLORS, Dpheight, DPwidth, SIZES } from "../../constants/Theame";
 import YoutubePlayer from "react-native-youtube-iframe";
-import Icon from "react-native-vector-icons/FontAwesome5";
 import { useSelector, useDispatch } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import { bindActionCreators } from "redux";
@@ -24,12 +23,7 @@ import {
 } from "../../store/Match/Matchaction";
 import { Get_Specific_Club_Details } from "../../store/Guild/GuildAction";
 import PlayerGameNameInputModal from "../Home/PlayerGameNameInputModal";
-import Icons from "react-native-vector-icons/MaterialCommunityIcons";
-import JoinedUserModal from "../Home/JoinedUserModal";
-import RoomDetailsModal from "../Home/RoomDetailsModal";
-import MatchUpdateModal from "../../components/MatchUpdateModal";
 import ModalClub_Menu from "../Home/ModalClub_Menu";
-import MoneyRefund_Comp from "../Home/MoneyRefund_Comp";
 import { ReturnGameImage } from "../../utils/Utils";
 import Iconss from "react-native-vector-icons/Ionicons";
 
@@ -63,19 +57,12 @@ const PlayerModal = ({
         );
     }, [])
 
-    // **********************Details************************
-    const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
-
     const [PlayerInputModal, setPlayerInputModal] = useState(false)
 
     const [disable_joinmatch_button, setdisable_joinmatch_button] = useState(false);
 
     const [Disable, setDisable] = useState(false);
 
-    const [ShowUpdate_Modal, setShowUpdate_Modal] = useState(false);
-    const [MoneyRefund, setMoneyRefund] = useState(false)
-
-    const [RoomDetailsModals, setRoomDetailsModal] = useState(false)
     const [Show_Club_Menu_Modal, setShow_Club_Menu_Modal] = useState(false)
 
     const { Join_Sucess, Error, Responce, loading } = useSelector(
@@ -117,8 +104,10 @@ const PlayerModal = ({
     );
 
     useEffect(() => {
-        Get_Specific_Club_Details_Func(Item.GuildId);
-    }, []);
+        if (modalVisible) {
+            Get_Specific_Club_Details_Func(Item.GuildId);
+        }
+    }, [modalVisible]);
 
     const Get_Specific_Club_Reducer = useSelector(
         (state: any) => state.Get_Specific_Club_Reducer
@@ -300,7 +289,7 @@ const PlayerModal = ({
                                             color: COLORS.black,
                                         }}
                                     >
-                                        {Item.Game_Name} {Item.GameType} Match
+                                        {Item.Game_Name} {Item.GameType} {Item._id.slice(-2)} Match
                                     </Text>
                                 </View>
                                 {/* Match Status */}
@@ -590,7 +579,7 @@ const PlayerModal = ({
                                                 color: COLORS.black,
                                             }}
                                         >
-                                            {Item.Game_Name} {Item.GameType} Match
+                                            {Item.Game_Name} {Item.GameType} {Item._id.slice(-2)} Match
                                         </Text>
                                     </View>
                                     {/* Match Status */}

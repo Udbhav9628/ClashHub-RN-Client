@@ -170,6 +170,41 @@ function Update_Match_Room_Details(Room_Details_Data: any, Matchid: any) {
   };
 }
 
+//Update Match Video
+function Update_Match_Video(Video_Data: any, Matchid: any) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'Update_Match_Video_Request',
+      });
+      const Token: string = (await Return_Token(
+        'Update_Match_Video_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.put(
+        `${Ip_Address}/UpdateVideo_Details/${Matchid}`,
+        Video_Data,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'Update_Match_Video_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'Update_Match_Video_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
 function Join_Match_action(
   id: any,
   Amount_to_be_paid: any,
@@ -311,4 +346,5 @@ export {
   Update_Match_Room_Details,
   Fetch_Match_Room_Details,
   Fetch_All_Matchs_Videos,
+  Update_Match_Video,
 };

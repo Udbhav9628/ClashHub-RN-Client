@@ -8,7 +8,7 @@ import {
     ScrollView
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import Icons from "react-native-vector-icons/MaterialCommunityIcons";
+import Iconss from "react-native-vector-icons/MaterialIcons";
 import { SIZES, COLORS, FONTS, Dpheight, DPwidth } from "../../../constants/Theame";
 import { useFocusEffect } from "@react-navigation/native";
 import ModalJoinedPlayers from "./ModalJoinedPlayers";
@@ -16,6 +16,8 @@ import BottomPopup from "../../../components/BottomPopup";
 import MatchUpdateModal from "../../../components/MatchUpdateModal";
 import ClubFollowres from "./ClubFollowres";
 import RoomDetailsModal from "../../Home/RoomDetailsModal";
+import LiveYtModal from "./LiveYtModal";
+import Player from "../../../components/Player";
 
 const GuildMatchesDetails = ({
     route,
@@ -32,8 +34,8 @@ const GuildMatchesDetails = ({
     const [Disable, setDisable] = useState(false)
 
     const [JoinedPlayermodal, setJoinedPlayermodal] = useState(false);
-    const [ShowUpdate_Modal, setShowUpdate_Modal] = useState(false);
     const [ShowParticipants_Modal, setShowParticipants_Modal] = useState(false);
+    const [ShowYt_Modal, setShowYt_Modal] = useState(false);
 
     const [Days, setDays] = useState(0);
     const [Hours, setHours] = useState(0);
@@ -138,7 +140,7 @@ const GuildMatchesDetails = ({
                                     color: COLORS.black,
                                 }}
                             >
-                                {Item.Game_Name} {Item.GameType} Match
+                                {Item.Game_Name} {Item.GameType} {Item._id.slice(-2)} Match
                             </Text>
                         </View>
                         {/* Match Status */}
@@ -384,135 +386,6 @@ const GuildMatchesDetails = ({
                     marginTop: 60,
                     marginBottom: 60
                 }}>
-                    {/* Updates */}
-                    <View>
-                        {/* Ongoing */}
-                        {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled && (
-                            <View style={style.Elevation}>
-                                <View>
-                                    <MatchUpdateModal modalVisible={ShowUpdate_Modal}
-                                        setModalVisible={setShowUpdate_Modal}
-                                        Days={Days}
-                                        Hours={Hours}
-                                        Minutes={Minutes}
-                                        Match_Status={Item.Match_Status} />
-                                </View>
-                                <TouchableOpacity
-                                    onPress={() => { setShowUpdate_Modal(true) }}>
-                                    <View style={style.GuildWrapper}>
-                                        <View style={{ margin: 10 }}><Icons name="update" size={Dpheight(3.6)} color="black" /></View>
-                                        {/* Info Of Guild */}
-                                        <View style={style.GuildInfo}>
-                                            <View>
-                                                <Text
-                                                    style={{
-                                                        color: COLORS.black,
-                                                        fontSize: 17,
-                                                        fontWeight: "bold",
-                                                    }}
-                                                >
-                                                    Update
-                                                </Text>
-                                            </View>
-                                            <View
-                                                style={{
-                                                    position: "absolute",
-                                                    top: -2,
-                                                    right: 15,
-                                                }}
-                                            >
-                                                <Icon name="angle-right" size={20} color="black" />
-                                            </View>
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                        )}
-                        {/* Completed */}
-                        {Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed' && (
-                            <View style={style.Elevation}>
-                                <View>
-                                    <MatchUpdateModal modalVisible={ShowUpdate_Modal}
-                                        setModalVisible={setShowUpdate_Modal}
-                                        Days={Days}
-                                        Hours={Hours}
-                                        Minutes={Minutes}
-                                        Match_Status={Item.Match_Status} />
-                                </View>
-                                <TouchableOpacity
-                                    onPress={() => { setShowUpdate_Modal(true) }}>
-                                    <View style={style.GuildWrapper}>
-                                        <View style={{ margin: 10 }}><Icons name="update" size={Dpheight(3.6)} color="black" /></View>
-                                        {/* Info Of Guild */}
-                                        <View style={style.GuildInfo}>
-                                            <View>
-                                                <Text
-                                                    style={{
-                                                        color: COLORS.black,
-                                                        fontSize: 17,
-                                                        fontWeight: "bold",
-                                                    }}
-                                                >
-                                                    Update
-                                                </Text>
-                                            </View>
-                                            <View
-                                                style={{
-                                                    position: "absolute",
-                                                    top: -2,
-                                                    right: 15,
-                                                }}
-                                            >
-                                                <Icon name="angle-right" size={20} color="black" />
-                                            </View>
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                        )}
-                        {/* Cancelled */}
-                        {Match_Cancelled && Item.Match_Status !== 'Completed' && (
-                            <View style={style.Elevation}>
-                                <View>
-                                    <MatchUpdateModal modalVisible={ShowUpdate_Modal}
-                                        setModalVisible={setShowUpdate_Modal}
-                                        Days={Days}
-                                        Hours={Hours}
-                                        Minutes={Minutes}
-                                        Match_Status={Item.Match_Status} />
-                                </View>
-                                <TouchableOpacity
-                                    onPress={() => { setShowUpdate_Modal(true) }}>
-                                    <View style={style.GuildWrapper}>
-                                        <View style={{ margin: 10 }}><Icons name="update" size={Dpheight(3.6)} color="black" /></View>
-                                        {/* Info Of Guild */}
-                                        <View style={style.GuildInfo}>
-                                            <View>
-                                                <Text
-                                                    style={{
-                                                        color: COLORS.black,
-                                                        fontSize: 17,
-                                                        fontWeight: "bold",
-                                                    }}
-                                                >
-                                                    Updates
-                                                </Text>
-                                            </View>
-                                            <View
-                                                style={{
-                                                    position: "absolute",
-                                                    top: -2,
-                                                    right: 15,
-                                                }}
-                                            >
-                                                <Icon name="angle-right" size={20} color="black" />
-                                            </View>
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                        )}
-                    </View>
                     {/* Bottom Button*/}
                     <ModalJoinedPlayers modalVisible={JoinedPlayermodal}
                         setModalVisible={setJoinedPlayermodal}
@@ -563,6 +436,51 @@ const GuildMatchesDetails = ({
                                 </View>
                             </TouchableOpacity>
                         </View>)}
+                    {/* Go Live */}
+                    <View>
+                        <View style={style.Elevation}>
+                            <View>
+                                {Item.RoomDetails.YT_Video_id ? <Player
+                                    Item={Item}
+                                    modalVisible={ShowYt_Modal}
+                                    setModalVisible={setShowYt_Modal}
+                                /> : <LiveYtModal modalVisible={ShowYt_Modal}
+                                    setModalVisible={setShowYt_Modal}
+                                    navigation={navigation}
+                                    Disable={Disable}
+                                    setDisable={setDisable}
+                                    MatchId={Item._id} />}
+                            </View>
+                            <TouchableOpacity onPress={() => { setShowYt_Modal(true) }}
+                            >
+                                <View style={style.GuildWrapper}>
+                                    <View style={{ margin: 13 }}><Iconss name="live-tv" size={Dpheight(3.4)} color="black" /></View>
+                                    <View style={style.GuildInfo}>
+                                        <View>
+                                            <Text
+                                                style={{
+                                                    color: COLORS.black,
+                                                    fontSize: 17,
+                                                    fontWeight: "bold",
+                                                }}
+                                            >
+                                                {Item.RoomDetails.YT_Video_id ? "Watch" : "Broadcast"}
+                                            </Text>
+                                        </View>
+                                        <View
+                                            style={{
+                                                position: "absolute",
+                                                top: -2,
+                                                right: 15,
+                                            }}
+                                        >
+                                            <Icon name="angle-right" size={20} color="black" />
+                                        </View>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                     {/* Room Details */}
                     {Item.Match_Status === 'Started' && (<View style={style.Elevation}>
                         <RoomDetailsModal modalVisible={RoomDetailsModals}
@@ -592,49 +510,59 @@ const GuildMatchesDetails = ({
                                             right: 15,
                                         }}
                                     >
-                                        <Icon name="angle-right" size={24} color="black" />
+                                        <Icon name="angle-right" size={20} color="black" />
                                     </View>
                                 </View>
                             </View>
                         </TouchableOpacity>
                     </View>)}
                     {/* Participants*/}
-                    <View style={style.Elevation}>
-                        <View>
-                            <ClubFollowres modalVisible={ShowParticipants_Modal}
-                                setModalVisible={setShowParticipants_Modal}
-                                navigation={navigation}
-                                Followers={Item.Joined_User} />
-                        </View>
-                        <TouchableOpacity onPress={() => { setShowParticipants_Modal(true) }}
-                        >
-                            <View style={style.GuildWrapper}>
-                                <View style={{ margin: 10 }}><Icon name="users" size={Dpheight(3.4)} color="black" /></View>
-                                {/* Info Of Guild */}
-                                <View style={style.GuildInfo}>
-                                    <View>
-                                        <Text
+                    <View style={{ marginBottom: 25 }}>
+                        <View style={style.Elevation}>
+                            <View>
+                                <ClubFollowres modalVisible={ShowParticipants_Modal}
+                                    setModalVisible={setShowParticipants_Modal}
+                                    navigation={navigation}
+                                    Followers={Item.Joined_User} />
+                            </View>
+                            <TouchableOpacity onPress={() => { setShowParticipants_Modal(true) }}
+                            >
+                                <View style={style.GuildWrapper}>
+                                    <View style={{ margin: 10 }}><Icon name="users" size={Dpheight(3.4)} color="black" /></View>
+                                    {/* Info Of Guild */}
+                                    <View style={style.GuildInfo}>
+                                        <View>
+                                            <Text
+                                                style={{
+                                                    color: COLORS.black,
+                                                    fontSize: 17,
+                                                    fontWeight: "bold",
+                                                }}
+                                            >
+                                                Participants {Item.Joined_User.length}
+                                            </Text>
+                                        </View>
+                                        <View
                                             style={{
-                                                color: COLORS.black,
-                                                fontSize: 17,
-                                                fontWeight: "bold",
+                                                position: "absolute",
+                                                top: -2,
+                                                right: 15,
                                             }}
                                         >
-                                            Participants {Item.Joined_User.length}
-                                        </Text>
-                                    </View>
-                                    <View
-                                        style={{
-                                            position: "absolute",
-                                            top: -2,
-                                            right: 15,
-                                        }}
-                                    >
-                                        <Icon name="angle-right" size={20} color="black" />
+                                            <Icon name="angle-right" size={20} color="black" />
+                                        </View>
                                     </View>
                                 </View>
-                            </View>
-                        </TouchableOpacity>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    {/* Updates */}
+                    <View>
+                        <MatchUpdateModal
+                            Days={Days}
+                            Hours={Hours}
+                            Minutes={Minutes}
+                            Match_Status={Item.Match_Status} />
                     </View>
                     {/* Bottom Button */}
                     <BottomPopup
@@ -652,9 +580,9 @@ const GuildMatchesDetails = ({
                                 bottom: -8,
                                 left: 2,
                                 right: 2,
-                                height: '100%',
+                                margin: 10,
+                                height: 380,
                                 backgroundColor: "white",
-                                // justifyContent: 'center',
                                 borderRadius: SIZES.radius,
                                 padding: 5,
                                 shadowColor: COLORS.black,
@@ -684,7 +612,7 @@ const GuildMatchesDetails = ({
                             fontSize: 17,
                         }}
                     >
-                        Start Match
+                        Enter Room Details
                     </Text>
                 </TouchableOpacity>
             )
@@ -740,7 +668,7 @@ const style = StyleSheet.create({
         borderRadius: SIZES.radius,
         elevation: 3,
         marginHorizontal: SIZES.padding,
-        marginVertical: 5,
+        marginVertical: 12,
         //For Ios Only -- SHOWdow code
         shadowColor: "#171717",
         shadowOffset: { width: -2, height: 4 },

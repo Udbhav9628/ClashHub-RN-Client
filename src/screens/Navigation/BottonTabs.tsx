@@ -65,19 +65,6 @@ const BottonTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Guilds"
-        component={GuildScreen}
-        options={{
-          header: (props) => (
-            <Header
-              navigation={props.navigation}
-              title={"Clubs"}
-              title2={null}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Videos"
         component={HomeScreen}
         options={{
@@ -86,6 +73,19 @@ const BottonTabs = () => {
               navigation={props.navigation}
               title={"Match's"}
               title2={" Videos"}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Guilds"
+        component={GuildScreen}
+        options={{
+          header: (props) => (
+            <Header
+              navigation={props.navigation}
+              title={"Clubs"}
+              title2={null}
             />
           ),
         }}

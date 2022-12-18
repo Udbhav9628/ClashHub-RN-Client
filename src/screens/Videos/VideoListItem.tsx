@@ -4,9 +4,10 @@ import styles from "./styles";
 import { getYoutubeMeta } from "react-native-youtube-iframe";
 import PlayerModal from "./PlayerModal";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { COLORS, FONTS, DPwidth, Dpheight } from "../../constants/Theame";
+import { COLORS, DPwidth, Dpheight } from "../../constants/Theame";
 import { useFocusEffect } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+import Iconss from "react-native-vector-icons/MaterialIcons";
 
 const VideoListItem = ({
     Item,
@@ -54,6 +55,8 @@ const VideoListItem = ({
 
     const [Match_Cancelled, setMatch_Cancelled] = useState(false)
 
+    const [Days_Difference, setDays_Difference] = useState(0)
+
     function Timer_Function() {
         const Match_time = new Date(Item.Date_Time).getTime();
         const now = new Date().getTime();
@@ -97,9 +100,17 @@ const VideoListItem = ({
 
     function Return_Match_Status() {
         if (Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Started' && !Match_Cancelled) {
-            return (<Text style={styles.time}>
-                Live
-            </Text>)
+            return (
+                <View style={{ flexDirection: "row" }}>
+                    <View style={{ marginHorizontal: 5 }}><Iconss name="live-tv" size={21} color={COLORS.red} /></View>
+                    <Text style={{
+                        color: COLORS.red,
+                        fontWeight: 'bold',
+                        fontSize: 18,
+                    }}>
+                        Live
+                    </Text>
+                </View>)
         } else if (Days === 0 && Hours === 0 && Minutes === 0 && Item.Match_Status === 'Completed') {
             return (<Text style={styles.time}>
                 Finished
@@ -117,6 +128,16 @@ const VideoListItem = ({
         return Item.UserId === User.id;
     });
 
+    useEffect(() => {
+        let date1 = new Date(Item.Date_Time);
+        let date2 = new Date(Date.now());
+
+        let Difference_In_Time = date2.getTime() - date1.getTime();
+
+        setDays_Difference(Difference_In_Time / (1000 * 3600 * 24))
+
+    }, [])
+
     return (
         <View>
             <PlayerModal
@@ -133,28 +154,33 @@ const VideoListItem = ({
                             Per Kill  &#x20B9;{Item?.Perkill_Prize}
                         </Text>
                     </View>
-                    <View style={styles.timeContainer2}>
+                    {/* <View style={styles.timeContainer2}>
                         {Days === 0 && Hours === 0 && Minutes === 0 ? (
                             Return_Match_Status()) : (<Text style={styles.time}>
                                 {!Days || Days === 0 ? '' : `${Days}D,`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{Minutes}M
                             </Text>)}
-                    </View>
+                    </View> */}
                     {isJoined && (<View style={styles.timeContainer3}>
                         <Text style={styles.time}>
                             Joined
                         </Text>
                     </View>)}
+                    {Math.floor(Days_Difference) > 0 ? (<View style={styles.timeContainer4}>
+                        <Text style={styles.time}>
+                            {Math.floor(Days_Difference)} Days Ago
+                        </Text>
+                    </View>) : (Days === 0 && Hours === 0 && Minutes === 0 ? (
+                        Return_Match_Status()) : (<Text style={styles.time}>
+                            {!Days || Days === 0 ? '' : `${Days}D,`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{Minutes}M
+                        </Text>))}
                 </View>
 
                 {/* Title row */}
                 <View style={styles.titleRow}>
                     {/* Avatar */}
                     <Image style={styles.avatar} source={{ uri: `https://api.multiavatar.com/${Item.GuildId}.png` }} />
-
-                    {/* Middle container: Title, subtitle, etc. */}
                     <View style={styles.midleContainer}>
-                        <Text style={styles.title}>{`${Item.Game_Name} ${Item.GameType}`}</Text>
-                        {/* <Progressbar step={Item?.Joined_User.length} totalsteps={Item?.Total_Players} Height={7} /> */}
+                        <Text style={styles.title}>{`${Item.Game_Name} ${Item.GameType}`} {Item._id.slice(-2)} Match</Text>
                         <View>
                             <View
                                 style={{

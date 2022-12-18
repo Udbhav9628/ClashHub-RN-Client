@@ -9,6 +9,7 @@ import {
   Join_Match_Reducer,
   Update_Match_Result_Reducer,
   Update_Room_Details_Reducer,
+  Update_Video_Reducer,
   Fetch_Match_Room_Details,
   Get_Matches_Videos,
 } from './Match/Matchreducer';
@@ -51,6 +52,7 @@ export default combineReducers({
   Join_Guild_Reducer,
   Get_Specific_Club_Reducer,
   Update_Room_Details_Reducer,
+  Update_Video_Reducer,
   Fetch_Match_Room_Details,
   Razorpay_Token_Reducer,
   Money_Refund_Reducer,

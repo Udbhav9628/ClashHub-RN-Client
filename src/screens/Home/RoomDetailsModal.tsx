@@ -19,7 +19,6 @@ const RoomDetailsModal = ({
     RoomDetails: any;
     Toogle_Update_Button: any;
 }) => {
-
     const dispatch = useDispatch();
     const Fetch_Match_Room_Details_Func = bindActionCreators(
         Fetch_Match_Room_Details,
