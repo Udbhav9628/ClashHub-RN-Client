@@ -67,7 +67,8 @@ const Header = ({
                 navigation.navigate("Wallet");
               }}
               style={{
-                marginHorizontal: 3,
+                paddingRight: 3,
+                paddingLeft: 50,
               }}
             >
               <Icon name="wallet" size={Dpheight(2.8)} color="black" />

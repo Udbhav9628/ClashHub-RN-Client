@@ -3,23 +3,22 @@ import React from "react";
 import { COLORS, SIZES, FONTS } from "../constants/Theame";
 import StyleSheet from 'react-native-media-query';
 
-const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Matchs, setPage, SetLoading, Club_Id }: { SelectedMenu: any; setSelectedMenu: any; GamesTypes: any; Fetch_Matchs: any; setPage: Function; SetLoading: Function; Club_Id: any }) => {
+const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Matchs, setPage, SetLoading, loading, Club_Id }: { SelectedMenu: any; setSelectedMenu: any; GamesTypes: any; Fetch_Matchs: any; setPage: Function; SetLoading: Function; loading: any; Club_Id: any }) => {
   return (
     <FlatList
       horizontal
       showsHorizontalScrollIndicator={false}
       data={GamesTypes}
       keyExtractor={(Item) => `${Item.id}`}
-      contentContainerStyle={{
-        marginHorizontal: SIZES.padding,
-        marginTop: 5,
-        marginBottom: 13,
-      }}
       renderItem={({ item }) => (
         <TouchableOpacity
           style={{
-            marginRight: 53,
+            paddingRight: 29,
+            paddingHorizontal: SIZES.padding,
+            paddingTop: 5,
+            paddingBottom: 13,
           }}
+          disabled={loading}
           onPress={() => {
             SetLoading(true)
             setPage(1);

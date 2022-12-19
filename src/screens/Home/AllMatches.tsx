@@ -82,17 +82,17 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
           showsHorizontalScrollIndicator={false}
           data={GameTypesMenu}
           keyExtractor={(Item) => `${Item.id}`}
-          contentContainerStyle={{
-            marginTop: 5,
-            marginBottom: 15,
-          }}
           renderItem={({ item, index }) => (
             <TouchableOpacity
               style={{
-                marginLeft: SIZES.padding,
+                paddingTop: 10,
+                paddingBottom: 15,
+                paddingLeft: 17,
+                paddingRight: 10,
                 marginRight:
                   index === GameTypesMenu.length - 1 ? SIZES.padding : 0,
               }}
+              disabled={Loading}
               onPress={() => {
                 setLoading(true)
                 setPage(1);

@@ -100,7 +100,7 @@ const Login = ({ navigation }: { navigation: any }) => {
       <View style={{ marginTop: "0%" }}><AuthLayout Title={"Welcome To ClashHub"} SubTitle={"A Dream Place For Gamers"} />
         <View
           style={{
-            marginTop: Dpheight('48%'),
+            marginTop: 370,
             paddingHorizontal: SIZES.padding,
           }}
         >
@@ -137,26 +137,28 @@ const Login = ({ navigation }: { navigation: any }) => {
                   fontSize: SIZES.body3,
                 }}
               >
-                Continue With Google
+                Login With Google
               </Text>
             </View>)}
           </TouchableOpacity>
         </View>
-        {/* Sign Up */}
-        <View
+        {/* Register */}
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Register");
+          }}
           style={{
             flexDirection: "row",
-            marginTop: SIZES.padding,
+            marginTop: 5,
+            paddingTop: 17,
+            paddingBottom: 180,
             justifyContent: "center",
           }}
         >
-          <Text style={{ fontSize: SIZES.body4 }}>
+          <Text style={{ fontSize: SIZES.h3 }}>
             Don't have an Account?{"  "}
           </Text>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Register");
-            }}
+          <View
           >
             <Text
               style={{
@@ -167,8 +169,8 @@ const Login = ({ navigation }: { navigation: any }) => {
             >
               Register Here
             </Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

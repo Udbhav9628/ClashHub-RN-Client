@@ -98,7 +98,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
   return (
     <View style={styles.Container}>
       <View>
-        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={FetchData} setPage={setPage} SetLoading={setloading} Club_Id={null} />
+        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={FetchData} setPage={setPage} SetLoading={setloading} loading={loading} Club_Id={null} />
       </View>
       {loading ? (
         <View

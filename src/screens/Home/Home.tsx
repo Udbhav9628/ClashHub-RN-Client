@@ -204,12 +204,7 @@ const Home = ({ navigation }: { navigation: any }) => {
           </View>
         )}
       </View>
-      <View
-        style={{
-          height: Dpheight(26.3),
-          marginBottom: 5,
-        }}
-      >
+      <View style={styles.Heading}>
         <HeadingComp
           navigation={navigation}
           Title={"Popular Clubs"}
@@ -217,6 +212,13 @@ const Home = ({ navigation }: { navigation: any }) => {
           Navigate_to={"Guilds"}
           Query={null}
         />
+      </View>
+      <View
+        style={{
+          height: Dpheight(26.3),
+          marginBottom: 5,
+        }}
+      >
         {Guild_loading ? (
           <View
             style={{

@@ -20,7 +20,7 @@ const HeadingComp = ({
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: SIZES.base,
+        marginVertical: SIZES.base,
         marginHorizontal: "4%",
       }}
     >
@@ -41,6 +41,8 @@ const HeadingComp = ({
           style={{
             alignContent: "center",
             justifyContent: "center",
+            paddingLeft: 50,
+            paddingRight: 10,
           }}
         >
           <Text

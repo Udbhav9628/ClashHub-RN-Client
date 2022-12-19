@@ -25,7 +25,7 @@ const Player = ({
     const [Player_Loading, setPlayer_Loading] = useState(true)
 
     const onChangeState = useCallback((state: any) => {
-        if (state === 'buffering') {
+        if (state === 'buffering' && modalVisible) {
             setPlayer_Loading(false)
         }
     }, [])

@@ -120,8 +120,8 @@ const Signup = ({ navigation }: { navigation: any }) => {
         <View
           style={{
             flex: 1,
-            marginTop: "70%",
-            paddingHorizontal: SIZES.padding,
+            marginTop: 270,
+            paddingHorizontal: 22,
           }}
         >
           {/* UserName */}
@@ -181,17 +181,20 @@ const Signup = ({ navigation }: { navigation: any }) => {
           </TouchableOpacity>
 
           {/* Sign In */}
-          <View
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Login")}
             style={{
               flexDirection: "row",
-              marginTop: SIZES.padding,
+              marginTop: 5,
+              paddingTop: 17,
+              paddingBottom: 180,
               justifyContent: "center",
             }}
           >
-            <Text style={{ fontSize: SIZES.body4 }}>
-              If you already have an Account?{"  "}
+            <Text style={{ fontSize: SIZES.h3 }}>
+              Already have an Account?{"  "}
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <View>
               <Text
                 style={{
                   fontSize: SIZES.h3,
@@ -201,8 +204,8 @@ const Signup = ({ navigation }: { navigation: any }) => {
               >
                 Login Here
               </Text>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
 
