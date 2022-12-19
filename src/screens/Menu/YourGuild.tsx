@@ -82,7 +82,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
           <Heading navigation={navigation} Title={"Your Club"} />
           <View style={styles.Profile}>
             <Image
-              source={{ uri: `https://api.multiavatar.com/${Guild_Details.GuildName}.png` }}
+              source={{ uri: `https://api.multiavatar.com/${Guild_Details._id}.png` }}
               style={{
                 width: DPwidth(31),
                 height: Dpheight(15),

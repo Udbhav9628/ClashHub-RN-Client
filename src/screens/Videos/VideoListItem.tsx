@@ -151,7 +151,7 @@ const VideoListItem = ({
                     <Image style={styles.thumbnail} source={{ uri: `${YTMeta?.thumbnail_url}` }} />
                     <View style={styles.timeContainer}>
                         <Text style={styles.time}>
-                            Per Kill  &#x20B9;{Item?.Perkill_Prize}
+                            Per Kills  &#x20B9;{Item?.Perkill_Prize}
                         </Text>
                     </View>
                     {/* <View style={styles.timeContainer2}>
@@ -165,14 +165,16 @@ const VideoListItem = ({
                             Joined
                         </Text>
                     </View>)}
-                    {Math.floor(Days_Difference) > 0 ? (<View style={styles.timeContainer4}>
-                        <Text style={styles.time}>
-                            {Math.floor(Days_Difference)} Days Ago
-                        </Text>
-                    </View>) : (Days === 0 && Hours === 0 && Minutes === 0 ? (
-                        Return_Match_Status()) : (<Text style={styles.time}>
-                            {!Days || Days === 0 ? '' : `${Days}D,`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{Minutes}M
-                        </Text>))}
+                    <View style={styles.timeContainer4}>
+                        {Math.floor(Days_Difference) > 0 ? (
+                            <Text style={styles.time}>
+                                {Math.floor(Days_Difference)} Days Ago
+                            </Text>
+                        ) : (Days === 0 && Hours === 0 && Minutes === 0 ? (
+                            Return_Match_Status()) : (<Text style={styles.time}>
+                                {!Days || Days === 0 ? '' : `${Days}D,`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{Minutes}M
+                            </Text>))}
+                    </View>
                 </View>
 
                 {/* Title row */}

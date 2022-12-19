@@ -29,6 +29,9 @@ import MatchUpdateModal from "../../components/MatchUpdateModal";
 import ModalClub_Menu from "./ModalClub_Menu";
 import MoneyRefund_Comp from "./MoneyRefund_Comp";
 import Heading from "../../components/Heading";
+import Player from "../../components/Player";
+import Iconss from "react-native-vector-icons/MaterialIcons";
+import LiveYtModal from "../Menu/YourGuild/LiveYtModal";
 
 const GameDetailsPage = ({
   route,
@@ -49,6 +52,8 @@ const GameDetailsPage = ({
   const [Disable, setDisable] = useState(false);
 
   const [MoneyRefund, setMoneyRefund] = useState(false)
+
+  const [ShowYt_Modal, setShowYt_Modal] = useState(false);
 
   const [RoomDetailsModals, setRoomDetailsModal] = useState(false)
   const [Show_Club_Menu_Modal, setShow_Club_Menu_Modal] = useState(false)
@@ -452,7 +457,7 @@ const GameDetailsPage = ({
                       height: Dpheight(4),
                       resizeMode: "contain",
                     }}
-                    source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?.GuildName}.png` }}
+                    source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?._id}.png` }}
                   />) : (<View style={{
                     margin: 3,
                     width: DPwidth(10),
@@ -531,8 +536,46 @@ const GameDetailsPage = ({
               </View>}
             {/* Participants And Room Details */}
             <View style={{
-              marginBottom: SIZES.padding
+              marginVertical: 30
             }}>
+              {/* Go Live */}
+              {Item.RoomDetails.YT_Video_id && <View style={style.Elevation}>
+                <View>
+                  <Player
+                    Item={Item}
+                    modalVisible={ShowYt_Modal}
+                    setModalVisible={setShowYt_Modal}
+                  />
+                </View>
+                <TouchableOpacity onPress={() => { setShowYt_Modal(true) }}
+                >
+                  <View style={style.GuildWrapper}>
+                    <View style={{ margin: 13 }}><Iconss name="live-tv" size={Dpheight(3.4)} color="black" /></View>
+                    <View style={style.GuildInfo}>
+                      <View>
+                        <Text
+                          style={{
+                            color: COLORS.black,
+                            fontSize: 17,
+                            fontWeight: "bold",
+                          }}
+                        >
+                          Watch
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          position: "absolute",
+                          top: -2,
+                          right: 15,
+                        }}
+                      >
+                        <Icon name="angle-right" size={20} color="black" />
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              </View>}
               {/* Room Id and Pass */}
               <View style={style.Elevation}>
                 <RoomDetailsModal modalVisible={RoomDetailsModals}
@@ -885,7 +928,7 @@ const GameDetailsPage = ({
                         height: Dpheight(4),
                         resizeMode: "contain",
                       }}
-                      source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?.GuildName}.png` }}
+                      source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?._id}.png` }}
                     />) : (<View style={{
                       margin: 3,
                       width: DPwidth(10),

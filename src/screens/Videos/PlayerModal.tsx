@@ -188,14 +188,22 @@ const PlayerModal = ({
     };
     useFocusEffect(
         React.useCallback(() => {
-            Start_Timer();
-            return () => clearInterval(Timer);
-        }, [])
+            if (modalVisible) {
+                Start_Timer();
+            }
+            return () => {
+                if (modalVisible) {
+                    clearInterval(Timer)
+                }
+            };
+        }, [modalVisible])
     );
 
     useEffect(() => {
-        Timer_Function()
-    }, []);
+        if (modalVisible) {
+            Timer_Function()
+        }
+    }, [modalVisible]);
 
     useEffect(() => {
         if (Item.Joined_User.length === Item.Total_Players) {
@@ -524,7 +532,7 @@ const PlayerModal = ({
                                                 height: Dpheight(4),
                                                 resizeMode: "contain",
                                             }}
-                                            source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?.GuildName}.png` }}
+                                            source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?._id}.png` }}
                                         />) : (<View style={{
                                             margin: 3,
                                             width: DPwidth(10),
@@ -818,7 +826,7 @@ const PlayerModal = ({
                                                     height: Dpheight(4),
                                                     resizeMode: "contain",
                                                 }}
-                                                source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?.GuildName}.png` }}
+                                                source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?._id}.png` }}
                                             />) : (<View style={{
                                                 margin: 3,
                                                 width: DPwidth(10),

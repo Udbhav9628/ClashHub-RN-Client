@@ -64,7 +64,6 @@ function Gernerate_Razorpay_Token(Amount: Number) {
 }
 
 function Add_Wallet_Ballance(
-  BallanceToAdd: any,
   Transaction_Id: any,
   Message: String,
   Type: Boolean,
@@ -86,7 +85,6 @@ function Add_Wallet_Ballance(
       const response = await axios.put(
         `${Ip_Address}/AddingCoins`,
         {
-          BallanceToAdd: Math.trunc(BallanceToAdd),
           Transaction_Id,
           Message,
           Date,

@@ -87,7 +87,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
       RazorpayCheckout.open(options).then((data: any) => {
         const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = data;
 
-        Add_Wallet_Ballance_FUNC(AmountToadd, razorpay_payment_id, `Added To Gamer Wallet`, true, Date.now(), razorpay_payment_id, razorpay_order_id, razorpay_signature);
+        Add_Wallet_Ballance_FUNC(razorpay_payment_id, `Added To Gamer Wallet`, true, Date.now(), razorpay_payment_id, razorpay_order_id, razorpay_signature);
       }).catch((error: any) => {
         const errorhai = JSON.parse(error.description);
         Alert.alert("Error", `${errorhai.error.description}`, [{ text: "OK" }]);
@@ -138,7 +138,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
   useEffect(() => {
     if (AddError) {
       Clear_Payment_Reducer_Error_Func()
-      Alert.alert("Error", 'Payment Faild!, Content Us if Money get duducted from your Bank, Do not worry we will make you refund if needed ', [{ text: "OK" }]);
+      Alert.alert("Payment Faild!", 'Content Us, if Money got duducted from your Bank Account, we will make you refund', [{ text: "OK" }]);
     }
   }, [AddError])
 

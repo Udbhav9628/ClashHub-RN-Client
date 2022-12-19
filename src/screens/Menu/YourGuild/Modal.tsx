@@ -48,8 +48,6 @@ const ModalScreen = ({
   const [EntryFeeLength, setEntryFeeLength] = useState();
   // Match Data
 
-  const [Disable, setDisable] = useState(false);
-
   const [ModalGamemodalVisible, setModalGamemodalVisible] = useState(false);
   const [Modal_GameType_modalVisible, setModal_GameType_modalVisible] = useState(false);
   const [Modal_Map_modalVisible, setModal_Map_modalVisible] = useState(false);
@@ -113,7 +111,7 @@ const ModalScreen = ({
     dispatch
   );
 
-  const { loading, Sucess, Error } = useSelector(
+  const { loading, Sucess, Error, Responce } = useSelector(
     (state: any) => state.Create_matches_Reducer
   );
 
@@ -121,8 +119,7 @@ const ModalScreen = ({
     if (Sucess) {
       Clear_Match_Sucess();
       ClearData()
-      setDisable(false)
-      Alert.alert("Alert", "Match Created Sucessfully", [
+      Alert.alert("Alert", Responce, [
         {
           text: "OK",
           onPress: () => {
@@ -137,7 +134,6 @@ const ModalScreen = ({
     if (Error) {
       ClearData()
       Clear_Match_Error()
-      setDisable(false);
       Alert.alert("Error", Error + " , Try Again", [
         {
           text: "OK",
@@ -182,7 +178,6 @@ const ModalScreen = ({
       }
       Create_Match_action(Data);
     } else {
-      setDisable(true);
       navigation.navigate("Signin");
     }
   }
@@ -509,18 +504,18 @@ const ModalScreen = ({
               marginTop: 30,
               marginBottom: 40,
               borderRadius: SIZES.radius,
-              backgroundColor: Disable
+              backgroundColor: loading
                 ? COLORS.transparentPrimray
                 : COLORS.primary,
             }}
             onPress={() => {
               CreateMatchOnClick(Data);
             }}
-            disabled={Disable}
+            disabled={loading}
           >
             {loading ? (
               <View>
-                <ActivityIndicator size="large" color={COLORS.primary} />
+                <ActivityIndicator size="large" color={COLORS.white} />
               </View>
             ) : (
               <Text

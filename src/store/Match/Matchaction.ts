@@ -25,7 +25,7 @@ function Create_Match(Data: any) {
       );
       dispatch({
         type: 'Create_Match_Sucess',
-        payload: response.data.data,
+        payload: response.data,
       });
     } catch (error: any) {
       dispatch({

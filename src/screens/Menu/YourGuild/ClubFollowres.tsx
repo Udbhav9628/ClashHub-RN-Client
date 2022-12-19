@@ -29,6 +29,7 @@ const ClubFollowres = ({
             animationType="slide"
             visible={modalVisible}
             onRequestClose={() => {
+                setData(Followers)
                 setModalVisible(!modalVisible);
             }}
         >
@@ -36,6 +37,7 @@ const ClubFollowres = ({
                 <View style={styles.CrossSign}>
                     <TouchableOpacity
                         onPress={() => {
+                            setData(Followers)
                             setModalVisible(!modalVisible);
                         }}
                     >
@@ -111,6 +113,7 @@ const ClubFollowres = ({
                                 showsVerticalScrollIndicator={false}
                                 renderItem={({ item, index }) => (
                                     <TouchableOpacity onPress={() => {
+                                        setData(Followers)
                                         setModalVisible(!modalVisible);
                                         navigation.navigate("SpecificUserProfile", {
                                             UserId: item.FollowersId,
