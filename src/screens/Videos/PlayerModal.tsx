@@ -31,10 +31,12 @@ const PlayerModal = ({
     Item,
     modalVisible,
     setModalVisible,
+    navigation
 }: {
     Item: any;
     modalVisible: any;
     setModalVisible: any;
+    navigation: any;
 }) => {
 
     const [Player_Loading, setPlayer_Loading] = useState(true)
@@ -118,9 +120,9 @@ const PlayerModal = ({
             Clear_Match_Sucess();
             if (Responce.Sucess) {
                 Remove_Match_Item(Home_Matchs, Item._id);//problem here
-                // navigation.navigate("PaymentSucess", {
-                //     Matched_Joined: true
-                // })
+                navigation.navigate("PaymentSucess", {
+                    Matched_Joined: true
+                })
             } else {
                 Alert.alert("Message", Responce.Msg, [
                     {
@@ -194,6 +196,7 @@ const PlayerModal = ({
             return () => {
                 if (modalVisible) {
                     clearInterval(Timer)
+                    setModalVisible(false)
                 }
             };
         }, [modalVisible])
@@ -502,64 +505,70 @@ const PlayerModal = ({
                             </View>
                         </View>
                         {/* Hosted By */}
-                        <View style={{ marginHorizontal: SIZES.padding, marginVertical: Dpheight(8), }}>
+                        <View style={{
+                            marginHorizontal: SIZES.padding,
+                            marginTop: 140,
+                            marginBottom: 100
+                        }}>
                             <Text style={{
                                 fontFamily: 'Poppins-SemiBold', fontSize: 19,
                                 fontWeight: "700",
                                 color: COLORS.black,
                             }}>Hosted by</Text>
-                            <View style={{
+                            {Get_Specific_Club_Reducer.loading ? (<View
+                                style={{
+                                    flex: 1,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <ActivityIndicator size="small" color={COLORS.primary} />
+                            </View>) : (Get_Specific_Club_Reducer.Sucess ? (<TouchableOpacity onPress={() => {
+                                setShow_Club_Menu_Modal(true)
+                            }
+                            } style={{
                                 height: Dpheight(8),
                                 borderRadius: SIZES.radius,
                                 flexDirection: "row",
                                 alignItems: "center",
                             }}>
-                                {/* Info Of Guild */}
-                                {Get_Specific_Club_Reducer.loading ? (<View
+                                <Image
                                     style={{
-                                        // flex: 1,
-                                        justifyContent: "center",
-                                        alignItems: "center",
+                                        margin: 3,
+                                        width: DPwidth(10),
+                                        height: Dpheight(4),
+                                        resizeMode: "contain",
                                     }}
-                                >
-                                    <ActivityIndicator size="small" color={COLORS.primary} />
-                                </View>) : (
-                                    <>
-                                        {Get_Specific_Club_Reducer.Sucess ? (<Image
+                                    source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?._id}.png` }}
+                                />
+                                <View style={styles.GuildInfo}>
+                                    <View>
+                                        <Text
                                             style={{
-                                                margin: 3,
-                                                width: DPwidth(10),
-                                                height: Dpheight(4),
-                                                resizeMode: "contain",
+                                                color: COLORS.black,
+                                                fontSize: 17,
+                                                fontWeight: "bold",
                                             }}
-                                            source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?._id}.png` }}
-                                        />) : (<View style={{
-                                            margin: 3,
-                                            width: DPwidth(10),
-                                            height: Dpheight(4)
-                                        }}>
-                                        </View>)}
-                                        <View style={styles.GuildInfo}>
-                                            <View>
-                                                <Text
-                                                    style={{
-                                                        color: Get_Specific_Club_Reducer.Sucess ? COLORS.black : COLORS.gray,
-                                                        fontSize: 17,
-                                                        fontWeight: "bold",
-                                                    }}
-                                                >
-                                                    {Get_Specific_Club_Reducer.Sucess ? (Get_Specific_Club_Reducer.Responce.GuildName) : ('Error loading')}
-                                                </Text>
-                                            </View>
-                                            <ModalClub_Menu modalVisible={Show_Club_Menu_Modal}
-                                                setModalVisible={setShow_Club_Menu_Modal}
-                                                navigation={null}
-                                                Club_Details={Get_Specific_Club_Reducer.Responce}
-                                                Admin_Id={null}
-                                            />
-                                        </View>
-                                    </>)}
-                            </View>
+                                        >
+                                            {Get_Specific_Club_Reducer.Responce.GuildName}
+                                        </Text>
+                                    </View>
+                                    <ModalClub_Menu modalVisible={Show_Club_Menu_Modal}
+                                        setModalVisible={setShow_Club_Menu_Modal}
+                                        navigation={navigation}
+                                        Club_Details={Get_Specific_Club_Reducer.Responce}
+                                        Admin_Id={null}
+                                    />
+                                    <View style={{
+                                        position: "absolute",
+                                        right: 15
+                                    }}>
+                                        <Iconss name="ellipsis-horizontal" size={18} color="black" />
+                                    </View>
+                                </View>
+                            </TouchableOpacity>) : (<View style={{ height: Dpheight(8), justifyContent: "center", alignItems: 'center' }}>
+                                <Text style={{ textAlign: "center", fontSize: SIZES.h3 }}>Error</Text>
+                            </View>))}
                         </View>
                     </ScrollView>
                 ) : (
@@ -802,58 +811,60 @@ const PlayerModal = ({
                                     fontWeight: "700",
                                     color: COLORS.black,
                                 }}>Hosted by</Text>
-                                <View style={{
+                                {Get_Specific_Club_Reducer.loading ? (<View
+                                    style={{
+                                        flex: 1,
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <ActivityIndicator size="small" color={COLORS.primary} />
+                                </View>) : (Get_Specific_Club_Reducer.Sucess ? (<TouchableOpacity onPress={() => {
+                                    setShow_Club_Menu_Modal(true)
+                                }
+                                } style={{
                                     height: Dpheight(8),
                                     borderRadius: SIZES.radius,
                                     flexDirection: "row",
                                     alignItems: "center",
                                 }}>
-                                    {/* Info Of Guild */}
-                                    {Get_Specific_Club_Reducer.loading ? (<View
+                                    <Image
                                         style={{
-                                            // flex: 1,
-                                            justifyContent: "center",
-                                            alignItems: "center",
+                                            margin: 3,
+                                            width: DPwidth(10),
+                                            height: Dpheight(4),
+                                            resizeMode: "contain",
                                         }}
-                                    >
-                                        <ActivityIndicator size="small" color={COLORS.primary} />
-                                    </View>) : (
-                                        <>
-                                            {Get_Specific_Club_Reducer.Sucess ? (<Image
+                                        source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?._id}.png` }}
+                                    />
+                                    <View style={styles.GuildInfo}>
+                                        <View>
+                                            <Text
                                                 style={{
-                                                    margin: 3,
-                                                    width: DPwidth(10),
-                                                    height: Dpheight(4),
-                                                    resizeMode: "contain",
+                                                    color: COLORS.black,
+                                                    fontSize: 17,
+                                                    fontWeight: "bold",
                                                 }}
-                                                source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?._id}.png` }}
-                                            />) : (<View style={{
-                                                margin: 3,
-                                                width: DPwidth(10),
-                                                height: Dpheight(4)
-                                            }}>
-                                            </View>)}
-                                            <View style={styles.GuildInfo}>
-                                                <View>
-                                                    <Text
-                                                        style={{
-                                                            color: Get_Specific_Club_Reducer.Sucess ? COLORS.black : COLORS.gray,
-                                                            fontSize: 17,
-                                                            fontWeight: "bold",
-                                                        }}
-                                                    >
-                                                        {Get_Specific_Club_Reducer.Sucess ? (Get_Specific_Club_Reducer.Responce.GuildName) : ('Error loading')}
-                                                    </Text>
-                                                </View>
-                                                <ModalClub_Menu modalVisible={Show_Club_Menu_Modal}
-                                                    setModalVisible={setShow_Club_Menu_Modal}
-                                                    navigation={null}
-                                                    Club_Details={Get_Specific_Club_Reducer.Responce}
-                                                    Admin_Id={null}
-                                                />
-                                            </View>
-                                        </>)}
-                                </View>
+                                            >
+                                                {Get_Specific_Club_Reducer.Responce.GuildName}
+                                            </Text>
+                                        </View>
+                                        <ModalClub_Menu modalVisible={Show_Club_Menu_Modal}
+                                            setModalVisible={setShow_Club_Menu_Modal}
+                                            navigation={navigation}
+                                            Club_Details={Get_Specific_Club_Reducer.Responce}
+                                            Admin_Id={null}
+                                        />
+                                        <View style={{
+                                            position: "absolute",
+                                            right: 15
+                                        }}>
+                                            <Iconss name="ellipsis-horizontal" size={18} color="black" />
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>) : (<View style={{ height: Dpheight(8), justifyContent: "center", alignItems: 'center' }}>
+                                    <Text style={{ textAlign: "center", fontSize: SIZES.h3 }}>Error</Text>
+                                </View>))}
                             </View>
                         </ScrollView>
                         {/* Join Button */}
@@ -979,7 +990,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     GuildInfo: {
-        // flex: 1,
+        flex: 1,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",

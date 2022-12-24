@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Fetch_All_Matchs_Videos, Clear_Match_Reducer_Error } from "../../store/Match/Matchaction";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }: { navigation: any }) => {
 
     const { Matchs_Have_Vid, loading, Error } = useSelector(
         (state: any) => state.Get_Matches_Videos
@@ -57,7 +57,7 @@ const HomeScreen = () => {
                     data={Matchs_Have_Vid}
                     keyExtractor={(Item) => `${Item._id}`}
                     showsVerticalScrollIndicator={false}
-                    renderItem={({ item }) => <VideoListItem Item={item} />}
+                    renderItem={({ item }) => <VideoListItem Item={item} navigation={navigation} />}
                 />)}
         </View>
     );

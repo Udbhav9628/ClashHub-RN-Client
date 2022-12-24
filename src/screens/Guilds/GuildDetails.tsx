@@ -250,7 +250,7 @@ const GuildDetails = ({
         )}
       </View>
       {/* {About Club} */}
-      <View style={{ marginTop: 26 }}>
+      <View style={{ marginTop: 26, marginBottom: 120 }}>
         <Text style={{
           ...FONTS.body3,
           fontWeight: "700",
@@ -263,7 +263,7 @@ const GuildDetails = ({
           alignItems: "flex-start",
           marginHorizontal: SIZES.padding,
         }}>
-          <View style={{ marginVertical: 6, flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ paddingVertical: 20, flexDirection: 'row', alignItems: 'center' }}>
             <View><Icon name="description" size={28} color="black" /></View><Text
               style={{
                 marginHorizontal: 12,
@@ -275,7 +275,7 @@ const GuildDetails = ({
             >
               {Item.GuildDescription}.
             </Text></View>
-          <View style={{ marginVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
+          <TouchableOpacity onPress={() => setShowFollowers(true)} style={{ paddingVertical: 20, flexDirection: 'row', alignItems: 'center' }}>
             <View><Icons name="users" size={22} color="black" /></View>
             <View>
               <ClubFollowres modalVisible={ShowFollowers}
@@ -298,13 +298,13 @@ const GuildDetails = ({
               >
                 {Item.Followers.length} Followers
               </Text>
-              <TouchableOpacity onPress={() => setShowFollowers(true)} style={{
+              <View style={{
                 position: "absolute",
                 right: 15,
-              }}><Iconss name="dots-horizontal" size={20} color="black" /></TouchableOpacity>
+              }}><Iconss name="dots-horizontal" size={20} color="black" /></View>
             </View>
-          </View>
-          <View style={{ marginVertical: 9, flexDirection: 'row', alignItems: 'center' }}>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShow_Admin_Menu(true)} style={{ paddingVertical: 20, flexDirection: 'row', alignItems: 'center' }}>
             <View style={{ marginLeft: 4 }}><Icons name="user-tie" size={24} color="black" /></View>
             <View style={{
               flex: 1,
@@ -327,12 +327,12 @@ const GuildDetails = ({
               >
                 Admin
               </Text>
-              <TouchableOpacity onPress={() => setShow_Admin_Menu(true)} style={{
+              <View style={{
                 position: "absolute",
                 right: 15,
-              }}><Iconss name="dots-horizontal" size={20} color="black" /></TouchableOpacity>
+              }}><Iconss name="dots-horizontal" size={20} color="black" /></View>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>

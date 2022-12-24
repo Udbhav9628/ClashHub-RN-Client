@@ -11,8 +11,10 @@ import Iconss from "react-native-vector-icons/MaterialIcons";
 
 const VideoListItem = ({
     Item,
+    navigation,
 }: {
     Item: any
+    navigation: any;
 }) => {
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -144,6 +146,7 @@ const VideoListItem = ({
                 Item={Item}
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
+                navigation={navigation}
             />
             <TouchableOpacity style={styles.videoCard} onPress={() => setModalVisible(true)}>
                 {/* Tumbnail */}
