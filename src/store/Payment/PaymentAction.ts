@@ -270,7 +270,7 @@ function GetPendingWithdrawls() {
   };
 }
 
-function Create_withdrawls_request(Amount: any) {
+function Create_withdrawls_request(Amount: Number, Upi_id: String) {
   return async function (dispatch: any) {
     try {
       dispatch({
@@ -285,6 +285,7 @@ function Create_withdrawls_request(Amount: any) {
         `${Ip_Address}/createWithdrawls`,
         {
           Amount: Amount,
+          UPI_Id: Upi_id,
         },
         {
           headers: {

@@ -40,17 +40,13 @@ const BottomPopup = ({
   setDisable: Function;
   navigation: any;
 }) => {
-  const { loading } = useSelector((state: any) => state.Join_Match_Reducer);
+  const { loading } = useSelector((state: any) => state.Create_withdrawls_Reducer);
 
+  const [UPI_Id, setUPI_Id] = useState('')
   const [WithdrawlsAmount, setWithdrawlsAmount] = useState(0)
 
   const [Custom_Room_Name, setCustom_Room_Name] = useState('')
-
   const [Custom_Room_Password, setCustom_Room_Password] = useState('')
-
-  const { PWloading, Pending_Withdrawls, Error } = useSelector(
-    (state: any) => state.PendingWithdrawls_Reducer
-  );
 
   const Create_withdrawls_Reducer = useSelector(
     (state: any) => state.Create_withdrawls_Reducer
@@ -81,10 +77,6 @@ const BottomPopup = ({
     Create_withdrawls_request,
     dispatch
   );
-  const GetPendingWithdrawls_Func = bindActionCreators(
-    GetPendingWithdrawls,
-    dispatch
-  );
   const Clear_Payment_Reducer_Error_Func = bindActionCreators(
     Clear_Payment_Reducer_Error,
     dispatch
@@ -95,14 +87,9 @@ const BottomPopup = ({
   );
 
   useEffect(() => {
-    if (modalVisible && MatchId === null) {
-      GetPendingWithdrawls_Func()
-    }
-  }, [modalVisible])
-
-  useEffect(() => {
     if (Room_Details_Reducer.Sucess) {
-
+      setCustom_Room_Name('')
+      setCustom_Room_Password('')
       Alert.alert("Message", Room_Details_Reducer.Sucess_Responce, [{
         text: "OK",
         onPress: () => {
@@ -118,6 +105,8 @@ const BottomPopup = ({
   useEffect(() => {
     if (Room_Details_Reducer.Error) {
       setDisable(false);
+      setCustom_Room_Name('')
+      setCustom_Room_Password('')
       setModalVisible(!modalVisible);
       Clear_Match_Reducer_Error_Func();
       Alert.alert("Error", Room_Details_Reducer.Error, [{
@@ -127,21 +116,20 @@ const BottomPopup = ({
   }, [Room_Details_Reducer.Error])
 
   useEffect(() => {
-    if (Error) {
-      Clear_Payment_Reducer_Error_Func()
-      Alert.alert("Error", Error, [{ text: "OK" }]);
-    }
-  }, [Error])
-
-  useEffect(() => {
     if (Create_withdrawls_Reducer.sucess) {
+      setModalVisible(!modalVisible);
+      setWithdrawlsAmount(0)
+      setUPI_Id('')
       Clear_Payment_Reducer_Sucess_Func()
-      Alert.alert("Error", Create_withdrawls_Reducer.Sucess_Responce, [{ text: "OK" }]);
+      Alert.alert("Sucess", Create_withdrawls_Reducer.Sucess_Responce, [{ text: "OK" }]);
     }
   }, [Create_withdrawls_Reducer.sucess])
 
   useEffect(() => {
     if (Create_withdrawls_Reducer.Error) {
+      setModalVisible(!modalVisible);
+      setWithdrawlsAmount(0)
+      setUPI_Id('')
       Clear_Payment_Reducer_Error_Func()
       Alert.alert("Error", Create_withdrawls_Reducer.Error, [{ text: "OK" }]);
     }
@@ -153,6 +141,10 @@ const BottomPopup = ({
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
+        setWithdrawlsAmount(0)
+        setUPI_Id('')
+        setCustom_Room_Name('')
+        setCustom_Room_Password('')
         setModalVisible(!modalVisible);
       }}
     >
@@ -174,7 +166,7 @@ const BottomPopup = ({
                   color: COLORS.black,
                 }}
               >
-                {Match_Status === 'Started' ? 'Update Room Details' : 'Enter Room Details'}
+                Enter Room Details
               </Text>
             </View>
             <Textinput
@@ -216,7 +208,7 @@ const BottomPopup = ({
                   "This Process is irreversible, Make Sure You're Entering correct Room Details",
                   [
                     {
-                      text: "Ok",
+                      text: "Proceed",
                       onPress: () => {
                         const RoomData = {
                           Name: Custom_Room_Name,
@@ -266,12 +258,13 @@ const BottomPopup = ({
               flex: 1, justifyContent: 'flex-start',
             }}>
               <View style={{
+                alignItems: "center",
                 marginBottom: 15,
                 alignSelf: 'center'
               }}>
                 <HeadingComp
                   navigation={null}
-                  Title={"Make Withdraw Request"}
+                  Title={"UPI Withdrawal"}
                   ShowViewAll={false}
                   Navigate_to={''}
                   Query={null}
@@ -284,9 +277,31 @@ const BottomPopup = ({
                     fontSize: SIZES.body4,
                   }}
                 >
-                  Usually takes 1 business day to complete
+                  Usually takes 24 Hr to complete
                 </Text>
               </View>
+              <TextInput
+                style={{
+                  marginTop: 10,
+                  height: 55,
+                  alignSelf: 'center',
+                  width: '90%',
+                  paddingLeft: 25,
+                  justifyContent: "center",
+                  borderRadius: SIZES.radius,
+                  backgroundColor: COLORS.lightGray2,
+                  color: COLORS.black
+                }}
+                placeholder='Enter Upi Id'
+                placeholderTextColor={COLORS.gray}
+                keyboardType="default"
+                autoCapitalize="none"
+                maxLength={40}
+                onChangeText={(Value) => {
+                  const text = Value.replace(/\s{2,}/g, ' ').trim()
+                  setUPI_Id(text)
+                }}
+              />
               <TextInput
                 style={{
                   marginTop: 10,
@@ -320,9 +335,23 @@ const BottomPopup = ({
                     if (Amount < WithdrawlsAmount) {
                       Alert.alert("Error", 'Low Wallet Ballance', [{ text: "OK" }]);
                     } else {
-                      setWithdrawlsAmount(0)
-                      setModalVisible(false)
-                      Create_withdrawls_request_Func(WithdrawlsAmount)
+                      Alert.alert(
+                        "Alert",
+                        `You are Withrawing ${WithdrawlsAmount} in UPI Id ${UPI_Id}, This Process is Irreversible`,
+                        [
+                          {
+                            text: "Proceed",
+                            onPress: () => {
+                              setWithdrawlsAmount(0)
+                              setUPI_Id('')
+                              Create_withdrawls_request_Func(WithdrawlsAmount, UPI_Id)
+                            }
+                          },
+                          {
+                            text: "Cancel",
+                          },
+                        ]
+                      );
                     }
                   }
                 }}
@@ -333,7 +362,7 @@ const BottomPopup = ({
                   width: '35%',
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: SIZES.padding,
+                  marginTop: 35,
                   marginBottom: 30,
                   borderRadius: SIZES.radius,
                   backgroundColor: Disable
@@ -343,7 +372,7 @@ const BottomPopup = ({
                 }}
               >
                 {loading ? (
-                  <ActivityIndicator size="large" color={COLORS.primary} />
+                  <ActivityIndicator size="large" color={COLORS.white} />
                 ) : (
                   <Text
                     style={{
@@ -356,89 +385,6 @@ const BottomPopup = ({
                   </Text>
                 )}
               </TouchableOpacity>
-              {PWloading ? (
-                <View
-                  style={{
-                    // flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <ActivityIndicator size="large" color={COLORS.primary} />
-                </View>
-              ) : Pending_Withdrawls && Pending_Withdrawls.length === 0 ? (
-                <View
-                  style={{
-                    // flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      ...FONTS.h3,
-                      fontWeight: "700",
-                    }}
-                  >
-                    No Pending Request
-                  </Text>
-                </View>
-              ) : (
-                <>
-                  <HeadingComp
-                    navigation={null}
-                    Title={"Pending Requests"}
-                    ShowViewAll={false}
-                    Navigate_to={''}
-                    Query={null}
-                  />
-                  <FlatList
-                    data={Pending_Withdrawls}
-                    keyExtractor={(Item) => `${Item._id}`}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({ item }) => (
-                      <View style={style.Elevation}>
-                        <TouchableOpacity>
-                          <View style={style.NotificationWrapper}>
-                            <View
-                              style={{
-                                height: Dpheight(4),
-                                width: 30,
-                                marginLeft: 4,
-                                justifyContent: "center",
-                                borderRadius: SIZES.radius,
-                              }}
-                            >
-                              <Icon name="arrow-down-right" size={20} color="#000" />
-                            </View>
-                            <View>
-                              <Text
-                                style={{
-                                  ...style.NotificationText,
-                                  color: COLORS.black,
-                                }}
-                              >
-                                {item.Message}
-                              </Text>
-                              <View style={{ flexDirection: 'row' }}>
-                                <Text style={{ ...style.NotificationText2, marginRight: '5%' }}>{item.Status}</Text>
-                              </View>
-                            </View>
-                            <View style={style.Value}>
-                              <Text
-                                style={{ ...style.ValueText, color: COLORS.black }}
-                              >
-                                &#x20B9;{item.Amount}
-                              </Text>
-                            </View>
-                          </View>
-                        </TouchableOpacity>
-                      </View>
-                    )}
-                  />
-                </>
-              )}
             </View>
           </>
         )}
@@ -449,42 +395,3 @@ const BottomPopup = ({
 
 export default BottomPopup;
 
-const style = StyleSheet.create({
-  Elevation: {
-    elevation: 1,
-    marginVertical: 10,
-    margin: 10,
-    //For Ios Only -- SHOWdow code
-    shadowColor: "#171717",
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-  },
-  NotificationWrapper: {
-    height: Dpheight(8.5),
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: COLORS.lightGray2,
-    borderRadius: SIZES.radius,
-    paddingHorizontal: SIZES.base,
-  },
-  NotificationText: {
-    fontSize: SIZES.h3,
-    fontWeight: "bold",
-  },
-  NotificationText2: {
-    fontSize: SIZES.h5,
-    fontWeight: "600",
-    color: COLORS.gray,
-  },
-  Value: {
-    position: "absolute",
-    top: 17,
-    right: 15,
-  },
-  ValueText: {
-    fontSize: SIZES.body4,
-    fontWeight: "bold",
-    color: COLORS.black,
-  },
-});

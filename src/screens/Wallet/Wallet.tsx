@@ -24,12 +24,14 @@ import TransctionModal from "./TransctionModal";
 import BottomPopup from "../../components/BottomPopup";
 import RazorpayCheckout from 'react-native-razorpay';
 import AddMoneyModal from "../../components/AddMoneyModal";
+import WithdrawModal from "./WithdrawModal";
 
 const Wallet = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [Disable, setDisable] = useState(false);
   const [withdrawlsmodalVisible, setwithdrawlsModalVisible] = useState(false);
+  const [Create_withdrawl, setCreate_withdrawl] = useState(false);
   const [Add_MoneymodalVisible, setAdd_MoneymodalVisible] = useState(false);
 
   const dispatch = useDispatch();
@@ -324,8 +326,8 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                   <View style={style.Elevation}>
                     {/* withdrawls modal */}
                     <BottomPopup
-                      modalVisible={withdrawlsmodalVisible}
-                      setModalVisible={setwithdrawlsModalVisible}
+                      modalVisible={Create_withdrawl}
+                      setModalVisible={setCreate_withdrawl}
                       MatchId={null}
                       Amount={Amount.Ballance}
                       Match_Status={null}
@@ -339,7 +341,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                           left: 2,
                           right: 2,
                           margin: 20,
-                          height: 400,
+                          height: 380,
                           backgroundColor: "white",
                           borderRadius: SIZES.radius,
                           shadowColor: COLORS.black,
@@ -353,6 +355,9 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                         }
                       }
                     />
+                    <WithdrawModal modalVisible={withdrawlsmodalVisible}
+                      setModalVisible={setwithdrawlsModalVisible}
+                      setCreate_withdrawl={setCreate_withdrawl} />
                     <TouchableOpacity onPress={() => {
                       setwithdrawlsModalVisible(true)
                     }}>
@@ -363,7 +368,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                           color="black"
                         />
                         <View style={style.DashboardBox}>
-                          <Text style={style.NotificationText}>Withdraw</Text>
+                          <Text style={style.NotificationText}>Withdrawals</Text>
                         </View>
                         <View
                           style={{
