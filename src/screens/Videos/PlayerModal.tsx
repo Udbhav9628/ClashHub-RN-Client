@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
     StyleSheet,
     View,
@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Text,
     ScrollView,
-    Image
+    Image,
+    AppState
 } from "react-native";
 import { COLORS, Dpheight, DPwidth, SIZES } from "../../constants/Theame";
 import YoutubePlayer from "react-native-youtube-iframe";
@@ -16,10 +17,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import { bindActionCreators } from "redux";
 import {
+    Fetch_All_Matchs_Videos,
+    Fetch_Home_Page_Matchs,
     Join_Match_action,
     Clear_Match_Reducer_Error,
     Clear_Match_Reducer_Sucess,
-    RemoveMatchItem,
 } from "../../store/Match/Matchaction";
 import { Get_Specific_Club_Details } from "../../store/Guild/GuildAction";
 import PlayerGameNameInputModal from "../Home/PlayerGameNameInputModal";
@@ -40,12 +42,34 @@ const PlayerModal = ({
 }) => {
 
     const [Player_Loading, setPlayer_Loading] = useState(true)
+    const [PlayVid, setPlayVid] = useState(false);
 
-    const onChangeState = useCallback((state: any) => {
-        if (state === 'buffering') {
+    function Handle_AppState_Change(nextAppState: any) {
+        if (nextAppState === 'background') {
+            setPlayVid(false)
+        }
+    }
+
+    let subscription: any;
+    useEffect(() => {
+        if (modalVisible) {
+            subscription = AppState.addEventListener('change', Handle_AppState_Change)
+        }
+        return () => {
+            if (subscription && modalVisible) {
+                subscription.remove();
+            }
+        }
+    }, [modalVisible])
+
+    const onChangeState = (state: any) => {
+        if (state === 'buffering' && modalVisible) {
             setPlayer_Loading(false)
         }
-    }, [])
+        if (state === 'playing' && modalVisible) {
+            setPlayVid(true)
+        }
+    }
 
     const onError = useCallback((Error: any) => {
         Alert.alert(
@@ -88,8 +112,6 @@ const PlayerModal = ({
         dispatch
     );
 
-    const Remove_Match_Item = bindActionCreators(RemoveMatchItem, dispatch);
-
     const Clear_Match_Sucess = bindActionCreators(
         Clear_Match_Reducer_Sucess,
         dispatch
@@ -102,6 +124,16 @@ const PlayerModal = ({
 
     const Get_Specific_Club_Details_Func = bindActionCreators(
         Get_Specific_Club_Details,
+        dispatch
+    );
+
+    const Fetch_All_Matchs_Videos_Func = bindActionCreators(
+        Fetch_All_Matchs_Videos,
+        dispatch
+    );
+
+    const Fetch_Home_Page_Match = bindActionCreators(
+        Fetch_Home_Page_Matchs,
         dispatch
     );
 
@@ -119,7 +151,9 @@ const PlayerModal = ({
         if (Join_Sucess) {
             Clear_Match_Sucess();
             if (Responce.Sucess) {
-                Remove_Match_Item(Home_Matchs, Item._id);//problem here
+                setPlayVid(false);
+                Fetch_All_Matchs_Videos_Func();
+                Fetch_Home_Page_Match();
                 navigation.navigate("PaymentSucess", {
                     Matched_Joined: true
                 })
@@ -191,10 +225,12 @@ const PlayerModal = ({
     useFocusEffect(
         React.useCallback(() => {
             if (modalVisible) {
+                setPlayVid(true)
                 Start_Timer();
             }
             return () => {
                 if (modalVisible) {
+                    setPlayVid(false)
                     clearInterval(Timer)
                     setModalVisible(false)
                 }
@@ -219,6 +255,7 @@ const PlayerModal = ({
             animationType="slide"
             visible={modalVisible}
             onRequestClose={() => {
+                setPlayVid(false)
                 setModalVisible(false);
                 setPlayer_Loading(true)
             }}
@@ -228,6 +265,7 @@ const PlayerModal = ({
                 <View style={styles.CrossSign}>
                     <TouchableOpacity
                         onPress={() => {
+                            setPlayVid(false)
                             setPlayer_Loading(true)
                             setModalVisible(!modalVisible);
                         }}
@@ -269,7 +307,7 @@ const PlayerModal = ({
                     </View>)}
                     <YoutubePlayer
                         height={240}
-                        play={true}
+                        play={PlayVid}
                         videoId={Item.RoomDetails.YT_Video_id}
                         onChangeState={onChangeState}
                         onError={onError}
@@ -524,6 +562,7 @@ const PlayerModal = ({
                             >
                                 <ActivityIndicator size="small" color={COLORS.primary} />
                             </View>) : (Get_Specific_Club_Reducer.Sucess ? (<TouchableOpacity onPress={() => {
+                                setPlayVid(false)
                                 setShow_Club_Menu_Modal(true)
                             }
                             } style={{
@@ -820,6 +859,7 @@ const PlayerModal = ({
                                 >
                                     <ActivityIndicator size="small" color={COLORS.primary} />
                                 </View>) : (Get_Specific_Club_Reducer.Sucess ? (<TouchableOpacity onPress={() => {
+                                    setPlayVid(false)
                                     setShow_Club_Menu_Modal(true)
                                 }
                                 } style={{
@@ -867,7 +907,7 @@ const PlayerModal = ({
                                 </View>))}
                             </View>
                         </ScrollView>
-                        {/* Join Button */}
+                        {/* Join Button*/}
                         <View>
                             <PlayerGameNameInputModal modalVisible={PlayerInputModal}
                                 setModalVisible={setPlayerInputModal}
@@ -877,49 +917,52 @@ const PlayerModal = ({
                                 setDisable={setDisable}
                                 loading={loading}
                                 JoinMatchFunction={Join_Match_Action_Func} />
-                            <TouchableOpacity
-                                onPress={() => {
-                                    if (Item.Joined_User.length === Item.Total_Players) {
-                                        Alert.alert("Message", "Oh Ho! Slots Full", [
-                                            {
-                                                text: "OK",
-                                            },
-                                        ]);
-                                        return;
-                                    }
-                                    const date = new Date(Item.Date_Time);
-                                    const milliseconds = date.getTime();
-                                    if (Date.now() >= milliseconds) {
-                                        Alert.alert("Message", "Oh Ho! You Are Late , Match Allready Started", [
-                                            {
-                                                text: "OK",
-                                            },
-                                        ]);
-                                        return;
-                                    }
-                                    setPlayerInputModal(true)
-                                }}
-                                disabled={disable_joinmatch_button}
-                                style={styles.Floating_Button_Style}
-                            >
-                                {Item.Joined_User.length === Item.Total_Players ? (<Text
-                                    style={{
-                                        color: COLORS.white,
-                                        fontWeight: "bold",
-                                        fontSize: 20,
+                            {(Minutes !== 0 || Days !== 0 || Hours !== 0) && (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        setPlayVid(false)
+                                        if (Item.Joined_User.length === Item.Total_Players) {
+                                            Alert.alert("Message", "Oh Ho! Slots Full", [
+                                                {
+                                                    text: "OK",
+                                                },
+                                            ]);
+                                            return;
+                                        }
+                                        const date = new Date(Item.Date_Time);
+                                        const milliseconds = date.getTime();
+                                        if (Date.now() >= milliseconds) {
+                                            Alert.alert("Message", "Oh Ho! You Are Late , Match Allready Started", [
+                                                {
+                                                    text: "OK",
+                                                },
+                                            ]);
+                                            return;
+                                        }
+                                        setPlayerInputModal(true)
                                     }}
+                                    disabled={disable_joinmatch_button}
+                                    style={styles.Floating_Button_Style}
                                 >
-                                    Slots Full
-                                </Text>) : (<Text
-                                    style={{
-                                        color: COLORS.white,
-                                        fontWeight: "bold",
-                                        fontSize: 20,
-                                    }}
-                                >
-                                    Entry &#x20B9;{Item.EntryFee}
-                                </Text>)}
-                            </TouchableOpacity>
+                                    {Item.Joined_User.length === Item.Total_Players ? (<Text
+                                        style={{
+                                            color: COLORS.white,
+                                            fontWeight: "bold",
+                                            fontSize: 20,
+                                        }}
+                                    >
+                                        Slots Full
+                                    </Text>) : (<Text
+                                        style={{
+                                            color: COLORS.white,
+                                            fontWeight: "bold",
+                                            fontSize: 20,
+                                        }}
+                                    >
+                                        Entry &#x20B9;{Item.EntryFee}
+                                    </Text>)}
+                                </TouchableOpacity>
+                            )}
                         </View>
                     </>
                 )}

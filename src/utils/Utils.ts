@@ -51,13 +51,13 @@ export function CalculateLength(
 export function ReturnGameImage(GameName: string) {
   switch (GameName) {
     case 'FreeFire':
-      return Icons.FreeFire;
+      return Icons.FFMax;
 
     case 'BGMI':
       return Icons.BGMI;
 
     case 'FreeFire Max':
-      return Icons.FFMax;
+      return Icons.FreeFire;
 
     case 'Pubg Mobile':
       return Icons.Pubg;

@@ -4,6 +4,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import React from "react";
 import { COLORS, Dpheight, DPwidth, SIZES } from "../constants/Theame";
@@ -29,10 +30,19 @@ const GameTypesComp = ({ navigation }: { navigation: any }) => {
           >
             <TouchableOpacity
               style={styles.Elevation}
-              onPress={() =>
-                navigation.navigate("AllMatches", {
-                  Query_Props: item.Query,
-                })
+              onPress={() => {
+                if (item.id !== 6) {
+                  navigation.navigate("AllMatches", {
+                    Query_Props: item.Query,
+                  })
+                } else {
+                  Alert.alert("Message", "More Exciting Games Coming soon, Let us Know Which Games You Want", [
+                    {
+                      text: "OK",
+                    },
+                  ]);
+                }
+              }
               }
             >
               <View style={styles.NotificationWrapper}>

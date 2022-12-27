@@ -1,4 +1,4 @@
-import { StyleSheet, View, Modal, FlatList, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Modal, FlatList, Image, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
 import { SIZES, COLORS, Dpheight, DPwidth } from "../constants/Theame";
 import HeadingComp from './HeadingComp';
@@ -49,8 +49,16 @@ const ModalGame = ({
                                 <TouchableOpacity
                                     style={styles.Elevation}
                                     onPress={() => {
-                                        Selectected_Game(item.Query)
-                                        setModalVisible(false)
+                                        if ((item.id !== 6)) {
+                                            Selectected_Game(item.Query)
+                                            setModalVisible(false)
+                                        } else {
+                                            Alert.alert("Message", "More Exciting Games Coming soon", [
+                                                {
+                                                    text: "OK",
+                                                },
+                                            ]);
+                                        }
                                     }}
                                 >
                                     <View style={styles.NotificationWrapper}>

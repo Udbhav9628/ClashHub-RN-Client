@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
     StyleSheet,
     View,
@@ -6,7 +6,8 @@ import {
     ActivityIndicator,
     Alert,
     TouchableOpacity,
-    Text
+    Text,
+    AppState
 } from "react-native";
 import { COLORS, SIZES } from "../constants/Theame";
 import YoutubePlayer from "react-native-youtube-iframe";
@@ -23,12 +24,34 @@ const Player = ({
 }) => {
 
     const [Player_Loading, setPlayer_Loading] = useState(true)
+    const [PlayVid, setPlayVid] = useState(false);
 
-    const onChangeState = useCallback((state: any) => {
+    function Handle_AppState_Change(nextAppState: any) {
+        if (nextAppState === 'background') {
+            setPlayVid(false)
+        }
+    }
+
+    let subscription: any;
+    useEffect(() => {
+        if (modalVisible) {
+            subscription = AppState.addEventListener('change', Handle_AppState_Change)
+        }
+        return () => {
+            if (subscription && modalVisible) {
+                subscription.remove();
+            }
+        }
+    }, [modalVisible])
+
+    const onChangeState = (state: any) => {
         if (state === 'buffering' && modalVisible) {
             setPlayer_Loading(false)
         }
-    }, [])
+        if (state === 'playing' && modalVisible) {
+            setPlayVid(true)
+        }
+    }
 
     const onError = useCallback((Error: any) => {
         Alert.alert(
@@ -47,6 +70,7 @@ const Player = ({
             animationType="slide"
             visible={modalVisible}
             onRequestClose={() => {
+                setPlayVid(false);
                 setModalVisible(false);
                 setPlayer_Loading(true)
             }}
@@ -56,6 +80,7 @@ const Player = ({
                 <View style={styles.CrossSign}>
                     <TouchableOpacity
                         onPress={() => {
+                            setPlayVid(false);
                             setPlayer_Loading(true)
                             setModalVisible(!modalVisible);
                         }}
@@ -97,7 +122,7 @@ const Player = ({
                     </View>)}
                     <YoutubePlayer
                         height={240}
-                        play={true}
+                        play={PlayVid}
                         videoId={Item.RoomDetails.YT_Video_id}
                         onChangeState={onChangeState}
                         onError={onError}

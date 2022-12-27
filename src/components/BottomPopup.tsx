@@ -211,12 +211,26 @@ const BottomPopup = ({
                   }]);
                   return
                 }
-                const RoomData = {
-                  Name: Custom_Room_Name,
-                  Password: Custom_Room_Password
-                }
-                Update_Match_Room_Details_Func(RoomData, MatchId)
-                setDisable(true);
+                Alert.alert(
+                  "Alert",
+                  "This Process is irreversible, Make Sure You're Entering correct Room Details",
+                  [
+                    {
+                      text: "Ok",
+                      onPress: () => {
+                        const RoomData = {
+                          Name: Custom_Room_Name,
+                          Password: Custom_Room_Password
+                        }
+                        Update_Match_Room_Details_Func(RoomData, MatchId)
+                        setDisable(true);
+                      }
+                    },
+                    {
+                      text: "Cancel",
+                    },
+                  ]
+                );
               }}
               disabled={Disable}
               style={{

@@ -6,6 +6,7 @@ const FreeFire = require('../Assets/Images/FreeFire2.png');
 const COD = require('../Assets/Images/Call2.png');
 const BGMI = require('../Assets/Images/BgmiIndia.jpg');
 const FFMax = require('../Assets/Images/FFMax3.png');
+const CommingSoon = require('../Assets/Images/soon.png');
 
 // Game Images
 const Crousal = require('../Assets/Images/crousal1.jpg');
@@ -30,4 +31,5 @@ export default {
   COD,
   BGMI,
   FFMax,
+  CommingSoon,
 };
