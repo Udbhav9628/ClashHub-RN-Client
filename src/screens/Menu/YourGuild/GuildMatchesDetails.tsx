@@ -555,12 +555,13 @@ const GuildMatchesDetails = ({
                         </View>
                     </View>
                     {/* Updates */}
-                    <View>
+                    <View style={{ marginBottom: 80 }}>
                         <MatchUpdateModal
                             Days={Days}
                             Hours={Hours}
                             Minutes={Minutes}
-                            Match_Status={Item.Match_Status} />
+                            Match_Status={Item.Match_Status} Match_Cancelled={Match_Cancelled}
+                            IsClub={true} />
                     </View>
                     {/* Bottom Button */}
                     <BottomPopup

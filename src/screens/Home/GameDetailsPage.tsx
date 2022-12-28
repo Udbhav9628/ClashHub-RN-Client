@@ -107,7 +107,7 @@ const GameDetailsPage = ({
     if (Join_Sucess) {
       Clear_Match_Sucess();
       if (Responce.Sucess) {
-        Remove_Match_Item(Home_Matchs, Item._id);//problem here
+        Remove_Match_Item(Home_Matchs, Item._id);
         navigation.navigate("PaymentSucess", {
           Matched_Joined: true
         })
@@ -249,7 +249,7 @@ const GameDetailsPage = ({
                     </Text>
                   </View>
                 )}
-                {/*Join Now */}
+                {/*Room Available*/}
                 {Minutes !== 0 && Item.Match_Status === 'Started' && (
                   <View style={style.EntryFeeWraper}>
                     <Text
@@ -650,7 +650,7 @@ const GameDetailsPage = ({
                 Days={Days}
                 Hours={Hours}
                 Minutes={Minutes}
-                Match_Status={Item.Match_Status} />
+                Match_Status={Item.Match_Status} Match_Cancelled={Match_Cancelled} IsClub={false} />
             </View>
           </View>
         </ScrollView>
