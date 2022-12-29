@@ -2,6 +2,7 @@ import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react
 import React from 'react'
 import { COLORS, DPwidth, FONTS, SIZES } from '../../constants/Theame';
 import Icon from "react-native-vector-icons/Ionicons";
+import { useSelector } from "react-redux";
 
 const JoinedUserModal = ({
     modalVisible,
@@ -16,6 +17,8 @@ const JoinedUserModal = ({
     Joined_User: any;
     Match: any;
 }) => {
+
+    const { User } = useSelector((state: any) => state.FetchUser_reducer);
     return (
         <Modal
             animationType="slide"
@@ -47,7 +50,7 @@ const JoinedUserModal = ({
                             color: COLORS.black
                         }}
                     >
-                        Participants
+                        All Warriors
                     </Text>
                 </View>
                 <View style={styles.Container}>
@@ -98,7 +101,7 @@ const JoinedUserModal = ({
                                         UserId: item.UserId,
                                     })
                                 }}>
-                                    <View style={{ backgroundColor: index % 2 === 0 ? COLORS.lightGray1 : COLORS.lightGray2, paddingVertical: 10, borderBottomRightRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, borderBottomLeftRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, }}>
+                                    <View style={{ backgroundColor: index % 2 === 0 ? item.UserId === User.id ? COLORS.transparentPrimray : COLORS.lightGray1 : item.UserId === User.id ? COLORS.transparentPrimray : COLORS.lightGray2, paddingVertical: 10, borderBottomRightRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, borderBottomLeftRadius: index === Joined_User.length - 1 ? SIZES.radius : 0, }}>
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: SIZES.padding }}>
                                             <View style={{
                                                 alignItems: 'flex-start',

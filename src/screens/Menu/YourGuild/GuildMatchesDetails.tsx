@@ -247,24 +247,6 @@ const GuildMatchesDetails = ({
                         <View style={style.InfoWrapper}>
                             {/* Info Left Details */}
                             <View>
-                                {/* Match Map */}
-                                <View style={style.InfoLeftItem}>
-                                    <Text style={{
-                                        color: COLORS.darkGray2,
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                                    }}>
-                                        Map
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            color: COLORS.black,
-                                            fontFamily: 'Poppins-SemiBold', fontSize: 16,
-                                            fontWeight: "700",
-                                        }}
-                                    >
-                                        {Item.Map}
-                                    </Text>
-                                </View>
                                 {/* Match Date */}
                                 <View style={style.InfoLeftItem}>
                                     <Text style={{
@@ -301,6 +283,42 @@ const GuildMatchesDetails = ({
                                         {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
                                     </Text>
                                 </View>
+                                {/* Profit Per Player */}
+                                <View style={style.InfoLeftItem}>
+                                    <Text style={{
+                                        color: COLORS.darkGray2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                                    }}>
+                                        Profit
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            color: COLORS.primary,
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 17,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        &#x20B9; {Item.EntryFee - Item.Perkill_Prize} Per Player
+                                    </Text>
+                                </View>
+                                {/* Match Map */}
+                                <View style={style.InfoLeftItem}>
+                                    <Text style={{
+                                        color: COLORS.darkGray2,
+                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                                    }}>
+                                        Map
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            color: COLORS.black,
+                                            fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        {Item.Map}
+                                    </Text>
+                                </View>
                                 {/* prize */}
                                 <View style={style.InfoLeftItem}>
                                     <Text style={{
@@ -319,13 +337,12 @@ const GuildMatchesDetails = ({
                                         &#x20B9; {Item.Perkill_Prize} Per Kill
                                     </Text>
                                 </View>
-                                {/* Profit Per Player */}
                                 <View style={style.InfoLeftItem}>
                                     <Text style={{
                                         color: COLORS.darkGray2,
                                         fontFamily: 'Poppins-SemiBold', fontSize: 14,
                                     }}>
-                                        Profit Per Player
+                                        Entry
                                     </Text>
                                     <Text
                                         style={{
@@ -334,7 +351,7 @@ const GuildMatchesDetails = ({
                                             fontWeight: "700",
                                         }}
                                     >
-                                        &#x20B9; {Item.EntryFee - Item.Perkill_Prize}
+                                        &#x20B9; {Item.EntryFee}
                                     </Text>
                                 </View>
                                 {/* Joined Players Number */}
@@ -353,24 +370,6 @@ const GuildMatchesDetails = ({
                                         }}
                                     >
                                         {Item.Joined_User.length}/{Item.Total_Players}
-                                    </Text>
-                                </View>
-                                {/* Entry Fee */}
-                                <View style={style.InfoLeftItem}>
-                                    <Text style={{
-                                        color: COLORS.darkGray2,
-                                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                                    }}>
-                                        Entry Fee
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            color: COLORS.black,
-                                            fontFamily: 'Poppins-SemiBold', fontSize: 16,
-                                            fontWeight: "700",
-                                        }}
-                                    >
-                                        &#x20B9; {Item.EntryFee}
                                     </Text>
                                 </View>
                             </View>

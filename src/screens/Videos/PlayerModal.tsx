@@ -472,12 +472,29 @@ const PlayerModal = ({
                                             </Text>
                                             <Text
                                                 style={{
+                                                    color: COLORS.primary,
+                                                    fontFamily: 'Poppins-SemiBold', fontSize: 17,
+                                                    fontWeight: "700",
+                                                }}
+                                            >
+                                                &#x20B9; {Item.Perkill_Prize} Per Kill
+                                            </Text>
+                                        </View>
+                                        <View style={styles.InfoLeftItem}>
+                                            <Text style={{
+                                                color: COLORS.darkGray2,
+                                                fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                                            }}>
+                                                Entry
+                                            </Text>
+                                            <Text
+                                                style={{
                                                     color: COLORS.black,
                                                     fontFamily: 'Poppins-SemiBold', fontSize: 16,
                                                     fontWeight: "700",
                                                 }}
                                             >
-                                                &#x20B9; {Item.Perkill_Prize} Per Kill
+                                                &#x20B9; {Item.EntryFee}
                                             </Text>
                                         </View>
                                         {/* Match Map */}
@@ -770,11 +787,28 @@ const PlayerModal = ({
                                                 <Text
                                                     style={{
                                                         color: COLORS.primary,
-                                                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                                                        fontFamily: 'Poppins-SemiBold', fontSize: 17,
                                                         fontWeight: "700",
                                                     }}
                                                 >
                                                     &#x20B9; {Item.Perkill_Prize} Per Kill
+                                                </Text>
+                                            </View>
+                                            <View style={styles.InfoLeftItem}>
+                                                <Text style={{
+                                                    color: COLORS.darkGray2,
+                                                    fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                                                }}>
+                                                    Entry
+                                                </Text>
+                                                <Text
+                                                    style={{
+                                                        color: COLORS.black,
+                                                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                                                        fontWeight: "700",
+                                                    }}
+                                                >
+                                                    &#x20B9; {Item.EntryFee}
                                                 </Text>
                                             </View>
                                             {/* Match Map */}

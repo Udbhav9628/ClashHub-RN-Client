@@ -71,6 +71,10 @@ const GameDetailsPage = ({
     return Item.UserId === User.id;
   });
 
+  const IsRefunded = Item.Joined_User.find((Item: any) => {
+    return Item.Is_EntryFee_Refunded === true;
+  });
+
   const dispatch = useDispatch();
 
   const Join_Match_Action_Func = bindActionCreators(
@@ -328,59 +332,6 @@ const GameDetailsPage = ({
               <View style={style.InfoWrapper}>
                 {/* Info Left Details */}
                 <View>
-                  {/* Joined Players Number */}
-                  <View style={style.InfoLeftItem}>
-                    <Text style={{
-                      color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                    }}>
-                      Slots
-                    </Text>
-                    <Text
-                      style={{
-                        color: COLORS.black,
-                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
-                        fontWeight: "700",
-                      }}
-                    >
-                      {Item.Joined_User.length}/{Item.Total_Players}
-                    </Text>
-                  </View>
-                  <View style={style.InfoLeftItem}>
-                    <Text style={{
-                      color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                    }}>
-                      Prize
-                    </Text>
-                    <Text
-                      style={{
-                        color: COLORS.primary,
-                        fontFamily: 'Poppins-SemiBold', fontSize: 17,
-                        fontWeight: "700",
-                      }}
-                    >
-                      &#x20B9; {Item.Perkill_Prize} Per Kill
-                    </Text>
-                  </View>
-                  {/* Match Map */}
-                  <View style={style.InfoLeftItem}>
-                    <Text style={{
-                      color: COLORS.darkGray2,
-                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                    }}>
-                      Map
-                    </Text>
-                    <Text
-                      style={{
-                        color: COLORS.black,
-                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
-                        fontWeight: "700",
-                      }}
-                    >
-                      {Item.Map}
-                    </Text>
-                  </View>
                   {/* Match Date */}
                   <View style={style.InfoLeftItem}>
                     <Text style={{
@@ -415,6 +366,76 @@ const GameDetailsPage = ({
                       }}
                     >
                       {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
+                    </Text>
+                  </View>
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                    }}>
+                      Prize
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.primary,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 17,
+                        fontWeight: "700",
+                      }}
+                    >
+                      &#x20B9; {Item.Perkill_Prize} Per Kill
+                    </Text>
+                  </View>
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                    }}>
+                      Entry
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                        fontWeight: "700",
+                      }}
+                    >
+                      &#x20B9; {Item.EntryFee}
+                    </Text>
+                  </View>
+                  {/* Match Map */}
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                    }}>
+                      Map
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {Item.Map}
+                    </Text>
+                  </View>
+                  {/* Joined Players Number */}
+                  <View style={style.InfoLeftItem}>
+                    <Text style={{
+                      color: COLORS.darkGray2,
+                      fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                    }}>
+                      Slots
+                    </Text>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                        fontWeight: "700",
+                      }}
+                    >
+                      {Item.Joined_User.length}/{Item.Total_Players}
                     </Text>
                   </View>
                 </View>
@@ -542,7 +563,7 @@ const GameDetailsPage = ({
                   <TouchableOpacity
                     onPress={() => { setMoneyRefund(true) }}>
                     <View style={style.GuildWrapper}>
-                      <View style={{ margin: 10 }}><Icon name="money-check-alt" size={Dpheight(2.5)} color="black" /></View>
+                      <View style={{ margin: 10 }}><Icons name={IsRefunded ? "cash-check" : "cash-refund"} size={32} color="black" /></View>
                       {/* Info Of Guild */}
                       <View style={style.GuildInfo}>
                         <View>
@@ -553,7 +574,7 @@ const GameDetailsPage = ({
                               fontWeight: "bold",
                             }}
                           >
-                            Money Refund
+                            {IsRefunded ? "Refunded" : "Take Refund"}
                           </Text>
                         </View>
                         <View
@@ -789,13 +810,13 @@ const GameDetailsPage = ({
                 <View style={style.InfoWrapper}>
                   {/* Info Left Details */}
                   <View>
-                    {/* Joined Players Number */}
+                    {/* Match Date */}
                     <View style={style.InfoLeftItem}>
                       <Text style={{
                         color: COLORS.darkGray2,
                         fontFamily: 'Poppins-SemiBold', fontSize: 14,
                       }}>
-                        Slots
+                        Match Date
                       </Text>
                       <Text
                         style={{
@@ -804,7 +825,25 @@ const GameDetailsPage = ({
                           fontWeight: "700",
                         }}
                       >
-                        {Item.Joined_User.length}/{Item.Total_Players}
+                        {new Date(Item.Date_Time).toDateString()}
+                      </Text>
+                    </View>
+                    {/* Match Time */}
+                    <View style={style.InfoLeftItem}>
+                      <Text style={{
+                        color: COLORS.darkGray2,
+                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
+                      }}>
+                        Time - 24H Format
+                      </Text>
+                      <Text
+                        style={{
+                          color: COLORS.black,
+                          fontFamily: 'Poppins-SemiBold', fontSize: 16,
+                          fontWeight: "700",
+                        }}
+                      >
+                        {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
                       </Text>
                     </View>
                     <View style={style.InfoLeftItem}>
@@ -842,13 +881,13 @@ const GameDetailsPage = ({
                         {Item.Map}
                       </Text>
                     </View>
-                    {/* Match Date */}
+                    {/* Joined Players Number */}
                     <View style={style.InfoLeftItem}>
                       <Text style={{
                         color: COLORS.darkGray2,
                         fontFamily: 'Poppins-SemiBold', fontSize: 14,
                       }}>
-                        Match Date
+                        Slots
                       </Text>
                       <Text
                         style={{
@@ -857,25 +896,7 @@ const GameDetailsPage = ({
                           fontWeight: "700",
                         }}
                       >
-                        {new Date(Item.Date_Time).toDateString()}
-                      </Text>
-                    </View>
-                    {/* Match Time */}
-                    <View style={style.InfoLeftItem}>
-                      <Text style={{
-                        color: COLORS.darkGray2,
-                        fontFamily: 'Poppins-SemiBold', fontSize: 14,
-                      }}>
-                        Time - 24H Format
-                      </Text>
-                      <Text
-                        style={{
-                          color: COLORS.black,
-                          fontFamily: 'Poppins-SemiBold', fontSize: 16,
-                          fontWeight: "700",
-                        }}
-                      >
-                        {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
+                        {Item.Joined_User.length}/{Item.Total_Players}
                       </Text>
                     </View>
                   </View>
