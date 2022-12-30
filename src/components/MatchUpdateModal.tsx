@@ -107,7 +107,7 @@ const MatchUpdateModal = ({
                             }}
                         >
                             <Icon name="star" size={18} color="black" />
-                            {IsClub ? (" Broadcast Live Youtube Match Video  Here also To Increase Reach") : (" Do not use any type of Hack, Malpractice. If you found doing so, you would be Banned from Platform instantly and all your Winning would be lost.")}
+                            {IsClub ? (" Broadcast Live Youtube Match Video To Increase Reach and Grow Your Audience") : (" Do not use any type of Hack, Malpractice. If you found doing so, you would be Banned from Platform instantly and all your Winning would be lost.")}
                         </Text>
                         {!IsClub && <Text
                             style={{
@@ -152,7 +152,7 @@ const MatchUpdateModal = ({
                             }}
                         >
                             <Icon name="star" size={18} color="black" />
-                            {IsClub ? (' Broadcast Live Youtube Match Video  Here also To Increase Reach') : (" If Match Organiser fails to Provide Match's Result Within 4 Hours of Match Start Time then match would be cancelled and you will be able to take Entry Fees back.")}
+                            {IsClub ? (' Broadcast Live Youtube Match Video To Increase Reach and Grow Your Audience') : (" If Match Organiser fails to Provide Match's Result Within 4 Hours of Match Start Time then match would be cancelled and you will be able to take Entry Fees back.")}
                         </Text>
                         {!IsClub && <Text
                             style={{
@@ -170,6 +170,16 @@ const MatchUpdateModal = ({
                     <View style={{
                         marginHorizontal: SIZES.base,
                     }}>
+                        {IsClub && <Text
+                            style={{
+                                color: COLORS.darkGray2, ...FONTS.h3,
+                                textAlign: 'justify',
+                                marginBottom: 15,
+                            }}
+                        >
+                            <Icon name="star" size={18} color="black" />
+                            { } Broadcast Match's Youtube Video To All Warriors To Increase Reach and Grow Your Audience
+                        </Text>}
                         <Text
                             style={{
                                 color: COLORS.darkGray2, ...FONTS.h3,
@@ -188,7 +198,7 @@ const MatchUpdateModal = ({
                             }}
                         >
                             <Icon name="star" size={18} color="black" />
-                            {IsClub ? (" Commission Amount addrd to Club Wallet") : (" Winning amount added to Your Gamer Wallet.")}
+                            {IsClub ? (" Commission Amount added to Club Wallet") : (" Winning amount added to Your Gamer Wallet.")}
                         </Text>
                         <Text
                             style={{

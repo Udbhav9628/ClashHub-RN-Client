@@ -99,6 +99,12 @@ const GameDetailsPage = ({
     dispatch
   );
 
+  function formatTime(timeString: any) {
+    const [hourString, minute] = timeString.split(":");
+    const hour = +hourString % 24;
+    return (hour % 12 || 12) + ":" + minute + (hour < 12 ? " AM" : " PM");
+  }
+
   useEffect(() => {
     Get_Specific_Club_Details_Func(Item.GuildId);
   }, []);
@@ -225,7 +231,7 @@ const GameDetailsPage = ({
                     color: COLORS.black,
                   }}
                 >
-                  {Item.Game_Name} {Item.GameType} {Item._id.slice(-2)} Match
+                  {Item._id.slice(-2)} {Item.Game_Name} {Item.GameType} Match
                 </Text>
               </View>
               {/* Match Status */}
@@ -356,7 +362,7 @@ const GameDetailsPage = ({
                       color: COLORS.darkGray2,
                       fontFamily: 'Poppins-SemiBold', fontSize: 14,
                     }}>
-                      Time - 24H Format
+                      Time
                     </Text>
                     <Text
                       style={{
@@ -364,8 +370,7 @@ const GameDetailsPage = ({
                         fontFamily: 'Poppins-SemiBold', fontSize: 16,
                         fontWeight: "700",
                       }}
-                    >
-                      {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
+                    >{formatTime(new Date(Item.Date_Time).toLocaleTimeString())}
                     </Text>
                   </View>
                   <View style={style.InfoLeftItem}>
@@ -703,7 +708,7 @@ const GameDetailsPage = ({
                       color: COLORS.black,
                     }}
                   >
-                    {Item.Game_Name} {Item.GameType} {Item._id.slice(-2)} Match
+                    {Item._id.slice(-2)} {Item.Game_Name} {Item.GameType} Match
                   </Text>
                 </View>
                 {/* Match Status */}
@@ -834,7 +839,7 @@ const GameDetailsPage = ({
                         color: COLORS.darkGray2,
                         fontFamily: 'Poppins-SemiBold', fontSize: 14,
                       }}>
-                        Time - 24H Format
+                        Time
                       </Text>
                       <Text
                         style={{
@@ -842,8 +847,7 @@ const GameDetailsPage = ({
                           fontFamily: 'Poppins-SemiBold', fontSize: 16,
                           fontWeight: "700",
                         }}
-                      >
-                        {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
+                      >{formatTime(new Date(Item.Date_Time).toLocaleTimeString())}
                       </Text>
                     </View>
                     <View style={style.InfoLeftItem}>

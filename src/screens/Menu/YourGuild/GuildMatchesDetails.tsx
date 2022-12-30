@@ -48,6 +48,12 @@ const GuildMatchesDetails = ({
 
     const [Match_Cancelled, setMatch_Cancelled] = useState(false)
 
+    function formatTime(timeString: any) {
+        const [hourString, minute] = timeString.split(":");
+        const hour = +hourString % 24;
+        return (hour % 12 || 12) + ":" + minute + (hour < 12 ? " AM" : " PM");
+    }
+
     function Timer_Function() {
         const Match_time = new Date(Item.Date_Time).getTime();
         const now = new Date().getTime();
@@ -140,7 +146,7 @@ const GuildMatchesDetails = ({
                                     color: COLORS.black,
                                 }}
                             >
-                                {Item.Game_Name} {Item.GameType} {Item._id.slice(-2)} Match
+                                {Item._id.slice(-2)} {Item.Game_Name} {Item.GameType} Match
                             </Text>
                         </View>
                         {/* Match Status */}
@@ -271,7 +277,7 @@ const GuildMatchesDetails = ({
                                         color: COLORS.darkGray2,
                                         fontFamily: 'Poppins-SemiBold', fontSize: 14,
                                     }}>
-                                        Time - 24H Format
+                                        Time
                                     </Text>
                                     <Text
                                         style={{
@@ -279,8 +285,7 @@ const GuildMatchesDetails = ({
                                             fontFamily: 'Poppins-SemiBold', fontSize: 16,
                                             fontWeight: "700",
                                         }}
-                                    >
-                                        {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
+                                    >{formatTime(new Date(Item.Date_Time).toLocaleTimeString())}
                                     </Text>
                                 </View>
                                 {/* Profit Per Player */}
@@ -419,7 +424,7 @@ const GuildMatchesDetails = ({
                                                     fontWeight: "bold",
                                                 }}
                                             >
-                                                {Item.Match_Status === 'Started' ? "Update Players Kills" : 'See Result'}
+                                                {Item.Match_Status === 'Started' ? "Update Results" : 'See Result'}
                                             </Text>
                                         </View>
                                         <View
@@ -436,7 +441,7 @@ const GuildMatchesDetails = ({
                             </TouchableOpacity>
                         </View>)}
                     {/* Go Live */}
-                    {Item.Match_Status === 'Started' && (<View style={style.Elevation}>
+                    {Item.Match_Status === 'Started' && !Match_Cancelled && (<View style={style.Elevation}>
                         <View>
                             {Item.RoomDetails.YT_Video_id ? <Player
                                 Item={Item}

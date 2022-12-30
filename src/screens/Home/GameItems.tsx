@@ -136,7 +136,7 @@ const GameItems = ({
             fontSize: Dpheight(0.7) * DPwidth(0.8), fontWeight: "700", color: COLORS.black
           }}
         >
-          {Item?.Game_Name} {Item?.GameType} {Item._id.slice(-2)}
+          {Item._id.slice(-2)} {Item?.Game_Name} {Item?.GameType}
         </Text>
         {/* Description */}
         <Progressbar step={Item?.Joined_User.length} totalsteps={Item?.Total_Players} Height={7} />

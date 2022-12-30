@@ -193,6 +193,12 @@ const PlayerModal = ({
     const Hour = Minute * 60;
     const Day = Hour * 24;
 
+    function formatTime(timeString: any) {
+        const [hourString, minute] = timeString.split(":");
+        const hour = +hourString % 24;
+        return (hour % 12 || 12) + ":" + minute + (hour < 12 ? " AM" : " PM");
+    }
+
     function Timer_Function() {
         const Match_time = new Date(Item.Date_Time).getTime();
         const now = new Date().getTime();
@@ -338,7 +344,7 @@ const PlayerModal = ({
                                             color: COLORS.black,
                                         }}
                                     >
-                                        {Item.Game_Name} {Item.GameType} {Item._id.slice(-2)} Match
+                                        {Item._id.slice(-2)} {Item.Game_Name} {Item.GameType} Match
                                     </Text>
                                 </View>
                                 {/* Match Status */}
@@ -539,7 +545,7 @@ const PlayerModal = ({
                                                 color: COLORS.darkGray2,
                                                 fontFamily: 'Poppins-SemiBold', fontSize: 14,
                                             }}>
-                                                Time - 24H Format
+                                                Time
                                             </Text>
                                             <Text
                                                 style={{
@@ -547,8 +553,7 @@ const PlayerModal = ({
                                                     fontFamily: 'Poppins-SemiBold', fontSize: 16,
                                                     fontWeight: "700",
                                                 }}
-                                            >
-                                                {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
+                                            >{formatTime(new Date(Item.Date_Time).toLocaleTimeString())}
                                             </Text>
                                         </View>
                                     </View>
@@ -652,7 +657,7 @@ const PlayerModal = ({
                                                 color: COLORS.black,
                                             }}
                                         >
-                                            {Item.Game_Name} {Item.GameType} {Item._id.slice(-2)} Match
+                                            {Item._id.slice(-2)} {Item.Game_Name} {Item.GameType} Match
                                         </Text>
                                     </View>
                                     {/* Match Status */}
@@ -853,7 +858,7 @@ const PlayerModal = ({
                                                     color: COLORS.darkGray2,
                                                     fontFamily: 'Poppins-SemiBold', fontSize: 14,
                                                 }}>
-                                                    Time - 24H Format
+                                                    Time
                                                 </Text>
                                                 <Text
                                                     style={{
@@ -861,8 +866,7 @@ const PlayerModal = ({
                                                         fontFamily: 'Poppins-SemiBold', fontSize: 16,
                                                         fontWeight: "700",
                                                     }}
-                                                >
-                                                    {new Date(Item.Date_Time).toLocaleTimeString().slice(0, 5)}
+                                                >{formatTime(new Date(Item.Date_Time).toLocaleTimeString())}
                                                 </Text>
                                             </View>
                                         </View>

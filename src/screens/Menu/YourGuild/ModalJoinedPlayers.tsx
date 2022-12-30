@@ -65,7 +65,7 @@ const ModalJoinedPlayers = ({
                     Total_Kills = Total_Kills + Number(data.Kills)
                 });
 
-                if ((Match.Joined_User.length > 0) && (Total_Kills > (Match.Joined_User.length - 1))) {
+                if ((Total_Kills > (Match.Joined_User.length - 1))) {
                     Alert.alert("Message", `Total kill of All Players Combined can't be more then ${(Match.Joined_User.length - 1)} , Cross Check All players Entered Kills Once Again`, [
                         {
                             text: "OK",
@@ -79,7 +79,9 @@ const ModalJoinedPlayers = ({
                         {
                             text: "Publish Result",
                             onPress: () => {
-                                Update_Match_Function(Match_in_Function, Match_in_Function._id)
+                                if (Match.Joined_User.length > 0) {
+                                    Update_Match_Function(Match_in_Function, Match_in_Function._id)
+                                }
                             },
                         },
                     ]);
@@ -88,7 +90,7 @@ const ModalJoinedPlayers = ({
         }
     }
 
-    const { Error, Sucess, Sucess_Responce } = useSelector(
+    const { Error, Sucess, Sucess_Responce, loading } = useSelector(
         (state: any) => state.Update_Match_Result_Reducer
     );
 
@@ -266,6 +268,7 @@ const ModalJoinedPlayers = ({
                                 onPress={() => {
                                     Publish_Result(Duplicate_Match)
                                 }}
+                                disabled={loading}
                                 style={{
                                     position: "absolute",
                                     bottom: 0,
@@ -276,7 +279,7 @@ const ModalJoinedPlayers = ({
                                     marginTop: SIZES.padding,
                                     marginBottom: SIZES.padding,
                                     borderRadius: SIZES.radius,
-                                    backgroundColor: COLORS.primary,
+                                    backgroundColor: loading ? COLORS.transparentPrimray : COLORS.primary,
                                     marginHorizontal: SIZES.padding,
                                 }}
                             >
@@ -311,6 +314,7 @@ const ModalJoinedPlayers = ({
                                 onPress={() => {
                                     Publish_Result(Duplicate_Match)
                                 }}
+                                disabled={loading}
                                 style={{
                                     position: "absolute",
                                     bottom: 0,
@@ -321,7 +325,7 @@ const ModalJoinedPlayers = ({
                                     marginTop: SIZES.padding,
                                     marginBottom: SIZES.padding,
                                     borderRadius: SIZES.radius,
-                                    backgroundColor: COLORS.primary,
+                                    backgroundColor: loading ? COLORS.transparentPrimray : COLORS.primary,
                                     marginHorizontal: SIZES.padding,
                                 }}
                             >

@@ -115,6 +115,12 @@ const ModalScreen = ({
     (state: any) => state.Create_matches_Reducer
   );
 
+  function formatTime(timeString: any) {
+    const [hourString, minute] = timeString.split(":");
+    const hour = +hourString % 24;
+    return (hour % 12 || 12) + ":" + minute + (hour < 12 ? " AM" : " PM");
+  }
+
   useEffect(() => {
     if (Sucess) {
       Clear_Match_Sucess();
@@ -491,7 +497,7 @@ const ModalScreen = ({
                   fontSize: SIZES.body4,
                 }}
               >
-                {FormatedTime || "Chose Time"}
+                {FormatedTime ? formatTime(FormatedTime) : "Chose Time"}
               </Text>
             </TouchableOpacity>
           </View>
