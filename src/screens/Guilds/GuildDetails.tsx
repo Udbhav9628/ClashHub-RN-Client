@@ -42,7 +42,7 @@ const GuildDetails = ({
   const { User } = useSelector((state: any) => state.FetchUser_reducer);
 
   const is_Guild_Joined = Item.Followers.find((Item: any) => {
-    return Item.FollowersId === User.id;
+    return Item.FollowersId === User?.id;
   });
 
   const [Show_Admin_Menu, setShow_Admin_Menu] = useState(false)

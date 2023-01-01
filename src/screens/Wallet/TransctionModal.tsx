@@ -25,12 +25,13 @@ const TransctionModal = ({
         GetUserTransaction,
         dispatch
     );
+
     const GetClubTransaction_Func = bindActionCreators(
         GetClubTransaction,
         dispatch
     );
 
-    const { loading, sucess, Error, Transactions } = useSelector(
+    const { loading, Error, Transactions } = useSelector(
         (state: any) => state.Transaction_Reducer
     );
 

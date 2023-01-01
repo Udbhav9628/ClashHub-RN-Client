@@ -207,8 +207,8 @@ function Update_Match_Video(Video_Data: any, Matchid: any) {
 
 function Join_Match_action(
   id: any,
-  Amount_to_be_paid: any,
   InGameName: String,
+  MatchIdLast2_char: String,
 ) {
   return async function (dispatch: any) {
     try {
@@ -223,8 +223,8 @@ function Join_Match_action(
       const response = await axios.put(
         `${Ip_Address}/Jointournament/${id}`,
         {
-          Amount_to_be_paid: Amount_to_be_paid,
           InGameName,
+          MatchIdLast2_char,
         },
         {
           headers: {

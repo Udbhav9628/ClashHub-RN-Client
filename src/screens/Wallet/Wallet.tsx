@@ -67,15 +67,9 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     (state: any) => state.Razorpay_Token_Reducer
   );
 
-  const { User } = useSelector(
-    (state: any) => state.FetchUser_reducer
-  );
-
   useEffect(() => {
     if (Tsucess) {
       Clear_Payment_Reducer_Sucess_Func();
-      const AmountToadd = (RazorPay_Token.order.amount_due / 100);
-
       var options = {
         image: 'https://i.imgur.com/3g7nmJC.png',
         currency: 'INR',
@@ -89,7 +83,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
       RazorpayCheckout.open(options).then((data: any) => {
         const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = data;
 
-        Add_Wallet_Ballance_FUNC(razorpay_payment_id, `Added To Gamer Wallet`, true, Date.now(), razorpay_payment_id, razorpay_order_id, razorpay_signature);
+        Add_Wallet_Ballance_FUNC(razorpay_payment_id, `Successfully added To Wallet`, true, Date.now(), razorpay_payment_id, razorpay_order_id, razorpay_signature);
       }).catch((error: any) => {
         const errorhai = JSON.parse(error.description);
         Alert.alert("Error", `${errorhai.error.description}`, [{ text: "OK" }]);
@@ -330,7 +324,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                       setModalVisible={setCreate_withdrawl}
                       MatchId={null}
                       Amount={Amount.Ballance}
-                      Match_Status={null}
+                      Is_Club_Withdrawal={false}
                       Disable={Disable}
                       setDisable={setDisable}
                       navigation={navigation}
@@ -357,7 +351,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                     />
                     <WithdrawModal modalVisible={withdrawlsmodalVisible}
                       setModalVisible={setwithdrawlsModalVisible}
-                      setCreate_withdrawl={setCreate_withdrawl} />
+                      setCreate_withdrawl={setCreate_withdrawl} Is_Club_Withdrawal={false} />
                     <TouchableOpacity onPress={() => {
                       setwithdrawlsModalVisible(true)
                     }}>

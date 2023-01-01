@@ -10,10 +10,15 @@ import TransctionModal from './TransctionModal';
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Get_ClubWallet_Ballance, Clear_Payment_Reducer_Error } from "../../store/Payment/PaymentAction";
+import BottomPopup from '../../components/BottomPopup';
+import WithdrawModal from './WithdrawModal';
 
 const ClubWallet = ({ navigation }: { navigation: any }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [TempLoading, setTempLoading] = useState(true);
+    const [Create_withdrawl, setCreate_withdrawl] = useState(false);
+    const [Disable, setDisable] = useState(false);
+    const [withdrawlsmodalVisible, setwithdrawlsModalVisible] = useState(false);
 
     const { loading, sucess, Error, Amount } = useSelector(
         (state: any) => state.ClubWallet_Ballance_reducer
@@ -184,17 +189,43 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                         </View>
                                     </TouchableOpacity>
                                 </View>
+                                {/* WithDraw */}
                                 <View style={style.Elevation}>
-                                    <TouchableOpacity onPress={() => {
-                                        Alert.alert(
-                                            "Message",
-                                            "Feature Comming Soon",
-                                            [
-                                                {
-                                                    text: "Yes",
+                                    <BottomPopup
+                                        modalVisible={Create_withdrawl}
+                                        setModalVisible={setCreate_withdrawl}
+                                        MatchId={null}
+                                        Amount={Amount.Ballance}
+                                        Is_Club_Withdrawal={true}
+                                        Disable={Disable}
+                                        setDisable={setDisable}
+                                        navigation={navigation}
+                                        ModalContainerStyle={
+                                            {
+                                                position: "absolute",
+                                                bottom: -8,
+                                                left: 2,
+                                                right: 2,
+                                                margin: 20,
+                                                height: 380,
+                                                backgroundColor: "white",
+                                                borderRadius: SIZES.radius,
+                                                shadowColor: COLORS.black,
+                                                shadowOpacity: 0.25,
+                                                shadowRadius: 4,
+                                                elevation: 5,
+                                                shadowOffset: {
+                                                    width: 0,
+                                                    height: 2,
                                                 },
-                                            ]
-                                        );
+                                            }
+                                        }
+                                    />
+                                    <WithdrawModal modalVisible={withdrawlsmodalVisible}
+                                        setModalVisible={setwithdrawlsModalVisible}
+                                        setCreate_withdrawl={setCreate_withdrawl} Is_Club_Withdrawal={true} />
+                                    <TouchableOpacity onPress={() => {
+                                        setwithdrawlsModalVisible(true)
                                     }}>
                                         <View style={style.NotificationWrapper}>
                                             <MaterialCommunityIcons
@@ -203,7 +234,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                                 color="black"
                                             />
                                             <View style={style.DashboardBox}>
-                                                <Text style={style.NotificationText}>Withdraw</Text>
+                                                <Text style={style.NotificationText}>Withdrawals</Text>
                                             </View>
                                             <View
                                                 style={{

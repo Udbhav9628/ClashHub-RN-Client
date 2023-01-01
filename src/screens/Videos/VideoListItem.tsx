@@ -127,7 +127,7 @@ const VideoListItem = ({
     const { User } = useSelector((state: any) => state.FetchUser_reducer);
 
     const isJoined = Item.Joined_User.find((Item: any) => {
-        return Item.UserId === User.id;
+        return Item.UserId === User?.id;
     });
 
     useEffect(() => {

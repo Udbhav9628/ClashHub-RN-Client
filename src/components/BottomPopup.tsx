@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Update_Match_Room_Details, Clear_Match_Reducer_Sucess, Clear_Match_Reducer_Error } from "../store/Match/Matchaction";
 import HeadingComp from "./HeadingComp";
-import { Create_withdrawls_request, GetPendingWithdrawls, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../store/Payment/PaymentAction";
+import { Create_withdrawls_request, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../store/Payment/PaymentAction";
 import Textinput from "../screens/Menu/YourGuild/Textinput";
 import Icon from "react-native-vector-icons/Feather";
 
@@ -25,7 +25,7 @@ const BottomPopup = ({
   setModalVisible,
   MatchId,
   Amount,
-  Match_Status,
+  Is_Club_Withdrawal,
   Disable,
   setDisable,
   navigation
@@ -35,7 +35,7 @@ const BottomPopup = ({
   setModalVisible: any;
   MatchId: any;
   Amount: any;
-  Match_Status: any;
+  Is_Club_Withdrawal: Boolean;
   Disable: boolean;
   setDisable: Function;
   navigation: any;
@@ -344,7 +344,7 @@ const BottomPopup = ({
                             onPress: () => {
                               setWithdrawlsAmount(0)
                               setUPI_Id('')
-                              Create_withdrawls_request_Func(WithdrawlsAmount, UPI_Id)
+                              Create_withdrawls_request_Func(WithdrawlsAmount, UPI_Id, Is_Club_Withdrawal)
                             }
                           },
                           {

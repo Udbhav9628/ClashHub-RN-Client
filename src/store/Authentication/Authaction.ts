@@ -146,7 +146,7 @@ function Get_Specific_User_Details(User_id: any) {
   };
 }
 
-function SignOut() {
+function SignOut(navigation: any) {
   return async function (dispatch: any) {
     try {
       auth().signOut();
@@ -155,11 +155,9 @@ function SignOut() {
         type: 'SignOut',
       });
     } catch (error) {
-      Alert.alert('Error', 'Logout Fail, Try Again', [
-        {
-          text: 'OK',
-        },
-      ]);
+      dispatch({
+        type: 'SignOut',
+      });
     }
   };
 }

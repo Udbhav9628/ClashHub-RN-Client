@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, FlatList, ActivityIndicator, Alert } from "react-native";
-import { COLORS } from "../../constants/Theame";
+import { View, StyleSheet, FlatList, ActivityIndicator, Alert, Text } from "react-native";
+import { COLORS, SIZES } from "../../constants/Theame";
 import VideoListItem from "./VideoListItem";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -52,7 +52,24 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
                 }}
             >
                 <ActivityIndicator size="large" color={COLORS.primary} />
-            </View>) : (
+            </View>) : Matchs_Have_Vid && Matchs_Have_Vid.length === 0 ? (
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <Text
+                        style={{
+                            fontSize: SIZES.h2,
+                            fontWeight: "700",
+                        }}
+                    >
+                        No Matches
+                    </Text>
+                </View>
+            ) : (
                 <FlatList
                     data={Matchs_Have_Vid}
                     keyExtractor={(Item) => `${Item._id}`}

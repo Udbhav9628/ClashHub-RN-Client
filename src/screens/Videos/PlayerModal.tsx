@@ -102,7 +102,7 @@ const PlayerModal = ({
     );
 
     const isJoined = Item.Joined_User.find((Item: any) => {
-        return Item.UserId === User.id;
+        return Item.UserId === User?.id;
     });
 
     const dispatch = useDispatch();
@@ -951,7 +951,6 @@ const PlayerModal = ({
                                 setModalVisible={setPlayerInputModal}
                                 Disable={Disable}
                                 MatchId={Item._id}
-                                EntryFee={Item.EntryFee}
                                 setDisable={setDisable}
                                 loading={loading}
                                 JoinMatchFunction={Join_Match_Action_Func} />

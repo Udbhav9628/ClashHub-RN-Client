@@ -122,7 +122,7 @@ const ClubFollowres = ({
                                             UserId: item.FollowersId,
                                         })
                                     }}>
-                                        <View style={{ backgroundColor: index % 2 === 0 ? item.UserId === User.id ? COLORS.transparentPrimray : COLORS.lightGray1 : item.UserId === User.id ? COLORS.transparentPrimray : COLORS.lightGray2, paddingVertical: 10, borderBottomRightRadius: index === Followers.length - 1 ? SIZES.radius : 0, borderBottomLeftRadius: index === Followers.length - 1 ? SIZES.radius : 0, }}>
+                                        <View style={{ backgroundColor: index % 2 === 0 ? item.UserId === User?.id ? COLORS.transparentPrimray : COLORS.lightGray1 : item.UserId === User?.id ? COLORS.transparentPrimray : COLORS.lightGray2, paddingVertical: 10, borderBottomRightRadius: index === Followers.length - 1 ? SIZES.radius : 0, borderBottomLeftRadius: index === Followers.length - 1 ? SIZES.radius : 0, }}>
                                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: SIZES.padding }}>
                                                 <View style={{
                                                     alignItems: 'flex-start',

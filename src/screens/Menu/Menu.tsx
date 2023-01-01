@@ -75,7 +75,7 @@ const Menu = ({ navigation }: { navigation: any }) => {
               [
                 {
                   text: "Yes",
-                  onPress: () => { SignOut_Func() }
+                  onPress: () => { SignOut_Func(navigation) }
                 },
                 {
                   text: "Cancel",

@@ -237,7 +237,7 @@ function GetClubTransaction(GuiidId: any) {
   };
 }
 
-function GetPendingWithdrawls() {
+function GetAllWithdrawls(Is_Club: Boolean) {
   return async function (dispatch: any) {
     try {
       dispatch({
@@ -247,16 +247,16 @@ function GetPendingWithdrawls() {
         'GetPendingWithdrawls_Fail',
         dispatch,
       )) as string;
-      const response = await axios.get(
-        `${Ip_Address}/getPendingWithdrawrequest`,
-        {
-          headers: {
-            'content-type': 'application/json',
-            Accept: 'application/json',
-            authToken: Token,
-          },
+      const Address = Is_Club
+        ? 'getAll_Club_Wallet_Withdrawrequest'
+        : 'getAll_Gamer_Wallet_Withdrawrequest';
+      const response = await axios.get(`${Ip_Address}/${Address}`, {
+        headers: {
+          'content-type': 'application/json',
+          Accept: 'application/json',
+          authToken: Token,
         },
-      );
+      });
       dispatch({
         type: 'GetPendingWithdrawls_Sucess',
         payload: response.data,
@@ -270,7 +270,11 @@ function GetPendingWithdrawls() {
   };
 }
 
-function Create_withdrawls_request(Amount: Number, Upi_id: String) {
+function Create_withdrawls_request(
+  Amount: Number,
+  Upi_id: String,
+  Is_Club: Boolean,
+) {
   return async function (dispatch: any) {
     try {
       dispatch({
@@ -286,6 +290,7 @@ function Create_withdrawls_request(Amount: Number, Upi_id: String) {
         {
           Amount: Amount,
           UPI_Id: Upi_id,
+          Is_Club,
         },
         {
           headers: {
@@ -368,6 +373,6 @@ export {
   GetUserTransaction,
   GetClubTransaction,
   Create_withdrawls_request,
-  GetPendingWithdrawls,
+  GetAllWithdrawls,
   GetMoneyRefund,
 };

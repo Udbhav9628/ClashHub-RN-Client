@@ -6,17 +6,19 @@ import { SIZES, COLORS, Dpheight, DPwidth } from '../../constants/Theame';
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import StyleSheet from 'react-native-media-query';
-import { GetPendingWithdrawls, Clear_Payment_Reducer_Error } from "../../store/Payment/PaymentAction";
+import { GetAllWithdrawls, Clear_Payment_Reducer_Error } from "../../store/Payment/PaymentAction";
 import Icons from "react-native-vector-icons/Ionicons";
 
 const WithdrawModal = ({
     modalVisible,
     setModalVisible,
     setCreate_withdrawl,
+    Is_Club_Withdrawal
 }: {
     modalVisible: any;
     setModalVisible: any;
     setCreate_withdrawl: any;
+    Is_Club_Withdrawal: Boolean;
 }) => {
     const { PWloading, Pending_Withdrawls, Error } = useSelector(
         (state: any) => state.PendingWithdrawls_Reducer
@@ -24,7 +26,7 @@ const WithdrawModal = ({
 
     const dispatch = useDispatch();
     const GetPendingWithdrawls_Func = bindActionCreators(
-        GetPendingWithdrawls,
+        GetAllWithdrawls,
         dispatch
     );
     const Clear_Payment_Reducer_Error_Func = bindActionCreators(
@@ -34,7 +36,7 @@ const WithdrawModal = ({
 
     useEffect(() => {
         if (modalVisible) {
-            GetPendingWithdrawls_Func()
+            GetPendingWithdrawls_Func(Is_Club_Withdrawal)
         }
     }, [modalVisible])
 
@@ -134,7 +136,7 @@ const WithdrawModal = ({
                                                     >
                                                         {item.Message} {item.Status}
                                                     </Text>
-                                                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 2 }}>
+                                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 2 }}>
                                                         <Text style={{ ...styles.NotificationText2, marginRight: '5%' }}>UPI {item.UPI_Id}</Text>
                                                         <Text style={{ ...styles.NotificationText2, marginRight: '5%' }}>{item.Status}</Text>
                                                     </View>

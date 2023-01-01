@@ -7,7 +7,6 @@ const PlayerGameNameInputModal = ({
     modalVisible,
     setModalVisible,
     MatchId,
-    EntryFee,
     Disable,
     setDisable,
     loading,
@@ -16,7 +15,6 @@ const PlayerGameNameInputModal = ({
     modalVisible: any;
     setModalVisible: any;
     MatchId: any;
-    EntryFee: any;
     Disable: any;
     setDisable: any;
     loading: any;
@@ -100,7 +98,7 @@ const PlayerGameNameInputModal = ({
                                             text: "Yes",
                                             onPress: () => {
                                                 JoinMatchFunction(MatchId,
-                                                    EntryFee, InGameName)
+                                                    InGameName, MatchId.slice(-2))
                                                 setDisable(true)
                                             },
 
