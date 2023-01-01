@@ -174,102 +174,6 @@ function GetUserWalletBallance() {
   };
 }
 
-function GetUserTransaction() {
-  return async function (dispatch: any) {
-    try {
-      dispatch({
-        type: 'GetUserTransaction_Request',
-      });
-      const Token: string = (await Return_Token(
-        'GetUserTransaction_Fail',
-        dispatch,
-      )) as string;
-      const response = await axios.get(`${Ip_Address}/getUserTransactions`, {
-        headers: {
-          'content-type': 'application/json',
-          Accept: 'application/json',
-          authToken: Token,
-        },
-      });
-      dispatch({
-        type: 'GetUserTransaction_Sucess',
-        payload: response.data,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: 'GetUserTransaction_Fail',
-        payload: error.message,
-      });
-    }
-  };
-}
-
-function GetClubTransaction(GuiidId: any) {
-  return async function (dispatch: any) {
-    try {
-      dispatch({
-        type: 'GetUserTransaction_Request',
-      });
-      const Token: string = (await Return_Token(
-        'GetUserTransaction_Fail',
-        dispatch,
-      )) as string;
-      const response = await axios.get(
-        `${Ip_Address}/getClubTransactions/${GuiidId}`,
-        {
-          headers: {
-            'content-type': 'application/json',
-            Accept: 'application/json',
-            authToken: Token,
-          },
-        },
-      );
-      dispatch({
-        type: 'GetUserTransaction_Sucess',
-        payload: response.data,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: 'GetUserTransaction_Fail',
-        payload: error.message,
-      });
-    }
-  };
-}
-
-function GetAllWithdrawls(Is_Club: Boolean) {
-  return async function (dispatch: any) {
-    try {
-      dispatch({
-        type: 'GetPendingWithdrawls_Request',
-      });
-      const Token: string = (await Return_Token(
-        'GetPendingWithdrawls_Fail',
-        dispatch,
-      )) as string;
-      const Address = Is_Club
-        ? 'getAll_Club_Wallet_Withdrawrequest'
-        : 'getAll_Gamer_Wallet_Withdrawrequest';
-      const response = await axios.get(`${Ip_Address}/${Address}`, {
-        headers: {
-          'content-type': 'application/json',
-          Accept: 'application/json',
-          authToken: Token,
-        },
-      });
-      dispatch({
-        type: 'GetPendingWithdrawls_Sucess',
-        payload: response.data,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: 'GetPendingWithdrawls_Fail',
-        payload: error.message,
-      });
-    }
-  };
-}
-
 function Create_withdrawls_request(
   Amount: Number,
   Upi_id: String,
@@ -370,9 +274,6 @@ export {
   Gernerate_Paytm_Token,
   Gernerate_Razorpay_Token,
   Get_ClubWallet_Ballance,
-  GetUserTransaction,
-  GetClubTransaction,
   Create_withdrawls_request,
-  GetAllWithdrawls,
   GetMoneyRefund,
 };

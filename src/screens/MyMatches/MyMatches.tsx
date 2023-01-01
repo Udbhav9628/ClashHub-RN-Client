@@ -5,6 +5,8 @@ import {
   FlatList,
   Alert,
   ActivityIndicator,
+  ScrollView,
+  RefreshControl,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { SIZES, COLORS, Dpheight, DPwidth } from "../../constants/Theame";
@@ -22,8 +24,19 @@ import axios from 'axios';
 import { Return_Token } from '../../utils/Utils';
 
 const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
+  const [refreshing, setRefreshing] = React.useState(false);
+  const wait = (timeout: any) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  }
+
+  const onRefresh = React.useCallback(() => {
+    setloading(true)
+    FetchData(SelectedMenu, 1, true)
+    setPage(1)
+  }, []);
+
   const [SelectedMenu, setSelectedMenu] = useState("Scheduled");
-  const [Refetch, setRefetch] = useState(true);//check
+  const [Refetch, setRefetch] = useState(true);
   const [loading, setloading] = useState(true)
   const [Data_Length, setData_Length] = useState(0)
   const [PreMatchType, setPreMatchType] = useState('')
@@ -110,29 +123,32 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
           <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
       ) : Matches_State.length === 0 ? (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
         >
           <Text
             style={{
-              fontSize: SIZES.body3,
+              textAlign: 'center',
+              fontSize: SIZES.h2,
               fontWeight: "700",
+              marginTop: 330
             }}
           >
             No {SelectedMenu} Matches
           </Text>
-        </View>
+        </ScrollView>
       ) : (
         <FlatList
           data={Matches_State}
           keyExtractor={(Item) => `${Item?._id}`}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          refreshing={false}
+          refreshing={loading}
           onRefresh={() => {
             setloading(true)
             FetchData(SelectedMenu, 1, true)

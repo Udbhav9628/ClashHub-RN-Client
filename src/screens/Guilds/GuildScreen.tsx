@@ -10,56 +10,78 @@ import {
   ScrollView,
   RefreshControl
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SIZES, COLORS, Dpheight, DPwidth } from "../../constants/Theame";
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import {
-  Fetch_All_Guild,
-  Clear_Guild_Reducer_Error,
-} from "../../store/Guild/GuildAction";
+import { Ip_Address } from '../../constants/Data';
+import axios from 'axios';
+import { Return_Token } from '../../utils/Utils';
 
 const GuildScreen = ({ navigation }: { navigation: any }) => {
-  const { All_Guilds, Guild_loading, Guild_Error } = useSelector(
-    (state: any) => state.Get_All_Guild
-  );
+  const [refreshing, setRefreshing] = React.useState(false);
+  const wait = (timeout: any) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  }
 
-  const dispatch = useDispatch();
-  const FetchAll_Guild = bindActionCreators(Fetch_All_Guild, dispatch);
-
-  const Clear_Guild_ReducerError = bindActionCreators(
-    Clear_Guild_Reducer_Error,
-    dispatch
-  );
-
-  useEffect(() => {
-    FetchAll_Guild();
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setData_Length(0);
+    setPage(1);
+    setData([] as Array<any>);
+    Fetch_Data(1, false);
+    wait(500).then(() => setRefreshing(false));
   }, []);
 
-  useEffect(() => {
-    if (Guild_Error) {
-      Clear_Guild_ReducerError();
-      Alert.alert("Error", Guild_Error, [
+  const [Loading, setLoading] = useState(true);
+  const [Page, setPage] = useState(1);
+  const [Data_Length, setData_Length] = useState(0);
+  const [Data, setData] = useState([] as Array<any>);
+
+  async function Fetch_Data(Page: Number, Issame: Boolean) {
+    try {
+      const Token: string = (await Return_Token(
+        null,
+        null,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/fetchallGuild?Page=${Page}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      if (Data.length > 0 && Issame) {
+        setData([...Data, ...response.data])
+      } else {
+        setData(response.data)
+      }
+      setLoading(false)
+      setData_Length(response.data.length);
+    } catch (error: any) {
+      Alert.alert("Error", error.message, [
         {
           text: "OK",
         },
       ]);
     }
-  }, [Guild_Error]);
-
-  const [refreshing, setRefreshing] = React.useState(false);
-  const wait = (timeout: any) => {
-    return new Promise((resolve) => setTimeout(resolve, timeout));
   }
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    FetchAll_Guild();
-    wait(500).then(() => setRefreshing(false));
+
+  function WhenEndReached() {
+    if (Data_Length === 20) {
+      Fetch_Data(Page + 1, true);
+      setPage((Previous) => Previous + 1);
+    }
+  }
+
+  useEffect(() => {
+    Fetch_Data(1, false)
   }, []);
 
   return (
     <View style={styles.Container}>
-      {Guild_loading ? (
+      {Loading ? (
         <View
           style={{
             flex: 1,
@@ -69,7 +91,7 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
         >
           <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
-      ) : All_Guilds && All_Guilds.length === 0 ? (
+      ) : Data && Data.length === 0 ? (
         <ScrollView
           refreshControl={
             <RefreshControl
@@ -81,6 +103,7 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
           <Text
             style={{
               fontSize: SIZES.h2,
+              textAlign: 'center',
               fontWeight: "700",
               marginTop: 330
             }}
@@ -90,12 +113,18 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
         </ScrollView>
       ) : (
         <FlatList
-          data={All_Guilds}
+          data={Data}
           keyExtractor={(Item) => `${Item._id}`}
           showsVerticalScrollIndicator={false}
           numColumns={2}
-          onRefresh={() => FetchAll_Guild()}
-          refreshing={Guild_loading}
+          onRefresh={() => {
+            setLoading(true)
+            setData_Length(0)
+            setPage(1)
+            setData([] as Array<any>)
+            Fetch_Data(1, false);
+          }}
+          refreshing={Loading}
           renderItem={({ item }: { item: any }) => (
             <View style={styles.Elevation}>
               <TouchableOpacity
@@ -120,6 +149,20 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
               </TouchableOpacity>
             </View>
           )}
+          onEndReached={() => {
+            WhenEndReached();
+          }}
+          onEndReachedThreshold={0}
+          ListFooterComponent={(<View>
+            {Data_Length === 20 && <View
+              style={{
+                marginVertical: 16,
+                alignItems: "center",
+              }}
+            >
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            </View>}
+          </View>)}
         />
       )}
     </View>

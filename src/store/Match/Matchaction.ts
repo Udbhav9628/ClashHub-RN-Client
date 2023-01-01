@@ -69,37 +69,6 @@ function Fetch_Home_Page_Matchs() {
   };
 }
 
-function Fetch_All_Matchs_Videos() {
-  return async function (dispatch: any) {
-    try {
-      dispatch({
-        type: 'Fetch_All_Matchs_Videos_Request',
-      });
-      const Token: string = (await Return_Token(
-        'Fetch_All_Matchs_Videos_Fail',
-        dispatch,
-      )) as string;
-      const response = await axios.get(`${Ip_Address}/GetVideosMatches`, {
-        headers: {
-          'content-type': 'application/json',
-          Accept: 'application/json',
-          authToken: Token,
-        },
-      });
-
-      dispatch({
-        type: 'Fetch_All_Matchs_Videos_Sucess',
-        payload: response.data.Data,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: 'Fetch_All_Matchs_Videos_Fail',
-        payload: error.message,
-      });
-    }
-  };
-}
-
 //Update Match Result
 function Update_Match(Data: any, id: any) {
   return async function (dispatch: any) {
@@ -345,6 +314,5 @@ export {
   Update_Match,
   Update_Match_Room_Details,
   Fetch_Match_Room_Details,
-  Fetch_All_Matchs_Videos,
   Update_Match_Video,
 };

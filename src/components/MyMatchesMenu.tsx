@@ -7,7 +7,7 @@ const MyMatchesMenu = ({ SelectedMenu, setSelectedMenu, GamesTypes, Fetch_Matchs
   return (
     <FlatList
       horizontal
-      showsHorizontalScrollIndicator={false}
+      showsHorizontalScrollIndicator={true}
       data={GamesTypes}
       keyExtractor={(Item) => `${Item.id}`}
       renderItem={({ item }) => (

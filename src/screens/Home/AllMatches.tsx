@@ -63,7 +63,9 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
   }
 
   function WhenEndReached() {
-    if (Data_Length === 10) {//4 Here is ResultPerPage
+    console.log('in refetching');
+
+    if (Data_Length === 10) {
       Fetch_All_Match(SelectedMenu, Page + 1, false);
       setPage((Previous) => Previous + 1);
     }
@@ -187,7 +189,7 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
           onEndReached={() => {
             WhenEndReached();
           }}
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={0.2}
           ListFooterComponent={(<View>
             {Data_Length === 10 && <View
               style={{

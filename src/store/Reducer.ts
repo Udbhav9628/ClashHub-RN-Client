@@ -11,14 +11,11 @@ import {
   Update_Room_Details_Reducer,
   Update_Video_Reducer,
   Fetch_Match_Room_Details,
-  Get_Matches_Videos,
 } from './Match/Matchreducer';
 import {
   Add_Wallet_Ballance_Reducer,
   Get_Ballance_Reducer,
   ClubWallet_Ballance_reducer,
-  Transaction_Reducer,
-  PendingWithdrawls_Reducer,
   Create_withdrawls_Reducer,
   Razorpay_Token_Reducer,
   Money_Refund_Reducer,
@@ -29,12 +26,10 @@ import {
   Create_Guild_Reducer,
   Join_Guild_Reducer,
   Get_Specific_Club_Reducer,
-  Get_Guild_Matchs_Reducer,
 } from './Guild/GuildReducer';
 
 export default combineReducers({
   Get_Home_Page_Matches,
-  Get_Matches_Videos,
   Create_matches_Reducer,
   Join_Match_Reducer,
   Add_Wallet_Ballance_Reducer,
@@ -45,8 +40,6 @@ export default combineReducers({
   Update_Match_Result_Reducer,
   FetchUser_reducer,
   ClubWallet_Ballance_reducer,
-  Transaction_Reducer,
-  PendingWithdrawls_Reducer,
   Create_withdrawls_Reducer,
   Get_Specific_User_Details_reducer,
   Join_Guild_Reducer,
@@ -56,5 +49,4 @@ export default combineReducers({
   Fetch_Match_Room_Details,
   Razorpay_Token_Reducer,
   Money_Refund_Reducer,
-  Get_Guild_Matchs_Reducer,
 });

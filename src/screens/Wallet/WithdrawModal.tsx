@@ -1,13 +1,15 @@
-import { StyleSheet as RN_Styles, Text, View, Modal, FlatList, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
-import React, { useEffect } from 'react'
+import { StyleSheet as RN_Styles, Text, View, Modal, FlatList, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import HeadingComp from '../../components/HeadingComp';
 import Icon from "react-native-vector-icons/Feather";
-import { SIZES, COLORS, Dpheight, DPwidth } from '../../constants/Theame';
+import { SIZES, COLORS, Dpheight } from '../../constants/Theame';
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import StyleSheet from 'react-native-media-query';
-import { GetAllWithdrawls, Clear_Payment_Reducer_Error } from "../../store/Payment/PaymentAction";
 import Icons from "react-native-vector-icons/Ionicons";
+import { Return_Token } from '../../utils/Utils';
+import { Ip_Address } from '../../constants/Data';
+import axios from 'axios';
 
 const WithdrawModal = ({
     modalVisible,
@@ -20,32 +22,65 @@ const WithdrawModal = ({
     setCreate_withdrawl: any;
     Is_Club_Withdrawal: Boolean;
 }) => {
-    const { PWloading, Pending_Withdrawls, Error } = useSelector(
-        (state: any) => state.PendingWithdrawls_Reducer
-    );
+    const [Data, setData] = useState([] as Array<any>);
+    const [Loading, setLoading] = useState(true);
+    const [Page, setPage] = useState(1);
+    const [Data_Length, setData_Length] = useState(0);
 
-    const dispatch = useDispatch();
-    const GetPendingWithdrawls_Func = bindActionCreators(
-        GetAllWithdrawls,
-        dispatch
-    );
-    const Clear_Payment_Reducer_Error_Func = bindActionCreators(
-        Clear_Payment_Reducer_Error,
-        dispatch
-    );
+    async function Fetch_Data(Page: Number, Is_Club: Boolean) {
+        try {
+            const Token: string = (await Return_Token(
+                null,
+                null,
+            )) as string;
+            const Address = Is_Club
+                ? 'getAll_Club_Wallet_Withdrawrequest'
+                : 'getAll_Gamer_Wallet_Withdrawrequest';
+            const response = await axios.get(`${Ip_Address}/${Address}?Page=${Page}`,
+                {
+                    headers: {
+                        'content-type': 'application/json',
+                        Accept: 'application/json',
+                        authToken: Token,
+                    },
+                },
+            );
+            if (Data.length > 0) {
+                setData([...Data, ...response.data])
+            } else {
+                setData(response.data)
+            }
+            setLoading(false)
+            setData_Length(response.data.length);
+        } catch (error: any) {
+            Alert.alert("Error", error.message, [
+                {
+                    text: "OK",
+                },
+            ]);
+        }
+    }
+
+    function WhenEndReached() {
+        if (Data_Length === 10) {
+            Fetch_Data(Page + 1, Is_Club_Withdrawal);
+            setPage((Previous) => Previous + 1);
+        }
+    }
 
     useEffect(() => {
         if (modalVisible) {
-            GetPendingWithdrawls_Func(Is_Club_Withdrawal)
+            Fetch_Data(1, Is_Club_Withdrawal);
+        }
+        return () => {
+            if (modalVisible) {
+                setPage(1)
+                setLoading(true)
+                setData([] as Array<any>)
+                setData_Length(0)
+            }
         }
     }, [modalVisible])
-
-    useEffect(() => {
-        if (Error) {
-            Clear_Payment_Reducer_Error_Func()
-            Alert.alert("Error", Error, [{ text: "OK" }]);
-        }
-    }, [Error])
 
     return (
         <Modal
@@ -78,7 +113,7 @@ const WithdrawModal = ({
                         <Icons name="ios-add-circle-sharp" size={35} color="black" />
                     </TouchableOpacity>
                 </View>
-                {PWloading ? (<View
+                {Loading ? (<View
                     style={{
                         flex: 1,
                         justifyContent: "center",
@@ -86,7 +121,7 @@ const WithdrawModal = ({
                     }}
                 >
                     <ActivityIndicator size="large" color={COLORS.primary} />
-                </View>) : Pending_Withdrawls && Pending_Withdrawls.length === 0 ? (
+                </View>) : Data && Data.length === 0 ? (
                     <View
                         style={{
                             flex: 1,
@@ -108,7 +143,7 @@ const WithdrawModal = ({
                             marginBottom: 50
                         }}>
                             <FlatList
-                                data={Pending_Withdrawls}
+                                data={Data}
                                 keyExtractor={(Item) => `${Item._id}`}
                                 showsHorizontalScrollIndicator={false}
                                 showsVerticalScrollIndicator={false}
@@ -152,6 +187,20 @@ const WithdrawModal = ({
                                         </TouchableOpacity>
                                     </View>
                                 )}
+                                onEndReached={() => {
+                                    WhenEndReached();
+                                }}
+                                onEndReachedThreshold={0.1}
+                                ListFooterComponent={(<View>
+                                    {Data_Length === 10 && <View
+                                        style={{
+                                            marginVertical: 16,
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <ActivityIndicator size="large" color={COLORS.primary} />
+                                    </View>}
+                                </View>)}
                             />
                         </View></>)}
             </View>

@@ -94,7 +94,7 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
         >
           <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
-      ) : Matches.length === 0 ? (
+      ) : Matches?.length === 0 ? (
         <View
           style={{
             flex: 1,

@@ -16,7 +16,6 @@ import HeadingComp from "../../components/HeadingComp";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
-  Get_Guild_Matches_Details,
   Clear_Guild_Reducer_Error,
   Clear_Guild_Reducer_Sucess,
   Join_Guild
@@ -29,6 +28,9 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Iconss from "react-native-vector-icons/MaterialCommunityIcons";
 import ModalClub_Menu from "../Home/ModalClub_Menu";
 import ClubFollowres from "../Menu/YourGuild/ClubFollowres";
+import { Ip_Address } from '../../constants/Data';
+import axios from 'axios';
+import { Return_Token } from '../../utils/Utils';
 
 const GuildDetails = ({
   navigation,
@@ -50,11 +52,6 @@ const GuildDetails = ({
   const [ClubJoined, setClubJoined] = useState(false)
 
   const dispatch = useDispatch();
-  const Get_Guild_Matches = bindActionCreators(
-    Get_Guild_Matches_Details,
-    dispatch
-  );
-
   const Clear_Guild_ReducerError = bindActionCreators(
     Clear_Guild_Reducer_Error,
     dispatch
@@ -70,30 +67,9 @@ const GuildDetails = ({
     dispatch
   );
 
-  const { Guild_Matches, loading, Error } = useSelector(
-    (state: any) => state.Get_Guild_Matchs_Reducer
-  );
-
   const Join_Guild_Reducer = useSelector(
     (state: any) => state.Join_Guild_Reducer
   );
-
-  useFocusEffect(
-    React.useCallback(() => {
-      Get_Guild_Matches(Item._id, 'Scheduled');
-    }, [])
-  );
-
-  useEffect(() => {
-    if (Error) {
-      Clear_Guild_ReducerError();
-      Alert.alert("Error", Error, [
-        {
-          text: "OK",
-        },
-      ]);
-    }
-  }, [Error]);
 
   useEffect(() => {
     if (Join_Guild_Reducer.Sucess) {
@@ -117,6 +93,63 @@ const GuildDetails = ({
       ]);
     }
   }, [Join_Guild_Reducer.Error]);
+
+
+  const [Loading, setLoading] = useState(true);
+  const [Page, setPage] = useState(1);
+  const [Data_Length, setData_Length] = useState(0);
+  const [Data, setData] = useState([] as Array<any>);
+
+  async function Fetch_Data(Page: Number, Issame: Boolean) {
+    try {
+      const Token: string = (await Return_Token(
+        null,
+        null,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/getGuildtournaments/${Item._id}?MatchType=Scheduled&Page=${Page}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      if (Data.length > 0 && Issame) {
+        setData([...Data, ...response.data.Data])
+      } else {
+        setData(response.data.Data)
+      }
+      setLoading(false)
+      setData_Length(response.data.Data.length);
+    } catch (error: any) {
+      Alert.alert("Error", error.message, [
+        {
+          text: "OK",
+        },
+      ]);
+    }
+  }
+
+  function WhenEndReached() {
+    if (Data_Length === 10) {
+      Fetch_Data(Page + 1, true);
+      setPage((Previous) => Previous + 1);
+    }
+  }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      Fetch_Data(1, false);
+      return () => {
+        setLoading(true)
+        setData_Length(0);
+        setPage(1);
+        setData([] as Array<any>);
+      };
+    }, [])
+  );
 
   return (
     <ScrollView style={styles.Container}>
@@ -181,7 +214,7 @@ const GuildDetails = ({
           height: Dpheight(26.8),
         }}
       >
-        {loading ? (
+        {Loading ? (
           <View
             style={{
               flex: 1,
@@ -191,7 +224,7 @@ const GuildDetails = ({
           >
             <ActivityIndicator size="large" color={COLORS.primary} />
           </View>
-        ) : Guild_Matches && Guild_Matches.length === 0 ? (
+        ) : Data && Data.length === 0 ? (
           <View
             style={{
               flex: 1,
@@ -211,7 +244,7 @@ const GuildDetails = ({
         ) : (
           <View>
             <FlatList
-              data={Guild_Matches}
+              data={Data}
               horizontal
               keyExtractor={(Item) => `${Item._id}`}
               showsHorizontalScrollIndicator={false}
@@ -221,7 +254,7 @@ const GuildDetails = ({
                   ContainerStyle={{
                     ...styles.Elevation,
                     marginRight:
-                      index === Guild_Matches.length - 1 ? SIZES.padding : 0,
+                      index === Data.length - 1 ? SIZES.padding : 0,
                     height: Dpheight(26),
                     width: DPwidth(83),
                     alignItems: "center",
@@ -245,6 +278,20 @@ const GuildDetails = ({
                   }
                 />
               )}
+              onEndReached={() => {
+                WhenEndReached();
+              }}
+              onEndReachedThreshold={0.2}
+              ListFooterComponent={(<View style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}>
+                {Data_Length === 10 && <View
+                >
+                  <ActivityIndicator size="large" color={COLORS.primary} />
+                </View>}
+              </View>)}
             />
           </View>
         )}
