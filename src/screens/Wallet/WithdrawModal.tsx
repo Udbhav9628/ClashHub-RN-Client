@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import HeadingComp from '../../components/HeadingComp';
 import Icon from "react-native-vector-icons/Feather";
 import { SIZES, COLORS, Dpheight } from '../../constants/Theame';
-import { bindActionCreators } from "redux";
-import { useDispatch, useSelector } from "react-redux";
 import StyleSheet from 'react-native-media-query';
 import Icons from "react-native-vector-icons/Ionicons";
 import { Return_Token } from '../../utils/Utils';

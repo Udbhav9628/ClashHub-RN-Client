@@ -4,6 +4,7 @@ import { COLORS, FONTS, SIZES } from '../../constants/Theame';
 import { Fetch_Match_Room_Details, Clear_Match_Reducer_Error } from "../../store/Match/Matchaction";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
+import ModalCross from '../../components/ModalCross';
 
 const RoomDetailsModal = ({
     modalVisible,
@@ -70,6 +71,7 @@ const RoomDetailsModal = ({
                     height: 2,
                 },
             }}>
+                <ModalCross setModalVisible={setModalVisible} />
                 <View
                     style={{
                         margin: '6%',

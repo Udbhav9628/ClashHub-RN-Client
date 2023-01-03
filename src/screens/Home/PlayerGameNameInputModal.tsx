@@ -2,6 +2,7 @@ import { ActivityIndicator, Alert, Modal, StyleSheet, Text, TouchableOpacity, Vi
 import React, { useState } from 'react';
 import { COLORS, FONTS, SIZES } from '../../constants/Theame';
 import FormInput from '../Auth/FormInput';
+import ModalCross from '../../components/ModalCross';
 
 const PlayerGameNameInputModal = ({
     modalVisible,
@@ -48,6 +49,7 @@ const PlayerGameNameInputModal = ({
                     height: 2,
                 },
             }}>
+                <ModalCross setModalVisible={setModalVisible} />
                 <View style={{
                     marginTop: 30,
                 }}>

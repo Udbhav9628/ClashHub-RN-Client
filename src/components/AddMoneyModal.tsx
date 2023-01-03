@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { SIZES, COLORS, Dpheight } from "../constants/Theame";
 import HeadingComp from "./HeadingComp";
+import ModalCross from "./ModalCross";
 
 
 const AddMoneyModal = ({
@@ -39,6 +40,7 @@ const AddMoneyModal = ({
             }}
         >
             <View style={{ ...ModalContainerStyle }}>
+                <ModalCross setModalVisible={setModalVisible} />
                 <View style={{
                     marginTop: 30,
                     flex: 1, justifyContent: 'flex-start',

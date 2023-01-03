@@ -4,6 +4,7 @@ import { COLORS, Dpheight, SIZES } from '../../constants/Theame';
 import Icon from "react-native-vector-icons/Ionicons";
 import Icons from "react-native-vector-icons/Entypo";
 import Iconss from "react-native-vector-icons/FontAwesome";
+import ModalCross from '../../components/ModalCross';
 
 const ModalClub_Menu = ({
     modalVisible,
@@ -18,6 +19,11 @@ const ModalClub_Menu = ({
     Club_Details: any;
     Admin_Id: any;
 }) => {
+
+
+    function Clears_and_Close() {
+        setModalVisible(false);
+    }
 
     if (Club_Details) {
         return (
@@ -34,7 +40,7 @@ const ModalClub_Menu = ({
                     bottom: -8,
                     left: 2,
                     right: 2,
-                    height: Dpheight(25),
+                    height: 250,
                     backgroundColor: "white",
                     borderRadius: SIZES.radius,
                     shadowColor: COLORS.black,
@@ -47,6 +53,7 @@ const ModalClub_Menu = ({
                     },
                 }}>
                     <View style={styles.container}>
+                        <ModalCross setModalVisible={Clears_and_Close} />
                         <View style={styles.menuWrapper}>
                             <TouchableOpacity
                                 style={styles.menuTouchableOpacity}
@@ -170,7 +177,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
     },
     menuWrapper: {
-        marginTop: 10,
+        marginTop: 50,
     },
     menuItem: {
         flexDirection: "row",

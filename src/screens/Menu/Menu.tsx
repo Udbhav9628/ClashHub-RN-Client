@@ -9,7 +9,6 @@ import {
 } from "../../store/Authentication/Authaction";
 
 const Menu = ({ navigation }: { navigation: any }) => {
-  const FetchUser_reducer = useSelector((state: any) => state.FetchUser_reducer);
   const dispatch = useDispatch();
   const SignOut_Func = bindActionCreators(SignOut, dispatch);
 

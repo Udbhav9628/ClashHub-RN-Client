@@ -111,7 +111,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
                         FetchData(1, false);
                     }}
                     refreshing={Loading}
-                    renderItem={({ item }) => <VideoListItem Item={item} navigation={navigation} />}
+                    renderItem={({ item }) => <VideoListItem Item={item} navigation={navigation} RefreshMatchVideo={onRefresh} />}
                     onEndReached={() => {
                         WhenEndReached();
                     }}

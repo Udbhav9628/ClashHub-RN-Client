@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
     StyleSheet,
     View,
@@ -17,7 +17,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import { bindActionCreators } from "redux";
 import {
-    Fetch_All_Matchs_Videos,
     Fetch_Home_Page_Matchs,
     Join_Match_action,
     Clear_Match_Reducer_Error,
@@ -33,12 +32,14 @@ const PlayerModal = ({
     Item,
     modalVisible,
     setModalVisible,
-    navigation
+    navigation,
+    RefreshMatchVideo
 }: {
     Item: any;
     modalVisible: any;
     setModalVisible: any;
     navigation: any;
+    RefreshMatchVideo: Function;
 }) => {
 
     const [Player_Loading, setPlayer_Loading] = useState(true)
@@ -97,10 +98,6 @@ const PlayerModal = ({
 
     const { User } = useSelector((state: any) => state.FetchUser_reducer);
 
-    const { Home_Matchs } = useSelector(
-        (state: any) => state.Get_Home_Page_Matches
-    );
-
     const isJoined = Item.Joined_User.find((Item: any) => {
         return Item.UserId === User?.id;
     });
@@ -127,11 +124,6 @@ const PlayerModal = ({
         dispatch
     );
 
-    const Fetch_All_Matchs_Videos_Func = bindActionCreators(
-        Fetch_All_Matchs_Videos,
-        dispatch
-    );
-
     const Fetch_Home_Page_Match = bindActionCreators(
         Fetch_Home_Page_Matchs,
         dispatch
@@ -152,7 +144,7 @@ const PlayerModal = ({
             Clear_Match_Sucess();
             if (Responce.Sucess) {
                 setPlayVid(false);
-                Fetch_All_Matchs_Videos_Func();
+                RefreshMatchVideo();
                 Fetch_Home_Page_Match();
                 navigation.navigate("PaymentSucess", {
                     Matched_Joined: true
@@ -172,6 +164,7 @@ const PlayerModal = ({
 
     useEffect(() => {
         if (Error) {
+            setPlayVid(false);
             Clear_Match_ReducerError();
             setDisable(false);
             setPlayer_Loading(true)

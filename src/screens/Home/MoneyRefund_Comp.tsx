@@ -5,6 +5,7 @@ import { COLORS, Dpheight, SIZES } from '../../constants/Theame';
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { GetMoneyRefund, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../../store/Payment/PaymentAction";
+import ModalCross from '../../components/ModalCross';
 
 const MoneyRefund_Comp = ({
     modalVisible,
@@ -61,6 +62,10 @@ const MoneyRefund_Comp = ({
         }
     }, [Error]);
 
+    function Clears_and_Close() {
+        setDisable(false)
+        setModalVisible(false);
+    }
 
     return (
         <Modal
@@ -91,6 +96,7 @@ const MoneyRefund_Comp = ({
                 },
             }}>
                 <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <ModalCross setModalVisible={Clears_and_Close} />
                     <View style={{
                         alignSelf: 'center'
                     }}>

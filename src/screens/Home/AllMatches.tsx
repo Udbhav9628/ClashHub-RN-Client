@@ -63,8 +63,6 @@ const AllMatches = ({ route, navigation }: { route: any; navigation: any }) => {
   }
 
   function WhenEndReached() {
-    console.log('in refetching');
-
     if (Data_Length === 10) {
       Fetch_All_Match(SelectedMenu, Page + 1, false);
       setPage((Previous) => Previous + 1);

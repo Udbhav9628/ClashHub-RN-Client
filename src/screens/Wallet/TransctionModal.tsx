@@ -8,6 +8,7 @@ import StyleSheet from 'react-native-media-query';
 import { Return_Token } from '../../utils/Utils';
 import { Ip_Address } from '../../constants/Data';
 import axios from 'axios';
+import ModalCross from '../../components/ModalCross';
 
 const TransctionModal = ({
     modalVisible,
@@ -129,6 +130,7 @@ const TransctionModal = ({
             }}
         >
             <View style={style.Container}>
+                <ModalCross setModalVisible={setModalVisible} />
                 {Loading ? (<View
                     style={{
                         flex: 1,

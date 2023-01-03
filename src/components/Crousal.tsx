@@ -9,58 +9,7 @@ import {
 import { Dpheight, DPwidth, SIZES } from "../constants/Theame";
 import { crousal } from "../constants/Data";
 
-const Crousal = ({ }: {}) => {
-  // Search Component
-  // function Search_Comp() {
-  //   return (
-  //     <View
-  //       style={{
-  //         height: 40,
-  //         flexDirection: 'row',
-  //         alignItems: 'center',
-  //         marginHorizontal: SIZES.padding,
-  //         marginVertical: SIZES.base,
-  //         paddingHorizontal: SIZES.radius,
-  //         borderRadius: SIZES.radius,
-  //         backgroundColor: COLORS.lightGray2,
-  //       }}>
-  //       {/* ICon */}
-  //       <Image
-  //         source={icons.search}
-  //         style={{
-  //           height: 20,
-  //           width: 20,
-  //           tintColor: COLORS.black,
-  //         }}
-  //       />
-  //       {/* Text iNput */}
-  //       <TextInput
-  //         style={{
-  //           flex: 1,
-  //           marginLeft: SIZES.radius,
-  //           fontSize: 16,
-  //           lineHeight: 22,
-  //         }}
-  //         placeholder="Search Here..."
-  //       />
-
-  //       {/* Filter Buttoon */}
-  //       <TouchableOpacity
-  //       // onPress={}
-  //       >
-  //         <Image
-  //           source={icons.filter}
-  //           style={{
-  //             width: 20,
-  //             height: 20,
-  //             tintColor: '#000',
-  //           }}
-  //         />
-  //       </TouchableOpacity>
-  //     </View>
-  //   );
-  // }
-
+const Crousal = () => {
   return (
     <>
       <FlatList

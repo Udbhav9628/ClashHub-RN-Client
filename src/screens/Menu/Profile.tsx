@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import { SIZES, COLORS, DPwidth, Dpheight } from "../../constants/Theame";
 import Heading from "../../components/Heading";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 const Profile = ({ navigation }: { navigation: any }) => {
 
   const { User } = useSelector((state: any) => state.FetchUser_reducer);
-
 
   return (
     <View style={styles.Container}>

@@ -6,11 +6,9 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   TextInput,
-  Alert,
-  FlatList,
-  StyleSheet
+  Alert
 } from "react-native";
-import { SIZES, COLORS, FONTS, Dpheight } from "../constants/Theame";
+import { SIZES, COLORS } from "../constants/Theame";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Update_Match_Room_Details, Clear_Match_Reducer_Sucess, Clear_Match_Reducer_Error } from "../store/Match/Matchaction";
@@ -18,6 +16,7 @@ import HeadingComp from "./HeadingComp";
 import { Create_withdrawls_request, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../store/Payment/PaymentAction";
 import Textinput from "../screens/Menu/YourGuild/Textinput";
 import Icon from "react-native-vector-icons/Feather";
+import ModalCross from "./ModalCross";
 
 const BottomPopup = ({
   ModalContainerStyle,
@@ -135,6 +134,14 @@ const BottomPopup = ({
     }
   }, [Create_withdrawls_Reducer.Error])
 
+  function Clears_and_Close() {
+    setWithdrawlsAmount(0)
+    setUPI_Id('')
+    setCustom_Room_Name('')
+    setCustom_Room_Password('')
+    setModalVisible(false);
+  }
+
   return (
     <Modal
       animationType="slide"
@@ -149,6 +156,7 @@ const BottomPopup = ({
       }}
     >
       <View style={{ ...ModalContainerStyle }}>
+        <ModalCross setModalVisible={Clears_and_Close} />
         {MatchId ? (
           <View
             style={{

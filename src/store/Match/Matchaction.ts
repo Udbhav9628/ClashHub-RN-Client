@@ -76,6 +76,10 @@ function Update_Match(Data: any, id: any) {
       dispatch({
         type: 'Update_Result_Request',
       });
+
+      Data._id = Data._id.slice(-2);
+      console.log(Data);
+
       const Token: string = (await Return_Token(
         'Update_Result_Fail',
         dispatch,

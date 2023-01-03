@@ -1,4 +1,4 @@
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, SIZES } from '../constants/Theame';
 import Icon from "react-native-vector-icons/AntDesign";

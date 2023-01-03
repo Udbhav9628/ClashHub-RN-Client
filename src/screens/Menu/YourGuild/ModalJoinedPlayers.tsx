@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, Modal, FlatList, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Modal, FlatList, TextInput, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { useEffect } from "react";
 import { COLORS, SIZES, FONTS, Dpheight, DPwidth } from "../../../constants/Theame";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Update_Match, Clear_Match_Reducer_Error, Clear_Match_Reducer_Sucess } from "../../../store/Match/Matchaction";
 import Icon from "react-native-vector-icons/Ionicons";
+import ModalCross from '../../../components/ModalCross';
 
 const ModalJoinedPlayers = ({
     modalVisible,
@@ -129,15 +130,7 @@ const ModalJoinedPlayers = ({
         >
             {/* Header */}
             <View>
-                <View style={styles.CrossSign}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            setModalVisible(!modalVisible);
-                        }}
-                    >
-                        <Icon name="arrow-back" size={28} color="black" />
-                    </TouchableOpacity>
-                </View>
+                <ModalCross setModalVisible={setModalVisible} />
                 <View
                     style={{
                         marginTop: 13,
@@ -283,15 +276,19 @@ const ModalJoinedPlayers = ({
                                     marginHorizontal: SIZES.padding,
                                 }}
                             >
-                                <Text
-                                    style={{
-                                        color: COLORS.white,
-                                        fontWeight: "bold",
-                                        fontSize: SIZES.body3,
-                                    }}
-                                >
-                                    Publish Result
-                                </Text>
+                                {loading ? (
+                                    <ActivityIndicator size="large" color={COLORS.primary} />
+                                ) : (
+                                    <Text
+                                        style={{
+                                            color: COLORS.white,
+                                            fontWeight: "bold",
+                                            fontSize: SIZES.body3,
+                                        }}
+                                    >
+                                        Publish Result
+                                    </Text>
+                                )}
                             </TouchableOpacity>)}
                     </>) : (
                     <View
@@ -353,5 +350,4 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         padding: 15,
     },
-    CrossSign: { position: "absolute", top: 15, left: 20, zIndex: 999 },
 })

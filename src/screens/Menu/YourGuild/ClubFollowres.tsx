@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { COLORS, DPwidth, FONTS, SIZES } from '../../../constants/Theame';
 import Icon from "react-native-vector-icons/Ionicons";
 import { useSelector } from "react-redux";
+import ModalCross from '../../../components/ModalCross';
 
 const ClubFollowres = ({
     modalVisible,
@@ -27,6 +28,11 @@ const ClubFollowres = ({
         setData(SearchedPlayers)
     }
 
+    function Clears_and_Close() {
+        setData(Followers)
+        setModalVisible(false);
+    }
+
     return (
         <Modal
             animationType="slide"
@@ -37,16 +43,7 @@ const ClubFollowres = ({
             }}
         >
             <View>
-                <View style={styles.CrossSign}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            setData(Followers)
-                            setModalVisible(!modalVisible);
-                        }}
-                    >
-                        <Icon name="arrow-back" size={28} color="black" />
-                    </TouchableOpacity>
-                </View>
+                <ModalCross setModalVisible={Clears_and_Close} />
                 <View
                     style={{
                         marginTop: 13,
@@ -169,6 +166,5 @@ const styles = StyleSheet.create({
     Container: {
         backgroundColor: COLORS.white,
         padding: 15,
-    },
-    CrossSign: { position: "absolute", top: 15, left: 20, zIndex: 999 },
+    }
 })

@@ -7,6 +7,7 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import { Update_Match_Video, Clear_Match_Reducer_Sucess, Clear_Match_Reducer_Error } from "../../../store/Match/Matchaction";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
+import ModalCross from '../../../components/ModalCross';
 
 const LiveYtModal = ({
     modalVisible,
@@ -33,6 +34,19 @@ const LiveYtModal = ({
         if (state === 'buffering') {
             setPlayer_Loading(false)
         }
+    }, [])
+
+    const onError = useCallback((Error: any) => {
+        setPlayer_Loading(true)
+        Alert.alert(
+            "Error",
+            Error + "Close and Try Again",
+            [
+                {
+                    text: "OK",
+                },
+            ]
+        );
     }, [])
 
     function youtube_parser(url: string) {
@@ -79,15 +93,20 @@ const LiveYtModal = ({
 
     useEffect(() => {
         if (Error) {
-            setValidate_YT_Link(false)
-            setDisable(false);
-            setModalVisible(!modalVisible);
+            Clears_and_Close()
             Clear_Match_Reducer_Error_Func();
             Alert.alert("Error", Error, [{
                 text: "OK",
             }]);
         }
     }, [Error])
+
+    function Clears_and_Close() {
+        setModalVisible(!modalVisible);
+        setDisable(false)
+        setValidate_YT_Link(false)
+        setYT_Link('')
+    }
 
     return (
         <Modal
@@ -101,6 +120,7 @@ const LiveYtModal = ({
                 setYT_Link('')
             }}
         >
+            <ModalCross setModalVisible={Clears_and_Close} />
             <View style={styles.Container}>
                 <View
                     style={{
@@ -144,6 +164,7 @@ const LiveYtModal = ({
                                     play={true}
                                     videoId={YT_Link}
                                     onChangeState={onChangeState}
+                                    onError={onError}
                                 />
                             </View>
                             <View>
@@ -154,10 +175,10 @@ const LiveYtModal = ({
                                             const RoomData = {
                                                 YT_Video_id: YT_Link
                                             }
-                                            Update_Match_Video_Func(RoomData, MatchId)
+                                            Update_Match_Video_Func(RoomData, MatchId);
                                             setDisable(true);
                                         } else {
-                                            Alert.alert("Message", 'Fill Room Name , Password & Video Link First', [{
+                                            Alert.alert("Message", 'Paste Youtube Video Link', [{
                                                 text: "OK",
                                             }]);
                                         }
@@ -223,7 +244,7 @@ const LiveYtModal = ({
                                 <TouchableOpacity
                                     onPress={() => {
                                         if (YT_Link === '') {
-                                            Alert.alert("Message", 'Fill Room Name & Password First', [{
+                                            Alert.alert("Message", 'Enters Youtube Video Link', [{
                                                 text: "OK",
                                             }]);
                                             return
