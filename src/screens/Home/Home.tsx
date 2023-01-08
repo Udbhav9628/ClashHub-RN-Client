@@ -80,8 +80,8 @@ const Home = ({ navigation }: { navigation: any }) => {
     if (Guild_Error) {
       Clear_Guild_ReducerError();
       Alert.alert(
-        "Guild Error",
-        Guild_Error + "  check ip and running , Reload",
+        "Error",
+        Guild_Error,
         [
           {
             text: "OK",
@@ -216,7 +216,6 @@ const Home = ({ navigation }: { navigation: any }) => {
       <View
         style={{
           height: Dpheight(26.3),
-          marginBottom: 5,
         }}
       >
         {Guild_loading ? (
@@ -257,6 +256,7 @@ const Home = ({ navigation }: { navigation: any }) => {
               <View
                 style={{
                   ...styles.Elevation,
+                  height: Dpheight(20),
                   marginRight:
                     index === All_Guilds.length - 1 ? SIZES.padding : 0,
                 }}
@@ -279,7 +279,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                     }}
                   >
                     <Image
-                      source={{ uri: `https://api.multiavatar.com/${item.GuildName}.png` }}
+                      source={{ uri: `https://api.multiavatar.com/${item._id}.png` }}
                       style={{
                         height: Dpheight(7.5),
                         width: DPwidth(16),

@@ -28,7 +28,7 @@ const Profile = ({ navigation }: { navigation: any }) => {
       </View>
       {/* Stats */}
       <View style={styles.statswrapper}>
-        <View>
+        {/* <View>
           <Text style={styles.statsTitle}>5</Text>
           <Text style={styles.statsCaption}>Match</Text>
         </View>
@@ -39,7 +39,7 @@ const Profile = ({ navigation }: { navigation: any }) => {
         <View>
           <Text style={styles.statsTitle}>&#x20B9;54</Text>
           <Text style={styles.statsCaption}>Earning</Text>
-        </View>
+        </View> */}
       </View>
       {/* Dsahboard */}
       <View style={styles.Elevation}>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginTop: 15,
-    marginBottom: 15,
+    marginBottom: 50,
     marginHorizontal: SIZES.padding,
   },
   statsTitle: {

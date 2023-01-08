@@ -1,13 +1,16 @@
-import { ActivityIndicator, Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react';
-import { COLORS, FONTS, SIZES } from '../../constants/Theame';
+import { ActivityIndicator, Alert, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react';
+import { COLORS, Dpheight, FONTS, SIZES } from '../../constants/Theame';
 import FormInput from '../Auth/FormInput';
 import ModalCross from '../../components/ModalCross';
+import How_To_Find_Username from '../../components/How_To_Find_Username';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PlayerGameNameInputModal = ({
     modalVisible,
     setModalVisible,
     MatchId,
+    MatchType,
     Disable,
     setDisable,
     loading,
@@ -16,12 +19,29 @@ const PlayerGameNameInputModal = ({
     modalVisible: any;
     setModalVisible: any;
     MatchId: any;
+    MatchType: string;
     Disable: any;
     setDisable: any;
     loading: any;
     JoinMatchFunction: Function;
 }) => {
-    const [InGameName, setInGameName] = useState('')
+    const [InGameName, setInGameName] = useState('');
+    const [FindUserName_Moadal, setFindUserName_Moadal] = useState(false);
+
+    async function ReturnDefaultUserName() {
+        console.log('in username');
+        try {
+            let UserName = await AsyncStorage.getItem(MatchType);
+            setInGameName(UserName || '');
+        } catch (error) {
+            setInGameName('');
+        }
+    }
+
+    useEffect(() => {
+        ReturnDefaultUserName()
+    }, [])
+
     return (
         <Modal
             animationType="slide"
@@ -37,7 +57,7 @@ const PlayerGameNameInputModal = ({
                 left: 2,
                 right: 2,
                 margin: 20,
-                height: 250,
+                height: 330,
                 backgroundColor: "white",
                 borderRadius: SIZES.radius,
                 shadowColor: COLORS.black,
@@ -51,7 +71,7 @@ const PlayerGameNameInputModal = ({
             }}>
                 <ModalCross setModalVisible={setModalVisible} />
                 <View style={{
-                    marginTop: 30,
+                    marginTop: 60,
                 }}>
                     <View>
                         <View style={{
@@ -59,35 +79,66 @@ const PlayerGameNameInputModal = ({
                         }}>
                             <Text
                                 style={{
+                                    textAlign: 'center',
+                                    width: '100%',
                                     ...FONTS.h2,
                                     fontWeight: "700",
                                     color: COLORS.black,
                                 }}
                             >
-                                Enter In Game Name
+                                Enter {MatchType} UserName
                             </Text>
+                        </View>
+                        <View>
+                            <How_To_Find_Username modalVisible={FindUserName_Moadal} setModalVisible={setFindUserName_Moadal} MatchType={MatchType} />
+                            <TouchableOpacity
+                                style={{
+                                    padding: 10
+                                }}
+                                onPress={() => {
+                                    setFindUserName_Moadal(true)
+                                }}>
+                                <Text
+                                    style={{
+                                        textAlign: 'center',
+                                        width: '100%',
+                                        ...FONTS.h3,
+                                        fontWeight: "600",
+                                        color: COLORS.primary,
+                                    }}
+                                >
+                                    How To Find ?
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={{
                             paddingHorizontal: 10
                         }}>
-                            <FormInput
-                                containerStyle={{ marginTop: 0 }}
-                                label=""
-                                Placeholder={"Enter Here"}
-                                KeyboardType="default"
-                                autocomplete="off"
-                                maxLength={25}
-                                autoCapatilize={"none"}
-                                secureTextEntry={false}
-                                onchange={(Value: any) => {
-                                    const text = Value.replace(/\s{2,}/g, ' ').trim()
-                                    setInGameName(text)
-                                }}
-                                errorMsg={""}
-                                prepandComponent={null}
-                                appendComponent={null
-                                }
-                            />
+                            <View style={{
+                                height: Dpheight(7),
+                                flexDirection: "row",
+                                paddingHorizontal: SIZES.padding,
+                                marginTop: SIZES.base,
+                                borderRadius: SIZES.radius,
+                                backgroundColor: COLORS.lightGray2,
+                            }}>
+                                <TextInput
+                                    style={{
+                                        width: "100%",
+                                        height: Dpheight(7),
+                                        color: COLORS.black
+                                    }}
+                                    keyboardType="default"
+                                    defaultValue={InGameName}
+                                    placeholder={"Ex -  ༄✿Gᴀᴍᴇʀ࿐"}
+                                    placeholderTextColor={COLORS.gray}
+                                    maxLength={50}
+                                    onChangeText={(Value) => {
+                                        const text = Value.replace(/\s{2,}/g, ' ').trim()
+                                        setInGameName(text)
+                                    }}
+                                />
+                            </View>
                         </View>
                         <TouchableOpacity
                             onPress={() => {
@@ -95,13 +146,14 @@ const PlayerGameNameInputModal = ({
                                     Alert.alert("Alert", "Enter InGame Name Firsr", [{ text: "OK" }]);
                                 }
                                 else {
-                                    Alert.alert("Are You Sure", "You can't Change after Joining Match", [
+                                    Alert.alert("Are You Sure", "You can't Change after Match Joined", [
                                         {
                                             text: "Yes",
-                                            onPress: () => {
+                                            onPress: async () => {
+                                                setDisable(true)
                                                 JoinMatchFunction(MatchId,
                                                     InGameName, MatchId.slice(-2))
-                                                setDisable(true)
+                                                await AsyncStorage.setItem(MatchType, InGameName);
                                             },
 
                                         },

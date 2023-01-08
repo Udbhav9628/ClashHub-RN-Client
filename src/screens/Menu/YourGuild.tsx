@@ -21,6 +21,7 @@ import {
 } from "../../store/Guild/GuildAction";
 import Createguild from "./YourGuild/Createguild";
 import ClubFollowres from "./YourGuild/ClubFollowres";
+import { ScrollView } from "react-native-gesture-handler";
 
 const YourGuild = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
@@ -60,11 +61,11 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={styles.Container}>
+    <ScrollView style={styles.Container}>
       {TempLoading || loading ? (
         <View
           style={{
-            flex: 1,
+            marginTop: '100%',
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -102,22 +103,9 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
               </Text>
             </View>
           </View>
-          <View style={styles.statswrapper}>
-            <View>
-              <Text style={styles.statsTitle}>5</Text>
-              <Text style={styles.statsCaption}>Match</Text>
-            </View>
-            <View>
-              <Text style={styles.statsTitle}>12%</Text>
-              <Text style={styles.statsCaption}>Accuracy</Text>
-            </View>
-            <View>
-              <Text style={styles.statsTitle}>&#x20B9;5454</Text>
-              <Text style={styles.statsCaption}>Income</Text>
-            </View>
-          </View>
           <View
             style={{
+              marginVertical: 15,
               flexDirection: "row",
               justifyContent: "space-evenly",
             }}
@@ -248,7 +236,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
       ) : (
         <Createguild navigation={navigation} />
       )}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -310,13 +298,6 @@ const styles = StyleSheet.create({
     fontSize: SIZES.body3,
     fontWeight: "600",
     color: COLORS.gray,
-  },
-  statswrapper: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    marginTop: 15,
-    marginBottom: 15,
-    marginHorizontal: SIZES.padding,
   },
   statsTitle: {
     textAlign: "center",

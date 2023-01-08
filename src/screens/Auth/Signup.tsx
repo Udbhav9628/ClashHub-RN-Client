@@ -115,7 +115,7 @@ const Signup = ({ navigation }: { navigation: any }) => {
       <View>
         <AuthLayout
           Title={"Getting Started"}
-          SubTitle={"create an account to continue"}
+          SubTitle={"Create an account to continue"}
         />
         <View
           style={{
@@ -128,7 +128,7 @@ const Signup = ({ navigation }: { navigation: any }) => {
           <FormInput
             containerStyle={{ marginTop: SIZES.radius }}
             label="Username"
-            Placeholder={"Choose Your Unique Username"}
+            Placeholder={"Choose Unique Username and Sing Up"}
             KeyboardType="default"
             autocomplete="off"
             maxLength={25}

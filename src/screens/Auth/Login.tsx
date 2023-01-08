@@ -97,7 +97,7 @@ const Login = ({ navigation }: { navigation: any }) => {
       showsHorizontalScrollIndicator={false}
       style={{ backgroundColor: COLORS.white }}
     >
-      <View style={{ marginTop: "0%" }}><AuthLayout Title={"Welcome To ClashHub"} SubTitle={"A Dream Place For Gamers"} />
+      <View style={{ marginTop: "0%" }}><AuthLayout Title={"Welcome To ClashHub"} SubTitle={"Play Host Watch Earn"} />
         <View
           style={{
             marginTop: 370,

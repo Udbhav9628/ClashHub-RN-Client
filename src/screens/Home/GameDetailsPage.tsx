@@ -981,6 +981,7 @@ const GameDetailsPage = ({
               setModalVisible={setPlayerInputModal}
               Disable={Disable}
               MatchId={Item._id}
+              MatchType={Item.Game_Name}
               setDisable={setDisable}
               loading={loading}
               JoinMatchFunction={Join_Match_Action_Func} />
