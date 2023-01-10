@@ -16,9 +16,10 @@ const Profile = ({ navigation }: { navigation: any }) => {
       <View style={styles.Profile}>
         <Image source={{ uri: `${User.PhotoUrl}` }}
           style={{
+            backgroundColor: COLORS.black,
             width: DPwidth(31),
             height: Dpheight(15),
-            borderRadius: Dpheight(455),
+            borderRadius: 500,
             resizeMode: "contain",
           }} />
         <View style={styles.Textwrapper}>

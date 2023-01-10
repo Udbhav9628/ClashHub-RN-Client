@@ -135,7 +135,7 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
                 }}
               >
                 <View style={styles.NotificationWrapper}>
-                  <Image source={{ uri: `https://api.multiavatar.com/${item._id}.png` }}
+                  <Image source={{ uri: `https://api.multiavatar.com/${item.Profile_Pic}.png` }}
                     style={{
                       height: Dpheight(8),
                       width: DPwidth(17),

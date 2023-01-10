@@ -1,16 +1,16 @@
 export const Add_Wallet_Ballance_Reducer = (State = [], action: any) => {
   switch (action.type) {
-    case 'Add_Wallet_Request':
+    case 'Check_Payment_Status_Request':
       return {
         Addloading: true,
       };
-    case 'Add_Wallet_Sucess':
+    case 'Check_Payment_Status_Sucess':
       return {
         Addsucess: true,
         Addloading: false,
         Response: action.payload,
       };
-    case 'Add_Wallet_Fail':
+    case 'Check_Payment_Status_Fail':
       return {
         Addsucess: false,
         Addloading: false,

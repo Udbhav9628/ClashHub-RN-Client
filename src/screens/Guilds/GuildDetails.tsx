@@ -156,7 +156,7 @@ const GuildDetails = ({
       <Heading navigation={navigation} Title={"Guild Details"} />
       <View style={styles.Profile}>
         <Image
-          source={{ uri: `https://api.multiavatar.com/${Item._id}.png` }}
+          source={{ uri: `https://api.multiavatar.com/${Item.Profile_Pic}.png` }}
           style={{
             width: DPwidth(31),
             height: Dpheight(15),

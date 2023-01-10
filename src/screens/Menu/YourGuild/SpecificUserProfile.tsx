@@ -50,22 +50,7 @@ const SpecificUserProfile = ({
                             }} />
                         <View style={styles.Textwrapper}>
                             <Text style={styles.Name}>{Specific_User?.Name}</Text>
-                            <Text style={styles.Caption}>Play, Win and Earn</Text>
-                        </View>
-                    </View>
-                    {/* Stats */}
-                    <View style={styles.statswrapper}>
-                        <View>
-                            <Text style={styles.statsTitle}>5</Text>
-                            <Text style={styles.statsCaption}>Played</Text>
-                        </View>
-                        <View>
-                            <Text style={styles.statsTitle}>12%</Text>
-                            <Text style={styles.statsCaption}>Winrate</Text>
-                        </View>
-                        <View>
-                            <Text style={styles.statsTitle}>&#x20B9;5454</Text>
-                            <Text style={styles.statsCaption}>Income</Text>
+                            <Text style={styles.Caption}>{Specific_User?.UserName}</Text>
                         </View>
                     </View>
                 </>)}
@@ -96,24 +81,6 @@ const styles = StyleSheet.create({
         fontSize: SIZES.Size24,
         color: "#000",
         fontWeight: "bold",
-    },
-    statswrapper: {
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        marginTop: 15,
-        marginBottom: 15,
-        marginHorizontal: SIZES.padding,
-    },
-    statsTitle: {
-        textAlign: "center",
-        fontSize: SIZES.h3,
-        fontWeight: "bold",
-    },
-    statsCaption: {
-        lineHeight: SIZES.h1,
-        fontSize: SIZES.h3,
-        fontWeight: "bold",
-        color: COLORS.gray,
     },
     Caption: {
         textAlign: "center",

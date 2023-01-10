@@ -157,3 +157,35 @@ export const Get_Specific_Club_Reducer = (state = [], action: any) => {
       return state;
   }
 };
+
+export const Update_Club_Pic_Reducer = (state = [], action: any) => {
+  switch (action.type) {
+    case 'Update_Club_Pic_Request':
+      return {
+        loading: true,
+      };
+    case 'Update_Club_Pic_Sucess':
+      return {
+        loading: false,
+        Sucess: true,
+      };
+    case 'Update_Club_Pic_Fail':
+      return {
+        loading: false,
+        Sucess: false,
+        Error: action.payload,
+      };
+    case 'Clear_Guild_Reducer_Error':
+      return {
+        ...state,
+        Error: null,
+      };
+    case 'Clear_Guild_Reducer_Sucess':
+      return {
+        ...state,
+        Sucess: null,
+      };
+    default:
+      return state;
+  }
+};

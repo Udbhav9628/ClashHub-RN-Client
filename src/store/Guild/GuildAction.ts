@@ -165,6 +165,35 @@ function Get_Specific_Club_Details(Club_id: any) {
   };
 }
 
+function Update_Club_Pic(Data: object) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'Update_Club_Pic_Request',
+      });
+      const Token: string = (await Return_Token(
+        'Update_Club_Pic_Fail',
+        dispatch,
+      )) as string;
+      await axios.put(`${Ip_Address}/Update_Club_Pic`, Data, {
+        headers: {
+          'content-type': 'application/json',
+          Accept: 'application/json',
+          authToken: Token,
+        },
+      });
+      dispatch({
+        type: 'Update_Club_Pic_Sucess',
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'Update_Club_Pic_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
 function Clear_Guild_Reducer_Sucess() {
   return (dispatch: any) => {
     dispatch({
@@ -188,4 +217,5 @@ export {
   Clear_Guild_Reducer_Sucess,
   Join_Guild,
   Get_Specific_Club_Details,
+  Update_Club_Pic,
 };

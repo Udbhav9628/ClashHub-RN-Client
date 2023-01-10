@@ -1,44 +1,37 @@
-import { ActivityIndicator, Alert, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react';
-import { COLORS, Dpheight, FONTS, SIZES } from '../../constants/Theame';
-import ModalCross from '../../components/ModalCross';
-import How_To_Find_Username from '../../components/How_To_Find_Username';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { COLORS, Dpheight, FONTS, SIZES } from '../../../constants/Theame';
+import ModalCross from '../../../components/ModalCross';
 
-const PlayerGameNameInputModal = ({
+const PicModal = ({
     modalVisible,
     setModalVisible,
-    MatchId,
-    MatchType,
-    Disable,
-    setDisable,
+    Club_Id,
     loading,
-    JoinMatchFunction,
+    ChangePicFunction
 }: {
-    modalVisible: any;
-    setModalVisible: any;
-    MatchId: any;
-    MatchType: string;
-    Disable: any;
-    setDisable: any;
-    loading: any;
-    JoinMatchFunction: Function;
+    modalVisible: boolean;
+    setModalVisible: Function;
+    Club_Id: any,
+    loading: boolean;
+    ChangePicFunction: Function;
 }) => {
-    const [InGameName, setInGameName] = useState('');
-    const [FindUserName_Moadal, setFindUserName_Moadal] = useState(false);
+    const [PicString, setPicString] = useState('')
 
-    async function ReturnDefaultUserName() {
-        try {
-            let UserName = await AsyncStorage.getItem(MatchType);
-            setInGameName(UserName || '');
-        } catch (error) {
-            setInGameName('');
-        }
+    function ReturnImage() {
+        return (<Image
+            style={{
+                width: "100%",
+                height: "100%",
+            }}
+            loadingIndicatorSource={{ uri: `https://cdn.dribbble.com/users/2346349/screenshots/9246147/loading.gif` }}
+            source={{ uri: `https://api.multiavatar.com/${PicString || "hu"}.png` }}
+        />)
     }
-
     useEffect(() => {
-        ReturnDefaultUserName()
-    }, [])
+        ReturnImage()
+    }, [PicString])
 
     return (
         <Modal
@@ -55,7 +48,7 @@ const PlayerGameNameInputModal = ({
                 left: 2,
                 right: 2,
                 margin: 20,
-                height: 330,
+                height: 400,
                 backgroundColor: "white",
                 borderRadius: SIZES.radius,
                 shadowColor: COLORS.black,
@@ -74,6 +67,7 @@ const PlayerGameNameInputModal = ({
                     <View>
                         <View style={{
                             alignItems: 'center',
+                            marginBottom: 20,
                         }}>
                             <Text
                                 style={{
@@ -84,36 +78,24 @@ const PlayerGameNameInputModal = ({
                                     color: COLORS.black,
                                 }}
                             >
-                                Enter {MatchType} UserName
+                                Change Profile Picture
                             </Text>
                         </View>
-                        <View>
-                            <How_To_Find_Username modalVisible={FindUserName_Moadal} setModalVisible={setFindUserName_Moadal} MatchType={MatchType} />
-                            <TouchableOpacity
-                                style={{
-                                    padding: 10
-                                }}
-                                onPress={() => {
-                                    setFindUserName_Moadal(true)
-                                }}>
-                                <Text
-                                    style={{
-                                        textAlign: 'center',
-                                        width: '100%',
-                                        ...FONTS.h3,
-                                        fontWeight: "600",
-                                        color: COLORS.primary,
-                                    }}
-                                >
-                                    How To Find ?
-                                </Text>
-                            </TouchableOpacity>
+                        <View style={{
+                            alignSelf: 'center',
+                            width: 60,
+                            height: 60,
+                            borderRadius: 50,
+                            marginBottom: 10,
+                            backgroundColor: COLORS.black
+                        }}>
+                            {ReturnImage()}
                         </View>
                         <View style={{
                             paddingHorizontal: 10
                         }}>
                             <View style={{
-                                height: Dpheight(7),
+                                height: 58,
                                 flexDirection: "row",
                                 paddingHorizontal: SIZES.padding,
                                 marginTop: SIZES.base,
@@ -123,45 +105,35 @@ const PlayerGameNameInputModal = ({
                                 <TextInput
                                     style={{
                                         width: "100%",
-                                        height: Dpheight(7),
+                                        height: 58,
                                         color: COLORS.black
                                     }}
                                     keyboardType="default"
-                                    defaultValue={InGameName}
-                                    placeholder={"Ex -  ༄✿Gᴀᴍᴇʀ࿐"}
+                                    defaultValue={PicString}
+                                    placeholder={"Enter Anything and Pic Would Change"}
                                     placeholderTextColor={COLORS.gray}
                                     maxLength={50}
                                     onChangeText={(Value) => {
                                         const text = Value.replace(/\s{2,}/g, ' ').trim()
-                                        setInGameName(text)
+                                        setPicString(text)
                                     }}
                                 />
                             </View>
                         </View>
                         <TouchableOpacity
                             onPress={() => {
-                                if (InGameName === "") {
-                                    Alert.alert("Alert", "Enter InGame Name First", [{ text: "OK" }]);
+                                if (PicString === "") {
+                                    Alert.alert("Alert", "Enter Anything First", [{ text: "OK" }]);
                                 }
                                 else {
-                                    Alert.alert("Are You Sure", "You can't Change after Match Joined", [
-                                        {
-                                            text: "Yes",
-                                            onPress: async () => {
-                                                setDisable(true)
-                                                JoinMatchFunction(MatchId,
-                                                    InGameName, MatchId.slice(-2))
-                                                await AsyncStorage.setItem(MatchType, InGameName);
-                                            },
-
-                                        },
-                                        {
-                                            text: "Cancel"
-                                        }
-                                    ]);
+                                    const Data = {
+                                        Club_Id,
+                                        PicString
+                                    }
+                                    ChangePicFunction(Data)
                                 }
                             }}
-                            disabled={Disable}
+                            disabled={loading}
                             style={{
                                 alignSelf: 'center',
                                 height: 53,
@@ -171,7 +143,7 @@ const PlayerGameNameInputModal = ({
                                 marginTop: SIZES.padding,
                                 marginBottom: 30,
                                 borderRadius: SIZES.radius,
-                                backgroundColor: Disable
+                                backgroundColor: loading
                                     ? COLORS.transparentPrimray
                                     : COLORS.primary,
                                 marginHorizontal: SIZES.padding,
@@ -187,7 +159,7 @@ const PlayerGameNameInputModal = ({
                                         fontSize: SIZES.h2,
                                     }}
                                 >
-                                    Join
+                                    Set
                                 </Text>
                             )}
                         </TouchableOpacity>
@@ -198,4 +170,4 @@ const PlayerGameNameInputModal = ({
     )
 }
 
-export default PlayerGameNameInputModal;
+export default PicModal;

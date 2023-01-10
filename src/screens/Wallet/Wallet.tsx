@@ -19,7 +19,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { GetUserWalletBallance, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../../store/Payment/PaymentAction";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { Gernerate_Razorpay_Token, Add_Wallet_Ballance } from "../../store/Payment/PaymentAction";
+import { Gernerate_Razorpay_Token, Check_Payment_Status } from "../../store/Payment/PaymentAction";
 import TransctionModal from "./TransctionModal";
 import BottomPopup from "../../components/BottomPopup";
 import RazorpayCheckout from 'react-native-razorpay';
@@ -49,8 +49,8 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     dispatch
   );
 
-  const Add_Wallet_Ballance_FUNC = bindActionCreators(
-    Add_Wallet_Ballance,
+  const Check_Payment_Status_FUNC = bindActionCreators(
+    Check_Payment_Status,
     dispatch
   );
 
@@ -67,11 +67,10 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     (state: any) => state.Razorpay_Token_Reducer
   );
 
-  useEffect(() => {
-    if (Tsucess) {
-      Clear_Payment_Reducer_Sucess_Func();
+  async function CheckOut() {
+    try {
       var options = {
-        image: 'https://i.imgur.com/3g7nmJC.png',
+        image: 'https://i.pinimg.com/550x/71/1e/f7/711ef72cd86faa5e489ce9c908f27721.jpg',
         currency: 'INR',
         key: RazorPay_Token.key_id,
         amount: (RazorPay_Token.order.amount_due),
@@ -80,14 +79,18 @@ const Wallet = ({ navigation }: { navigation: any }) => {
         theme: { color: COLORS.primary }
       }
       setTempLoading(false)
-      RazorpayCheckout.open(options).then((data: any) => {
-        const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = data;
+      const Data = await RazorpayCheckout.open(options);
+      console.log(Data);
+      Check_Payment_Status_FUNC(Data.razorpay_order_id);
+    } catch (error: any) {
+      Alert.alert("Msg", `Payment Cancelled`, [{ text: "OK" }]);
+    }
+  }
 
-        Add_Wallet_Ballance_FUNC(razorpay_payment_id, `Successfully added To Wallet`, true, Date.now(), razorpay_payment_id, razorpay_order_id, razorpay_signature);
-      }).catch((error: any) => {
-        const errorhai = JSON.parse(error.description);
-        Alert.alert("Error", `${errorhai.error.description}`, [{ text: "OK" }]);
-      });
+  useEffect(() => {
+    if (Tsucess) {
+      Clear_Payment_Reducer_Sucess_Func();
+      CheckOut();
     }
   }, [Tsucess])
 
@@ -116,7 +119,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     }
   }, [Error])
 
-  const { Addloading, Addsucess, AddError } = useSelector(
+  const { Addloading, Addsucess } = useSelector(
     (state: any) => state.Add_Wallet_Ballance_Reducer
   );
 
@@ -129,14 +132,6 @@ const Wallet = ({ navigation }: { navigation: any }) => {
       })
     }
   }, [Addsucess])
-
-  //Add Money Fail
-  useEffect(() => {
-    if (AddError) {
-      Clear_Payment_Reducer_Error_Func()
-      Alert.alert("Payment Faild!", 'Content Us, if Money got duducted from your Bank Account, we will make you refund', [{ text: "OK" }]);
-    }
-  }, [AddError])
 
   const [refreshing, setRefreshing] = React.useState(false);
   const wait = (timeout: any) => {
@@ -253,7 +248,7 @@ const Wallet = ({ navigation }: { navigation: any }) => {
                           color: COLORS.white,
                         }}
                       >
-                        @Munde_665
+                        ClashHub
                       </Text>
                     </View>
                     {/* Tag Line */}

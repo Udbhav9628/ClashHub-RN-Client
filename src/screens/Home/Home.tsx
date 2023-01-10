@@ -242,7 +242,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                 fontWeight: "700",
               }}
             >
-              No Guilds Available
+              No Clubs
             </Text>
           </View>
         ) : (
@@ -279,7 +279,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                     }}
                   >
                     <Image
-                      source={{ uri: `https://api.multiavatar.com/${item._id}.png` }}
+                      source={{ uri: `https://api.multiavatar.com/${item.Profile_Pic}.png` }}
                       style={{
                         height: Dpheight(7.5),
                         width: DPwidth(16),

@@ -12,16 +12,20 @@ import { SIZES, COLORS, DPwidth, Dpheight } from "../../constants/Theame";
 import Heading from "../../components/Heading";
 import Icon from "react-native-vector-icons/Ionicons";
 import Icons from "react-native-vector-icons/FontAwesome5";
+import Iconss from "react-native-vector-icons/MaterialCommunityIcons";
 import ModalScreen from "./YourGuild/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
   getUserGuildDetails,
+  Update_Club_Pic,
   Clear_Guild_Reducer_Error,
+  Clear_Guild_Reducer_Sucess
 } from "../../store/Guild/GuildAction";
 import Createguild from "./YourGuild/Createguild";
 import ClubFollowres from "./YourGuild/ClubFollowres";
 import { ScrollView } from "react-native-gesture-handler";
+import PicModal from "./YourGuild/PicModal";
 
 const YourGuild = ({ navigation }: { navigation: any }) => {
   const [TempLoading, setTempLoading] = useState(true);
@@ -39,10 +43,52 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
     dispatch
   );
 
+  const Clear_Guild_ReducerSucess = bindActionCreators(
+    Clear_Guild_Reducer_Sucess,
+    dispatch
+  );
+
   useEffect(() => {
     Fetch_User_Guild_Details();
     setTempLoading(false);
   }, [])
+
+  const [PicModal_Visible, setPicModal_Visible] = useState(false)
+
+  const Update_Club_Pic_Func = bindActionCreators(
+    Update_Club_Pic,
+    dispatch
+  );
+
+  const Pic_Reducer = useSelector(
+    (state: any) => state.Update_Club_Pic_Reducer
+  );
+
+  useEffect(() => {
+    if (Pic_Reducer.Sucess) {
+      Clear_Guild_ReducerSucess();
+      Alert.alert("Sucess", "Profile Picture Changed", [
+        {
+          text: "OK",
+          onPress: () => {
+            setPicModal_Visible(false)
+            navigation.goBack()
+          },
+        },
+      ]);
+    }
+  }, [Pic_Reducer.Sucess]);
+
+  useEffect(() => {
+    if (Pic_Reducer.Error) {
+      Clear_Guild_ReducerError();
+      Alert.alert("Error", Pic_Reducer.Error, [
+        {
+          text: "OK",
+        },
+      ]);
+    }
+  }, [Pic_Reducer.Error]);
 
 
   useEffect(() => {
@@ -82,14 +128,33 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
           />
           <Heading navigation={navigation} Title={"Your Club"} />
           <View style={styles.Profile}>
-            <Image
-              source={{ uri: `https://api.multiavatar.com/${Guild_Details._id}.png` }}
-              style={{
-                width: DPwidth(31),
-                height: Dpheight(15),
-                borderRadius: Dpheight(455),
-              }}
-            />
+            <PicModal modalVisible={PicModal_Visible}
+              setModalVisible={setPicModal_Visible}
+              Club_Id={Guild_Details._id}
+              loading={Pic_Reducer.loading}
+              ChangePicFunction={Update_Club_Pic_Func} />
+            <TouchableOpacity style={{
+              width: DPwidth(31),
+              height: Dpheight(15),
+              marginBottom: 10,
+            }}
+              onPress={() => setPicModal_Visible(true)}>
+              <View style={{
+                position: "absolute",
+                top: 0,
+                right: 0,
+                zIndex: 500
+              }}>
+                <Iconss name="tooltip-edit" size={28} color="black" />
+              </View>
+              <Image
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+                source={{ uri: `https://api.multiavatar.com/${Guild_Details.Profile_Pic}.png` }}
+              />
+            </TouchableOpacity>
             <View
               style={{
                 marginTop: 10,

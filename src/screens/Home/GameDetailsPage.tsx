@@ -479,7 +479,7 @@ const GameDetailsPage = ({
                   height: Dpheight(4),
                   resizeMode: "contain",
                 }}
-                source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?._id}.png` }}
+                source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?.Profile_Pic}.png` }}
               />
               <View style={style.GuildInfo}>
                 <View>
@@ -943,7 +943,7 @@ const GameDetailsPage = ({
                     height: Dpheight(4),
                     resizeMode: "contain",
                   }}
-                  source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?._id}.png` }}
+                  source={{ uri: `https://api.multiavatar.com/${Get_Specific_Club_Reducer?.Responce?.Profile_Pic}.png` }}
                 />
                 <View style={style.GuildInfo}>
                   <View>

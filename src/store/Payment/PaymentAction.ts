@@ -63,36 +63,18 @@ function Gernerate_Razorpay_Token(Amount: Number) {
   };
 }
 
-function Add_Wallet_Ballance(
-  Transaction_Id: any,
-  Message: String,
-  Type: Boolean,
-  Date: any,
-  razorpay_payment_id: any,
-  razorpay_order_id: any,
-  razorpay_signature: any,
-) {
+function Check_Payment_Status(razorpay_order_id: string) {
   return async function (dispatch: any) {
     try {
       dispatch({
-        type: 'Add_Wallet_Request',
+        type: 'Check_Payment_Status_Request',
       });
-
       const Token: string = (await Return_Token(
-        'Add_Wallet_Fail',
+        'Check_Payment_Status_Fail',
         dispatch,
       )) as string;
-      const response = await axios.put(
-        `${Ip_Address}/AddingCoins`,
-        {
-          Transaction_Id,
-          Message,
-          Date,
-          Type,
-          razorpay_payment_id,
-          razorpay_order_id,
-          razorpay_signature,
-        },
+      const response = await axios.get(
+        `${Ip_Address}/GetPaymentStatus/${razorpay_order_id}`,
         {
           headers: {
             'content-type': 'application/json',
@@ -102,12 +84,12 @@ function Add_Wallet_Ballance(
         },
       );
       dispatch({
-        type: 'Add_Wallet_Sucess',
+        type: 'Check_Payment_Status_Sucess',
         payload: response.data,
       });
     } catch (error: any) {
       dispatch({
-        type: 'Add_Wallet_Fail',
+        type: 'Check_Payment_Status_Fail',
         payload: error.message,
       });
     }
@@ -267,7 +249,7 @@ function Clear_Payment_Reducer_Sucess() {
 }
 
 export {
-  Add_Wallet_Ballance,
+  Check_Payment_Status,
   GetUserWalletBallance,
   Clear_Payment_Reducer_Error,
   Clear_Payment_Reducer_Sucess,

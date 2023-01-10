@@ -50,6 +50,8 @@ const How_To_Find_Username = ({
                                 style={{
                                     fontSize: SIZES.h2,
                                     fontWeight: "bold",
+                                    fontFamily: 'Poppins-SemiBold',
+                                    color: COLORS.black,
                                 }}
                             >
                                 How To Find Username
@@ -59,32 +61,36 @@ const How_To_Find_Username = ({
                             marginTop: 20,
                         }}>
                             <Text style={{
+                                fontFamily: 'Poppins-SemiBold',
+                                fontSize: 17,
+                                fontWeight: "700",
+                                color: COLORS.black,
                                 marginBottom: 10
-                            }}>STEP 1  After Opening The {MatchType} App, Go To Profile Section</Text>
+                            }}>STEP 1  After Opening The {MatchType} App, Go To Upper Left Corner (Profile Section)</Text>
                             <Image source={Icons.Crousal} style={styles.Image} />
                         </View>
                         <View style={{
                             marginTop: 30,
                         }}>
                             <Text style={{
+                                fontFamily: 'Poppins-SemiBold',
+                                fontSize: 17,
+                                fontWeight: "700",
+                                color: COLORS.black,
                                 marginBottom: 10
-                            }}>STEP 1  After Opening The {MatchType} App, Go To Profile Section</Text>
+                            }}>STEP 2  Find and Copy In Game Username</Text>
                             <Image source={Icons.Crousal} style={styles.Image} />
                         </View>
                         <View style={{
                             marginTop: 30,
                         }}>
                             <Text style={{
+                                fontFamily: 'Poppins-SemiBold',
+                                fontSize: 17,
+                                fontWeight: "700",
+                                color: COLORS.black,
                                 marginBottom: 10
-                            }}>STEP 1  After Opening The {MatchType} App, Go To Profile Section</Text>
-                            <Image source={Icons.Crousal} style={styles.Image} />
-                        </View>
-                        <View style={{
-                            marginTop: 30,
-                        }}>
-                            <Text style={{
-                                marginBottom: 10
-                            }}>STEP 1  After Opening The {MatchType} App, Go To Profile Section</Text>
+                            }}>STEP 3 Comeback to ClashHub app and Paste Username</Text>
                             <Image source={Icons.Crousal} style={styles.Image} />
                         </View>
                     </View>

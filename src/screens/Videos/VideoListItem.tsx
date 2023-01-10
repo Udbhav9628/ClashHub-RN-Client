@@ -186,7 +186,7 @@ const VideoListItem = ({
                 {/* Title row */}
                 <View style={styles.titleRow}>
                     {/* Avatar */}
-                    <Image style={styles.avatar} source={{ uri: `https://api.multiavatar.com/${Item.GuildId}.png` }} />
+                    <Image style={styles.avatar} source={{ uri: `https://api.multiavatar.com/${Item.Profile_Pic}.png` }} />
                     <View style={styles.midleContainer}>
                         <Text style={styles.title}>{`${Item._id.slice(-2)} ${Item.Game_Name} ${Item.GameType}`} Match</Text>
                         <View>

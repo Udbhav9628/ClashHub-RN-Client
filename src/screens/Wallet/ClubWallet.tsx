@@ -123,7 +123,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                                 color: COLORS.white,
                                             }}
                                         >
-                                            @Munde_665
+                                            ClashHub
                                         </Text>
                                     </View>
                                     {/* Tag Line */}
