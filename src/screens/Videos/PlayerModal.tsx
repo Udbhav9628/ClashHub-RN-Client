@@ -561,7 +561,9 @@ const PlayerModal = ({
                                 <Image source={ReturnGameImage(Item.Game_Name)} style={styles.InfoWrapperImage} />
                             </View>
                         </View>
-                        <View>
+                        <View style={{
+                            marginBottom: 150
+                        }}>
                             {/* Hosted By */}
                             <View style={{ marginHorizontal: SIZES.padding, marginTop: Dpheight(8) }}>
                                 <Text style={{
@@ -638,7 +640,10 @@ const PlayerModal = ({
                                                 Match={Item} />
                                         </View>
                                         <TouchableOpacity
-                                            onPress={() => { setJoinedPlayermodal(true) }}>
+                                            onPress={() => {
+                                                setPlayVid(false)
+                                                setJoinedPlayermodal(true)
+                                            }}>
                                             <View style={styles.GuildWrapper}>
                                                 <View style={{ margin: 10 }}><Icon name="users" size={Dpheight(3)} color="black" /></View>
                                                 {/* Info Of Guild */}
@@ -916,7 +921,9 @@ const PlayerModal = ({
                                     <Image source={ReturnGameImage(Item.Game_Name)} style={styles.InfoWrapperImage} />
                                 </View>
                             </View>
-                            <View>
+                            <View style={{
+                                marginBottom: 150
+                            }}>
                                 {/* Hosted By */}
                                 <View style={{ marginHorizontal: SIZES.padding, marginTop: Dpheight(8) }}>
                                     <Text style={{
@@ -993,7 +1000,10 @@ const PlayerModal = ({
                                                     Match={Item} />
                                             </View>
                                             <TouchableOpacity
-                                                onPress={() => { setJoinedPlayermodal(true) }}>
+                                                onPress={() => {
+                                                    setPlayVid(false)
+                                                    setJoinedPlayermodal(true)
+                                                }}>
                                                 <View style={styles.GuildWrapper}>
                                                     <View style={{ margin: 10 }}><Icon name="users" size={Dpheight(3)} color="black" /></View>
                                                     {/* Info Of Guild */}

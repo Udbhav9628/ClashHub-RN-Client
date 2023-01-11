@@ -78,12 +78,12 @@ const Wallet = ({ navigation }: { navigation: any }) => {
         order_id: RazorPay_Token.order.id,
         theme: { color: COLORS.primary }
       }
-      setTempLoading(false)
       const Data = await RazorpayCheckout.open(options);
-      console.log(Data);
       Check_Payment_Status_FUNC(Data.razorpay_order_id);
     } catch (error: any) {
       Alert.alert("Msg", `Payment Cancelled`, [{ text: "OK" }]);
+    } finally {
+      setTempLoading(false)
     }
   }
 
@@ -119,17 +119,21 @@ const Wallet = ({ navigation }: { navigation: any }) => {
     }
   }, [Error])
 
-  const { Addloading, Addsucess } = useSelector(
+  const { Addloading, Addsucess, Response } = useSelector(
     (state: any) => state.Add_Wallet_Ballance_Reducer
   );
 
   //Add Money Sucess
   useEffect(() => {
     if (Addsucess) {
-      Clear_Payment_Reducer_Sucess_Func()
-      navigation.navigate("PaymentSucess", {
-        Matched_Joined: false
-      })
+      Clear_Payment_Reducer_Sucess_Func();
+      if (Response === 253) {
+        Alert.alert("Processing Payment!", "Amount Will be Added to Wallet Shortly! Check Back Later. If not Please reach out to us, We will make you Refund,     Sorry for the inconvenince", [{ text: "OK" }]);
+      } else {
+        navigation.navigate("PaymentSucess", {
+          Matched_Joined: false
+        })
+      }
     }
   }, [Addsucess])
 

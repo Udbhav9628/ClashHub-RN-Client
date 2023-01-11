@@ -84,7 +84,7 @@ const PlayerGameNameInputModal = ({
                                     color: COLORS.black,
                                 }}
                             >
-                                Enter {MatchType} UserName
+                                Enter {MatchType} In-Game Name
                             </Text>
                         </View>
                         <View>

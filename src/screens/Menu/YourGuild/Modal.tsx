@@ -252,6 +252,7 @@ const ModalScreen = ({
                 style={{
                   fontSize: SIZES.h2,
                   fontWeight: "bold",
+                  color: COLORS.black,
                 }}
               >
                 Let's Create Match
@@ -300,7 +301,7 @@ const ModalScreen = ({
               <Text
                 style={{
                   backgroundColor: COLORS.lightGray2,
-                  color: COLORS.gray,
+                  color: COLORS.black,
                   fontWeight: "500",
                   fontSize: SIZES.body4,
                 }}
@@ -336,7 +337,7 @@ const ModalScreen = ({
               <Text
                 style={{
                   backgroundColor: COLORS.lightGray2,
-                  color: COLORS.gray,
+                  color: COLORS.black,
                   fontWeight: "500",
                   fontSize: SIZES.body4,
                 }}
@@ -372,7 +373,7 @@ const ModalScreen = ({
               <Text
                 style={{
                   backgroundColor: COLORS.lightGray2,
-                  color: COLORS.gray,
+                  color: COLORS.black,
                   fontWeight: "500",
                   fontSize: SIZES.body4,
                 }}
@@ -408,7 +409,7 @@ const ModalScreen = ({
               <Text
                 style={{
                   backgroundColor: COLORS.lightGray2,
-                  color: COLORS.gray,
+                  color: COLORS.black,
                   fontWeight: "500",
                   fontSize: SIZES.body4,
                 }}
@@ -470,7 +471,7 @@ const ModalScreen = ({
               <Text
                 style={{
                   backgroundColor: COLORS.lightGray2,
-                  color: COLORS.gray,
+                  color: COLORS.black,
                   fontWeight: "500",
                   fontSize: SIZES.body4,
                 }}
@@ -492,7 +493,7 @@ const ModalScreen = ({
               <Text
                 style={{
                   backgroundColor: COLORS.lightGray2,
-                  color: COLORS.gray,
+                  color: COLORS.black,
                   fontWeight: "500",
                   fontSize: SIZES.body4,
                 }}

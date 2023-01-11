@@ -915,7 +915,7 @@ const GameDetailsPage = ({
             <View style={{
               marginHorizontal: SIZES.padding,
               marginTop: 140,
-              marginBottom: 100
+              marginBottom: 300
             }}>
               <Text style={{
                 fontFamily: 'Poppins-SemiBold', fontSize: 19,

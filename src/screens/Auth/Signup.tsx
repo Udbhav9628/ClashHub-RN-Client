@@ -120,7 +120,7 @@ const Signup = ({ navigation }: { navigation: any }) => {
         <View
           style={{
             flex: 1,
-            marginTop: 270,
+            marginTop: 220,
             paddingHorizontal: 22,
           }}
         >
@@ -128,7 +128,7 @@ const Signup = ({ navigation }: { navigation: any }) => {
           <FormInput
             containerStyle={{ marginTop: SIZES.radius }}
             label="Username"
-            Placeholder={"Choose Unique Username and Sing Up"}
+            Placeholder={"Choose Unique Username"}
             KeyboardType="default"
             autocomplete="off"
             maxLength={25}

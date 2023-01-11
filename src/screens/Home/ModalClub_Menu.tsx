@@ -127,8 +127,7 @@ const ModalClub_Menu = ({
                     bottom: -8,
                     left: 2,
                     right: 2,
-                    height: Dpheight(11),
-                    backgroundColor: "white",
+                    height: 150,
                     borderRadius: SIZES.radius,
                     shadowColor: COLORS.black,
                     shadowOpacity: 0.25,
@@ -140,6 +139,7 @@ const ModalClub_Menu = ({
                     },
                 }}>
                     <View style={styles.container}>
+                        <ModalCross setModalVisible={Clears_and_Close} />
                         <View style={styles.menuWrapper}>
                             <TouchableOpacity
                                 style={styles.menuTouchableOpacity}
@@ -167,7 +167,7 @@ export default ModalClub_Menu
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: COLORS.white,
+        backgroundColor: COLORS.lightGray2,
         flex: 1,
     },
     Menutitle: {

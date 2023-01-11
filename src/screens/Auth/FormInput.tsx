@@ -38,7 +38,7 @@ const FormInput = ({
       {/* Label and Erros Msg Section*/}
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Text
-          style={{ color: COLORS.gray, fontSize: SIZES.body3 }}
+          style={{ color: COLORS.black, fontSize: SIZES.body3 }}
         >
           {label}
         </Text>

@@ -40,6 +40,7 @@ const Player = ({
         return () => {
             if (subscription && modalVisible) {
                 subscription.remove();
+                setPlayVid(false)
             }
         }
     }, [modalVisible])

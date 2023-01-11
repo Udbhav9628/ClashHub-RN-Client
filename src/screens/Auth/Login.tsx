@@ -100,7 +100,7 @@ const Login = ({ navigation }: { navigation: any }) => {
       <View style={{ marginTop: "0%" }}><AuthLayout Title={"Welcome To ClashHub"} SubTitle={"Play Host Watch Earn"} />
         <View
           style={{
-            marginTop: 370,
+            marginTop: 320,
             paddingHorizontal: SIZES.padding,
           }}
         >

@@ -56,8 +56,6 @@ function Fetch_Home_Page_Matchs() {
           },
         },
       );
-      console.log(response.status);
-
       dispatch({
         type: 'Get_Home_Page_Matches_Sucess',
         payload: response.data.Data,

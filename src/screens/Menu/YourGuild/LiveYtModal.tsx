@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, AppState, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react'
 import { SIZES, COLORS } from '../../../constants/Theame';
 import Textinput from './Textinput';
@@ -27,14 +27,40 @@ const LiveYtModal = ({
 
     const [YT_Link, setYT_Link] = useState('');
     const [Validate_YT_Link, setValidate_YT_Link] = useState(false)
-
+    const [PlayVid, setPlayVid] = useState(false);
     const [Player_Loading, setPlayer_Loading] = useState(false)
 
-    const onChangeState = useCallback((state: any) => {
-        if (state === 'buffering') {
+    const onChangeState = (state: any) => {
+        console.log(state);
+
+        if (state === 'buffering' && modalVisible) {
             setPlayer_Loading(false)
         }
-    }, [])
+        if (state === 'playing' && modalVisible) {
+            setPlayVid(true)
+        }
+    }
+
+    function Handle_AppState_Change(nextAppState: any) {
+        if (nextAppState === 'background') {
+            setPlayVid(false);
+        }
+    }
+
+    let subscription: any;
+    useEffect(() => {
+        if (modalVisible) {
+            setPlayVid(true)
+            subscription = AppState.addEventListener('change', Handle_AppState_Change)
+        }
+        return () => {
+            if (subscription && modalVisible) {
+                console.log('in This for u');
+                subscription.remove();
+                setPlayVid(false)
+            }
+        }
+    }, [modalVisible])
 
     const onError = useCallback((Error: any) => {
         setPlayer_Loading(true)
@@ -102,6 +128,7 @@ const LiveYtModal = ({
     }, [Error])
 
     function Clears_and_Close() {
+        setPlayVid(false);
         setModalVisible(!modalVisible);
         setDisable(false)
         setValidate_YT_Link(false)
@@ -114,10 +141,7 @@ const LiveYtModal = ({
             transparent={true}
             visible={modalVisible}
             onRequestClose={() => {
-                setModalVisible(!modalVisible);
-                setDisable(false)
-                setValidate_YT_Link(false)
-                setYT_Link('')
+                Clears_and_Close();
             }}
         >
             <ModalCross setModalVisible={Clears_and_Close} />
@@ -161,7 +185,7 @@ const LiveYtModal = ({
                             <View>
                                 <YoutubePlayer
                                     height={300}
-                                    play={true}
+                                    play={PlayVid}
                                     videoId={YT_Link}
                                     onChangeState={onChangeState}
                                     onError={onError}

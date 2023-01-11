@@ -24,11 +24,6 @@ import axios from 'axios';
 import { Return_Token } from '../../utils/Utils';
 
 const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
-  const [refreshing, setRefreshing] = React.useState(false);
-  const wait = (timeout: any) => {
-    return new Promise((resolve) => setTimeout(resolve, timeout));
-  }
-
   const onRefresh = React.useCallback(() => {
     setloading(true)
     FetchData(SelectedMenu, 1, true)
@@ -126,7 +121,7 @@ const MyJoinedMatches = ({ navigation }: { navigation: any }) => {
         <ScrollView
           refreshControl={
             <RefreshControl
-              refreshing={refreshing}
+              refreshing={loading}
               onRefresh={onRefresh}
             />
           }

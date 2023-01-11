@@ -1,7 +1,6 @@
-import { Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Modal, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { COLORS, SIZES } from '../constants/Theame';
-import Icon from "react-native-vector-icons/Ionicons";
 import ModalCross from './ModalCross';
 import Icons from '../constants/Icons';
 
@@ -14,6 +13,16 @@ const How_To_Find_Username = ({
     setModalVisible: Function;
     MatchType: string;
 }) => {
+    function Return_UserName_Img(Typeof_Match: string) {
+        switch (Typeof_Match) {
+            case "FreeFire Max":
+                return Icons.Max_UserName
+            case "BGMI":
+                return Icons.BGMI_UserName
+            case "CODM":
+                return Icons.CODM_UserName
+        }
+    }
     return (
         <Modal
             animationType="slide"
@@ -66,32 +75,8 @@ const How_To_Find_Username = ({
                                 fontWeight: "700",
                                 color: COLORS.black,
                                 marginBottom: 10
-                            }}>STEP 1  After Opening The {MatchType} App, Go To Upper Left Corner (Profile Section)</Text>
-                            <Image source={Icons.Crousal} style={styles.Image} />
-                        </View>
-                        <View style={{
-                            marginTop: 30,
-                        }}>
-                            <Text style={{
-                                fontFamily: 'Poppins-SemiBold',
-                                fontSize: 17,
-                                fontWeight: "700",
-                                color: COLORS.black,
-                                marginBottom: 10
-                            }}>STEP 2  Find and Copy In Game Username</Text>
-                            <Image source={Icons.Crousal} style={styles.Image} />
-                        </View>
-                        <View style={{
-                            marginTop: 30,
-                        }}>
-                            <Text style={{
-                                fontFamily: 'Poppins-SemiBold',
-                                fontSize: 17,
-                                fontWeight: "700",
-                                color: COLORS.black,
-                                marginBottom: 10
-                            }}>STEP 3 Comeback to ClashHub app and Paste Username</Text>
-                            <Image source={Icons.Crousal} style={styles.Image} />
+                            }}>STEP 1  After Opening The {MatchType} App, Go To Upper Left Corner (Profile Section) and Copy the In-Game Name</Text>
+                            <Image source={Return_UserName_Img(MatchType)} style={styles.Image} />
                         </View>
                     </View>
                 </View>

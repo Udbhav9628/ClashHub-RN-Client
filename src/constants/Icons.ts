@@ -8,6 +8,11 @@ const BGMI = require('../Assets/Images/BgmiIndia.jpg');
 const FFMax = require('../Assets/Images/FFMax3.png');
 const CommingSoon = require('../Assets/Images/soon.png');
 
+//UserNames
+const BGMI_UserName = require('../Assets/icons/BGMI_UserName.jpg');
+const CODM_UserName = require('../Assets/icons/CODM_Username.jpg');
+const Max_UserName = require('../Assets/icons/Max_Username.jpg');
+
 // Game Images
 const Crousal = require('../Assets/Images/crousal1.jpg');
 const PubgGameType = require('../Assets/Images/Pubg.jpg');
@@ -32,4 +37,7 @@ export default {
   BGMI,
   FFMax,
   CommingSoon,
+  BGMI_UserName,
+  CODM_UserName,
+  Max_UserName,
 };

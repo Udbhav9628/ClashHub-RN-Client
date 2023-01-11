@@ -59,7 +59,7 @@ const Textinput = ({
           }}
           maxLength={maxLength}
           placeholder={Placeholder}
-          placeholderTextColor={COLORS.gray}
+          placeholderTextColor={COLORS.black}
           keyboardType={KeyboardType}
           autoCapitalize={autoCapatilize}
           onChangeText={(Value) => {

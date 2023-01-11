@@ -70,7 +70,7 @@ const Createguild = ({ navigation }: { navigation: any }) => {
   useEffect(() => {
     if (sucess) {
       Clear_Guild_Sucess();
-      Alert.alert("Message", "Guild Created Sucessfully", [
+      Alert.alert("Message", "Club Created Sucessfully", [
         {
           text: "OK",
           onPress: () => {
@@ -102,7 +102,7 @@ const Createguild = ({ navigation }: { navigation: any }) => {
         <View>
           <View>
             {/* Title & Sub Title*/}
-            <AuthLayout Title={"Let's Create Your Guild"} SubTitle={"This is one time Process"} />
+            <AuthLayout Title={"Let's Create Your Club"} SubTitle={"This is one time Process"} />
 
             {/* Content / Children */}
           </View>
@@ -115,23 +115,23 @@ const Createguild = ({ navigation }: { navigation: any }) => {
         >
           <Textinput
             containerStyle={{ flex: 1, marginTop: 15 }}
-            label="Guild Name"
+            label="Club Name"
             Placeholder={"Enter Name"}
             KeyboardType="default"
             autoCapatilize={"words"}
-            maxLength={12}
+            maxLength={30}
             onchange={(Value: any) => {
-              CalculateLength(Value, setGuildNameLength, 12);
+              CalculateLength(Value, setGuildNameLength, 30);
               const text = Value.replace(/\s{2,}/g, ' ').trim()
               setGuildName(text);
             }}
             Msg={
-              GuildNameLength || GuildNameLength === 0 ? GuildNameLength : 12
+              GuildNameLength || GuildNameLength === 0 ? GuildNameLength : 30
             }
           />
           <Textinput
             containerStyle={{ flex: 1, marginTop: 20 }}
-            label="Guild ID"
+            label="Club Username"
             Placeholder={"It must be Unique"}
             KeyboardType="default"
             autoCapatilize={"words"}
@@ -147,7 +147,7 @@ const Createguild = ({ navigation }: { navigation: any }) => {
           />
           <Textinput
             containerStyle={{ flex: 1, marginTop: 20 }}
-            label="Guild Description"
+            label="Club Description"
             Placeholder={"Entre Description"}
             KeyboardType="default"
             autoCapatilize={"words"}

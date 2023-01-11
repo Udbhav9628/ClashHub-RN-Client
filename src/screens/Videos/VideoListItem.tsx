@@ -8,6 +8,7 @@ import { COLORS, DPwidth, Dpheight } from "../../constants/Theame";
 import { useFocusEffect } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import Iconss from "react-native-vector-icons/MaterialIcons";
+import { ReturnGameImage } from "../../utils/Utils";
 
 const VideoListItem = ({
     Item,
@@ -18,9 +19,7 @@ const VideoListItem = ({
     navigation: any;
     RefreshMatchVideo: Function;
 }) => {
-
     const [modalVisible, setModalVisible] = useState(false);
-
     const [YTMeta, setYTMeta] = useState({
         title: '',
         thumbnail_url: 'https://static.videezy.com/system/resources/thumbnails/000/014/052/original/loading-circle-bars.jpg',
@@ -160,12 +159,6 @@ const VideoListItem = ({
                             Per Kills  &#x20B9;{Item?.Perkill_Prize}
                         </Text>
                     </View>
-                    {/* <View style={styles.timeContainer2}>
-                        {Days === 0 && Hours === 0 && Minutes === 0 ? (
-                            Return_Match_Status()) : (<Text style={styles.time}>
-                                {!Days || Days === 0 ? '' : `${Days}D,`} {!Hours || Hours === 0 ? '' : `${Hours}H:`}{Minutes}M
-                            </Text>)}
-                    </View> */}
                     {isJoined && (<View style={styles.timeContainer3}>
                         <Text style={styles.time}>
                             Joined
@@ -186,7 +179,7 @@ const VideoListItem = ({
                 {/* Title row */}
                 <View style={styles.titleRow}>
                     {/* Avatar */}
-                    <Image style={styles.avatar} source={{ uri: `https://api.multiavatar.com/${Item.Profile_Pic}.png` }} />
+                    <Image style={styles.avatar} source={ReturnGameImage(Item.Game_Name)} />
                     <View style={styles.midleContainer}>
                         <Text style={styles.title}>{`${Item._id.slice(-2)} ${Item.Game_Name} ${Item.GameType}`} Match</Text>
                         <View>

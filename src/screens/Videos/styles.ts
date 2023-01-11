@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   timeContainer: {
     backgroundColor: COLORS.black,
     height: 30,
-    width: 100,
+    width: 120,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
@@ -21,17 +21,6 @@ const styles = StyleSheet.create({
     right: 2,
     bottom: 5,
   },
-  // timeContainer2: {
-  //   backgroundColor: COLORS.black,
-  //   height: 30,
-  //   width: 90,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   borderRadius: 4,
-  //   position: 'absolute',
-  //   left: 2,
-  //   bottom: 5,
-  // },
   timeContainer3: {
     backgroundColor: COLORS.black,
     height: 30,
@@ -46,7 +35,7 @@ const styles = StyleSheet.create({
   timeContainer4: {
     backgroundColor: COLORS.black,
     height: 30,
-    width: 100,
+    width: 120,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
@@ -57,12 +46,15 @@ const styles = StyleSheet.create({
   time: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 14.8,
+    fontSize: 13,
   },
   avatar: {
     width: 50,
     height: 50,
     borderRadius: 25,
+    borderWidth: 2,
+    resizeMode: 'stretch',
+    borderColor: COLORS.primary,
   },
   titleRow: {
     flexDirection: 'row',

@@ -101,13 +101,13 @@ export function ReturnMap_Modal_Height(GameName: string) {
       return Dpheight(43);
 
     case 'FreeFire Max':
-      return Dpheight(43);
+      return Dpheight(27);
 
     case 'Pubg Mobile':
       return Dpheight(34.5);
 
     case 'CODM':
-      return Dpheight(18);
+      return Dpheight(28);
 
     default:
       return Dpheight(9);

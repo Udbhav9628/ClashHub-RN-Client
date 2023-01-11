@@ -151,6 +151,10 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                 style={{
                   width: "100%",
                   height: "100%",
+                  borderWidth: 3,
+                  borderColor: COLORS.primary,
+                  borderRadius: 500,
+                  resizeMode: "contain",
                 }}
                 source={{ uri: `https://api.multiavatar.com/${Guild_Details.Profile_Pic}.png` }}
               />
@@ -255,7 +259,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
                 <Icon name="game-controller-sharp" size={Dpheight(3.5)} color="black" />
                 <View style={styles.DashboardBox}>
                   <Text style={styles.NotificationText}>
-                    Your Guild Matches
+                    Your Club Matches
                   </Text>
                 </View>
                 <View
