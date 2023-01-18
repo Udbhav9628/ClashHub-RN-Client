@@ -4,7 +4,6 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Header from "../../components/Header";
 import Home from "../Home/Home";
 import MyMatches from "../MyMatches/MyMatches";
-import GuildScreen from "../Guilds/GuildScreen";
 import Menu from "../Menu/Menu";
 import { Dpheight } from "../../constants/Theame";
 import HomeScreen from "../Videos/HomeScreen";
@@ -26,8 +25,6 @@ const BottonTabs = () => {
             iconName = focused
               ? "ios-videocam"
               : "ios-videocam-outline";
-          } else if (route.name === "Guilds") {
-            iconName = focused ? "people" : "people-outline";
           } else if (route.name === "Menu") {
             iconName = focused ? "menu-sharp" : "menu-outline";
           }
@@ -73,19 +70,6 @@ const BottonTabs = () => {
               navigation={props.navigation}
               title={"Match's"}
               title2={" Videos"}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Guilds"
-        component={GuildScreen}
-        options={{
-          header: (props) => (
-            <Header
-              navigation={props.navigation}
-              title={"Clubs"}
-              title2={null}
             />
           ),
         }}

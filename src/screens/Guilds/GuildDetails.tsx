@@ -20,7 +20,6 @@ import {
   Clear_Guild_Reducer_Sucess,
   Join_Guild
 } from "../../store/Guild/GuildAction";
-import { useFocusEffect } from "@react-navigation/native";
 import { ReturnGameImage } from "../../utils/Utils";
 import { ScrollView } from "react-native-gesture-handler";
 import Icons from "react-native-vector-icons/FontAwesome5";
@@ -139,17 +138,17 @@ const GuildDetails = ({
     }
   }
 
-  useFocusEffect(
-    React.useCallback(() => {
-      Fetch_Data(1, false);
-      return () => {
-        setLoading(true)
-        setData_Length(0);
-        setPage(1);
-        setData([] as Array<any>);
-      };
-    }, [])
-  );
+  useEffect(() => {
+    Fetch_Data(1, false);
+
+    return () => {
+      setLoading(true)
+      setData_Length(0);
+      setPage(1);
+      setData([] as Array<any>);
+    }
+  }, [])
+
 
   return (
     <ScrollView style={styles.Container}>

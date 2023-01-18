@@ -15,6 +15,7 @@ import { SIZES, COLORS, Dpheight, DPwidth } from "../../constants/Theame";
 import { Ip_Address } from '../../constants/Data';
 import axios from 'axios';
 import { Return_Token } from '../../utils/Utils';
+import Heading from "../../components/Heading";
 
 const GuildScreen = ({ navigation }: { navigation: any }) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -81,6 +82,9 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={styles.Container}>
+      <View style={{ marginBottom: 6 }}>
+        <Heading navigation={navigation} Title={"All Clubs"} />
+      </View>
       {Loading ? (
         <View
           style={{
@@ -152,7 +156,7 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
           onEndReached={() => {
             WhenEndReached();
           }}
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={0.4}
           ListFooterComponent={(<View>
             {Data_Length === 20 && <View
               style={{
@@ -175,8 +179,6 @@ const styles = StyleSheet.create({
   Container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    alignItems: "center",
-    justifyContent: "center",
   },
   NotificationWrapper: {
     height: Dpheight(20),

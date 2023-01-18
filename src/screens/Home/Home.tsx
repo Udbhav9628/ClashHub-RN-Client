@@ -209,7 +209,7 @@ const Home = ({ navigation }: { navigation: any }) => {
           navigation={navigation}
           Title={"Popular Clubs"}
           ShowViewAll={true}
-          Navigate_to={"Guilds"}
+          Navigate_to={"ALLClubsScreen"}
           Query={null}
         />
       </View>

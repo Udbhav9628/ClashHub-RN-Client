@@ -22,6 +22,7 @@ import { FetchUser } from "../../store/Authentication/Authaction";
 import ClubWallet from "../Wallet/ClubWallet";
 import SpecificUserProfile from "../Menu/YourGuild/SpecificUserProfile";
 import PaymentSucess from "../Wallet/Payment_Sucess";
+import GuildScreen from "../Guilds/GuildScreen";
 
 const Stack = createStackNavigator();
 
@@ -74,6 +75,13 @@ export default function App() {
           <Stack.Screen
             name="AllMatches"
             component={AllMatches}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="ALLClubsScreen"
+            component={GuildScreen}
             options={{
               headerShown: false,
             }}

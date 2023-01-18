@@ -74,18 +74,6 @@ const PlayerModal = ({
         }
     }
 
-    const onError = useCallback((Error: any) => {
-        Alert.alert(
-            "Error",
-            Error + "Close and Try Again",
-            [
-                {
-                    text: "OK",
-                },
-            ]
-        );
-    }, [])
-
     const [PlayerInputModal, setPlayerInputModal] = useState(false)
 
     const [disable_joinmatch_button, setdisable_joinmatch_button] = useState(false);
@@ -313,7 +301,6 @@ const PlayerModal = ({
                         play={PlayVid}
                         videoId={Item.RoomDetails.YT_Video_id}
                         onChangeState={onChangeState}
-                        onError={onError}
                     />
                 </View>
                 {/* Match Details */}

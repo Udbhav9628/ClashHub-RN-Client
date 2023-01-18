@@ -30,15 +30,6 @@ const VideoListItem = ({
             const meta = await getYoutubeMeta(Item.RoomDetails.YT_Video_id)
             setYTMeta(meta)
         } catch (error: any) {
-            Alert.alert(
-                "Error",
-                error,
-                [
-                    {
-                        text: "OK",
-                    },
-                ]
-            );
         }
     }
     useEffect(() => {
