@@ -119,14 +119,14 @@ const Createguild = ({ navigation }: { navigation: any }) => {
             Placeholder={"Enter Name"}
             KeyboardType="default"
             autoCapatilize={"words"}
-            maxLength={30}
+            maxLength={12}
             onchange={(Value: any) => {
-              CalculateLength(Value, setGuildNameLength, 30);
+              CalculateLength(Value, setGuildNameLength, 12);
               const text = Value.replace(/\s{2,}/g, ' ').trim()
               setGuildName(text);
             }}
             Msg={
-              GuildNameLength || GuildNameLength === 0 ? GuildNameLength : 30
+              GuildNameLength || GuildNameLength === 0 ? GuildNameLength : 12
             }
           />
           <Textinput

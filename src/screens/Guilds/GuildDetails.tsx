@@ -18,7 +18,8 @@ import { bindActionCreators } from "redux";
 import {
   Clear_Guild_Reducer_Error,
   Clear_Guild_Reducer_Sucess,
-  Join_Guild
+  Join_Guild,
+  Check_Is_Club_Joined
 } from "../../store/Guild/GuildAction";
 import { ReturnGameImage } from "../../utils/Utils";
 import { ScrollView } from "react-native-gesture-handler";
@@ -40,15 +41,10 @@ const GuildDetails = ({
 }) => {
   const { Item } = route.params;
 
-  const { User } = useSelector((state: any) => state.FetchUser_reducer);
-
-  const is_Guild_Joined = Item.Followers.find((Item: any) => {
-    return Item.FollowersId === User?.id;
-  });
-
   const [Show_Admin_Menu, setShow_Admin_Menu] = useState(false)
   const [ShowFollowers, setShowFollowers] = useState(false)
   const [ClubJoined, setClubJoined] = useState(false)
+  const [Check_Join_Loading, setCheck_Join_Loading] = useState(true)
 
   const dispatch = useDispatch();
   const Clear_Guild_ReducerError = bindActionCreators(
@@ -66,9 +62,43 @@ const GuildDetails = ({
     dispatch
   );
 
+  const Check_Is_Club_Joined_Func = bindActionCreators(
+    Check_Is_Club_Joined,
+    dispatch
+  );
+
+  const Is_Joined = useSelector(
+    (state: any) => state.Check_Is_Club_Joined
+  );
+
   const Join_Guild_Reducer = useSelector(
     (state: any) => state.Join_Guild_Reducer
   );
+
+  useEffect(() => {
+    Check_Is_Club_Joined_Func(Item._id)
+  }, [])
+
+  useEffect(() => {
+    if (Is_Joined.Is_Joined === "Joined") {
+      setClubJoined(true)
+      setCheck_Join_Loading(false)
+    }
+    return () => {
+      if (Is_Joined.Is_Joined === "Joined") {
+        Clear_Guild_Reducer_Sucess_Func()
+      }
+    }
+  }, [Is_Joined.Is_Joined]);
+
+  useEffect(() => {
+    if (Is_Joined.Error) {
+      setClubJoined(false)
+      setCheck_Join_Loading(false)
+      Clear_Guild_ReducerError();
+    }
+  }, [Is_Joined.Error]);
+
 
   useEffect(() => {
     if (Join_Guild_Reducer.Sucess) {
@@ -92,7 +122,6 @@ const GuildDetails = ({
       ]);
     }
   }, [Join_Guild_Reducer.Error]);
-
 
   const [Loading, setLoading] = useState(true);
   const [Page, setPage] = useState(1);
@@ -177,7 +206,7 @@ const GuildDetails = ({
             backgroundColor: COLORS.primary,
           }}
           onPress={() => {
-            if (is_Guild_Joined) {
+            if (ClubJoined) {
               Alert.alert("Message", "You Have Allready Joined This Club", [
                 {
                   text: "OK",
@@ -188,14 +217,14 @@ const GuildDetails = ({
             }
           }}
         >
-          {Join_Guild_Reducer.loading ? (<ActivityIndicator size="large" color={COLORS.primary} />) : (<Text
+          {Join_Guild_Reducer.loading || Check_Join_Loading ? (<ActivityIndicator size="small" color={COLORS.white} />) : (<Text
             style={{
               color: COLORS.white,
               fontWeight: "bold",
               fontSize: SIZES.body3,
             }}
           >
-            {is_Guild_Joined || ClubJoined ? 'Joined' : 'Join Club'}
+            {ClubJoined ? 'Joined' : 'Join'}
           </Text>)}
         </TouchableOpacity>
       </View>
@@ -327,7 +356,7 @@ const GuildDetails = ({
               <ClubFollowres modalVisible={ShowFollowers}
                 setModalVisible={setShowFollowers}
                 navigation={navigation}
-                Followers={Item.Followers} />
+                Club_Id={Item._id} />
             </View>
             <View style={{
               flex: 1,
@@ -342,7 +371,7 @@ const GuildDetails = ({
                   fontSize: SIZES.h3,
                 }}
               >
-                {Item.Followers.length} Followers
+                {Item.How_Many_Followers} Followers
               </Text>
               <View style={{
                 position: "absolute",

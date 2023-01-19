@@ -168,7 +168,7 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
             >
               <Text style={styles.ProfileText}>{Guild_Details.GuildName}</Text>
               <Text style={styles.NotificationText2}>
-                {Guild_Details.Followers.length} Followers
+                {Guild_Details.GuildID}
               </Text>
             </View>
           </View>
@@ -225,13 +225,13 @@ const YourGuild = ({ navigation }: { navigation: any }) => {
               <ClubFollowres modalVisible={JoinedPlayermodal}
                 setModalVisible={setJoinedPlayermodal}
                 navigation={navigation}
-                Followers={Guild_Details.Followers} />
+                Club_Id={Guild_Details?._id} />
             </View>
             <TouchableOpacity onPress={() => { setJoinedPlayermodal(true) }}>
               <View style={styles.NotificationWrapper}>
                 <Icons name="users" size={Dpheight(3.4)} color="black" />
                 <View style={styles.DashboardBox}>
-                  <Text style={styles.NotificationText}>{Guild_Details.Followers.length} Follower</Text>
+                  <Text style={styles.NotificationText}>{Guild_Details.How_Many_Followers} Follower</Text>
                 </View>
                 <View
                   style={{

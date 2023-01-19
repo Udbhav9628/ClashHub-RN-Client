@@ -147,7 +147,7 @@ const GuildScreen = ({ navigation }: { navigation: any }) => {
                     }} />
                   <Text style={styles.NotificationText}>{item.GuildName}</Text>
                   <Text style={styles.NotificationText2}>
-                    {item.Followers.length} Followers
+                    {item.How_Many_Followers} Followers
                   </Text>
                 </View>
               </TouchableOpacity>

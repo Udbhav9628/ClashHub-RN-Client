@@ -62,6 +62,72 @@ function getUserGuildDetails() {
   };
 }
 
+function Check_Is_Club_Joined(Club_id: string) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'Check_Is_Club_Joined_Request',
+      });
+      const Token: string = (await Return_Token(
+        'Check_Is_Club_Joined_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/Is_Club_Joined/${Club_id}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'Check_Is_Club_Joined_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'Check_Is_Club_Joined_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
+function getUserGuild_FollW_Details(Club_Id: string) {
+  return async function (dispatch: any) {
+    try {
+      dispatch({
+        type: 'get_Guild_Followers_Details_Request',
+      });
+      const Token: string = (await Return_Token(
+        'get_Guild_Followers_Details_Fail',
+        dispatch,
+      )) as string;
+      const response = await axios.get(
+        `${Ip_Address}/getUserGuildFollowDetails/${Club_Id}`,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Accept: 'application/json',
+            authToken: Token,
+          },
+        },
+      );
+      dispatch({
+        type: 'get_Guild_Followers_Details_Sucess',
+        payload: response.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'get_Guild_Followers_Details_Fail',
+        payload: error.message,
+      });
+    }
+  };
+}
+
 //Create Guild
 function Create_Guild(Data: any) {
   return async function (dispatch: any) {
@@ -218,4 +284,6 @@ export {
   Join_Guild,
   Get_Specific_Club_Details,
   Update_Club_Pic,
+  getUserGuild_FollW_Details,
+  Check_Is_Club_Joined,
 };

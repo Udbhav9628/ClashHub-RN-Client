@@ -31,6 +31,71 @@ export const Get_All_Guild = (state = [], action: any) => {
   }
 };
 
+export const Guild_Followers = (state = [], action: any) => {
+  switch (action.type) {
+    case 'get_Guild_Followers_Details_Request':
+      return {
+        loading: true,
+      };
+    case 'get_Guild_Followers_Details_Sucess':
+      return {
+        Sucess: true,
+        loading: false,
+        Guilds_Followers: action.payload,
+      };
+    case 'get_Guild_Followers_Details_Fail':
+      return {
+        loading: false,
+        Error: action.payload,
+        Sucess: false,
+      };
+    case 'Clear_Guild_Reducer_Error':
+      return {
+        ...state,
+        Error: null,
+      };
+    case 'Clear_Guild_Reducer_Sucess':
+      return {
+        ...state,
+        Sucess: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const Check_Is_Club_Joined = (state = [], action: any) => {
+  switch (action.type) {
+    case 'Check_Is_Club_Joined_Request':
+      return {
+        loading: true,
+      };
+    case 'Check_Is_Club_Joined_Sucess':
+      return {
+        loading: false,
+        Is_Joined: action.payload,
+      };
+    case 'Check_Is_Club_Joined_Fail':
+      return {
+        loading: false,
+        Is_Joined: null,
+        Error: action.payload,
+      };
+    case 'Clear_Guild_Reducer_Error':
+      return {
+        ...state,
+        Error: null,
+      };
+    case 'Clear_Guild_Reducer_Sucess':
+      return {
+        ...state,
+        Is_Joined: null,
+      };
+    default:
+      return state;
+  }
+};
+
 export const Get_user_Guild_details_reducer = (State = [], action: any) => {
   switch (action.type) {
     case 'get_User_Guild_Details_Request':

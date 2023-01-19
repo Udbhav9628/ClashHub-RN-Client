@@ -14,10 +14,10 @@ import { useFocusEffect } from "@react-navigation/native";
 import ModalJoinedPlayers from "./ModalJoinedPlayers";
 import BottomPopup from "../../../components/BottomPopup";
 import MatchUpdateModal from "../../../components/MatchUpdateModal";
-import ClubFollowres from "./ClubFollowres";
 import RoomDetailsModal from "../../Home/RoomDetailsModal";
 import LiveYtModal from "./LiveYtModal";
 import Player from "../../../components/Player";
+import ClubMatchesJoinedParticipants from "./ClubMatchesJoinedParticipants";
 
 const GuildMatchesDetails = ({
     route,
@@ -522,10 +522,10 @@ const GuildMatchesDetails = ({
                     <View style={{ marginBottom: 25 }}>
                         <View style={style.Elevation}>
                             <View>
-                                <ClubFollowres modalVisible={ShowParticipants_Modal}
+                                <ClubMatchesJoinedParticipants modalVisible={ShowParticipants_Modal}
                                     setModalVisible={setShowParticipants_Modal}
                                     navigation={navigation}
-                                    Followers={Item.Joined_User} />
+                                    Participants={Item.Joined_User} />
                             </View>
                             <TouchableOpacity onPress={() => { setShowParticipants_Modal(true) }}
                             >

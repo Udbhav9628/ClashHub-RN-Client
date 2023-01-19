@@ -27,6 +27,8 @@ import {
   Join_Guild_Reducer,
   Get_Specific_Club_Reducer,
   Update_Club_Pic_Reducer,
+  Guild_Followers,
+  Check_Is_Club_Joined,
 } from './Guild/GuildReducer';
 
 export default combineReducers({
@@ -51,4 +53,6 @@ export default combineReducers({
   Razorpay_Token_Reducer,
   Money_Refund_Reducer,
   Update_Club_Pic_Reducer,
+  Guild_Followers,
+  Check_Is_Club_Joined,
 });

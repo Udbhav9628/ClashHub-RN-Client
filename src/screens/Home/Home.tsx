@@ -304,7 +304,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                         color: COLORS.gray,
                       }}
                     >
-                      {item.Followers.length} Followers
+                      {item.How_Many_Followers} Followers
                     </Text>
                   </View>
                 </TouchableOpacity>
