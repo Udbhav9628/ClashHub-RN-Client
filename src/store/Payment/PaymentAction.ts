@@ -83,7 +83,6 @@ function Check_Payment_Status(razorpay_order_id: string) {
           },
         },
       );
-      console.log(response.status);
       dispatch({
         type: 'Check_Payment_Status_Sucess',
         payload: response.status,

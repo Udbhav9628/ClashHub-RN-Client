@@ -76,10 +76,7 @@ function Update_Match(Data: any, id: any) {
       dispatch({
         type: 'Update_Result_Request',
       });
-
       Data._id = Data._id.slice(-2);
-      console.log(Data);
-
       const Token: string = (await Return_Token(
         'Update_Result_Fail',
         dispatch,
@@ -108,8 +105,35 @@ function Update_Match(Data: any, id: any) {
   };
 }
 
+async function SendNotification(
+  Matchid: string,
+  Token: any,
+  Notification_Body: string,
+) {
+  try {
+    await axios.post(
+      `${Ip_Address}/RoomNotifications/${Matchid}`,
+      {
+        title: "It's Show Time",
+        body: Notification_Body,
+      },
+      {
+        headers: {
+          'content-type': 'application/json',
+          Accept: 'application/json',
+          authToken: Token,
+        },
+      },
+    );
+  } catch (error: any) {}
+}
+
 //Update Match Room Details
-function Update_Match_Room_Details(Room_Details_Data: any, Matchid: any) {
+function Update_Match_Room_Details(
+  Room_Details_Data: any,
+  Matchid: any,
+  Notification_Body: string,
+) {
   return async function (dispatch: any) {
     try {
       dispatch({
@@ -134,6 +158,7 @@ function Update_Match_Room_Details(Room_Details_Data: any, Matchid: any) {
         type: 'Update_Room_Details_Sucess',
         payload: response.data,
       });
+      SendNotification(Matchid, Token, Notification_Body);
     } catch (error: any) {
       dispatch({
         type: 'Update_Room_Details_Fail',

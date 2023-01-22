@@ -15,6 +15,7 @@ const SpecificUserProfile = ({
     navigation: any;
 }) => {
     const { UserId } = route.params;
+
     const { Specific_User, loading } = useSelector((state: any) => state.Get_Specific_User_Details_reducer);
 
     const dispatch = useDispatch();

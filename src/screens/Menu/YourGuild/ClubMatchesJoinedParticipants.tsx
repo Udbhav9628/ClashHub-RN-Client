@@ -1,11 +1,9 @@
-import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, ActivityIndicator } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native'
+import React, { useState } from 'react'
 import { COLORS, DPwidth, FONTS, SIZES } from '../../../constants/Theame';
 import Icon from "react-native-vector-icons/Ionicons";
 import ModalCross from '../../../components/ModalCross';
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import { getUserGuild_FollW_Details, Clear_Guild_Reducer_Error } from '../../../store/Guild/GuildAction';
+import { useSelector } from "react-redux";
 
 const ClubMatchesJoinedParticipants = ({
     modalVisible,
@@ -19,6 +17,7 @@ const ClubMatchesJoinedParticipants = ({
     Participants: any;
 }) => {
     const [Data, setData] = useState(Participants);
+
     const { User } = useSelector((state: any) => state.FetchUser_reducer);
     function OnSearch_Text_Change(text: string) {
         var query = text;
@@ -109,7 +108,7 @@ const ClubMatchesJoinedParticipants = ({
                                         <TouchableOpacity onPress={() => {
                                             setModalVisible(!modalVisible);
                                             navigation.navigate("SpecificUserProfile", {
-                                                UserId: item.FollowersId,
+                                                UserId: item.UserId,
                                             })
                                         }}>
                                             <View style={{ backgroundColor: index % 2 === 0 ? item.UserId === User?.id ? COLORS.transparentPrimray : COLORS.lightGray1 : item.UserId === User?.id ? COLORS.transparentPrimray : COLORS.lightGray2, paddingVertical: 10, borderBottomRightRadius: index === Data.length - 1 ? SIZES.radius : 0, borderBottomLeftRadius: index === Data.length - 1 ? SIZES.radius : 0, }}>

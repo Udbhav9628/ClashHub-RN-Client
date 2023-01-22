@@ -572,6 +572,7 @@ const GuildMatchesDetails = ({
                         modalVisible={modalVisible}
                         setModalVisible={setModalVisible}
                         MatchId={Item._id}
+                        Match_Name={`${Item._id.slice(-2)} ${Item.Game_Name} ${Item.GameType} Match`}
                         Amount={null}
                         Is_Club_Withdrawal={false}
                         Disable={Disable}

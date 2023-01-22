@@ -225,7 +225,7 @@ const MatchUpdateModal = ({
                             }}
                         >
                             <Icon name="star" size={18} color="black" />
-                            {IsClub ? (" Match Is Unfortunately Cancelled, Either Because You Failed To Provide Room Details 10 min prior Match Start Time Or You Failed to Provide Match's Result Within Time Limit.") : (" Match Is Unfortunately Cancelled, Either Because Organiser Failed To Provide Room Details 10 min prior Match Start Time Or Organiser Failed to Provide Match's Result Within 4 Hours of Match Start Time.")}
+                            {IsClub ? (" Match Is Unfortunately Cancelled, Either Because You Failed To Provide Room Details 10 min prior Match Start Time Or You Failed to Provide Match's Result Within 4 Hr of Match Start Time.") : (" Match Is Unfortunately Cancelled, Either Because Organiser Failed To Provide Room Details 10 min prior Match Start Time Or Organiser Failed to Provide Match's Result Within 4 Hours of Match Start Time.")}
                         </Text>
                         {!IsClub && <Text
                             style={{

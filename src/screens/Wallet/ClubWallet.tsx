@@ -196,6 +196,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                                         setModalVisible={setCreate_withdrawl}
                                         MatchId={null}
                                         Amount={Amount.Ballance}
+                                        Match_Name={null}
                                         Is_Club_Withdrawal={true}
                                         Disable={Disable}
                                         setDisable={setDisable}

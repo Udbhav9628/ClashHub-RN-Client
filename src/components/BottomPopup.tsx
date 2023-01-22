@@ -15,7 +15,6 @@ import { Update_Match_Room_Details, Clear_Match_Reducer_Sucess, Clear_Match_Redu
 import HeadingComp from "./HeadingComp";
 import { Create_withdrawls_request, Clear_Payment_Reducer_Error, Clear_Payment_Reducer_Sucess } from "../store/Payment/PaymentAction";
 import Textinput from "../screens/Menu/YourGuild/Textinput";
-import Icon from "react-native-vector-icons/Feather";
 import ModalCross from "./ModalCross";
 
 const BottomPopup = ({
@@ -24,6 +23,7 @@ const BottomPopup = ({
   setModalVisible,
   MatchId,
   Amount,
+  Match_Name,
   Is_Club_Withdrawal,
   Disable,
   setDisable,
@@ -33,6 +33,7 @@ const BottomPopup = ({
   modalVisible: any;
   setModalVisible: any;
   MatchId: any;
+  Match_Name: any;
   Amount: any;
   Is_Club_Withdrawal: Boolean;
   Disable: boolean;
@@ -89,14 +90,12 @@ const BottomPopup = ({
     if (Room_Details_Reducer.Sucess) {
       setCustom_Room_Name('')
       setCustom_Room_Password('')
+      setDisable(false);
+      setModalVisible(!modalVisible);
+      Clear_Match_Reducer_Sucess_Func()
+      navigation.navigate("YourGuild");
       Alert.alert("Message", Room_Details_Reducer.Sucess_Responce, [{
         text: "OK",
-        onPress: () => {
-          setDisable(false);
-          setModalVisible(!modalVisible);
-          Clear_Match_Reducer_Sucess_Func()
-          navigation.navigate("YourGuild");
-        },
       }]);
     }
   }, [Room_Details_Reducer.Sucess])
@@ -222,7 +221,7 @@ const BottomPopup = ({
                           Name: Custom_Room_Name,
                           Password: Custom_Room_Password
                         }
-                        Update_Match_Room_Details_Func(RoomData, MatchId)
+                        Update_Match_Room_Details_Func(RoomData, MatchId, `"${Match_Name}" Custom Room Details Available, Join Match Before Match Start Time`)
                         setDisable(true);
                       }
                     },
@@ -345,7 +344,7 @@ const BottomPopup = ({
                     } else {
                       Alert.alert(
                         "Alert",
-                        `You are Withrawing ${WithdrawlsAmount} in UPI Id ${UPI_Id}, This Process is Irreversible`,
+                        `You are Withrawing ${WithdrawlsAmount} in UPI Id " ${UPI_Id} ", This Process is Irreversible`,
                         [
                           {
                             text: "Proceed",

@@ -23,6 +23,7 @@ import ClubWallet from "../Wallet/ClubWallet";
 import SpecificUserProfile from "../Menu/YourGuild/SpecificUserProfile";
 import PaymentSucess from "../Wallet/Payment_Sucess";
 import GuildScreen from "../Guilds/GuildScreen";
+import messaging from '@react-native-firebase/messaging';
 
 const Stack = createStackNavigator();
 
@@ -52,6 +53,19 @@ export default function App() {
         },
       ]);
     }
+  }, []);
+
+  React.useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      if (remoteMessage.notification?.body && remoteMessage.notification?.title) {
+        Alert.alert(remoteMessage.notification?.title, remoteMessage.notification?.body, [
+          {
+            text: 'OK'
+          }
+        ])
+      }
+    });
+    return unsubscribe;
   }, []);
 
   return (

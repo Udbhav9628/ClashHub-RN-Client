@@ -83,7 +83,7 @@ const YourGuildMatches = ({ navigation }: { navigation: any }) => {
     <View style={styles.Container}>
       <Heading navigation={navigation} Title={"Club Matches"} />
       <View>
-        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={Get_Guild_Matches} setPage={setPage} SetLoading={setloading} loading={loading} Club_Id={Guild_Details._id} />
+        <MyMatchesMenu SelectedMenu={SelectedMenu} setSelectedMenu={setSelectedMenu} GamesTypes={GamesTypes} Fetch_Matchs={Get_Guild_Matches} setPage={setPage} SetLoading={setloading} loading={loading} Club_Id={Guild_Details?._id} />
       </View>
       {loading ? (
         <View

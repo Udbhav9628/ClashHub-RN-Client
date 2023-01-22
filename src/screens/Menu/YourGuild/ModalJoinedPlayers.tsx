@@ -4,7 +4,6 @@ import { COLORS, SIZES, FONTS, Dpheight, DPwidth } from "../../../constants/Thea
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Update_Match, Clear_Match_Reducer_Error, Clear_Match_Reducer_Sucess } from "../../../store/Match/Matchaction";
-import Icon from "react-native-vector-icons/Ionicons";
 import ModalCross from '../../../components/ModalCross';
 
 const ModalJoinedPlayers = ({

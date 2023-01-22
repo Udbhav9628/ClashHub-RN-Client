@@ -57,7 +57,7 @@ const Player = ({
     const onError = useCallback((Error: any) => {
         Alert.alert(
             "Error",
-            Error + "Close and Try Again",
+            "Close and Try Again",
             [
                 {
                     text: "OK",

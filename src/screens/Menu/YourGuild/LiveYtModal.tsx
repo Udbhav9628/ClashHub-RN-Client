@@ -31,9 +31,7 @@ const LiveYtModal = ({
     const [Player_Loading, setPlayer_Loading] = useState(false)
 
     const onChangeState = (state: any) => {
-        console.log(state);
-
-        if (state === 'buffering' && modalVisible) {
+        if (state === 'unstarted' && modalVisible) {
             setPlayer_Loading(false)
         }
         if (state === 'playing' && modalVisible) {
@@ -55,7 +53,6 @@ const LiveYtModal = ({
         }
         return () => {
             if (subscription && modalVisible) {
-                console.log('in This for u');
                 subscription.remove();
                 setPlayVid(false)
             }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, Alert } from "react-native";
+import { View, Text, Image } from "react-native";
 import styles from "./styles";
 import { getYoutubeMeta } from "react-native-youtube-iframe";
 import PlayerModal from "./PlayerModal";
