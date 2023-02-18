@@ -54,18 +54,6 @@ const Player = ({
         }
     }
 
-    const onError = useCallback((Error: any) => {
-        Alert.alert(
-            "Error",
-            "Close and Try Again",
-            [
-                {
-                    text: "OK",
-                },
-            ]
-        );
-    }, [])
-
     return (
         <Modal
             animationType="slide"
@@ -126,7 +114,6 @@ const Player = ({
                         play={PlayVid}
                         videoId={Item.RoomDetails.YT_Video_id}
                         onChangeState={onChangeState}
-                        onError={onError}
                     />
                 </View>
             </View>
