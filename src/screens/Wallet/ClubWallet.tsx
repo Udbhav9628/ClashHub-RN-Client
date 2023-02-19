@@ -64,7 +64,7 @@ const ClubWallet = ({ navigation }: { navigation: any }) => {
                 sucess && (
                     <>
                         <>
-                            {/* Card */}
+                            {/* Card hai jhtggg */}
                             <View style={style.Body}>
                                 <ImageBackground source={Icons.Crad} style={style.Card_Image}>
                                     <Text
